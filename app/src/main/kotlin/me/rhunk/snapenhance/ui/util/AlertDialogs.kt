@@ -139,7 +139,7 @@ class AlertDialogs(
             if (message != null) {
                 Text(
                     text = message,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(bottom = 15.dp)
                 )
             }
@@ -473,9 +473,12 @@ class AlertDialogs(
 
         ColorPickerDialog(
             initialColor = currentColor,
-            setProperty = {
+            setProperty = setProperty@{
                 currentColor = it
                 property.value.setAny(it?.toArgb())
+                if (it == null) {
+                    property.value.setAny(property.value.defaultValues?.firstOrNull() ?: return@setProperty)
+                }
             },
             dismiss = dismiss
         )

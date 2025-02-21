@@ -162,6 +162,7 @@ class SnapEnhance {
             mappings.init(androidContext)
             database.init()
             eventDispatcher.init()
+            userInterface.init()
             //if mappings aren't loaded, we can't initialize features
             if (!mappings.isMappingsLoaded) return
             features.init()
@@ -222,35 +223,7 @@ class SnapEnhance {
             }
         }
 
-        appContext.config.experimental.nativeHooks.customSharedLibrary.get().takeIf { it.isNotEmpty() }?.let {
-            runCatching {
-                appContext.native.loadSharedLibrary(
-                    appContext.fileHandlerManager.getFileHandle(FileHandleScope.USER_IMPORT.key, it).toWrapper().readBytes()
-                )
-                appContext.log.verbose("loaded custom shared library")
-            }.onFailure {
-                appContext.log.error("Failed to load custom shared library", it)
-            }
-        }
-
-        if (appContext.bridgeClient.getDebugProp("disable_sif", "false") != "true") {
-            runCatching {
-                appContext.native.loadSharedLibrary(
-                    appContext.fileHandlerManager.getFileHandle(FileHandleScope.INTERNAL.key, InternalFileHandleType.SIF.key)
-                        .toWrapper()
-                        .readBytes()
-                        .takeIf {
-                            it.isNotEmpty()
-                        } ?: throw IllegalStateException("buffer is empty")
-                )
-                appContext.log.verbose("loaded sif")
-            }.onFailure {
-                safeMode = true
-                appContext.log.error("Failed to load sif", it)
-            }
-        } else {
-            appContext.log.warn("sif is disabled")
-        }
+        val safeMode = SecurityFeatures(appContext).init()
 
         Runtime::class.java.findRestrictedMethod {
             it.name == "loadLibrary0" && it.parameterTypes.contentEquals(
@@ -329,22 +302,25 @@ class SnapEnhance {
             event.canceled = true
             val feedEntries = appContext.database.getFeedEntries(Int.MAX_VALUE)
 
-            val groups = feedEntries.filter { it.friendUserId == null }.map {
+            val groups = feedEntries.filter { it.conversationType == 1 }.map {
                 MessagingGroupInfo(
                     it.key!!,
-                    it.feedDisplayName!!,
+                    it.feedDisplayName ?: "",
                     it.participantsSize
                 )
             }
 
-            val friends = feedEntries.filter { it.friendUserId != null }.map {
+            val friends = feedEntries.filter { it.conversationType == 0 }.mapNotNull {
+                val friendUserId = it.friendUserId ?: it.participants?.filter { it != appContext.database.myUserId }?.firstOrNull() ?: return@mapNotNull null
+                val friend = appContext.database.getFriendInfo(friendUserId) ?: return@mapNotNull null
+
                 MessagingFriendInfo(
-                    it.friendUserId!!,
-                    appContext.database.getConversationLinkFromUserId(it.friendUserId!!)?.clientConversationId,
-                    it.friendDisplayName,
-                    it.friendDisplayUsername!!.split("|")[1],
-                    it.bitmojiAvatarId,
-                    it.bitmojiSelfieId,
+                    friendUserId,
+                    appContext.database.getConversationLinkFromUserId(friendUserId)?.clientConversationId,
+                    friend.displayName,
+                    friend.mutableUsername ?: friend.usernameForSorting!!,
+                    friend.bitmojiAvatarId,
+                    friend.bitmojiSelfieId,
                     streaks = null
                 )
             }
@@ -378,7 +354,7 @@ class SnapEnhance {
                 return appContext.database.getFeedEntryByConversationId(uuid)?.let {
                     MessagingGroupInfo(
                         it.key!!,
-                        it.feedDisplayName!!,
+                        it.feedDisplayName ?: "",
                         it.participantsSize
                     ).toSerialized()
                 }

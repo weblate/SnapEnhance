@@ -7,6 +7,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.AnchoredDraggableState
 import androidx.compose.foundation.gestures.DraggableAnchors
@@ -157,26 +158,25 @@ class InAppOverlay(
                 }
 
                 val deviceWidth = LocalContext.current.resources.displayMetrics.widthPixels
+                val delayAnimationSpec =  rememberSplineBasedDecay<Float>()
                 val draggableState = remember {
                     AnchoredDraggableState(
                         initialValue = 0,
+                        anchors = DraggableAnchors {
+                            -1 at -deviceWidth.toFloat()
+                            0 at 0f
+                            1 at deviceWidth.toFloat()
+                        },
                         positionalThreshold = { distance: Float -> distance * 0.5f },
                         velocityThreshold = { deviceWidth / 2f },
-                        animationSpec = tween(),
+                        snapAnimationSpec = tween(),
+                        decayAnimationSpec = delayAnimationSpec,
                         confirmValueChange = {
                             if (it == 0) return@AnchoredDraggableState true
                             toast.visible = false
                             true
                         }
-                    ).apply {
-                        updateAnchors(
-                            DraggableAnchors {
-                                -1 at -deviceWidth.toFloat()
-                                0 at 0f
-                                1 at deviceWidth.toFloat()
-                            }
-                        )
-                    }
+                    )
                 }
 
                 Box(
@@ -255,11 +255,12 @@ class InAppOverlay(
         text: String,
         durationMs: Int = 2000,
         showDuration: Boolean = true,
+        maxLines: Int = 3
     ) {
         showToast(
             icon = { Icon(icon, contentDescription = "icon", modifier = Modifier.size(32.dp)) },
             text = {
-                Text(text, modifier = Modifier.fillMaxWidth(), maxLines = 3, overflow = TextOverflow.Ellipsis, lineHeight = 15.sp, fontSize = 15.sp)
+                Text(text, modifier = Modifier.fillMaxWidth(), maxLines = maxLines, overflow = TextOverflow.Ellipsis, lineHeight = 15.sp, fontSize = 13.sp)
             },
             durationMs = durationMs,
             showDuration = showDuration
@@ -279,7 +280,7 @@ class InAppOverlay(
             composable = {
                 ElevatedCard(
                     modifier = Modifier
-                        .padding(16.dp)
+                        .padding(12.dp)
                         .shadow(8.dp, RoundedCornerShape(8.dp))
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(8.dp))
@@ -289,7 +290,7 @@ class InAppOverlay(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(16.dp)
+                            .padding(12.dp)
                     ) {
                         icon()
                         text()

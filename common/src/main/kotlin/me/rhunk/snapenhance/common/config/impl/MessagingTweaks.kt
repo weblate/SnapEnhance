@@ -9,6 +9,10 @@ import me.rhunk.snapenhance.common.util.PURGE_TRANSLATION_KEY
 import me.rhunk.snapenhance.common.util.PURGE_VALUES
 
 class MessagingTweaks : ConfigContainer() {
+    companion object {
+        const val DELETED_MESSAGE_COLOR = 0x6Eb71c1c;
+    }
+
     inner class HalfSwipeNotifierConfig : ConfigContainer(hasGlobalState = true) {
         val minDuration: PropertyValue<Int> = integer("min_duration", defaultValue = 0) {
             inputCheck = { it.toIntOrNull()?.coerceAtLeast(0) != null && maxDuration.get() >= it.toInt() }
@@ -24,7 +28,6 @@ class MessagingTweaks : ConfigContainer() {
             customOptionTranslationPath = PURGE_TRANSLATION_KEY
             disabledKey = PURGE_DISABLED_KEY
         }.apply { set("3_days") }
-
         val messageFilter = multiple("message_filter", "CHAT",
             "SNAP",
             "NOTE",
@@ -33,6 +36,7 @@ class MessagingTweaks : ConfigContainer() {
         ) {
             customOptionTranslationPath = "content_type"
         }
+        val deletedMessageColor = color("deleted_message_color", DELETED_MESSAGE_COLOR)
     }
 
     class BetterNotifications: ConfigContainer() {
@@ -89,7 +93,7 @@ class MessagingTweaks : ConfigContainer() {
     val notificationBlacklist = multiple("notification_blacklist", *NotificationType.getIncomingValues().map { it.key }.toTypedArray()) {
         customOptionTranslationPath = "features.options.notifications"
     }
-    val messageLogger = container("message_logger", MessageLoggerConfig()) { addNotices(FeatureNotice.UNSTABLE); requireRestart() }
+    val messageLogger = container("message_logger", MessageLoggerConfig()) { requireRestart() }
     val galleryMediaSendOverride = unique("gallery_media_send_override", "always_ask", "SNAP", "NOTE", "SAVEABLE_SNAP") { requireRestart(); nativeHooks() }
     val stripMediaMetadata = multiple("strip_media_metadata", "hide_caption_text", "hide_snap_filters", "hide_extras", "remove_audio_note_duration", "remove_audio_note_transcript_capability") { requireRestart() }
     val bypassMessageRetentionPolicy = boolean("bypass_message_retention_policy") { addNotices(FeatureNotice.UNSTABLE); requireRestart() }

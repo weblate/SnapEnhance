@@ -43,7 +43,7 @@ class ConversationManager(
             instanceNonNull(),
             SnapUUID(conversationId).instanceNonNull(),
             messageId,
-            context.classCache.messageUpdateEnum.enumConstants.first { it.toString() == action.toString() },
+            context.classCache.messageUpdateEnum.enumConstants!!.first { it.toString() == action.toString() },
             CallbackBuilder(getCallbackClass("Callback"))
                 .override("onSuccess") { onResult(null) }
                 .override("onError") { onResult(it.arg<Any>(0).toString()) }.build()

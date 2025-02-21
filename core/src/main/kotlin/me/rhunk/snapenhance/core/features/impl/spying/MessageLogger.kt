@@ -9,6 +9,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import me.rhunk.snapenhance.bridge.logger.BridgeLoggedMessage
 import me.rhunk.snapenhance.bridge.logger.LoggedChatEdit
+import me.rhunk.snapenhance.common.config.impl.MessagingTweaks
 import me.rhunk.snapenhance.common.data.ContentType
 import me.rhunk.snapenhance.common.data.MessageState
 import me.rhunk.snapenhance.common.data.QuotedMessageContentStatus
@@ -28,7 +29,6 @@ class MessageLogger : Feature("MessageLogger") {
     companion object {
         const val PREFETCH_MESSAGE_COUNT = 20
         const val PREFETCH_FEED_COUNT = 20
-        const val DELETED_MESSAGE_COLOR = 0x6Eb71c1c
     }
 
     private val loggerInterface by lazyBridge { context.bridgeClient.getMessageLogger() }
@@ -186,7 +186,7 @@ class MessageLogger : Feature("MessageLogger") {
                 event.view.addForegroundDrawable("deletedMessage", ShapeDrawable(object: Shape() {
                     override fun draw(canvas: Canvas, paint: Paint) {
                         canvas.drawRect(0f, 0f, canvas.width.toFloat(), canvas.height.toFloat(), Paint().apply {
-                            color = DELETED_MESSAGE_COLOR
+                            color = context.config.messaging.messageLogger.deletedMessageColor.getNullable() ?: MessagingTweaks.DELETED_MESSAGE_COLOR
                         })
                     }
                 }))

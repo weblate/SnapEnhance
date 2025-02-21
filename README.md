@@ -1,11 +1,11 @@
 <div align="center">
   <img src="https://raw.githubusercontent.com/rhunk/SnapEnhance/main/app/src/main/res/mipmap-xxxhdpi/launcher_icon_foreground.png" height="250" />
 
-  [![Build](https://img.shields.io/github/actions/workflow/status/rhunk/SnapEnhance/debug.yml?branch=dev&logo=github&label=Build)](https://github.com/rhunk/SnapEnhance/actions/workflows/android.yml?query=branch%3Amain+event%3Apush+is%3Acompleted) [![Total](https://shields.io/github/downloads/rhunk/SnapEnhance/total?logo=Bookmeter&label=Downloads&logoColor=Green&color=Green)](https://github.com/rhunk/snapenhance/releases) [![Translation status](https://hosted.weblate.org/widget/snapenhance/app/svg-badge.svg)](https://hosted.weblate.org/engage/snapenhance/)
-  
+[![Build](https://img.shields.io/github/actions/workflow/status/rhunk/SnapEnhance/debug.yml?branch=dev&logo=github&label=Build)](https://github.com/rhunk/SnapEnhance/actions/workflows/android.yml?query=branch%3Amain+event%3Apush+is%3Acompleted) [![Total](https://shields.io/github/downloads/rhunk/SnapEnhance/total?logo=Bookmeter&label=Downloads&logoColor=Green&color=Green)](https://github.com/rhunk/snapenhance/releases) [![Translation status](https://hosted.weblate.org/widget/snapenhance/app/svg-badge.svg)](https://hosted.weblate.org/engage/snapenhance/)
+
 # SnapEnhance
 SnapEnhance is an Xposed mod that enhances your Snapchat experience.<br/><br/>
-Please note that this project is currently in development, so bugs and crashes may occur. If you encounter any issues, we encourage you to report them. To do this simply visit our [issues](https://github.com/rhunk/SnapEnhance/issues) page and create an issue, make sure to follow the guidelines.
+Please note that this project is currently in development, so bugs and crashes may occur. If you encounter any issues, we encourage you to report them [here](https://github.com/rhunk/SnapEnhance/issues).
 </div>
 
 ## Quick Start
@@ -18,12 +18,17 @@ Although using this in an unrooted enviroment using something like `LSPatch` sho
 1. Install the module APK from either this [Github repo](https://github.com/rhunk/SnapEnhance/releases) or the [LSPosed repo](https://modules.lsposed.org/module/me.rhunk.snapenhance)
 2. Turn on the module in `LSPosed` and make sure Snapchat is in scope
 3. Force Stop Snapchat
-4. Open the menu by clicking the [Settings Gear Icon](https://i.imgur.com/2grm8li.png)
+4. Open the menu by clicking the [Settings Gear Icon](https://i.imgur.com/2grm8li.png) or the [Top Title](https://imgur.com/xWFKha7) (v2.1.0 and higher)
 
-## Download 
-To Download the latest stable release, please visit the [Releases](https://github.com/rhunk/SnapEnhance/releases) page.<br/>
+A full installation guide can be found [here](https://github.com/rhunk/SnapEnhance/wiki/Installation-Guide).
+
+## Download
+To download the latest stable release, please visit the [Releases](https://github.com/rhunk/SnapEnhance/releases) page.<br/>
 You can also download the latest debug build from the [Actions](https://github.com/rhunk/SnapEnhance/actions) section.<br/>
 We no longer offer official `LSPatch` binaries for obvious reasons. However, you're welcome to patch them yourself, as they should theoretically work without any issues.
+
+> [!Caution]  
+> Snapchat has locked many user accounts that used SnapEnhance or its related forks due to new detections. It's recommended to use Snapchat [v12.81.0.44](https://www.apkmirror.com/apk/snap-inc/snapchat/snapchat-12-81-0-44-release/) or earlier. Only use signed builds or builds you've modified yourself to avoid compromising the security of your account.
 
 ## Main Features
 <details closed>
@@ -156,8 +161,23 @@ We no longer offer official `LSPatch` binaries for obvious reasons. However, you
 
 ## FAQ
 <details>
+  <summary>How to report a bug?</summary>
+
+  - Check that the bug has not already been reported in [Issues](https://github.com/rhunk/SnapEnhance/issues?q=).
+  - Make sure the bug is not occurring when you use Snapchat without SnapEnhance.
+  - Make sure you have logs before reporting (go to the SnapEnhance application -> click on the debug icon at the top right and then on the 3 vertical dots -> export logs).
+</details>
+
+<details>
+  <summary>My Snapchat keeps crashing/doesn't want to open after installing</summary>
+
+  - In some cases, because of Android's signature verification, you **must install Snapchat before SnapEnhance**, so that the two can communicate with each other.
+  - You may use [LSPatch](https://github.com/LSPosed/LSPatch/forks) or [LSPosed](https://github.com/LSPosed/LSPosed/forks) forks to ensure compatibility with new Android versions, as original projects are no longer updated.
+</details>
+
+<details>
   <summary>AI wallpapers and the Snapchat+ badge aren't working!</summary>
-  
+
   - Yeah, they're server-sided and will probably never work.
 </details>
 
@@ -168,39 +188,15 @@ We no longer offer official `LSPatch` binaries for obvious reasons. However, you
 </details>
 
 <details>
-  <summary>When will this feature become available or finish?</summary>
-  
-  - At some point.
-</details>
-
-<details>
-  <summary>Can I get banned with this?</summary>
-  
-  - Obviously, however, the risk is low. SnapEnhance takes no responsibility for any consequences, including but not limited to account bans or suspensions.
-</details>
-
-<details>
   <summary>Can I PM the developers?</summary>
   
   - No.
 </details>
 
 <details>
-  <summary>This doesn't work!</summary>
-  
-  - Open an issue.
-</details>
-
-<details>
   <summary>My phone isn't rooted; how do I use this?</summary>
   
   - You can use `LSPatch` in combination with `SnapEnhance` to run this on an unrooted device, however this is unrecommended and not considered safe.
-</details>
-
-<details>
-  <summary>Where can I download the latest stable build?</summary>
-  
-  - https://github.com/rhunk/snapenhance/releases
 </details>
 
 <details>
@@ -249,7 +245,7 @@ Thanks to everyone involved including the [third-party libraries](https://github
 - [RevealedSoulEven](https://github.com/revealedsouleven)
 - [iBasim](https://github.com/ibasim)
 - [xerta555](https://github.com/xerta555)
-- [VendorAttestation](https://github.com/VendorAttestation)
+- [ptraced](https://github.com/ptraced)
 - [CanerKaraca23](https://github.com/CanerKaraca23)
 - [bocajthomas](https://github.com/bocajthomas)
 - [w451](https://github.com/w451)

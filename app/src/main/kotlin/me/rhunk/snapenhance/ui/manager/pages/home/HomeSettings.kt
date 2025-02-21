@@ -18,7 +18,6 @@ import androidx.compose.ui.window.Dialog
 import androidx.core.net.toUri
 import androidx.navigation.NavBackStackEntry
 import kotlinx.coroutines.launch
-import me.rhunk.snapenhance.common.Constants
 import me.rhunk.snapenhance.common.action.EnumAction
 import me.rhunk.snapenhance.common.bridge.InternalFileHandleType
 import me.rhunk.snapenhance.common.ui.rememberAsyncMutableState
@@ -60,7 +59,7 @@ class HomeSettings : Routes.Route() {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = text)
+            Text(text = text, modifier = Modifier.padding(end = 16.dp), fontSize = 14.sp)
             Switch(checked = value, onCheckedChange = {
                 value = it
                 sharedPreferences.edit().putBoolean(realKey, it).apply()
@@ -251,7 +250,7 @@ class HomeSettings : Routes.Route() {
                             value = selectedFileType.fileName,
                             onValueChange = {},
                             readOnly = true,
-                            modifier = Modifier.menuAnchor()
+                            modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable)
                         )
 
                         ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
@@ -285,9 +284,9 @@ class HomeSettings : Routes.Route() {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
+                    PreferenceToggle(context.sharedPreferences, key = "disable_sif_prod", text = "Disable Snap Integrity Fix")
                     PreferenceToggle(context.sharedPreferences, key = "disable_feature_loading", text = "Disable Feature Loading")
                     PreferenceToggle(context.sharedPreferences, key = "disable_mapper", text = "Disable Auto Mapper")
-                    PreferenceToggle(context.sharedPreferences, key = "disable_sif", text = "Disable Security Features")
                 }
             }
             Spacer(modifier = Modifier.height(50.dp))

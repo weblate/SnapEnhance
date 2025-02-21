@@ -36,6 +36,7 @@ import me.rhunk.snapenhance.bridge.DownloadCallback
 import me.rhunk.snapenhance.common.data.download.DownloadMetadata
 import me.rhunk.snapenhance.common.data.download.MediaDownloadSource
 import me.rhunk.snapenhance.common.data.download.createNewFilePath
+import me.rhunk.snapenhance.common.ui.TopBarActionButton
 import me.rhunk.snapenhance.common.ui.rememberAsyncMutableState
 import me.rhunk.snapenhance.common.util.ktx.longHashCode
 import me.rhunk.snapenhance.download.DownloadProcessor
@@ -149,13 +150,15 @@ class TasksRootSection : Routes.Route() {
             }
 
             if (canMergeSelection) {
-                IconButton(onClick = {
-                    mergeSelection(taskSelection.toList().also {
-                        taskSelection.clear()
-                    }.map { it.first to it.second!! })
-                }) {
-                    Icon(Icons.Filled.Merge, contentDescription = "Merge")
-                }
+                TopBarActionButton(
+                    onClick = {
+                        mergeSelection(taskSelection.toList().also {
+                            taskSelection.clear()
+                        }.map { it.first to it.second!! })
+                    },
+                    icon = Icons.Filled.Merge,
+                    text = translation["merge_button"]
+                )
             }
         }
 
@@ -312,14 +315,14 @@ class TasksRootSection : Routes.Route() {
             .pointerInput(Unit) {
                 detectTapGestures(
                     onTap = {
-                        if (taskSelection.size > 0) {
+                        if (taskSelection.isNotEmpty()) {
                             toggleSelection()
                             return@detectTapGestures
                         }
                         openFile()
                     },
                     onLongPress = {
-                        if (taskSelection.size > 0) {
+                        if (taskSelection.isNotEmpty()) {
                             openFile()
                             return@detectTapGestures
                         }

@@ -28,6 +28,10 @@ class FeatureManager(
     private val features = mutableMapOf<KClass<out Feature>, Feature>()
     private val onActivityCreateListeners = mutableListOf<(Activity) -> Unit>()
 
+    fun addActivityCreateListener(block: (Activity) -> Unit) {
+        onActivityCreateListeners.add(block)
+    }
+
     private fun register(vararg featureList: Feature) {
         if (context.bridgeClient.getDebugProp("disable_feature_loading") == "true") {
             context.log.warn("Feature loading is disabled")
@@ -60,7 +64,7 @@ class FeatureManager(
 
     fun init() {
         register(
-            SecurityFeatures(),
+            Debug(),
             EndToEndEncryption(),
             ScopeSync(),
             PreventMessageListAutoScroll(),
@@ -101,8 +105,8 @@ class FeatureManager(
             FriendFeedMessagePreview(),
             HideStreakRestore(),
             HideFriendFeedEntry(),
-            HideQuickAddFriendFeed(),
-            CallStartConfirmation(),
+            RequerySqlite(),
+            CallButtonsOverride(),
             SnapPreview(),
             BypassScreenshotDetection(),
             HalfSwipeNotifier(),
@@ -136,14 +140,13 @@ class FeatureManager(
             DisableTelecomFramework(),
             BetterTranscript(),
             VoiceNoteOverride(),
+            FriendNotes(),
         )
 
         features.values.toList().forEach { feature ->
             runCatching {
                 measureTimeMillis {
                     feature.init()
-                }.also {
-                    context.log.verbose("Feature ${feature.key} initialized in $it ms")
                 }
             }.onFailure {
                 context.log.error("Failed to init feature ${feature.key}", it)
@@ -163,8 +166,6 @@ class FeatureManager(
                 }.onFailure {
                     context.log.error("Failed to run activity listener ${activityListener::class.simpleName}", it)
                 }
-            }.also {
-                context.log.verbose("Activity listener ${activityListener::class.simpleName} executed in $it ms")
             }
         }
     }

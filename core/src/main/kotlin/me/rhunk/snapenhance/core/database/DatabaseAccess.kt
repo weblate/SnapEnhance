@@ -10,6 +10,7 @@ import me.rhunk.snapenhance.common.database.impl.ConversationMessage
 import me.rhunk.snapenhance.common.database.impl.FriendFeedEntry
 import me.rhunk.snapenhance.common.database.impl.FriendInfo
 import me.rhunk.snapenhance.common.database.impl.StoryEntry
+import me.rhunk.snapenhance.common.database.impl.StorySnapEntry
 import me.rhunk.snapenhance.common.database.impl.UserConversationLink
 import me.rhunk.snapenhance.common.util.ktx.getBlobOrNull
 import me.rhunk.snapenhance.common.util.ktx.getIntOrNull
@@ -24,7 +25,8 @@ enum class DatabaseType(
     val fileName: String
 ) {
     MAIN("main.db"),
-    ARROYO("arroyo.db")
+    ARROYO("arroyo.db"),
+    SIMPLE_DB_HELPER("simple_db_helper.db")
 }
 
 class DatabaseAccess(
@@ -152,17 +154,6 @@ class DatabaseAccess(
         obj
     }
 
-    fun getFeedEntryByUserId(userId: String): FriendFeedEntry? {
-        return useDatabase(DatabaseType.MAIN)?.performOperation {
-            readDatabaseObject(
-                FriendFeedEntry(),
-                "FriendsFeedView",
-                "friendUserId = ?",
-                arrayOf(userId)
-            )
-        }
-    }
-
     val myUserId by lazy {
         context.androidContext.getSharedPreferences("user_session_shared_pref", 0).getString("key_user_id", null) ?:
         useDatabase(DatabaseType.ARROYO)?.performOperation {
@@ -178,7 +169,14 @@ class DatabaseAccess(
     }
 
     fun getFeedEntryByConversationId(conversationId: String): FriendFeedEntry? {
-        return useDatabase(DatabaseType.MAIN)?.performOperation {
+        return useDatabase(DatabaseType.ARROYO)?.performOperation {
+            readDatabaseObject(
+                FriendFeedEntry(),
+                "feed_entry",
+                "client_conversation_id = ?",
+                arrayOf(conversationId)
+            )
+        } ?: useDatabase(DatabaseType.MAIN)?.performOperation {
             readDatabaseObject(
                 FriendFeedEntry(),
                 "FriendsFeedView",
@@ -230,20 +228,34 @@ class DatabaseAccess(
     }
 
     fun getFeedEntries(limit: Int): List<FriendFeedEntry> {
-        return useDatabase(DatabaseType.MAIN)?.performOperation {
+        val entries = mutableListOf<FriendFeedEntry>()
+        return useDatabase(DatabaseType.ARROYO)?.performOperation {
             safeRawQuery(
-                "SELECT * FROM FriendsFeedView ORDER BY _id LIMIT ?",
+                "SELECT * FROM feed_entry ORDER BY last_updated_timestamp DESC LIMIT ?",
                 arrayOf(limit.toString())
             )?.use { query ->
-                val list = mutableListOf<FriendFeedEntry>()
                 while (query.moveToNext()) {
                     val friendFeedEntry = FriendFeedEntry()
                     try {
                         friendFeedEntry.write(query)
                     } catch (_: Throwable) {}
-                    list.add(friendFeedEntry)
+                    entries.add(friendFeedEntry)
                 }
-                list
+                entries
+            }
+        }?.takeIf { it.isNotEmpty() } ?: useDatabase(DatabaseType.MAIN)?.performOperation {
+            safeRawQuery(
+                "SELECT * FROM FriendsFeedView ORDER BY _id LIMIT ?",
+                arrayOf(limit.toString())
+            )?.use { query ->
+                while (query.moveToNext()) {
+                    val friendFeedEntry = FriendFeedEntry()
+                    try {
+                        friendFeedEntry.write(query)
+                    } catch (_: Throwable) {}
+                    entries.add(friendFeedEntry)
+                }
+                entries
             }
         } ?: emptyList()
     }
@@ -484,5 +496,16 @@ class DatabaseAccess(
                 )
             }
         }?.close()
+    }
+
+    fun getStorySnapEntry(rawSnapId: String): StorySnapEntry? {
+        return useDatabase(DatabaseType.SIMPLE_DB_HELPER)?.performOperation {
+            readDatabaseObject(
+                StorySnapEntry(),
+                "DiscoverStorySnap",
+                "rawSnapId = ?",
+                arrayOf(rawSnapId)
+            )
+        }
     }
 }

@@ -2,6 +2,7 @@ package me.rhunk.snapenhance.common.config.impl
 
 import me.rhunk.snapenhance.common.config.ConfigContainer
 import me.rhunk.snapenhance.common.config.FeatureNotice
+import me.rhunk.snapenhance.common.config.RES_OBF_VERSION_CHECK
 import me.rhunk.snapenhance.common.data.MessagingRuleType
 
 class UserInterfaceTweaks : ConfigContainer() {
@@ -10,8 +11,9 @@ class UserInterfaceTweaks : ConfigContainer() {
             val tabs = arrayOf("map", "chat", "camera", "discover", "spotlight")
         }
 
-        val appAppearance = unique("app_appearance", "always_light", "always_dark")
-        val homeTab = unique("home_tab", *tabs) { addNotices(FeatureNotice.UNSTABLE) }
+        val appAppearance = unique("app_appearance", "always_light", "always_dark") { requireRestart() }
+        val homeTab = unique("home_tab", *tabs) { addNotices(FeatureNotice.UNSTABLE); requireRestart() }
+        val simpleSnapchat = unique("simple_snapchat", "always_enabled", "always_disabled") { addNotices(FeatureNotice.UNSTABLE); requireRestart() }
     }
 
     inner class FriendFeedMessagePreview : ConfigContainer(hasGlobalState = true) {
@@ -30,7 +32,7 @@ class UserInterfaceTweaks : ConfigContainer() {
         "material_you_light",
         "material_you_dark",
         "custom",
-    ) { addNotices(FeatureNotice.UNSTABLE); requireRestart() }
+    ) { addNotices(FeatureNotice.UNSTABLE); requireRestart(); versionCheck = RES_OBF_VERSION_CHECK.copy(isDisabled = true) }
     val friendFeedMessagePreview = container("friend_feed_message_preview", FriendFeedMessagePreview()) { requireRestart() }
     val snapPreview = boolean("snap_preview") { addNotices(FeatureNotice.UNSTABLE); requireRestart() }
     val bootstrapOverride = container("bootstrap_override", BootstrapOverride()) { requireRestart() }
@@ -39,8 +41,8 @@ class UserInterfaceTweaks : ConfigContainer() {
     val streakExpirationInfo = boolean("streak_expiration_info") { requireRestart() }
     val hideFriendFeedEntry = boolean("hide_friend_feed_entry") { requireRestart() }
     val hideStreakRestore = boolean("hide_streak_restore") { requireRestart() }
-    val hideQuickAddFriendFeed = boolean("hide_quick_add_friend_feed") { requireRestart() }
-    val hideStorySuggestions = multiple("hide_story_suggestions", "hide_friend_suggestions", "hide_suggested_friend_stories", "hide_my_stories") { requireRestart() }
+    val hideQuickAddSuggestions = boolean("hide_quick_add_suggestions") { requireRestart() }
+    val hideStorySuggestions = multiple("hide_story_suggestions", "hide_suggested_friend_stories", "hide_my_stories") { requireRestart() }
     val hideUiComponents = multiple("hide_ui_components",
         "hide_voice_record_button",
         "hide_stickers_button",
@@ -52,11 +54,10 @@ class UserInterfaceTweaks : ConfigContainer() {
         "hide_billboard_prompt",
         "hide_snapchat_plus_gift_reminders",
         "hide_map_reactions",
-    ) { requireRestart() }
+    ) { requireRestart(); versionCheck = RES_OBF_VERSION_CHECK }
     val operaMediaQuickInfo = boolean("opera_media_quick_info") { requireRestart() }
     val oldBitmojiSelfie = unique("old_bitmoji_selfie", "2d", "3d") { requireCleanCache() }
     val disableSpotlight = boolean("disable_spotlight") { requireRestart() }
-    val hideSettingsGear = boolean("hide_settings_gear") { requireRestart() }
     val verticalStoryViewer = boolean("vertical_story_viewer") { requireRestart() }
     val messageIndicators = multiple("message_indicators", "encryption_indicator", "platform_indicator", "location_indicator", "ovf_editor_indicator", "director_mode_indicator") { requireRestart() }
     val stealthModeIndicator = boolean("stealth_mode_indicator") { requireRestart() }

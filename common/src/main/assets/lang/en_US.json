@@ -77,6 +77,7 @@
             },
             "tasks": {
                 "no_tasks": "No tasks",
+                "merge_button": "Merge",
                 "failed_to_open_file": "Failed to open file",
                 "merge_files_toast": "Merging {count} files",
                 "remove_selected_tasks_title": "Are you sure you want to remove selected tasks?",
@@ -94,7 +95,10 @@
                 "config_import_success_toast": "Config imported successfully",
                 "config_import_failure_toast": "Failed to import config {error}",
                 "config_export_failure_toast": "Failed to export config {error}",
-                "saved_config_snackbar": "Config saved"
+                "saved_config_snackbar": "Config saved",
+                "older_required": "This feature requires Snapchat v{version} or older to work correctly",
+                "newer_required": "This feature requires Snapchat v{version} or newer to work correctly",
+                "search_button": "Search"
             },
             "manage_rule_feature": {
                 "disable_state_option": "Disabled",
@@ -125,7 +129,8 @@
                 "streaks_expiration_text": "Expires in {eta}",
                 "streaks_expiration_text_expired": "Expired",
                 "reminder_button": "Set Reminder",
-                "delete_scope_confirm_dialog_title": "Are you sure you want to delete a {scope}?"
+                "delete_scope_confirm_dialog_title": "Are you sure you want to delete a {scope}?",
+                "notes_placeholder": "Click to add a note"
             },
             "logged_stories": {
                 "story_failed_to_load": "Failed to load",
@@ -195,7 +200,8 @@
                 "search_hint": "Search",
                 "fetch_error": "Failed to fetch data",
                 "category_groups": "Groups",
-                "category_friends": "Friends"
+                "category_friends": "Friends",
+                "participants_text": "{count} participants"
             },
             "scripting_warning": {
                 "title": "Warning",
@@ -475,6 +481,10 @@
                             "home_tab": {
                                 "name": "Home Tab",
                                 "description": "Overrides the startup tab when opening Snapchat"
+                            },
+                            "simple_snapchat":{
+                                "name": "Simple Snapchat",
+                                "description": "Enables a simplified version of Snapchat"
                             }
                         }
                     },
@@ -498,9 +508,9 @@
                         "name": "Hide Streak Restore",
                         "description": "Hides the Restore button in the friend feed"
                     },
-                    "hide_quick_add_friend_feed": {
-                        "name": "Hide Quick Add in Friend Feed",
-                        "description": "Hides the Quick Add section in the friend feed"
+                    "hide_quick_add_suggestions": {
+                        "name": "Hide Quick Add Suggestions",
+                        "description": "Removes quick add friend suggestions"
                     },
                     "hide_story_suggestions": {
                         "name": "Hide Story Suggestions",
@@ -521,10 +531,6 @@
                     "disable_spotlight": {
                         "name": "Disable Spotlight",
                         "description": "Disables the Spotlight page"
-                    },
-                    "hide_settings_gear": {
-                        "name": "Hide Settings Gear",
-                        "description": "Hides the SnapEnhance Settings Gear in friend feed"
                     },
                     "friend_feed_menu_buttons": {
                         "name": "Friend Feed Menu Buttons",
@@ -707,6 +713,10 @@
                             "message_filter": {
                                 "name": "Message Filter",
                                 "description": "Select which messages should get logged (empty for all messages)"
+                            },
+                            "deleted_message_color": {
+                                "name": "Deleted Message Color",
+                                "description": "Sets the color of deleted messages"
                             }
                         }
                     },
@@ -1064,6 +1074,10 @@
                         "name": "Voice Note Auto Play",
                         "description": "Automatically plays the next voice note after the current one finishes"
                     },
+                    "friend_notes": {
+                        "name": "Friend Notes",
+                        "description": "Allows you to add notes to friends profiles"
+                    },
                     "cof_experiments": {
                         "name": "COF Experiments",
                         "description": "Enables unreleased/beta Snapchat features"
@@ -1266,7 +1280,6 @@
                 "hide_map_reactions": "Remove Map Reactions"
             },
             "hide_story_suggestions": {
-                "hide_friend_suggestions": "Hide friend suggestions",
                 "hide_suggested_friend_stories": "Hide suggested friend stories",
                 "hide_my_stories": "Hide My Stories"
             },
@@ -1276,6 +1289,10 @@
                 "camera": "Camera",
                 "discover": "Discover",
                 "spotlight": "Spotlight"
+            },
+            "simple_snapchat": {
+                "always_enabled": "Always Enabled",
+                "always_disabled": "Always Disabled"
             },
             "add_friend_source_spoof": {
                 "added_by_username": "By Username",
@@ -1363,6 +1380,11 @@
                 "bitmoji_avatar_changes": "Notify when someone changes their Bitmoji avatar",
                 "bitmoji_background_changes": "Notify when someone changes their Bitmoji background",
                 "bitmoji_scene_changes": "Notify when someone changes their Bitmoji scene"
+            },
+            "snapchat_plus":{
+                "not_subscribed": "Not Subscribed",
+                "basic": "Basic",
+                "ad_free": "Ad Free"
             }
         }
     },
@@ -1575,7 +1597,7 @@
         "no_attachments_toast": "No attachments found!",
         "already_queued_toast": "Media already in queue!",
         "already_downloaded_toast": "Media already downloaded!",
-        "saved_toast": "Saved to {path}",
+        "content_saved_toast": "Saved!",
         "download_toast": "Downloading {path}...",
         "processing_toast": "Processing {path}...",
         "failed_generic_toast": "Failed to download",

@@ -5,7 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.LibraryBooks
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -20,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.net.toUri
 import androidx.navigation.NavBackStackEntry
 import kotlinx.coroutines.*
 import me.rhunk.snapenhance.common.scripting.type.ModuleInfo
@@ -28,9 +26,11 @@ import me.rhunk.snapenhance.common.scripting.ui.EnumScriptInterface
 import me.rhunk.snapenhance.common.scripting.ui.InterfaceManager
 import me.rhunk.snapenhance.common.scripting.ui.ScriptInterface
 import me.rhunk.snapenhance.common.ui.AsyncUpdateDispatcher
+import me.rhunk.snapenhance.common.ui.TopBarActionButton
 import me.rhunk.snapenhance.common.ui.rememberAsyncMutableState
 import me.rhunk.snapenhance.common.ui.rememberAsyncUpdateDispatcher
 import me.rhunk.snapenhance.common.util.ktx.getUrlFromClipboard
+import me.rhunk.snapenhance.common.util.ktx.openLink
 import me.rhunk.snapenhance.storage.isScriptEnabled
 import me.rhunk.snapenhance.storage.setScriptEnabled
 import me.rhunk.snapenhance.ui.manager.Routes
@@ -395,6 +395,9 @@ class ScriptingRootSection : Routes.Route() {
         ) {
             ExtendedFloatingActionButton(
                 onClick = {
+                    if (context.scriptManager.getScriptsFolder() == null) {
+                        return@ExtendedFloatingActionButton
+                    }
                     showImportDialog = true
                 },
                 icon = { Icon(imageVector = Icons.Default.Link, contentDescription = "Link") },
@@ -405,12 +408,7 @@ class ScriptingRootSection : Routes.Route() {
             ExtendedFloatingActionButton(
                 onClick = {
                     context.scriptManager.getScriptsFolder()?.let {
-                        context.androidContext.startActivity(
-                            Intent(Intent.ACTION_VIEW).apply {
-                                data = it.uri
-                                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                            }
-                        )
+                        context.androidContext.openLink(it.uri.toString())
                     }
                 },
                 icon = {
@@ -576,16 +574,12 @@ class ScriptingRootSection : Routes.Route() {
     }
 
     override val topBarActions: @Composable() (RowScope.() -> Unit) = {
-        IconButton(onClick = {
-            context.androidContext.startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data = "https://codeberg.org/SnapEnhance/scripting-docs".toUri()
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            })
-        }) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Default.LibraryBooks,
-                contentDescription = "Documentation"
-            )
-        }
+        TopBarActionButton(
+            onClick = {
+                context.androidContext.openLink("https://github.com/SnapEnhance/scripting-docs")
+            },
+            icon = Icons.Default.CollectionsBookmark,
+            text = "Documentation",
+        )
     }
 }
