@@ -438,10 +438,6 @@
                         "name": "Freunde Feed Menüleiste",
                         "description": "Aktiviert die neue Freunde Feed Menüleiste"
                     },
-                    "hide_settings_gear": {
-                        "name": "Symbol für Einstellungen ausblenden",
-                        "description": "Blendet das SnapEnhance-Einstellungssymbol im Chat-Tab aus"
-                    },
                     "opera_media_quick_info": {
                         "description": "Zeigt nützliche Informationen zu Medien wie das Erstellungsdatum im Kontextmenü der Snap-Ansicht an",
                         "name": "Medien Schnellinfo"
@@ -465,10 +461,6 @@
                     "snap_preview": {
                         "name": "Snap-Vorschau",
                         "description": "Zeigt eine kleine Vorschau neben ungesehenen Snaps im Chat an"
-                    },
-                    "hide_quick_add_friend_feed": {
-                        "description": "Blendet den Abschnitt Schnelles Hinzufügen im Freundes-Feed aus",
-                        "name": "Schnelles Hinzufügen im Friend Feed ausblenden"
                     },
                     "hide_story_suggestions": {
                         "name": "Story Vorschläge ausblenden",
@@ -1175,7 +1167,6 @@
                 "3d": "3D Bitmoji"
             },
             "hide_story_suggestions": {
-                "hide_friend_suggestions": "Freundschaftsvorschläge ausblenden",
                 "hide_suggested_friend_stories": "Empfohlene Stories von Freunden ausblenden",
                 "hide_my_stories": "Meine Stories verbergen"
             },
@@ -1324,7 +1315,6 @@
         "no_attachments_toast": "Keine Anhänge gefunden!",
         "already_queued_toast": "Datei wird bereits bearbeitet!",
         "already_downloaded_toast": "Datei wurde bereits heruntergeladen!",
-        "saved_toast": "Gespeichert unter {path}",
         "download_toast": "{path} wird heruntergeladen...",
         "processing_toast": "Verarbeite {path}...",
         "failed_generic_toast": "Download fehlgeschlagen",

@@ -439,10 +439,6 @@
                         "description": "Active la nouvelle barre de menu de flux d'amis",
                         "name": "Barre du menu du fil d'amis"
                     },
-                    "hide_settings_gear": {
-                        "name": "Masquer la roue des paramètres",
-                        "description": "Masque la roue des paramètres SnapEnhance dans le fil d'amis"
-                    },
                     "opera_media_quick_info": {
                         "description": "Affiche des informations utiles sur les médias, telles que la date de création, dans le menu contextuel de la visionneuse d'Opera",
                         "name": "Informations rapides des médias Opera"
@@ -454,10 +450,6 @@
                     "old_bitmoji_selfie": {
                         "name": "Ancien Selfie Bitmoji",
                         "description": "Restaurer les selfies Bitmoji des anciennes versions de Snapchat"
-                    },
-                    "hide_quick_add_friend_feed": {
-                        "description": "Masque la section Ajout rapide dans le fil d'amis",
-                        "name": "Masquer l'ajout rapide dans le fil d'amis"
                     },
                     "prevent_message_list_auto_scroll": {
                         "name": "Empêcher le défilement automatique de la liste des messages",
@@ -1262,7 +1254,6 @@
             },
             "hide_story_suggestions": {
                 "hide_suggested_friend_stories": "Cacher les stories d'amis suggérées",
-                "hide_friend_suggestions": "Cacher les suggestions d'ami",
                 "hide_my_stories": "Cacher Ma Story"
             },
             "disable_cameras": {
@@ -1414,7 +1405,6 @@
         "no_attachments_toast": "Aucune pièce jointe trouvée !",
         "already_queued_toast": "Média déjà en file d'attente !",
         "already_downloaded_toast": "Média déjà téléchargé !",
-        "saved_toast": "Enregistré dans {path}",
         "download_toast": "Téléchargement {path}...",
         "processing_toast": "Traitement de {path}...",
         "failed_generic_toast": "Échec du téléchargement",
