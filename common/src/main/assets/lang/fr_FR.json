@@ -50,7 +50,10 @@
                 "config_import_success_toast": "Configuration importée avec succès",
                 "config_import_failure_toast": "Échec de l'importation de la configuration {error}",
                 "saved_config_snackbar": "Configuration enregistrée",
-                "config_export_failure_toast": "Échec de l'exportation de la configuration {error}"
+                "config_export_failure_toast": "Échec de l'exportation de la configuration {error}",
+                "older_required": "Cette fonctionnalité nécessite Snapchat v{version} ou une version antérieure pour fonctionner correctement",
+                "newer_required": "Cette fonctionnalité nécessite Snapchat v{version} ou une version plus récente pour fonctionner correctement",
+                "search_button": "Recherche"
             },
             "social": {
                 "streaks_expiration_short": "{hours}h",
@@ -66,7 +69,8 @@
                 "delete_files_option": "Supprimer également les fichiers",
                 "remove_selected_tasks_confirm": "Supprimer {count} tâches ?",
                 "remove_all_tasks_confirm": "Supprimer toutes les tâches ?",
-                "failed_to_open_file": "Échec de l'ouverture du fichier"
+                "failed_to_open_file": "Échec de l'ouverture du fichier",
+                "merge_button": "Fusionner"
             },
             "home": {
                 "update_content": "La version {version} est disponible !",
@@ -89,7 +93,8 @@
                 "streaks_expiration_text": "Expire dans {eta}",
                 "streaks_expiration_text_expired": "Expiré",
                 "reminder_button": "Définir un rappel",
-                "delete_scope_confirm_dialog_title": "Êtes-vous sûr de vouloir supprimer ce {scope} ?"
+                "delete_scope_confirm_dialog_title": "Êtes-vous sûr de vouloir supprimer ce {scope} ?",
+                "notes_placeholder": "Cliquez pour ajouter une note"
             },
             "home_logs": {
                 "no_logs_hint": "Aucun journal disponible",
@@ -189,7 +194,8 @@
                 "search_hint": "Rechercher",
                 "fetch_error": "Échec de la récupération des données",
                 "category_groups": "Groupes",
-                "category_friends": "Amis"
+                "category_friends": "Amis",
+                "participants_text": "{count} participants"
             },
             "scripting_warning": {
                 "content": "SnapEnhance inclut un outil de développement de scripts, permettant l'exécution d'un code défini par l'utilisateur sur votre appareil. Soyez extrêmement prudent et n'installez que des modules provenant de sources connues et fiables. Les modules non autorisés ou non vérifiés peuvent présenter des risques pour la sécurité de votre système.",
@@ -408,6 +414,10 @@
                             "home_tab": {
                                 "name": "Onglet d'accueil",
                                 "description": "Remplacement de l'onglet à l'ouverture"
+                            },
+                            "simple_snapchat": {
+                                "description": "Permet une version simplifiée de Snapchat",
+                                "name": "Snapchat simple"
                             }
                         }
                     },
@@ -486,6 +496,10 @@
                     "custom_theme": {
                         "description": "Personnalisez les couleurs de Snapchat\nRemarque : si vous choisissez un thème sombre (comme Amoled), vous devrez peut-être activer le mode sombre dans les paramètres de Snapchat pour de meilleurs résultats",
                         "name": "Thème personnalisé"
+                    },
+                    "hide_quick_add_suggestions": {
+                        "name": "Masquer les suggestions d'ajout rapide",
+                        "description": "Supprime les suggestions d'ajout rapide d'amis"
                     }
                 }
             },
@@ -586,6 +600,10 @@
                             "keep_my_own_messages": {
                                 "name": "Conserver mes propres messages",
                                 "description": "Empêche la suppression de vos propres messages"
+                            },
+                            "deleted_message_color": {
+                                "description": "Définit la couleur des messages supprimés",
+                                "name": "Couleur du message supprimé"
                             }
                         }
                     },
@@ -1064,6 +1082,10 @@
                     "voice_note_auto_play": {
                         "name": "Lecture automatique des notes vocales",
                         "description": "Joue automatiquement la note vocale suivante une fois la note actuelle terminée"
+                    },
+                    "friend_notes": {
+                        "description": "Vous permet d'ajouter des notes aux profils d'amis",
+                        "name": "Notes d'ami"
                     }
                 }
             },
@@ -1295,6 +1317,15 @@
                 "custom": "Thèmes personnalisés (utilisez les actions rapides pour gérer les thèmes)",
                 "material_you_light": "Material You Light (Android 12+)",
                 "material_you_dark": "Materiel You Light (Android 12+)"
+            },
+            "snapchat_plus": {
+                "not_subscribed": "Non abonné",
+                "basic": "Basique",
+                "ad_free": "Sans publicité"
+            },
+            "simple_snapchat": {
+                "always_enabled": "Toujours activé",
+                "always_disabled": "Toujours désactivé"
             }
         }
     },
@@ -1416,7 +1447,8 @@
             "title": "Télécharger le média Dash",
             "segment_text": "Segment {from} - {to}"
         },
-        "dash_no_chapter": "Aucun chapitre trouvé"
+        "dash_no_chapter": "Aucun chapitre trouvé",
+        "content_saved_toast": "Sauvegarder!"
     },
     "streaks_reminder": {
         "notification_title": "Rappels des flammes",
