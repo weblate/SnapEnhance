@@ -260,8 +260,7 @@
         "notices": {
             "unstable": "⚠ Instabil",
             "ban_risk": "⚠ Ez a funkció tiltást eredményezhet",
-            "internal_behavior": "⚠ Ez a funkció hibát okozhat a Snapchat működésében",
-            "require_native_hooks": "⚠ Ez egy kísérleti beállítás, amelyhez Natív hookok használata szükséges"
+            "internal_behavior": "⚠ Ez a funkció hibát okozhat a Snapchat működésében"
         },
         "properties": {
             "downloader": {

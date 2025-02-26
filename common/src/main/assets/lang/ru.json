@@ -956,8 +956,7 @@
         "notices": {
             "unstable": "⚠ Нестабильный",
             "ban_risk": "⚠ Эта функция может стать причиной бана",
-            "internal_behavior": "⚠ Это может нарушить внутреннее поведение Snapchat",
-            "require_native_hooks": "⚠ Для корректной работы этой функции требуются экспериментальные Native Hooks"
+            "internal_behavior": "⚠ Это может нарушить внутреннее поведение Snapchat"
         },
         "options": {
             "home_tab": {

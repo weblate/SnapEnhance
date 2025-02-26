@@ -1036,8 +1036,7 @@
         "notices": {
             "unstable": "⚠ Instabil",
             "ban_risk": "⚠ Dieses Feature kann zu Bans führen",
-            "internal_behavior": "⚠ Dies kann das interne Verhalten von Snapchat stören",
-            "require_native_hooks": "⚠ Um korrekt zu funktionieren erfordert dieses Feature experimentelle Native Hooks"
+            "internal_behavior": "⚠ Dies kann das interne Verhalten von Snapchat stören"
         }
     },
     "content_type": {

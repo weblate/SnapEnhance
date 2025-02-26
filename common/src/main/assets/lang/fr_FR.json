@@ -285,8 +285,7 @@
         "notices": {
             "unstable": "⚠️ Instable",
             "ban_risk": "⚠️ Cette fonctionnalité pourrait causer des bannissements",
-            "internal_behavior": "⚠️ Cela peut casser le comportement interne de Snapchat",
-            "require_native_hooks": "⚠️ Cette fonctionnalité nécessite des accrochages natifs expérimentaux pour fonctionner correctement"
+            "internal_behavior": "⚠️ Cela peut casser le comportement interne de Snapchat"
         },
         "properties": {
             "downloader": {

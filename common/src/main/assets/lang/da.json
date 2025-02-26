@@ -215,8 +215,7 @@
         "notices": {
             "unstable": "⚠️ Ustabil",
             "ban_risk": "⚠️ Denne funktion kan medføre forbud",
-            "internal_behavior": "⚠️ Dette kan ødelægge Snapchat intern opførsel",
-            "require_native_hooks": "⚠️ Denne funktion kræver eksperimentelle indfødte kroge til at fungere korrekt"
+            "internal_behavior": "⚠️ Dette kan ødelægge Snapchat intern opførsel"
         },
         "properties": {
             "downloader": {

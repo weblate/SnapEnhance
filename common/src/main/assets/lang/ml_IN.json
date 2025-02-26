@@ -629,8 +629,7 @@
         "notices": {
             "internal_behavior": "⚠ ഇത് Snapchat ആന്തരിക സ്വഭാവത്തെ തകർത്തേക്കാം",
             "ban_risk": "⚠ ഈ സവിശേഷത വിലക്കുകൾക്ക് കാരണമായേക്കാം",
-            "unstable": "⚠ അസ്ഥിരമാണ്",
-            "require_native_hooks": "⚠ ഈ ഫീച്ചറിന് ശരിയായി പ്രവർത്തിക്കാൻ പരീക്ഷണാത്മക നേറ്റീവ് ഹുക്കുകൾ ആവശ്യമാണ്"
+            "unstable": "⚠ അസ്ഥിരമാണ്"
         },
         "options": {
             "friend_feed_menu_buttons": {

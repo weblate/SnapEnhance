@@ -1162,7 +1162,6 @@
         },
         "notices": {
             "ban_risk": "⚠ Esta característica puede causar baneos",
-            "require_native_hooks": "⚠ Esta función requiere ganchos nativos experimentales para funcionar correctamente",
             "unstable": "⚠ inestable",
             "internal_behavior": "⚠ Esto puede romper el funcionamiento interno de Snapchat"
         },

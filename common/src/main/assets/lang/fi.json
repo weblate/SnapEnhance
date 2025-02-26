@@ -276,8 +276,7 @@
         "notices": {
             "unstable": "⚠ Epävakaa",
             "ban_risk": "⚠ Voi aiheuttaa eston tilillesi",
-            "internal_behavior": "⚠ Voi rikkoa Snapchatin sisäisiä toiminnallisuuksia",
-            "require_native_hooks": "⚠ Tämä vaatii kokeellisen \"Native Hooks\" ominaisuuden toimiakseen"
+            "internal_behavior": "⚠ Voi rikkoa Snapchatin sisäisiä toiminnallisuuksia"
         },
         "properties": {
             "downloader": {

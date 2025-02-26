@@ -279,8 +279,7 @@
         "notices": {
             "unstable": "⚠ Stabil Değil",
             "ban_risk": "⚠ Bu özellik banlanmanıza neden olabilir",
-            "internal_behavior": "⚠ Bu Snapchat'in dahili davranışını bozabilir",
-            "require_native_hooks": "⚠ Bu özelliğin düzgün çalışması için deneysel enjekte gerekir"
+            "internal_behavior": "⚠ Bu Snapchat'in dahili davranışını bozabilir"
         },
         "properties": {
             "downloader": {
