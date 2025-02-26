@@ -6,7 +6,7 @@
             "select_save_folder_button": "Pilih folder"
         },
         "mappings": {
-            "dialog": "Untuk mendukung berbagai Versi Snapchat secara dinamis, pemetaan diperlukan agar SnapEnhance berfungsi dengan baik, ini tidak akan memakan waktu lebih dari 5 detik.",
+            "dialog": "Menghasilkan pemetaan, ini mungkin memakan waktu beberapa saat ...",
             "generate_failure_no_snapchat": "SnapEnhance tidak dapat mendeteksi Snapchat, coba instal ulang Snapchat.",
             "generate_failure": "Terjadi kesalahan saat mencoba membuat pemetaan, silakan coba lagi."
         },
@@ -25,7 +25,92 @@
             "home_settings": "Pengaturan",
             "home_logs": "Log",
             "social": "Sosial",
-            "scripts": "Skrip"
+            "scripts": "Skrip",
+            "tasks": "Tugas",
+            "manage_rule_feature": "Kelola fitur aturan",
+            "manage_scope": "Kelola ruang lingkup",
+            "file_imports": "Impor file",
+            "messaging_preview": "Pratinjau",
+            "better_location": "Lokasi yang lebih baik",
+            "friend_tracker": "Pelacak teman",
+            "edit_rule": "Edit aturan",
+            "logger_history": "Riwayat logger",
+            "logged_stories": "Cerita yang dicatat",
+            "theming": "Tema",
+            "edit_theme": "Edit Tema",
+            "manage_repos": "Kelola repositori"
+        },
+        "sections": {
+            "features": {
+                "disabled": "Lepas"
+            }
+        },
+        "dialogs": {
+            "add_friend": {
+                "category_groups": "Grup",
+                "category_friends": "Teman-teman",
+                "search_hint": "Pencarian"
+            }
         }
+    },
+    "features": {
+        "properties": {
+            "downloader": {
+                "properties": {
+                    "ffmpeg_options": {
+                        "properties": {
+                            "threads": {
+                                "name": "Utas"
+                            }
+                        }
+                    }
+                },
+                "name": "Download"
+            },
+            "camera": {
+                "name": "Kamera"
+            },
+            "rules": {
+                "name": "Garis"
+            },
+            "scripting": {
+                "name": "Skrip"
+            },
+            "experimental": {
+                "properties": {
+                    "spoof": {
+                        "name": "Tipuan"
+                    }
+                }
+            }
+        },
+        "options": {
+            "logging": {
+                "started": "Dimulai",
+                "success": "Berhasil",
+                "progress": "Proses",
+                "failure": "Kegagalan"
+            },
+            "auto_download_sources": {
+                "spotlight": "Menyoroti"
+            },
+            "notifications": {
+                "chat": "Obrolan",
+                "snap": "snap",
+                "stories": "Cerita",
+                "typing": "Mengetik",
+                "chat_screenshot": "Tangkapan Layar"
+            },
+            "home_tab": {
+                "map": "Map"
+            },
+            "gallery_media_send_override": {
+                "SNAP": "snap"
+            }
+        }
+    },
+    "scopes": {
+        "friend": "Teman",
+        "group": "Grup"
     }
 }
