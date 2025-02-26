@@ -18,5 +18,5 @@ class RootConfig : ConfigContainer() {
     val experimental = container("experimental", Experimental()) { icon = Icons.Default.Science; addNotices(
         FeatureNotice.UNSTABLE) }
     val scripting = container("scripting", Scripting()) { icon = Icons.Default.DataObject }
-    val friendTracker = container("friend_tracker", FriendTrackerConfig()) { icon = Icons.Default.PersonSearch; nativeHooks() }
+    val friendTracker = container("friend_tracker", FriendTrackerConfig()) { icon = Icons.Default.PersonSearch }
 }
