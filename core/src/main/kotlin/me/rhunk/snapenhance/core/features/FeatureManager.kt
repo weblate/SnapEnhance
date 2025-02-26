@@ -141,6 +141,7 @@ class FeatureManager(
             BetterTranscript(),
             VoiceNoteOverride(),
             FriendNotes(),
+            DoubleTapChatAction(),
         )
 
         features.values.toList().forEach { feature ->

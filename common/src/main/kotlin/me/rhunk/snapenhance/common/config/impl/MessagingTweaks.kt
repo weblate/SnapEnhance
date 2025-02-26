@@ -99,4 +99,5 @@ class MessagingTweaks : ConfigContainer() {
     val bypassMessageRetentionPolicy = boolean("bypass_message_retention_policy") { addNotices(FeatureNotice.UNSTABLE); requireRestart() }
     val bypassMessageActionRestrictions = boolean("bypass_message_action_restrictions") { requireRestart() }
     val removeGroupsLockedStatus = boolean("remove_groups_locked_status") { requireRestart() }
+    val doubleTapChatAction = unique("double_tap_chat_action", "like_message", "copy_text", "delete_message", "mark_as_read") { requireRestart() }
 }

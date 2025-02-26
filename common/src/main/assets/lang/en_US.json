@@ -743,6 +743,10 @@
                     "remove_groups_locked_status": {
                         "name": "Remove Groups Locked Status",
                         "description": "Allows you to view group information after being kicked"
+                    },
+                    "double_tap_chat_action": {
+                        "name": "Double Tap Chat Action",
+                        "description": "Performs a custom action when double tapping a message in chat"
                     }
                 }
             },
@@ -1385,6 +1389,12 @@
                 "not_subscribed": "Not Subscribed",
                 "basic": "Basic",
                 "ad_free": "Ad Free"
+            },
+            "double_tap_chat_action": {
+                "like_message": "Like Message",
+                "copy_text": "Copy Text to Clipboard",
+                "delete_message": "Delete Message",
+                "mark_as_read": "Mark as Read"
             }
         }
     },
