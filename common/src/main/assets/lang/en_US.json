@@ -746,6 +746,10 @@
                     "double_tap_chat_action": {
                         "name": "Double Tap Chat Action",
                         "description": "Performs a custom action when double tapping a message in chat"
+                    },
+                    "double_tap_chat_action_custom_emoji": {
+                        "name": "Double Tap Chat Action Custom Emoji Reaction",
+                        "description": "Sets a custom emoji reaction for the double tap chat action"
                     }
                 }
             },
@@ -1393,7 +1397,8 @@
                 "like_message": "Like Message",
                 "copy_text": "Copy Text to Clipboard",
                 "delete_message": "Delete Message",
-                "mark_as_read": "Mark as Read"
+                "mark_as_read": "Mark as Read",
+                "custom_emoji_reaction": "Custom Emoji Reaction"
             }
         }
     },

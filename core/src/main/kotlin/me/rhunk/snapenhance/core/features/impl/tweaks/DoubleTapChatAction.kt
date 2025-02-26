@@ -50,6 +50,16 @@ class DoubleTapChatAction: Feature("Double Tap Chat Action") {
                         onResult = {}
                     )
                 }
+
+                if (action == "custom_emoji_reaction") {
+                    context.feature(Messaging::class).conversationManager?.reactToMessage(
+                        conversationId,
+                        messageId,
+                        emoji = context.config.messaging.doubleTapChatActionCustomEmoji.getNullable()?.takeIf { it.isNotEmpty() } ?: "\uD83D\uDC4D",
+                        onError = {},
+                        onSuccess = {}
+                    )
+                }
             }
         }
     }
