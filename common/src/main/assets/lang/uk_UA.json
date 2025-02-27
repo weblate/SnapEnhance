@@ -6,9 +6,16 @@
             "select_save_folder_button": "Виберіть папку"
         },
         "mappings": {
-            "dialog": "Щоб динамічно підтримувати широкий діапазон версій Snapchat, для належної роботи SnapEnhance необхідні зіставлення, це не повинно тривати більше 5 секунд.",
+            "dialog": "Створення зіставлень, це може зайняти деякий час...",
             "generate_failure_no_snapchat": "SnapEnhance не вдалося виявити Snapchat, спробуйте перевстановити Snapchat.",
             "generate_failure": "Під час створення зіставлення сталася помилка. Повторіть спробу."
+        },
+        "permissions": {
+            "dialog": "Щоб продовжити, потрібно відповідати таким вимогам:",
+            "notification_access": "Доступ до сповіщень",
+            "display_over_other_apps": "Відображення поверх інших програм",
+            "request_button": "Запит",
+            "battery_optimization": "Оптимізація батареї"
         }
     }
 }
