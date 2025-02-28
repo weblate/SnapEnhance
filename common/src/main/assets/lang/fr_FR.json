@@ -683,6 +683,14 @@
                     "skip_when_marking_as_seen": {
                         "name": "Ignorer lors du marquage comme vu",
                         "description": "Passe automatiquement au Snap suivant lors du marquage d'un Snap comme vu.\nÀ utiliser en combinaison avec le Bouton Marquer Snap comme vu"
+                    },
+                    "double_tap_chat_action_custom_emoji": {
+                        "name": "Action de chat en appuyant deux fois Réaction Emoji personnalisée",
+                        "description": "Définit une réaction emoji personnalisée pour l'action de chat en double-cliquant"
+                    },
+                    "double_tap_chat_action": {
+                        "name": "Action de chat en appuyant deux fois",
+                        "description": "Effectue une action personnalisée en appuyant deux fois sur un message dans le chat"
                     }
                 }
             },
@@ -1325,6 +1333,13 @@
             "simple_snapchat": {
                 "always_enabled": "Toujours activé",
                 "always_disabled": "Toujours désactivé"
+            },
+            "double_tap_chat_action": {
+                "like_message": "Aime le message",
+                "mark_as_read": "Marquer comme lu",
+                "copy_text": "Copier le texte dans le presse-papiers",
+                "delete_message": "Supprimer le message",
+                "custom_emoji_reaction": "Réaction Emoji personnalisée"
             }
         }
     },
