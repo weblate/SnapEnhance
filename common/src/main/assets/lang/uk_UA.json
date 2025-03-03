@@ -1108,16 +1108,243 @@
                     "module_folder": {
                         "name": "Папка модуля",
                         "description": "Папка, в якій знаходяться сценарії"
+                    },
+                    "integrated_ui": {
+                        "name": "Інтегрований інтерфейс користувача",
+                        "description": "Дозволяє сценаріям додавати спеціальні компоненти інтерфейсу до Snapchat"
+                    },
+                    "disable_log_anonymization": {
+                        "description": "Вимикає анонімізацію журналів",
+                        "name": "Вимкнути анонімізацію журналу"
                     }
                 },
                 "name": "Сценарії",
                 "description": "Запустіть власні сценарії, щоб розширити SnapEnhance"
+            },
+            "friend_tracker": {
+                "properties": {
+                    "record_messaging_events": {
+                        "description": "Записує події обміну повідомленнями, такі як відкриття знімка, читання повідомлення тощо.",
+                        "name": "Записуйте події обміну повідомленнями"
+                    },
+                    "auto_purge": {
+                        "description": "Автоматично видаляє кешовані події, давніші за вказаний проміжок часу",
+                        "name": "Автоматичне очищення"
+                    },
+                    "allow_running_in_background": {
+                        "name": "Дозволити роботу у фоновому режимі",
+                        "description": "Дозволяє трекеру працювати у фоновому режимі. Примітка. Це значно розрядить акумулятор"
+                    }
+                },
+                "name": "Відстеження друзів",
+                "description": "Записує активність друга в Snapchat"
             }
         },
         "notices": {
             "unstable": "⚠ Нестабільний",
             "ban_risk": "⚠ Ця функція може спричинити бан",
             "internal_behavior": "⚠ Це може порушити внутрішню роботу Snapchat"
+        },
+        "options": {
+            "notifications": {
+                "typing": "Введення",
+                "stories": "Оповідання",
+                "snap": "Знімок",
+                "speaking": "Говорячи",
+                "chat_reaction": "Реакція DM",
+                "group_chat_reaction": "Групова реакція",
+                "chat_screenshot": "Скріншот",
+                "chat_screen_record": "Запис екрана",
+                "snap_replay": "Повторити Знімок",
+                "camera_roll_save": "Зберегти фотоплівку",
+                "chat": "Чат",
+                "initiate_audio": "Вхідний аудіодзвінок",
+                "initiate_video": "Вхідний відеодзвінок",
+                "abandon_audio": "Пропущений аудіодзвінок",
+                "chat_reply": "Чат Відповідь",
+                "abandon_video": "Пропущений відеодзвінок"
+            },
+            "auto_purge": {
+                "3_months": "3 Місяці",
+                "6_months": "6 Місяці",
+                "never": "Ніколи",
+                "3_hours": "3 години",
+                "1_day": "1 День",
+                "3_days": "3 Днів",
+                "1_week": "1 Тиждень",
+                "1_month": "1 Місяць",
+                "1_hour": "1 годину",
+                "6_hours": "6 годин",
+                "12_hours": "12 годин",
+                "2_weeks": "2 Тижнів"
+            },
+            "path_format": {
+                "append_hash": "Додайте унікальний хеш до імені файлу",
+                "append_source": "До назви файлу додайте джерело медіа",
+                "append_date_time": "Додайте дату й час до імені файлу",
+                "create_source_folder": "Створіть папку для кожного типу медіаджерела",
+                "append_username": "До назви файлу додайте ім’я користувача",
+                "create_author_folder": "Створіть папку для кожного автора"
+            },
+            "strip_media_metadata": {
+                "remove_audio_note_duration": "Видалити тривалість звукової нотатки",
+                "hide_extras": "Приховати додаткові елементи (наприклад, згадки)",
+                "hide_snap_filters": "Сховати фільтри прив’язки",
+                "remove_audio_note_transcript_capability": "Видалення можливості розшифровки звукової нотатки",
+                "hide_caption_text": "Приховати текст підпису"
+            },
+            "hide_ui_components": {
+                "hide_map_reactions": "Видалити реакції карти",
+                "hide_billboard_prompt": "Видалити підказку Billboard у стрічці друзів",
+                "hide_voice_record_button": "Видалити кнопку запису голосу",
+                "hide_chat_call_buttons": "Видаліть кнопки виклику чату",
+                "hide_live_location_share_button": "Видалити кнопку прямого доступу до місцезнаходження",
+                "hide_unread_chat_hint": "Видалити непрочитану підказку чату",
+                "hide_profile_call_buttons": "Видалити кнопки виклику профілю",
+                "hide_post_to_story_buttons": "Видаліть кнопки «Опублікувати в історії», перш ніж надсилати знімок",
+                "hide_stickers_button": "Кнопка видалення наклейок",
+                "hide_snapchat_plus_gift_reminders": "Видаліть нагадування про подарунки Snapchat Plus у розмовах"
+            },
+            "disable_story_sections": {
+                "discover": "Відкрийте для себе",
+                "following": "Слідую",
+                "friends": "Друзі",
+                "suggested_stories": "Запропоновані історії"
+            },
+            "double_tap_chat_action": {
+                "delete_message": "Видалити повідомлення",
+                "copy_text": "Копіювати текст у буфер обміну",
+                "mark_as_read": "Позначити як прочитане",
+                "like_message": "Як повідомлення",
+                "custom_emoji_reaction": "Спеціальна реакція Emoji"
+            },
+            "old_bitmoji_selfie": {
+                "2d": "2D Bitmoji",
+                "3d": "3D Bitmoji"
+            },
+            "hide_story_suggestions": {
+                "hide_my_stories": "Сховати мої історії",
+                "hide_suggested_friend_stories": "Сховати запропоновані історії друзів"
+            },
+            "friend_feed_menu_buttons": {
+                "unsaveable_messages": "⬇️ Повідомлення, які не можна зберегти",
+                "e2e_encryption": "🔒 Використовуйте шифрування E2E",
+                "stealth": "👻 Режим скритності",
+                "mark_snaps_as_seen": "👀 Позначте знімки як видимі",
+                "auto_save": "💬 Автоматичне збереження повідомлень",
+                "mark_stories_as_seen_locally": "👀 Позначити історії як видимі локально",
+                "auto_download": "⬇️ Автоматичне завантаження",
+                "conversation_info": "👤 Інформація про розмову",
+                "auto_open_snaps": "📷 Автоматичне відкриття знімків"
+            },
+            "app_appearance": {
+                "always_light": "Завжди Світло",
+                "always_dark": "Завжди темно"
+            },
+            "auto_download_sources": {
+                "friend_snaps": "Друг Snaps",
+                "friend_stories": "Історії друзів",
+                "public_stories": "Публічні історії",
+                "spotlight": "Прожектор"
+            },
+            "add_friend_source_spoof": {
+                "added_by_group_chat": "Через груповий чат",
+                "added_by_username": "За іменем користувача",
+                "added_by_mention": "За згадкою",
+                "added_by_qr_code": "За QR-кодом",
+                "added_by_community": "Від спільноти",
+                "added_by_quick_add": "Швидким додаванням (високий ризик бути заблокованим)"
+            },
+            "disable_permission_requests": {
+                "notifications": "Сповіщення",
+                "read_media_video": "Читайте медіа-відео",
+                "location": "Розташування",
+                "read_media_images": "Читайте медіа-зображення",
+                "microphone": "Мікрофон",
+                "camera": "Камера",
+                "read_contacts": "Читати контакти",
+                "nearby_devices": "Пристрої поблизу",
+                "phone_calls": "Телефонні дзвінки"
+            },
+            "friend_mutation_notifier": {
+                "bitmoji_selfie_changes": "Сповіщати, коли хтось змінює своє селфі Bitmoji",
+                "bitmoji_scene_changes": "Сповіщати, коли хтось змінює свою сцену Bitmoji",
+                "birthday_changes": "Сповіщати, коли хтось змінює свій день народження",
+                "bitmoji_background_changes": "Сповіщати, коли хтось змінює свій фон Bitmoji",
+                "bitmoji_avatar_changes": "Сповіщати, коли хтось змінює свій аватар Bitmoji",
+                "remove_friend": "Сповіщати, коли хтось видаляє вас зі списку друзів"
+            },
+            "custom_theme": {
+                "amoled_dark_mode": "Темний режим Amoled",
+                "custom": "Спеціальні теми (використовуйте швидкі дії для керування темами)",
+                "material_you_light": "Material You Світло (Android 12+)",
+                "material_you_dark": "Material You Темний (Android 12+)"
+            },
+            "gallery_media_send_override": {
+                "ORIGINAL": "Оригінальний носій",
+                "SNAP": "Знімок",
+                "SAVEABLE_SNAP": "Знімок, який можна зберегти",
+                "always_ask": "Завжди запитуйте",
+                "NOTE": "Аудіозаписка"
+            },
+            "disable_confirmation_dialogs": {
+                "ignore_friend": "Ігнорувати друга",
+                "hide_friend": "Приховати друга",
+                "block_friend": "Заблокувати друга",
+                "hide_conversation": "Приховати розмову",
+                "clear_conversation": "Очистити розмову зі стрічки друзів",
+                "erase_message": "Видалити повідомлення",
+                "remove_friend": "Видалити друга"
+            },
+            "disable_cameras": {
+                "front": "Фронтальна камера",
+                "back": "Задня камера"
+            },
+            "message_indicators": {
+                "location_indicator": "Додає піктограму 📍 до знімків, якщо їх було надіслано з увімкненим місцеположенням",
+                "platform_indicator": "Додає піктограму платформи, з якої було надіслано медіафайл (наприклад, Android, iOS, Web)",
+                "encryption_indicator": "Додає значок 🔒 поруч із повідомленнями, надісланими лише вам",
+                "ovf_editor_indicator": "Вказує, чи було надіслано знімок за допомогою редактора OVF",
+                "director_mode_indicator": "Додає піктограму ✏️ до знімків, коли їх було надіслано в режимі режисера, який можна використовувати для надсилання зображень із галереї як знімків"
+            },
+            "edit_text_override": {
+                "bypass_text_input_limit": "Обійти ліміт введення тексту",
+                "multi_line_chat_input": "Багаторядковий ввід чату"
+            },
+            "auto_mark_as_read": {
+                "snap_reply": "Відповідаючи на них, позначайте знімки як прочитані",
+                "conversation_read": "Позначайте бесіду як прочитану під час надсилання повідомлення"
+            },
+            "logging": {
+                "success": "Успіх",
+                "failure": "Провал",
+                "started": "Розпочато",
+                "progress": "Прогрес"
+            },
+            "bypass_video_length_restriction": {
+                "single": "Один носій",
+                "split": "Розділення медіа"
+            },
+            "snapchat_plus": {
+                "not_subscribed": "Не підписаний",
+                "basic": "Базовий",
+                "ad_free": "Без реклами"
+            },
+            "home_tab": {
+                "chat": "Чат",
+                "map": "Карта",
+                "camera": "Камера",
+                "discover": "Відкрийте для себе",
+                "spotlight": "Прожектор"
+            },
+            "auto_reload": {
+                "all": "Усі (Snapchat + SnapEnhance)",
+                "snapchat_only": "Лише Snapchat"
+            },
+            "simple_snapchat": {
+                "always_disabled": "Завжди вимкнено",
+                "always_enabled": "Завжди ввімкнено"
+            }
         }
     },
     "actions": {
@@ -1169,5 +1396,322 @@
             "name": "Тематизація",
             "description": "Налаштуйте зовнішній вигляд Snapchat"
         }
+    },
+    "half_swipe_notifier": {
+        "notification_content_group": "{friend} щойно наполовину перейшов до {group} на {duration} с",
+        "notification_channel_name": "Проведіть наполовину",
+        "notification_content_dm": "{friend} щойно наполовину перейшов у ваш чат на {duration} с"
+    },
+    "download_processor": {
+        "failed_no_longer_available_toast": "Медіафайли більше недоступні",
+        "download_started_toast": "Завантаження розпочато",
+        "select_attachments_title": "Виберіть вкладення",
+        "failed_processing_toast": "Помилка обробки {error}",
+        "attachment_type": {
+            "snap": "Знімок",
+            "sticker": "Стікери",
+            "external_media": "Зовнішній носій",
+            "note": "Примітка",
+            "original_story": "Оригінальна історія",
+            "gif": "GIF"
+        },
+        "dash_dialog": {
+            "download_all": "Завантажити всі",
+            "segment_text": "Відрізок {from} - {to}",
+            "title": "Завантажити медіадаш"
+        },
+        "unsupported_content_type_toast": "Непідтримуваний тип вмісту!",
+        "dash_no_chapter": "Розділ не знайдено",
+        "no_attachments_toast": "Вкладень не знайдено!",
+        "already_downloaded_toast": "Медіа вже завантажено!",
+        "failed_to_create_preview_toast": "Не вдалося створити попередній перегляд",
+        "failed_gallery_toast": "Не вдалося зберегти в галерею {error}",
+        "processing_toast": "Обробка {path}...",
+        "failed_generic_toast": "Не вдалося завантажити",
+        "already_queued_toast": "ЗМІ вже в черзі!",
+        "content_saved_toast": "Збережено!",
+        "download_toast": "Завантаження {path}..."
+    },
+    "friendship_link_type": {
+        "incoming_follower": "Вхідний послідовник",
+        "deleted": "Видалено",
+        "suggested": "Запропоновано",
+        "outgoing": "Вихідний",
+        "following": "Слідую",
+        "blocked": "Заблоковано",
+        "incoming": "Вхідні",
+        "mutual": "Взаємний"
+    },
+    "end_to_end_encryption": {
+        "outgoing_secret_message": "Відповідь обміну ключами",
+        "incoming_pk_message": "Ви щойно отримали запит на відкритий ключ. Натисніть нижче, щоб прийняти його.",
+        "incoming_secret_message": "Ваш друг щойно прийняв ваш відкритий ключ. Натисніть нижче, щоб прийняти секрет.",
+        "encryption_failed_toast": "Не вдалося зашифрувати повідомлення! Щоб дізнатися більше, перевірте logcat.",
+        "toolbox": {
+            "no_shared_key": "У вас ще немає спільного секрету з цим другом. Натисніть нижче, щоб розпочати новий.",
+            "shared_key_fingerprint": "Ваш відбиток пальця:\n\n{fingerprint}\n\nПеревірте, чи збігається він з відбитком пальця вашого друга!",
+            "initiate_exchange_button": "Ініціювати обмін ключами"
+        },
+        "outgoing_pk_message": "Запит на обмін ключами",
+        "confirmation_dialogs": {
+            "title": "Наскрізне шифрування",
+            "confirmation_1": "ПОПЕРЕДЖЕННЯ: це перезапише наявний ключ. Ви втратите доступ до всіх зашифрованих повідомлень від цього друга. Ви впевнені, що бажаєте продовжити?",
+            "confirmation_2": "Ви ДІЙСНО впевнені, що бажаєте продовжити? Це ваш останній шанс відступити."
+        },
+        "native_hooks_send_failure_toast": "Не вдалося надіслати! Увімкніть Native Hooks у налаштуваннях.",
+        "accept_secret_key_success_toast": "Готово! Тепер ви можете надсилати та отримувати зашифровані повідомлення з цим другом.",
+        "accept_secret_button": "Прийняти секрет",
+        "unencrypted_conversation_send_failure_toast": "Ви не можете надсилати зашифрований вміст одночасно в зашифровані та незашифровані розмови!",
+        "no_participants_to_encrypt_toast": "У вас немає друзів у цій розмові, з якими можна шифрувати повідомлення!",
+        "accept_public_key_success_toast": "Відкритий ключ успішно прийнято!",
+        "accept_public_key_failure_toast": "Не вдалося прийняти відкритий ключ",
+        "accept_secret_key_failure_toast": "Не вдалося прийняти секретний ключ",
+        "accept_public_key_button": "Прийняти відкритий ключ"
+    },
+    "theming_attributes": {
+        "sigColorTextPrimary": "Основний колір тексту",
+        "sigColorChatChat": "Колір тексту основної стрічки друзів",
+        "sigColorChatSnapWithSound": "Знімки зі звуковим кольором тексту",
+        "ringStartColor": "Початковий колір дзвінка",
+        "sigColorLayoutPlaceholder": "Колір заповнювача макета",
+        "recipientPillBackgroundDrawable": "Одержувач таблетки фону",
+        "scButtonColor": "Колір кнопки Snapchat",
+        "rangeFillColor": "Колір заливки діапазону",
+        "pstsDividerColor": "Колір розділювача PSTS",
+        "statusBarBackground": "Колір тла рядка стану",
+        "editTextColor": "Редагувати колір тексту",
+        "chipBackgroundColor": "Колір фону мікросхеми",
+        "sigColorBackgroundSurface": "Колір фонової поверхні",
+        "sigColorChatPendingSending": "Колір тексту каналу вторинних друзів",
+        "sigColorBackgroundMain": "Колір фону",
+        "listBackgroundDrawable": "Тло списку розмов",
+        "sigColorChatConversationsLine": "Колір лінії розмов",
+        "sigColorStoryRingDiscoverTabThumbnailStoryRing": "Історійне кільце Відкрийте вкладку Мініатюра Колір сюжетного кільця",
+        "boxBackgroundColor": "Колір фону коробки",
+        "recipientInputStyle": "Стиль введення одержувача",
+        "actionSheetRoundedBackgroundDrawable": "Круглий фоновий колір меню дій",
+        "strokeColor": "Колір обведення",
+        "listDivider": "Колір роздільника списку",
+        "sigColorIconSecondary": "Додатковий колір значка",
+        "pstsIndicatorColor": "Колір індикатора PSTS",
+        "pstsTabBackground": "Фон вкладки PSTS",
+        "sigColorChatSnapWithoutSound": "Знімки без звукового кольору тексту",
+        "actionSheetDescriptionTextColor": "Дія Меню Опис Колір тексту",
+        "actionSheetBackgroundDrawable": "Колір фону меню дій",
+        "sigColorIconPrimary": "Колір значка меню дій",
+        "sigExceptionColorCameraGridLines": "Колір сітки камери",
+        "itemShapeFillColor": "Колір заливки форми елемента",
+        "ringColor": "Колір кільця",
+        "tabTextColor": "Колір тексту вкладки",
+        "statusBarForeground": "Колір переднього плану рядка стану",
+        "storyReplayViewRingColor": "Колір кільця перегляду історії",
+        "sigColorButtonPrimary": "Колір основної кнопки",
+        "sigColorBaseAppYellow": "Базовий додаток жовтого кольору",
+        "sigColorBackgroundSurfaceTranslucent": "Напівпрозорий фоновий колір поверхні",
+        "sigColorStoryRingFriendsFeedStoryRing": "Колір кільця Story Ring Friends Feed Story Ring"
+    },
+    "conversation_preview": {
+        "no_messages": "Повідомлень не знайдено!",
+        "streak_expiration": "закінчується через {day} днів {hour} годин {minute} хвилин",
+        "total_messages": "Усього надісланих/отриманих повідомлень: {count}",
+        "title": "Попередній перегляд",
+        "unknown_user": "Невідомий користувач"
+    },
+    "bulk_messaging_action": {
+        "choose_action_title": "Виберіть дію",
+        "progress_status": "Обробка {index} із {total}",
+        "selection_dialog_continue_button": "Продовжити",
+        "confirmation_dialog": {
+            "message": "Це вплине на всіх вибраних друзів. Цю дію не можна скасувати.",
+            "title": "Ви впевнені?"
+        },
+        "actions": {
+            "remove_friends": "Видалити друзів",
+            "clear_conversations": "Очистити розмови"
+        }
+    },
+    "content_type": {
+        "STATUS_COUNTDOWN": "Зворотний відлік",
+        "FAMILY_CENTER_LEAVE": "Сімейний центр Відпустка",
+        "STATUS_CALL_MISSED_AUDIO": "Пропущений аудіодзвінок",
+        "STATUS_CALL_MISSED_VIDEO": "Пропущений відеодзвінок",
+        "SNAP": "Змінок",
+        "EXTERNAL_MEDIA": "Зовнішній носій",
+        "FAMILY_CENTER_ACCEPT": "Сімейний центр Прийняти",
+        "FAMILY_CENTER_INVITE": "Сімейний центр запрошення",
+        "STATUS": "Статус",
+        "TINY_SNAP": "Крихітний знімок",
+        "NOTE": "Аудіозаписка",
+        "STICKER": "Стікери",
+        "LIVE_LOCATION_SHARE": "Обмін геоданими в реальному часі",
+        "CHAT": "Чат",
+        "SHARE": "Поділіться",
+        "LOCATION": "Розташування",
+        "STATUS_SAVE_TO_CAMERA_ROLL": "Збережено в фотоплівку",
+        "STATUS_CONVERSATION_CAPTURE_SCREENSHOT": "Скріншот",
+        "STATUS_CONVERSATION_CAPTURE_RECORD": "Запис екрана",
+        "CREATIVE_TOOL_ITEM": "Творчий інструмент",
+        "STATUS_PLUS_GIFT": "Статус плюс подарунок",
+        "MAP_REACTION": "Реакція карти"
+    },
+    "friend_menu_option": {
+        "auto_download_blacklist": "Чорний список автоматичного завантаження",
+        "stealth_mode": "Режим скритності",
+        "mark_snaps_as_seen": "Позначте знімки як видимі",
+        "mark_stories_as_seen_locally": "Позначити історії як видимі локально",
+        "anti_auto_save": "Антиавтозбереження",
+        "preview": "Попередній перегляд"
+    },
+    "mark_as_seen": {
+        "unseen_toast": "Позначено як непереглянуте!",
+        "no_unseen_snaps_toast": "Невидимі знімки не знайдено!",
+        "seen_toast": "Позначено як бачене!",
+        "already_seen_toast": "Вже позначено як бачене!",
+        "already_unseen_toast": "Вже позначено як непереглянуте!"
+    },
+    "opera_context_menu": {
+        "sent_at": "Надіслано {date}",
+        "media_size": "Розмір носія: {size}",
+        "media_duration": "Тривалість медіа: {duration} мс",
+        "show_debug_info": "Показати інформацію про налагодження",
+        "expires_at": "Термін дії закінчується {date}",
+        "download": "Завантажити медіа",
+        "created_at": "Створено {date}"
+    },
+    "material3_strings": {
+        "date_input_invalid_for_pattern": "Недійсна дата",
+        "date_picker_today_description": "Сьогодні",
+        "date_range_picker_title": "Виберіть діапазон дат",
+        "date_range_input_invalid_range_input": "Недійсний діапазон дат",
+        "date_picker_switch_to_input_mode": "Введення",
+        "date_range_picker_scroll_to_next_month": "Наступного місяця",
+        "date_input_invalid_year_range": "Недійсний рік",
+        "date_picker_switch_to_calendar_mode": "Календар",
+        "date_range_picker_start_headline": "Від",
+        "date_range_picker_end_headline": "До",
+        "date_range_picker_scroll_to_previous_month": "Попередній місяць",
+        "date_range_picker_day_in_range": "Вибране",
+        "date_input_invalid_not_allowed": "Недійсна дата"
+    },
+    "auto_open_snaps": {
+        "title": "Автоматичне відкриття знімків",
+        "notification_content": "Відкрито знімків: {count}"
+    },
+    "friend_mutation_observer": {
+        "birthday_changed": "{username} змінив день народження з {oldBirthday} на {newBirthday}",
+        "bitmoji_background_changed": "{username} змінив фон Bitmoji",
+        "bitmoji_selfie_changed": "{username} змінив своє селфі Bitmoji",
+        "bitmoji_scene_changed": "{username} змінив сцену Bitmoji",
+        "birthday_removed": "{username} видалив свою дату народження ({birthday})",
+        "birthday_added": "{username} додав свій день народження ({birthday})",
+        "bitmoji_avatar_changed": "{username} змінив свій аватар Bitmoji",
+        "notification_channel_name": "Друг спостерігач мутації",
+        "friend_removed": "{username} видалив вас зі списку друзів"
+    },
+    "send_override_dialog": {
+        "duration": "Тривалість: {duration}",
+        "unlimited_duration": "Необмежений",
+        "saveable_snap_hint": "Зробіть Snap доступним для збереження в чаті",
+        "title": "Надіслати медіа як {type}"
+    },
+    "profile_info": {
+        "add_source": "Додати джерело",
+        "mutable_username": "Змінне ім'я користувача",
+        "display_name": "Відображуване ім'я",
+        "birthday": "День народження : {month} {day}",
+        "friendship": "Дружба",
+        "snapchat_plus_state": {
+            "subscribed": "Підписався",
+            "not_subscribed": "Не підписаний"
+        },
+        "added_date": "Дата додавання",
+        "hidden_birthday": "День народження: приховано",
+        "snapchat_plus": "Snapchat Plus",
+        "title": "Інформація про профіль",
+        "first_created_username": "Перше створене ім'я користувача"
+    },
+    "button": {
+        "ok": "OK",
+        "negative": "Ні",
+        "cancel": "Скасувати",
+        "send": "Надіслати",
+        "download": "Завантажити",
+        "positive": "Так",
+        "open": "Відкрити"
+    },
+    "chat_export": {
+        "exporter_dialog": {
+            "amount_of_messages_title": "Кількість повідомлень (залиште поле порожнім для всіх)",
+            "export_file_format_title": "Формат файлу експорту",
+            "download_medias_title": "Завантажити медіа",
+            "text_field_selection": "Вибрано {amount}",
+            "message_type_filter_title": "Фільтрувати повідомлення за типом",
+            "select_conversations_title": "Виберіть Розмови",
+            "text_field_selection_all": "Всі"
+        },
+        "exported_to": "Експортовано в {path}",
+        "no_messages_found": "Повідомлень не знайдено!",
+        "dialog_positive_button": "Експорт",
+        "export_fail": "Не вдалося експортувати бесіду {conversation}",
+        "finished": "Готово! Тепер ви можете закрити це діалогове вікно.",
+        "writing_output": "Запис вихідних даних...",
+        "exporting_chats": "Експорт чатів...",
+        "exporting_message": "Експорт {conversation}...",
+        "processing_chats": "Обробка {amount} розмов...",
+        "dialog_negative_button": "Скасувати"
+    },
+    "chat_action_menu": {
+        "delete_logged_message_button": "Видалити зареєстроване повідомлення",
+        "show_chat_edit_history": "Показати історію редагування чату",
+        "preview_button": "Попередній перегляд",
+        "download_button": "Завантажити",
+        "convert_message": "Перетворити повідомлення",
+        "edit_message": "Редагувати повідомлення"
+    },
+    "profile_picture_downloader": {
+        "button": "Завантажити зображення профілю",
+        "title": "Завантажувач зображень профілю",
+        "avatar_option": "Аватар",
+        "background_option": "Фон"
+    },
+    "call_start_confirmation": {
+        "dialog_title": "Розпочати виклик",
+        "dialog_message": "Ви впевнені, що хочете почати дзвінок?"
+    },
+    "media_download_source": {
+        "story_logger": "Реєстратор історій",
+        "spotlight": "Прожектор",
+        "merged": "Об'єднано",
+        "none": "Жодного",
+        "public_story": "Публічна історія",
+        "voice_call": "Голосовий виклик",
+        "chat_media": "Медіа-чат",
+        "pending": "В очікуванні",
+        "story": "Розповідь",
+        "profile_picture": "Фото профілю",
+        "message_logger": "Реєстратор повідомлень"
+    },
+    "streaks_reminder": {
+        "notification_text": "Ви втратите серію з {friend} через {hoursLeft} год",
+        "notification_title": "Смуги"
+    },
+    "modal_option": {
+        "close": "Закрити",
+        "profile_info": "Інформація про профіль"
+    },
+    "gallery_media_send_override": {
+        "multiple_media_toast": "Ви можете надсилати лише одне медіа за раз"
+    },
+    "better_notifications": {
+        "button": {
+            "mark_as_read": "Позначити як прочитане",
+            "download": "Завантажити",
+            "reply": "Відповісти"
+        }
+    },
+    "biometric_auth": {
+        "unlock_button": "Розблокувати",
+        "subtitle": "Щоб розблокувати Snapchat, пройдіть авторизацію",
+        "title": "Розблокуйте Snapchat"
     }
 }
