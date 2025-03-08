@@ -1093,6 +1093,10 @@
                     "friend_notes": {
                         "description": "Vous permet d'ajouter des notes aux profils d'amis",
                         "name": "Notes d'ami"
+                    },
+                    "snapscore_changes": {
+                        "name": "Modifications de Snapscore",
+                        "description": "Suivi des changements dans le Snapscore des amis\nUtilisez cette fonctionnalité uniquement dans les versions plus récentes de Snapchat"
                     }
                 }
             },
