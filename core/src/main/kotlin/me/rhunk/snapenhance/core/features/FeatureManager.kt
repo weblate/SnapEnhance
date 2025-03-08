@@ -142,6 +142,7 @@ class FeatureManager(
             VoiceNoteOverride(),
             FriendNotes(),
             DoubleTapChatAction(),
+            SnapScoreChanges(),
         )
 
         features.values.toList().forEach { feature ->

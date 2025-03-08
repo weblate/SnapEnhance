@@ -94,4 +94,5 @@ class Experimental : ConfigContainer() {
         "added_by_quick_add",
     ) { addNotices(FeatureNotice.BAN_RISK) }
     val preventForcedLogout = boolean("prevent_forced_logout") { requireRestart(); addNotices(FeatureNotice.BAN_RISK, FeatureNotice.INTERNAL_BEHAVIOR); }
+    val snapScoreChanges = boolean("snapscore_changes") { requireRestart() }
 }

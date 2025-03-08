@@ -1152,6 +1152,10 @@
                     "prevent_forced_logout": {
                         "name": "Prevent Forced Logout",
                         "description": "Prevents Snapchat from logging you out when you login on another device"
+                    },
+                    "snapscore_changes": {
+                        "name": "Snapscore Changes",
+                        "description": "Tracks changes in friends Snapscore\nUse this feature in newer versions of Snapchat only"
                     }
                 }
             },
