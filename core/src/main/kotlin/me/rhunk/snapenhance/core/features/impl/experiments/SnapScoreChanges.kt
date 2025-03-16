@@ -42,25 +42,28 @@ class SnapScoreChanges: Feature("Snap Score Changes") {
 
             if (event.viewClassName.endsWith("ProfileFlatlandFriendSnapScoreIdentityPillDialogView")) {
                 event.view.post {
-                    val composerViewNode = event.view.getComposerViewNode() ?: return@post
-                    val surface = composerViewNode.getChildren().getOrNull(1) ?: return@post
+                    event.view.getComposerContext()!!.enqueueNextRenderCallback {
+                        val composerViewNode = event.view.getComposerViewNode() ?: return@enqueueNextRenderCallback
+                        val surface = composerViewNode.getChildren().getOrNull(1) ?: return@enqueueNextRenderCallback
 
-                    val snapTextView = surface.getChildren().lastOrNull {
-                        it.getClassName() == "com.snap.composer.views.ComposerSnapTextView"
-                    } ?: return@post
+                        val snapTextView = surface.getChildren().lastOrNull {
+                            it.getClassName() == "com.snap.composer.views.ComposerSnapTextView"
+                        } ?: return@enqueueNextRenderCallback
 
 
-                    val currentFriendScore = scores[lastViewedUserId] ?: (event.view.getComposerContext()?.viewModel?.getObjectField("_friendSnapScore") as? Double)?.toLong() ?: return@post
+                        val currentFriendScore = scores[lastViewedUserId] ?: (event.view.getComposerContext()?.viewModel?.getObjectField("_friendSnapScore") as? Double)?.toLong() ?: return@enqueueNextRenderCallback
 
-                    val oldSnapScore = context.bridgeClient.getTracker().updateFriendScore(
-                        lastViewedUserId ?: return@post,
-                        currentFriendScore
-                    )
+                        val oldSnapScore = context.bridgeClient.getTracker().updateFriendScore(
+                            lastViewedUserId ?: return@enqueueNextRenderCallback,
+                            currentFriendScore
+                        )
 
-                    val diff = currentFriendScore - oldSnapScore
+                        val diff = currentFriendScore - oldSnapScore
 
-                    snapTextView.setAttribute("value", "${if (oldSnapScore != -1L && diff > 0) "\uD83D\uDCC8 +$diff !\n\n" else ""}Last Checked Score: ${oldSnapScore.takeIf { it != -1L } ?: "N/A"}")
-                    event.view.invalidate()
+                        snapTextView.setAttribute("value", "${if (oldSnapScore != -1L && diff > 0) "\uD83D\uDCC8 +$diff !\n\n" else ""}Last Checked Score: ${oldSnapScore.takeIf { it != -1L } ?: "N/A"}")
+                        event.view.postInvalidate()
+                    }
+                    event.view.postInvalidate()
                 }
             }
         }
