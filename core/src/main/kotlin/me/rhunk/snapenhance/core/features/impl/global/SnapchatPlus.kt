@@ -41,7 +41,7 @@ class SnapchatPlus: Feature("SnapchatPlus") {
                 it.parameterTypes[0].name != "java.lang.Boolean"
             }.hook(HookStage.BEFORE) { param ->
                 val instance = param.thisObject<Any>()
-                val firstArg = param.arg<Any>(0)
+                val firstArg = param.argNullable<Any>(0) ?: return@hook
 
                 instance::class.java.declaredFields.filter { it.type == firstArg::class.java }.forEach {
                     it.isAccessible = true
