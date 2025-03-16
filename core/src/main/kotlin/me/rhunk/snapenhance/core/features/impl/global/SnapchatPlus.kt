@@ -4,7 +4,6 @@ import me.rhunk.snapenhance.core.features.Feature
 import me.rhunk.snapenhance.core.util.hook.HookStage
 import me.rhunk.snapenhance.core.util.hook.hook
 import me.rhunk.snapenhance.core.util.hook.hookConstructor
-import me.rhunk.snapenhance.core.util.ktx.getObjectField
 import me.rhunk.snapenhance.core.util.ktx.setObjectField
 import me.rhunk.snapenhance.mapper.impl.PlusSubscriptionMapper
 
@@ -35,7 +34,6 @@ class SnapchatPlus: Feature("SnapchatPlus") {
             }
         }
 
-        // optional as ConfigurationOverride does this too
         if (context.config.experimental.hiddenSnapchatPlusFeatures.get()) {
             findClass("com.snap.plus.FeatureCatalog").methods.last {
                 !it.name.contains("init") &&
