@@ -971,7 +971,7 @@
                         }
                     },
                     "infinite_story_boost": {
-                        "name": "Booster de story infini",
+                        "name": "Boost de story infini",
                         "description": "Contournez le délai de Boost de Story"
                     },
                     "no_friend_score_delay": {
