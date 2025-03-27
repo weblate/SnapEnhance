@@ -875,6 +875,10 @@
                     "front_custom_frame_rate": {
                         "name": "Fréquence d'images personnalisée à l'avant",
                         "description": "Remplace la fréquence d'images de la caméra frontale"
+                    },
+                    "startup_default_camera": {
+                        "name": "Caméra par défaut de démarrage",
+                        "description": "Définit l'appareil photo par défaut lors de l'ouverture de Snapchat"
                     }
                 }
             },
@@ -1344,6 +1348,10 @@
                 "copy_text": "Copier le texte dans le presse-papiers",
                 "delete_message": "Supprimer le message",
                 "custom_emoji_reaction": "Réaction Emoji personnalisée"
+            },
+            "startup_default_camera": {
+                "front": "Caméra frontale",
+                "back": "Caméra arrière"
             }
         }
     },
