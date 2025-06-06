@@ -731,10 +731,6 @@
                         "name": "பயன்பாட்டு தோற்ற அமைப்புகளை இயக்கவும்",
                         "description": "மறைக்கப்பட்ட பயன்பாட்டு தோற்ற அமைப்பை இயக்குகிறது\n புதிய ச்னாப்சாட் பதிப்புகளில் தேவையில்லை"
                     },
-                    "custom_theme": {
-                        "name": "தனிப்பயன் கருப்பொருள்",
-                        "description": "ச்னாப்சாட்டின் வண்ணங்களைத் தனிப்பயனாக்குங்கள்\n குறிப்பு: நீங்கள் ஒரு இருண்ட கருப்பொருள் (AMOLED போன்ற) தேர்வுசெய்தால், சிறந்த முடிவுகளுக்கு ச்னாப்சாட் அமைப்புகளில் இருண்ட பயன்முறையை இயக்க வேண்டியிருக்கலாம்"
-                    },
                     "friend_feed_message_preview": {
                         "name": "நண்பர் ஊட்ட செய்தி முன்னோட்டம்",
                         "description": "நண்பர் ஊட்டத்தில் கடைசி செய்திகளின் முன்னோட்டத்தைக் காட்டுகிறது",
@@ -846,12 +842,6 @@
             "app_appearance": {
                 "always_light": "எப்போதும் ஒளி",
                 "always_dark": "எப்போதும் இருண்ட"
-            },
-            "custom_theme": {
-                "amoled_dark_mode": "அமோல்ட் டார்க் பயன்முறை",
-                "custom": "தனிப்பயன் கருப்பொருள்கள் (கருப்பொருள்களை நிர்வகிக்க விரைவான செயல்களைப் பயன்படுத்தவும்)",
-                "material_you_light": "பொருள் நீங்கள் ஒளி (Android 12+)",
-                "material_you_dark": "பொருள் நீங்கள் இருண்ட (Android 12+)"
             },
             "friend_feed_menu_buttons": {
                 "auto_download": "தானி ஆட்டோ பதிவிறக்கம்",
@@ -1084,8 +1074,6 @@
             "friend_tracker": "நண்பர் டிராக்கர்",
             "edit_rule": "விதியைத் திருத்து",
             "file_imports": "கோப்பு இறக்குமதிகள்",
-            "theming": "தீமிங்",
-            "edit_theme": "கருப்பொருள் திருத்து",
             "manage_repos": "களஞ்சியங்களை நிர்வகிக்கவும்",
             "social": "சமூக",
             "manage_scope": "நோக்கத்தை நிர்வகிக்கவும்",
@@ -1237,9 +1225,6 @@
                 "search_bar": "தேடல்",
                 "no_friends_map": "வரைபடத்தில் நண்பர்கள் இல்லை",
                 "no_friends_found": "நண்பர்கள் எதுவும் கிடைக்கவில்லை"
-            },
-            "theming": {
-                "no_themes_hint": "கருப்பொருள்கள் எதுவும் கிடைக்கவில்லை"
             }
         },
         "dialogs": {
@@ -1379,10 +1364,6 @@
         "logger_history": {
             "name": "லாகர் வரலாறு",
             "description": "உள்நுழைந்த செய்திகளின் வரலாற்றைக் காண்க"
-        },
-        "theming": {
-            "name": "தீமிங்",
-            "description": "ச்னாப்சாட்டின் தோற்றத்தையும் உணர்வையும் தனிப்பயனாக்கவும்"
         }
     },
     "friend_menu_option": {
@@ -1645,48 +1626,6 @@
         "date_input_invalid_not_allowed": "தவறான தேதி",
         "date_range_input_invalid_range_input": "தவறான தேதி வரம்பு",
         "date_range_picker_start_headline": "இருந்து"
-    },
-    "theming_attributes": {
-        "sigColorChatChat": "முக்கிய நண்பர் உரை நிறத்திற்கு உணவளிக்கவும்",
-        "sigColorTextPrimary": "முக்கிய உரை நிறம்",
-        "sigColorBackgroundSurface": "பின்னணி மேற்பரப்பு நிறம்",
-        "sigColorChatPendingSending": "இரண்டாம் நிலை நண்பர் உரை நிறத்திற்கு உணவளிக்கவும்",
-        "sigColorChatSnapWithSound": "ஒலி உரை நிறத்துடன் புகைப்படங்கள்",
-        "sigColorChatSnapWithoutSound": "ஒலி உரை நிறம் இல்லாமல் ஒடிக்கிறது",
-        "actionSheetDescriptionTextColor": "செயல் பட்டியல் விளக்கம் உரை நிறம்",
-        "sigColorBackgroundMain": "பின்னணி நிறம்",
-        "actionSheetBackgroundDrawable": "செயல் பட்டியல் பின்னணி நிறம்",
-        "actionSheetRoundedBackgroundDrawable": "செயல் பட்டியல் சுற்று பின்னணி நிறம்",
-        "sigColorIconPrimary": "செயல் பட்டியல் படவுரு நிறம்",
-        "sigExceptionColorCameraGridLines": "கேமரா கிரிட்லைன்ச் நிறம்",
-        "listDivider": "வகுப்பி வண்ணத்தை பட்டியலிடுங்கள்",
-        "sigColorIconSecondary": "இரண்டாம் நிலை படவுரு நிறம்",
-        "itemShapeFillColor": "உருப்படி வடிவம் நிரப்பு நிறம்",
-        "ringStartColor": "ரிங் ச்டார்ட் கலர்",
-        "sigColorLayoutPlaceholder": "தளவமைப்பு பிளேச்ஓல்டர் நிறம்",
-        "scButtonColor": "ச்னாப்சாட் பொத்தான் நிறம்",
-        "recipientPillBackgroundDrawable": "பெறுநர் மாத்திரை பின்னணி",
-        "boxBackgroundColor": "பெட்டி பின்னணி நிறம்",
-        "editTextColor": "உரை நிறத்தைத் திருத்தவும்",
-        "chipBackgroundColor": "சில்லு பின்னணி நிறம்",
-        "recipientInputStyle": "பெறுநர் உள்ளீட்டு நடை",
-        "rangeFillColor": "வரம்பு நிரப்பு நிறம்",
-        "pstsIndicatorColor": "பிஎச்டிஎச் காட்டி நிறம்",
-        "pstsTabBackground": "பிஎச்டிஎச் தாவல் பின்னணி",
-        "pstsDividerColor": "PSTS வகுப்பி நிறம்",
-        "statusBarBackground": "நிலை பட்டி பின்னணி நிறம்",
-        "strokeColor": "பக்கவாதம் நிறம்",
-        "tabTextColor": "தாவல் உரை நிறம்",
-        "statusBarForeground": "நிலை பட்டி முன்புற நிறம்",
-        "storyReplayViewRingColor": "கதை மறுபதிப்பு காட்சி வளைய நிறம்",
-        "sigColorButtonPrimary": "முதன்மை பொத்தான் நிறம்",
-        "sigColorStoryRingFriendsFeedStoryRing": "கதை வளைய நண்பர்கள் கதை வளைய நிறத்தை உண்பார்கள்",
-        "sigColorBaseAppYellow": "அடிப்படை பயன்பாடு மஞ்சள் நிறம்",
-        "sigColorBackgroundSurfaceTranslucent": "கசியும் பின்னணி மேற்பரப்பு நிறம்",
-        "sigColorStoryRingDiscoverTabThumbnailStoryRing": "ச்டோரி ரிங் டிச்கவர் தாவல் சிறுபடம் கதை மோதிரம் நிறம்",
-        "listBackgroundDrawable": "உரையாடல் பட்டியல் பின்னணி",
-        "sigColorChatConversationsLine": "உரையாடல்கள் வரி நிறம்",
-        "ringColor": "வளைய நிறம்"
     },
     "send_override_dialog": {
         "title": "மீடியாவை {type அச் ஆக அனுப்பவும்",

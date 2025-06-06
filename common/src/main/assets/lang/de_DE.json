@@ -36,9 +36,7 @@
             "better_location": "Besserer Standort",
             "file_imports": "Datei Importe",
             "manage_rule_feature": "Regelfunktion verwalten",
-            "manage_repos": "Repositorien verwalten",
-            "theming": "Personalisierung",
-            "edit_theme": "Theme bearbeiten"
+            "manage_repos": "Repositorien verwalten"
         },
         "sections": {
             "features": {
@@ -183,9 +181,6 @@
                 "import_file_button": "Datei importieren",
                 "file_not_found": "Datei nicht gefunden",
                 "file_import_failed": "Importieren der Datei fehlgeschlagen: {error}"
-            },
-            "theming": {
-                "no_themes_hint": "Keine Personalisierungen gefunden"
             }
         },
         "dialogs": {
@@ -487,10 +482,6 @@
                     "message_indicators": {
                         "name": "Nachrichtenindikatoren",
                         "description": "Fügt Nachrichten spezifische Anzeigesymbole hinzu\nHinweis: Die Symbole sind möglicherweise nicht 100 % genau"
-                    },
-                    "custom_theme": {
-                        "description": "Individualisiere Snapchat's Farben\nHinweis: Wenn du einen dunkles Thema (wie Amoled) wählst, musst du möglicherweise den dunklen Modus in den Einstellungen von Snapchat aktivieren für ein besseres Ergebnis",
-                        "name": "Benutzerdefiniertes Thema"
                     },
                     "auto_close_friend_feed_menu": {
                         "description": "Schließt das Freunde Feed Menü automatisch nachdem du einen Knopf für die Einstellungen drückst"
@@ -1498,10 +1489,6 @@
         "security_features": {
             "name": "Sicherheitsfunktionen",
             "description": "Einstellungen für Sicherheitsfunktionen ändern"
-        },
-        "theming": {
-            "name": "Personalisierung",
-            "description": "Passe das Erscheinungsbild von Snapchat an"
         }
     },
     "mark_as_seen": {
