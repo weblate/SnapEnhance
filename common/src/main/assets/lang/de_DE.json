@@ -1485,10 +1485,6 @@
         "friend_tracker": {
             "name": "Freund Tracker",
             "description": "Verfolge deine Freunde auf Snapchat"
-        },
-        "security_features": {
-            "name": "Sicherheitsfunktionen",
-            "description": "Einstellungen für Sicherheitsfunktionen ändern"
         }
     },
     "mark_as_seen": {

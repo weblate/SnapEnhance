@@ -1524,10 +1524,6 @@
         "file_imports": {
             "name": "Dosya İçe Aktarımları",
             "description": "Snapchat'te kullanmak için dosyaları içe aktarma"
-        },
-        "security_features": {
-            "name": "Güvenlik Özellikleri",
-            "description": "Güvenlik özellikleri tercihlerini değiştir"
         }
     },
     "scopes": {
