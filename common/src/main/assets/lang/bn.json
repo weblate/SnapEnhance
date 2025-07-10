@@ -171,7 +171,8 @@
                 "streaks_expiration_text": "{eta}-এ মেয়াদ শেষ হবে",
                 "streaks_expiration_text_expired": "মেয়াদোত্তীর্ণ",
                 "reminder_button": "অনুস্মারক সেট করুন",
-                "delete_scope_confirm_dialog_title": "নিশ্চিত আপনি একটি {scope} মুছতে চান?"
+                "delete_scope_confirm_dialog_title": "নিশ্চিত আপনি একটি {scope} মুছতে চান?",
+                "notes_placeholder": "নোট যোগ করতে ক্লিক করুন"
             },
             "home": {
                 "update_content": "সংস্করণ {version} উপলব্ধ!",
@@ -232,7 +233,17 @@
             "manage_rule_feature": {
                 "disable_state_option": "অক্ষম করা হয়েছে",
                 "disable_state_subtext": "কোনো বন্ধু/গোষ্ঠী প্রভাবিত হবে না",
-                "whitelist_state_option": "... ছাড়া কেউ নয়"
+                "whitelist_state_option": "ছাড়া কেউ নয় ..।",
+                "whitelist_state_subtext": "এই নিয়ম দ্বারা শুধুমাত্র {count} বন্ধু/গোষ্ঠী প্রভাবিত হবে",
+                "whitelist_state_button": "অনুমোদিত বন্ধু/গোষ্ঠী নির্বাচন করুন",
+                "blacklist_state_option": "ছাড়া সবাই ..।",
+                "blacklist_state_subtext": "এই নিয়ম দ্বারা {count} বন্ধু/গোষ্ঠী ছাড়া সবাই প্রভাবিত হবে",
+                "blacklist_state_button": "বাদ দেওয়া বন্ধু/গোষ্ঠী নির্বাচন করুন",
+                "clear_list_button": "বন্ধু/গোষ্ঠীর তালিকা সাফ করুন",
+                "dialog_clear_confirmation_text": "আপনি কি নিশ্চিত যে আপনি তালিকাটি সাফ করতে চান?"
+            },
+            "better_location": {
+                "spoofed_coordinates_title": "Lat {latitude}, Lng {longitude}"
             }
         },
         "dialogs": {
