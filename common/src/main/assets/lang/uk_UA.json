@@ -31,14 +31,12 @@
             "edit_rule": "Редагувати правило",
             "home_logs": "Журнали",
             "logger_history": "Історія реєстратора",
-            "edit_theme": "Редагувати тему",
             "manage_repos": "Керування репозиторіями",
             "manage_scope": "Керувати обсягом",
             "messaging_preview": "Попередній перегляд",
             "scripts": "Сценарії",
             "file_imports": "Імпорт файлів",
-            "social": "Соціальний",
-            "theming": "Тематизація"
+            "social": "Соціальний"
         },
         "sections": {
             "features": {
@@ -183,9 +181,6 @@
                 "download_attachment_failed_toast": "Не вдалося завантажити вкладений файл",
                 "list_friend_format": "Друг {name}",
                 "unknown_sender": "Невідомий відправник"
-            },
-            "theming": {
-                "no_themes_hint": "Теми не знайдено"
             }
         },
         "dialogs": {
@@ -580,10 +575,6 @@
             },
             "user_interface": {
                 "properties": {
-                    "custom_theme": {
-                        "name": "Спеціальна тема",
-                        "description": "Налаштуйте кольори Snapchat\nПримітка: якщо ви виберете темну тему (наприклад, Amoled), можливо, вам доведеться ввімкнути темний режим у налаштуваннях Snapchat для кращих результатів"
-                    },
                     "hide_ui_components": {
                         "name": "Приховати компоненти інтерфейсу користувача",
                         "description": "Виберіть, які компоненти інтерфейсу користувача приховати"
@@ -976,25 +967,13 @@
                                 "name": "Видаліть прапор транспортування VPN",
                                 "description": "Запобігає Snapchat виявляти VPN"
                             },
-                            "fingerprint": {
-                                "name": "Відбиток пальця пристрою",
-                                "description": "Підробка відбитків пальців вашого пристрою"
-                            },
                             "play_store_installer_package_name": {
                                 "name": "Назва пакета інсталятора Play Store",
                                 "description": "Замінює назву пакета інсталятора на com.android.vending"
                             },
-                            "android_id": {
-                                "name": "Android ID",
-                                "description": "Підмінює ваш Android ID на вказане значення"
-                            },
                             "remove_mock_location_flag": {
                                 "name": "Видаліть позначку фіктивного розташування",
                                 "description": "Запобігає Snapchat виявляти фальшиве місцезнаходження"
-                            },
-                            "randomize_persistent_device_token": {
-                                "description": "Генерує випадковий маркер пристрою після кожного входу",
-                                "name": "Рандомізуйте постійний маркер пристрою"
                             }
                         },
                         "description": "Підробка різної інформації про вас",
@@ -1020,10 +999,6 @@
                     },
                     "better_transcript": {
                         "properties": {
-                            "enhanced_transcript_in_notifications": {
-                                "name": "Розширена транскрипція в сповіщеннях",
-                                "description": "Транскрибує голосові нотатки в сповіщеннях за допомогою DeepL. Для цього в Better Notifications потрібно ввімкнути функцію попереднього перегляду чату"
-                            },
                             "force_transcription": {
                                 "name": "Примусова транскрипція голосової нотатки",
                                 "description": "Дозволяє транскрибувати всі голосові нотатки"
@@ -1031,10 +1006,6 @@
                             "preferred_transcription_lang": {
                                 "name": "Бажана мова транскрипції",
                                 "description": "Бажана мова для розшифровки голосової нотатки (наприклад, EN, ES, FR)"
-                            },
-                            "enhanced_transcript": {
-                                "name": "Покращена транскрипція",
-                                "description": "Покращує розшифровку голосових нотаток за допомогою DeepL.\nПеред використанням цієї функції переконайтеся, що ви прочитали їхню політику конфіденційності."
                             }
                         },
                         "name": "Краща транскрипція",
@@ -1285,12 +1256,6 @@
                 "bitmoji_avatar_changes": "Сповіщати, коли хтось змінює свій аватар Bitmoji",
                 "remove_friend": "Сповіщати, коли хтось видаляє вас зі списку друзів"
             },
-            "custom_theme": {
-                "amoled_dark_mode": "Темний режим Amoled",
-                "custom": "Спеціальні теми (використовуйте швидкі дії для керування темами)",
-                "material_you_light": "Material You Світло (Android 12+)",
-                "material_you_dark": "Material You Темний (Android 12+)"
-            },
             "gallery_media_send_override": {
                 "ORIGINAL": "Оригінальний носій",
                 "SNAP": "Знімок",
@@ -1402,14 +1367,6 @@
         "regen_mappings": {
             "name": "Відновити зіставлення",
             "description": "Відновити зіставлення вручну"
-        },
-        "security_features": {
-            "name": "Функції безпеки",
-            "description": "Змінити налаштування функцій безпеки"
-        },
-        "theming": {
-            "name": "Тематизація",
-            "description": "Налаштуйте зовнішній вигляд Snapchat"
         }
     },
     "half_swipe_notifier": {
@@ -1482,48 +1439,6 @@
         "accept_public_key_failure_toast": "Не вдалося прийняти відкритий ключ",
         "accept_secret_key_failure_toast": "Не вдалося прийняти секретний ключ",
         "accept_public_key_button": "Прийняти відкритий ключ"
-    },
-    "theming_attributes": {
-        "sigColorTextPrimary": "Основний колір тексту",
-        "sigColorChatChat": "Колір тексту основної стрічки друзів",
-        "sigColorChatSnapWithSound": "Знімки зі звуковим кольором тексту",
-        "ringStartColor": "Початковий колір дзвінка",
-        "sigColorLayoutPlaceholder": "Колір заповнювача макета",
-        "recipientPillBackgroundDrawable": "Одержувач таблетки фону",
-        "scButtonColor": "Колір кнопки Snapchat",
-        "rangeFillColor": "Колір заливки діапазону",
-        "pstsDividerColor": "Колір розділювача PSTS",
-        "statusBarBackground": "Колір тла рядка стану",
-        "editTextColor": "Редагувати колір тексту",
-        "chipBackgroundColor": "Колір фону мікросхеми",
-        "sigColorBackgroundSurface": "Колір фонової поверхні",
-        "sigColorChatPendingSending": "Колір тексту каналу вторинних друзів",
-        "sigColorBackgroundMain": "Колір фону",
-        "listBackgroundDrawable": "Тло списку розмов",
-        "sigColorChatConversationsLine": "Колір лінії розмов",
-        "sigColorStoryRingDiscoverTabThumbnailStoryRing": "Історійне кільце Відкрийте вкладку Мініатюра Колір сюжетного кільця",
-        "boxBackgroundColor": "Колір фону коробки",
-        "recipientInputStyle": "Стиль введення одержувача",
-        "actionSheetRoundedBackgroundDrawable": "Круглий фоновий колір меню дій",
-        "strokeColor": "Колір обведення",
-        "listDivider": "Колір роздільника списку",
-        "sigColorIconSecondary": "Додатковий колір значка",
-        "pstsIndicatorColor": "Колір індикатора PSTS",
-        "pstsTabBackground": "Фон вкладки PSTS",
-        "sigColorChatSnapWithoutSound": "Знімки без звукового кольору тексту",
-        "actionSheetDescriptionTextColor": "Дія Меню Опис Колір тексту",
-        "actionSheetBackgroundDrawable": "Колір фону меню дій",
-        "sigColorIconPrimary": "Колір значка меню дій",
-        "sigExceptionColorCameraGridLines": "Колір сітки камери",
-        "itemShapeFillColor": "Колір заливки форми елемента",
-        "ringColor": "Колір кільця",
-        "tabTextColor": "Колір тексту вкладки",
-        "statusBarForeground": "Колір переднього плану рядка стану",
-        "storyReplayViewRingColor": "Колір кільця перегляду історії",
-        "sigColorButtonPrimary": "Колір основної кнопки",
-        "sigColorBaseAppYellow": "Базовий додаток жовтого кольору",
-        "sigColorBackgroundSurfaceTranslucent": "Напівпрозорий фоновий колір поверхні",
-        "sigColorStoryRingFriendsFeedStoryRing": "Колір кільця Story Ring Friends Feed Story Ring"
     },
     "conversation_preview": {
         "no_messages": "Повідомлень не знайдено!",

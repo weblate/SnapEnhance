@@ -35,8 +35,6 @@
             "edit_rule": "Regel bewerken",
             "better_location": "Betere Locatie",
             "file_imports": "Geïmporteerde bestanden",
-            "theming": "Thema's",
-            "edit_theme": "Thema bewerken",
             "manage_repos": "Repositories Beheren"
         },
         "sections": {
@@ -165,9 +163,6 @@
                 "file_imported": "Bestand succesvol geïmporteerd",
                 "no_files_hint": "Hier kan je bestanden importeren om in Snapchat te gebruiken. Druk op de onderstaande knop om een bestand te importeren.",
                 "import_file_button": "Bestand Importeren"
-            },
-            "theming": {
-                "no_themes_hint": "Geen thema's gevonden"
             }
         },
         "dialogs": {
@@ -453,9 +448,6 @@
         "regen_mappings": {
             "name": "Mappings Regenereren",
             "description": "Mappings Handmatig Regenereren"
-        },
-        "security_features": {
-            "name": "Beveiligingsfuncties"
         }
     }
 }

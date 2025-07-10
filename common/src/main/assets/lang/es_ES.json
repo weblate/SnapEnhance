@@ -35,8 +35,6 @@
             "edit_rule": "Editar regla",
             "file_imports": "Importación de archivos",
             "better_location": "Mejor ubicación",
-            "theming": "Temática",
-            "edit_theme": "Editar tema",
             "manage_repos": "Administrar repositorios",
             "manage_rule_feature": "Gestionar las reglas"
         },
@@ -166,9 +164,6 @@
                 "latitude_dialog_hint": "Latitud",
                 "longitude_dialog_hint": "Longitud",
                 "suspend_location_updates": "Suspender las actualizaciones de ubicación"
-            },
-            "theming": {
-                "no_themes_hint": "No se encontraron temas"
             },
             "manage_rule_feature": {
                 "whitelist_state_button": "Seleccionar amig@s/grupos permitidos",
@@ -315,14 +310,6 @@
         "logger_history": {
             "description": "Ver el historial de mensajes guardados",
             "name": "Historial del registro"
-        },
-        "theming": {
-            "description": "Personaliza la apariencia de Snapchat",
-            "name": "Temática"
-        },
-        "security_features": {
-            "name": "Características de seguridad",
-            "description": "Cambiar las preferencias de las funciones de seguridad"
         }
     },
     "scopes": {
@@ -432,10 +419,6 @@
                     "auto_close_friend_feed_menu": {
                         "name": "Menú de feed de amigos cercanos automáticos",
                         "description": "Cierra automáticamente el menú de Feed de amigos después de presionar un botón de configuración"
-                    },
-                    "custom_theme": {
-                        "name": "Tema personalizado",
-                        "description": "Personalizar los colores de Snapchat\nNota: si eliges un tema oscuro (como Amoled), es posible que tengas que activar el modo oscuro en los ajustes de Snapchat para obtener mejores resultados"
                     }
                 },
                 "name": "Interfaz de usuario",
@@ -1076,14 +1059,6 @@
                     },
                     "better_transcript": {
                         "properties": {
-                            "enhanced_transcript": {
-                                "description": "Mejora la transcripción de notas de voz usando DeepL.\nAntes de utilizar esta función, asegúrese de haber leído su política de privacidad.",
-                                "name": "Transcripción mejorada"
-                            },
-                            "enhanced_transcript_in_notifications": {
-                                "name": "Transcripción mejorada en las notificaciones",
-                                "description": "Transcribe notas de voz en notificaciones utilizando la dirección DeepL. Esto requiere que la función Vista previa del chat esté habilitada en Mejores notificaciones"
-                            },
                             "force_transcription": {
                                 "description": "Permitir transcribir todas las notas de voz",
                                 "name": "Forzar transcripción de notas de voz"
@@ -1330,12 +1305,6 @@
                 "bitmoji_avatar_changes": "Notificar si alguien cambia su avatar de Bitmoji",
                 "bitmoji_background_changes": "Notificar si alguien cambia el fondo de su Bitmoji",
                 "bitmoji_scene_changes": "Notificar si alguien cambia su escena de Bitmoji"
-            },
-            "custom_theme": {
-                "custom": "Temas personalizados (utilice las acciones rápidas para gestionar los temas)",
-                "material_you_dark": "Material You oscuro (Android 12+)",
-                "amoled_dark_mode": "Modo oscuro Amoled",
-                "material_you_light": "Material You claro (Android 12+)"
             }
         }
     },
@@ -1606,46 +1575,6 @@
     "streaks_reminder": {
         "notification_title": "Rachas",
         "notification_text": "Perderás tu racha con {friend} en {hoursLeft} horas"
-    },
-    "theming_attributes": {
-        "sigColorTextPrimary": "Color principal del texto",
-        "sigColorBackgroundSurface": "Color del fondo",
-        "sigColorChatSnapWithSound": "Color del contenido de los Snaps de voz",
-        "sigColorChatSnapWithoutSound": "Color del contenido de los Snaps de texto",
-        "sigColorBackgroundMain": "Color de fondo",
-        "actionSheetBackgroundDrawable": "Color de fondo del Menú de acciones",
-        "actionSheetRoundedBackgroundDrawable": "Color de fondo redondeado del menú de acciones",
-        "sigExceptionColorCameraGridLines": "Color de las cuadrículas de la cámara",
-        "listDivider": "Color del separador de las listas",
-        "actionSheetDescriptionTextColor": "Color del texto de la descripción",
-        "listBackgroundDrawable": "Fondo de lista de la conversación",
-        "sigColorIconSecondary": "Color secundario del icono",
-        "sigColorChatConversationsLine": "Color de la línea de la conversación",
-        "sigColorIconPrimary": "Color del icono del menú de acciones",
-        "itemShapeFillColor": "Color de relleno de la forma del elemento",
-        "boxBackgroundColor": "Color de fondo del cuadro",
-        "recipientInputStyle": "Forma de entrada del destinatario",
-        "rangeFillColor": "Color de relleno para el rango",
-        "statusBarForeground": "Color en primer plano de la barra de estado",
-        "statusBarBackground": "Color en segundo plano de la barra de estado",
-        "sigColorButtonPrimary": "Color del botón principal",
-        "editTextColor": "Editar color del texto",
-        "pstsTabBackground": "Fondo de la pestaña PSTS",
-        "pstsDividerColor": "Color del divisor PSTS",
-        "tabTextColor": "Color del texto de la pestaña",
-        "pstsIndicatorColor": "Color del indicador PSTS",
-        "strokeColor": "Color del trazo",
-        "scButtonColor": "Color del botón de Snapchat",
-        "sigColorBaseAppYellow": "Aplicación principal de color amarillo",
-        "sigColorBackgroundSurfaceTranslucent": "Color del fondo translúcido",
-        "sigColorChatChat": "Color del texto del feed del amigo principal",
-        "sigColorChatPendingSending": "Color del texto del feed para otros amigos",
-        "ringColor": "Color del anillo",
-        "sigColorLayoutPlaceholder": "Color del marcador de posición",
-        "chipBackgroundColor": "Color de fondo del chip",
-        "ringStartColor": "Color inicial del anillo",
-        "storyReplayViewRingColor": "Repetición del historial Ver el color del círculo",
-        "sigColorStoryRingFriendsFeedStoryRing": "Color del círculo del feed de los amigos y las historias"
     },
     "send_override_dialog": {
         "title": "Enviar medios como {type}",

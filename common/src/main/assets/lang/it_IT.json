@@ -109,8 +109,7 @@
             "better_location": "Migliora la geolocalizzazione",
             "file_imports": "Importa file",
             "edit_rule": "Modifica regola",
-            "scripts": "Scripts",
-            "edit_theme": "Modifica Tema"
+            "scripts": "Scripts"
         }
     },
     "setup": {

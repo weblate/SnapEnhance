@@ -35,8 +35,6 @@
             "friend_tracker": "Traqueur d'amis",
             "file_imports": "Importations de fichiers",
             "better_location": "Localisation Améliorée",
-            "theming": "Thèmes",
-            "edit_theme": "Modifier le thème",
             "manage_repos": "Gérer les dépots",
             "manage_rule_feature": "Gérer la règle de la fonctionnalité"
         },
@@ -171,9 +169,6 @@
                 "latitude_dialog_hint": "Latitude",
                 "longitude_dialog_hint": "Longitude",
                 "suspend_location_updates": "Suspendre les mises à jour de localisation"
-            },
-            "theming": {
-                "no_themes_hint": "Aucun thème trouvé"
             },
             "manage_rule_feature": {
                 "disable_state_option": "Désactivé",
@@ -494,10 +489,6 @@
                     "auto_close_friend_feed_menu": {
                         "name": "Menu de fermeture automatique du fil d'amis",
                         "description": "Ferme automatiquement le menu liste d'amis après avoir appuyé sur un bouton de réglage"
-                    },
-                    "custom_theme": {
-                        "description": "Personnalisez les couleurs de Snapchat\nRemarque : si vous choisissez un thème sombre (comme Amoled), vous devrez peut-être activer le mode sombre dans les paramètres de Snapchat pour de meilleurs résultats",
-                        "name": "Thème personnalisé"
                     },
                     "hide_quick_add_suggestions": {
                         "name": "Masquer les suggestions d'ajout rapide",
@@ -1065,17 +1056,9 @@
                                 "description": "Permet de transcrire toutes les notes vocales",
                                 "name": "Forcer la transcription des notes vocales"
                             },
-                            "enhanced_transcript": {
-                                "name": "Transcription améliorée",
-                                "description": "Améliore la transcription des notes vocales à l'aide de DeepL.\nAvant d'utiliser cette fonctionnalité, assurez-vous d'avoir lu leur politique de confidentialité."
-                            },
                             "preferred_transcription_lang": {
                                 "name": "Langue de transcription préférée",
                                 "description": "La langue préférée pour la transcription des notes vocales (par exemple EN, ES, FR)"
-                            },
-                            "enhanced_transcript_in_notifications": {
-                                "name": "Transcription améliorée dans les notifications",
-                                "description": "Transcrit les notes vocales dans les notifications à l'aide de DeepL. Cela nécessite que la fonctionnalité Aperçu du chat soit activée dans Meilleur Notifications"
                             }
                         },
                         "name": "Meilleure transcription",
@@ -1317,12 +1300,6 @@
                 "bitmoji_avatar_changes": "Vous averti lorsque quelqu'un change son avatar Bitmoji",
                 "bitmoji_background_changes": "Vous averti lorsque quelqu'un modifie son arrière-plan Bitmoji",
                 "bitmoji_scene_changes": "Vous averti lorsque quelqu'un change sa scène Bitmoji"
-            },
-            "custom_theme": {
-                "amoled_dark_mode": "Mode sombre Amoled",
-                "custom": "Thèmes personnalisés (utilisez les actions rapides pour gérer les thèmes)",
-                "material_you_light": "Material You Light (Android 12+)",
-                "material_you_dark": "Materiel You Light (Android 12+)"
             },
             "snapchat_plus": {
                 "not_subscribed": "Non abonné",
@@ -1602,14 +1579,6 @@
         "friend_tracker": {
             "name": "Traqueur d'amis",
             "description": "Traquer vos amis sur Snapchat"
-        },
-        "security_features": {
-            "name": "Fonctions de sécurité",
-            "description": "Modifier les préférences des fonctionnalités de sécurité"
-        },
-        "theming": {
-            "name": "Thèmes",
-            "description": "Personnalisez l'apparence de Snapchat"
         }
     },
     "mark_as_seen": {
@@ -1668,48 +1637,6 @@
         "birthday_removed": "{username} a supprimé son anniversaire ({birthday})",
         "birthday_added": "{username} a ajouté son anniversaire ({birthday})",
         "bitmoji_scene_changed": "{username} a changé sa scène Bitmoji"
-    },
-    "theming_attributes": {
-        "listBackgroundDrawable": "Liste de conversations",
-        "sigColorChatConversationsLine": "Couleur de la ligne de conversation",
-        "actionSheetBackgroundDrawable": "Couleur d’arrière-plan du menu d’action",
-        "actionSheetRoundedBackgroundDrawable": "Couleur d'arrière-plan ronde du menu d'action",
-        "sigColorIconPrimary": "Couleur d'arrière-plan ronde du menu d'action",
-        "sigExceptionColorCameraGridLines": "Couleur du quadrillage de la caméra",
-        "rangeFillColor": "Couleur de remplissage de plage",
-        "pstsIndicatorColor": "Couleur de l’indicateur PSTS",
-        "pstsTabBackground": "Arrière-plan de l'onglet PSTS",
-        "pstsDividerColor": "Couleur du séparateur PSTS",
-        "statusBarBackground": "Couleur d'arrière-plan de la barre d'état",
-        "strokeColor": "Couleur du trait",
-        "storyReplayViewRingColor": "Voir la rediffusion de l'histoire Couleur de la bague",
-        "sigColorButtonPrimary": "Couleur du bouton principal",
-        "sigColorBaseAppYellow": "Couleur jaune de l'application de base",
-        "sigColorBackgroundSurfaceTranslucent": "Couleur de la surface de fond translucide",
-        "sigColorStoryRingFriendsFeedStoryRing": "Bague d'histoire Flux d'amis Couleur de la bague d'histoire",
-        "sigColorStoryRingDiscoverTabThumbnailStoryRing": "Story Ring Onglet Découverte Vignette Story Ring Couleur",
-        "sigColorTextPrimary": "Couleur du texte principal",
-        "sigColorChatChat": "Couleur du texte du flux d'amis principal",
-        "sigColorBackgroundSurface": "Couleur de la surface d'arrière-plan",
-        "sigColorChatPendingSending": "Couleur du texte du fil d’ami secondaire",
-        "sigColorChatSnapWithSound": "Snaps avec la couleur du texte sonore",
-        "sigColorChatSnapWithoutSound": "Snaps sans couleur de texte sonore",
-        "actionSheetDescriptionTextColor": "Action Menu Description Couleur du texte",
-        "sigColorBackgroundMain": "Couleur de l'arrière plan",
-        "recipientPillBackgroundDrawable": "Fond de pilule du destinataire",
-        "boxBackgroundColor": "Couleur d'arrière-plan de la boîte",
-        "editTextColor": "Modifier la couleur du texte",
-        "chipBackgroundColor": "Couleur d'arrière-plan de la puce",
-        "listDivider": "Couleur du séparateur de liste",
-        "sigColorIconSecondary": "Couleur de l’icône secondaire",
-        "recipientInputStyle": "Style de saisie du destinataire",
-        "itemShapeFillColor": "Couleur de remplissage de la forme de l'élément",
-        "ringColor": "Couleur de la bague",
-        "ringStartColor": "Couleur de début de sonnerie",
-        "sigColorLayoutPlaceholder": "Couleur de l'espace réservé à la mise en page",
-        "scButtonColor": "Couleur du bouton Snapchat",
-        "tabTextColor": "Couleur du texte de l'onglet",
-        "statusBarForeground": "Couleur de premier plan de la barre d'état"
     },
     "send_override_dialog": {
         "title": "Envoyer des médias en tant que {type}",

@@ -88,9 +88,7 @@
             "better_location": "更好的位置",
             "manage_rule_feature": "管理规则功能",
             "manage_repos": "管理资源库",
-            "file_imports": "导入文件",
-            "theming": "外观",
-            "edit_theme": "自定义外观"
+            "file_imports": "导入文件"
         },
         "sections": {
             "home": {
@@ -235,9 +233,6 @@
                 "blacklist_state_button": "选择要排除的好友或群组",
                 "clear_list_button": "清空好友/群组列表",
                 "dialog_clear_confirmation_text": "你确定要清空此列表吗?"
-            },
-            "theming": {
-                "no_themes_hint": "没有任何外观"
             }
         },
         "dialogs": {
@@ -358,10 +353,6 @@
             "name": "管理好友列表",
             "description": "在备份时导入/导出你的好友列表"
         },
-        "security_features": {
-            "description": "修改安全设置",
-            "name": "安全功能"
-        },
         "clean_snapchat_cache": {
             "name": "清理 Snapchat 临时文件",
             "description": "清理 Snapchat 临时文件"
@@ -377,10 +368,6 @@
         "logger_history": {
             "description": "查看信息历史记录",
             "name": "历史日志"
-        },
-        "theming": {
-            "name": "外观",
-            "description": "自定义 Snapchat"
         }
     },
     "features": {

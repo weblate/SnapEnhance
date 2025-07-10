@@ -35,8 +35,7 @@
             "manage_repos": "Upravljaj repozitorije",
             "file_imports": "Uvoz datotek",
             "friend_tracker": "Sledilec prijateljev",
-            "edit_rule": "Uredi pravilo",
-            "edit_theme": "Uredi temo"
+            "edit_rule": "Uredi pravilo"
         },
         "sections": {
             "tasks": {

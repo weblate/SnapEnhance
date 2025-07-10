@@ -142,8 +142,6 @@
             "file_imports": "Импорт файлов",
             "friend_tracker": "Остлеживание друга",
             "edit_rule": "Изменить правила",
-            "theming": "Интерфейс",
-            "edit_theme": "Изменть Тему",
             "manage_repos": "Управлять Хранилищами"
         },
         "dialogs": {
@@ -534,10 +532,6 @@
                             "play_store_installer_package_name": {
                                 "name": "Имя пакета установщика Play Store",
                                 "description": "Переопределяет имя пакета установщика на com.android.vending"
-                            },
-                            "fingerprint": {
-                                "name": "Отпечаток устройства",
-                                "description": "Подделывает отпечаток вашего устройства"
                             },
                             "remove_mock_location_flag": {
                                 "description": "Предотвращает обнаружение фиктивного местоположения Snapchat",

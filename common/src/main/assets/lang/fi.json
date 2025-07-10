@@ -36,8 +36,6 @@
             "better_location": "Parempi sijainti",
             "manage_rule_feature": "Hallitse sääntöominaisuutta",
             "file_imports": "Tiedostojen tuonnit",
-            "theming": "Teema",
-            "edit_theme": "Muokkaa teemaa",
             "manage_repos": "Hallinnoi tietovarastoja"
         },
         "sections": {
@@ -175,9 +173,6 @@
                 "blacklist_state_subtext": "Tämä sääntö vaikuttaa kaikkiin paitsi {count} kaveriin/ryhmään",
                 "clear_list_button": "Tyhjennä ystävä-/ryhmäluettelo",
                 "dialog_clear_confirmation_text": "Oletko varma, että haluat tyhjentää luettelon?"
-            },
-            "theming": {
-                "no_themes_hint": "Teemoja ei löytynyt"
             }
         },
         "dialogs": {
@@ -839,10 +834,6 @@
         "friend_tracker": {
             "name": "Ystävien seuranta",
             "description": "Seuraa ystäviäsi Snapchatissa"
-        },
-        "security_features": {
-            "name": "Turvaominaisuudet",
-            "description": "Muuta turvaominaisuuksien asetuksia"
         },
         "file_imports": {
             "description": "Tuo tiedostoja Snapchatissa käytettäväksi",
