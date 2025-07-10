@@ -113,7 +113,10 @@
             "logger_history": "লগার ইতিহাস",
             "friend_tracker": "বন্ধু ট্র্যাকার",
             "edit_rule": "সম্পাদনার নিয়ম",
-            "file_imports": "ফাইল আমদানি"
+            "file_imports": "ফাইল আমদানি",
+            "manage_rule_feature": "শাসন ফিচার পরিচালনা করুন",
+            "manage_repos": "ভান্ডার পরিচালনা করুন",
+            "better_location": "উন্নত অবস্থান"
         },
         "sections": {
             "features": {
@@ -168,7 +171,9 @@
             "home": {
                 "update_content": "সংস্করণ {version} উপলব্ধ!",
                 "update_title": "স্ন্যাপএনহ্যান্স আপডেট",
-                "update_button": "ডাউনলোড"
+                "update_button": "ডাউনলোড",
+                "version_title": "v{versionName} · rhunk দ্বারা",
+                "debug_build_summary_title": "আপনি স্ন্যাপএনহ্যান্স এর একটি ডিবাগ বিল্ড চালাচ্ছেন।"
             },
             "home_logs": {
                 "no_logs_hint": "কোনও লগ উপলব্ধ নেই",
