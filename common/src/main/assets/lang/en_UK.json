@@ -34,7 +34,9 @@
             "friend_tracker": "Friend Tracker",
             "edit_rule": "Edit Rule",
             "better_location": "Better Location",
-            "file_imports": "File Imports"
+            "file_imports": "File Imports",
+            "manage_rule_feature": "Manage Rule Feature",
+            "manage_repos": "Manage Repositories"
         },
         "sections": {
             "features": {
@@ -46,7 +48,10 @@
                 "reset_option": "Reset",
                 "config_export_success_toast": "Config exported Successfully",
                 "saved_config_snackbar": "Config saved",
-                "config_export_failure_toast": "Failed to export config {error}"
+                "config_export_failure_toast": "Failed to export config {error}",
+                "older_required": "This feature requires Snapchat v{version} or older to work correctly",
+                "newer_required": "This feature requires Snapchat v{version} or newer to work correctly",
+                "search_button": "Search"
             },
             "tasks": {
                 "no_tasks": "No Tasks",
@@ -56,7 +61,8 @@
                 "delete_files_option": "Also Delete Files",
                 "remove_selected_tasks_confirm": "Remove {count} Tasks?",
                 "remove_all_tasks_confirm": "Remove All Tasks?",
-                "failed_to_open_file": "Failed to open file"
+                "failed_to_open_file": "Failed to open file",
+                "merge_button": "Merge"
             },
             "social": {
                 "streaks_expiration_short": "{hours}h",
@@ -103,7 +109,8 @@
                 "delete_scope_confirm_dialog_title": "Are you sure You want to Delete a {scope}?",
                 "rules_title": "Rules",
                 "streaks_expiration_text_expired": "Expired",
-                "reminder_button": "Set Reminder"
+                "reminder_button": "Set Reminder",
+                "notes_placeholder": "Click to add a note"
             },
             "logged_stories": {
                 "story_failed_to_load": "Failed to load",
@@ -162,6 +169,18 @@
                 "latitude_dialog_hint": "Latitude",
                 "longitude_dialog_hint": "Longitude",
                 "suspend_location_updates": "Suspend Location Updates"
+            },
+            "manage_rule_feature": {
+                "disable_state_option": "Disabled",
+                "disable_state_subtext": "No friends/groups will be affected",
+                "whitelist_state_option": "No one except ...",
+                "whitelist_state_subtext": "Only {count} friends/groups will be affected by this rule",
+                "whitelist_state_button": "Select allowed friends/groups",
+                "blacklist_state_option": "Everyone except ...",
+                "blacklist_state_subtext": "Everyone except {count} friends/groups will be affected by this rule",
+                "blacklist_state_button": "Select excluded friends/groups",
+                "clear_list_button": "Clear friends/groups list",
+                "dialog_clear_confirmation_text": "Are you sure you want to clear the list?"
             }
         },
         "dialogs": {
@@ -170,7 +189,8 @@
                 "search_hint": "Search",
                 "fetch_error": "Failed to fetch data",
                 "category_groups": "Groups",
-                "category_friends": "Friends"
+                "category_friends": "Friends",
+                "participants_text": "{count} participants"
             },
             "scripting_warning": {
                 "title": "Warning",
@@ -257,6 +277,9 @@
                     "blacklist": "Exclude from Automatic Snap Opening",
                     "whitelist": "Automatically Opens Snaps"
                 }
+            },
+            "exclude_message_logger": {
+                "name": "Exclude from Message Logger"
             }
         }
     },
@@ -396,6 +419,10 @@
                     "custom_path_format": {
                         "name": "Custom Path Format",
                         "description": "Specify a custom path format for downloaded media\n\nAvailable variables:\n - %username%\n - %source%\n - %hash%\n - %date_time%"
+                    },
+                    "auto_download_voice_notes": {
+                        "name": "Auto Download Voice Notes",
+                        "description": "Automatically downloads voice notes when playing them"
                     }
                 },
                 "name": "Downloader",
@@ -427,6 +454,10 @@
                             "home_tab": {
                                 "name": "Home Tab",
                                 "description": "Overrides the startup tab when opening Snapchat"
+                            },
+                            "simple_snapchat": {
+                                "name": "Simple Snapchat",
+                                "description": "Enables a simplified version of Snapchat"
                             }
                         },
                         "name": "Bootstrap Override"
@@ -498,6 +529,14 @@
                     "edit_text_override": {
                         "name": "Edit Text Override",
                         "description": "Overrides text field behavior"
+                    },
+                    "hide_quick_add_suggestions": {
+                        "name": "Hide Quick Add Suggestions",
+                        "description": "Removes quick add friend suggestions"
+                    },
+                    "auto_close_friend_feed_menu": {
+                        "name": "Auto Close Friend Feed Menu",
+                        "description": "Automatically closes the Friend Feed Menu after pressing a setting button"
                     }
                 },
                 "name": "User Interface",
@@ -641,6 +680,10 @@
                             "keep_my_own_messages": {
                                 "name": "Keep My Own Messages",
                                 "description": "Prevents your own messages from being deleted"
+                            },
+                            "deleted_message_color": {
+                                "name": "Deleted Message Colour",
+                                "description": "Sets the colour of deleted messages"
                             }
                         }
                     },
@@ -679,6 +722,18 @@
                     "skip_when_marking_as_seen": {
                         "name": "Skip When Marking as Seen",
                         "description": "Automatically skips to the next Snap when marking a Snap as seen.\nUse in combination with Mark Snap as Seen Button"
+                    },
+                    "disable_snap_mode_restrictions": {
+                        "name": "Disable Snap Mode Restrictions",
+                        "description": "Allows you to view self-destructing Snaps without restrictions"
+                    },
+                    "double_tap_chat_action": {
+                        "name": "Double Tap Chat Action",
+                        "description": "Performs a custom action when double tapping a message in chat"
+                    },
+                    "double_tap_chat_action_custom_emoji": {
+                        "name": "Double Tap Chat Action Custom Emoji Reaction",
+                        "description": "Sets a custom emoji reaction for the double tap chat action"
                     }
                 },
                 "description": "Change how you interact with friends"
@@ -718,6 +773,10 @@
                             "walk_radius": {
                                 "name": "Walk Radius",
                                 "description": "Randomly walk around within this radius (ft)"
+                            },
+                            "show_battery_level": {
+                                "name": "Show Battery Level",
+                                "description": "Shows the battery level of your friends on the map"
                             }
                         }
                     },
@@ -856,6 +915,10 @@
                     "hevc_recording": {
                         "name": "HEVC Recording",
                         "description": "Uses HEVC (H.265) codec for video recording"
+                    },
+                    "startup_default_camera": {
+                        "name": "Startup Default Camera",
+                        "description": "Sets the default camera when opening Snapchat"
                     }
                 }
             },
@@ -906,6 +969,10 @@
                                     "show_first_created_username": {
                                         "description": "Shows the first created username next to the current username in the profile page",
                                         "name": "Show First Created Username"
+                                    },
+                                    "custom_self_destruct_snap_delay": {
+                                        "name": "Custom Self Destruct Snap Delay",
+                                        "description": "Gives more options for the self-destruct timer when sending a Snap"
                                     }
                                 },
                                 "name": "Composer Hooks",
@@ -914,6 +981,10 @@
                             "custom_emoji_font": {
                                 "description": "Allows you to use a custom emoji font. Only works with .ttf fonts",
                                 "name": "Custom Emoji Font"
+                            },
+                            "custom_shared_library": {
+                                "name": "Custom Shared Library",
+                                "description": "Loads a custom shared library into Snapchat. This feature is only for testing purposes"
                             }
                         }
                     },
@@ -1039,9 +1110,17 @@
                             "force_transcription": {
                                 "description": "Allows all voice notes to be transcribed",
                                 "name": "Force Voice Note Transcription"
+                            },
+                            "notification_transcript": {
+                                "name": "Notification Transcript",
+                                "description": "Transcribes voice notes in notifications\nThis feature requires the Chat Preview feature to be enabled in Better Notifications"
                             }
                         },
                         "description": "Improves the voice note transcript"
+                    },
+                    "voice_note_auto_play": {
+                        "name": "Voice Note Auto Play",
+                        "description": "Automatically plays the next voice note after the current one finishes"
                     }
                 }
             },
