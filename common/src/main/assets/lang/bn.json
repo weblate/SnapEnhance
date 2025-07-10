@@ -128,7 +128,10 @@
                 "config_import_success_toast": "কনফিগ সফলভাবে আমদানি করা হয়েছে",
                 "saved_config_snackbar": "কনফিগার সংরক্ষণ করা হয়েছে",
                 "config_import_failure_toast": "কনফিগ আমদানি করতে ব্যর্থ হয়েছে {error}",
-                "config_export_failure_toast": "কনফিগ রপ্তানি করতে ব্যর্থ {error}"
+                "config_export_failure_toast": "কনফিগ রপ্তানি করতে ব্যর্থ {error}",
+                "older_required": "এই ফিচারের জন্য সঠিকভাবে কাজ করার জন্য Snapchat v{version} অথবা পুরোনো সংস্করণ প্রয়োজন",
+                "newer_required": "এই ফিচারের জন্য সঠিকভাবে কাজ করার জন্য Snapchat v{version} অথবা নতুন সংস্করণ প্রয়োজন",
+                "search_button": "অনুসন্ধান"
             },
             "social": {
                 "streaks_expiration_short": "{hours}h",
@@ -143,7 +146,9 @@
                 "remove_selected_tasks_title": "নিশ্চিত আপনি নির্বাচিত কাজগুলি সরাতে চান?",
                 "remove_all_tasks_title": "নিশ্চিত আপনি সব কাজ অপসারণ করতে চান?",
                 "remove_all_tasks_confirm": "সমস্ত কাজ মুছে ফেলুন?",
-                "merge_files_toast": "{count} ফাইল মিশ্রণ"
+                "merge_files_toast": "{count} ফাইল মিশ্রণ",
+                "merge_button": "একত্রিত করুন",
+                "failed_to_open_file": "ফাইল খুলতে ব্যর্থ হয়েছে"
             },
             "home_settings": {
                 "export_button": "রপ্তানি",
@@ -173,7 +178,10 @@
                 "update_title": "স্ন্যাপএনহ্যান্স আপডেট",
                 "update_button": "ডাউনলোড",
                 "version_title": "v{versionName} · rhunk দ্বারা",
-                "debug_build_summary_title": "আপনি স্ন্যাপএনহ্যান্স এর একটি ডিবাগ বিল্ড চালাচ্ছেন।"
+                "debug_build_summary_title": "আপনি স্ন্যাপএনহ্যান্স এর একটি ডিবাগ বিল্ড চালাচ্ছেন",
+                "debug_build_summary_content": "সংস্করণ {versionName} ({versionCode})",
+                "debug_build_summary_date": "বিল্ডের তারিখ: {date} ({days} দিন আগে)",
+                "quick_actions_title": "দ্রুত অ্যাকশন"
             },
             "home_logs": {
                 "no_logs_hint": "কোনও লগ উপলব্ধ নেই",
@@ -220,6 +228,11 @@
                 "file_not_found": "ফাইল পাওয়া যায়নি",
                 "file_import_failed": "ফাইল আমদানি ব্যর্থ হয়েছে: {error}",
                 "file_delete_failed": "ফাইল মুছে ফেলতে ব্যর্থ হয়েছে"
+            },
+            "manage_rule_feature": {
+                "disable_state_option": "অক্ষম করা হয়েছে",
+                "disable_state_subtext": "কোনো বন্ধু/গোষ্ঠী প্রভাবিত হবে না",
+                "whitelist_state_option": "... ছাড়া কেউ নয়"
             }
         },
         "dialogs": {
