@@ -1070,7 +1070,7 @@
                             },
                             "notification_transcript": {
                                 "name": "Transcription des notifications",
-                                "description": "Transcrit les notes vocales dans les notifications. Cette fonctionnalité nécessite l'activation de l'aperçu du chat dans Notifications améliorées."
+                                "description": "Transcrit les notes vocales dans les notifications.\nCette fonctionnalité nécessite l'activation de l'aperçu du chat dans Notifications améliorées."
                             }
                         },
                         "name": "Meilleure transcription",
