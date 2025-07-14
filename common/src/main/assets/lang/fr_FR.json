@@ -685,6 +685,10 @@
                     "double_tap_chat_action": {
                         "name": "Action de chat en appuyant deux fois",
                         "description": "Effectue une action personnalisée en appuyant deux fois sur un message dans le chat"
+                    },
+                    "disable_snap_mode_restrictions": {
+                        "name": "Désactiver les restrictions du Snap mode",
+                        "description": "Vous permet de visualiser les Snaps qui s’autodétruit sans restrictions"
                     }
                 }
             },
@@ -924,6 +928,10 @@
                                     "show_first_created_username": {
                                         "description": "Affiche le premier nom d'utilisateur créé à côté du nom d'utilisateur actuel dans la page de profil",
                                         "name": "Afficher le premier nom d'utilisateur créé"
+                                    },
+                                    "custom_self_destruct_snap_delay": {
+                                        "name": "Délai d'autodestruction personnalisé",
+                                        "description": "Donne plus d'options pour le minuteur d'autodestruction lors de l'envoi d'un Snap"
                                     }
                                 }
                             },
@@ -1059,6 +1067,10 @@
                             "preferred_transcription_lang": {
                                 "name": "Langue de transcription préférée",
                                 "description": "La langue préférée pour la transcription des notes vocales (par exemple EN, ES, FR)"
+                            },
+                            "notification_transcript": {
+                                "name": "Transcription des notifications",
+                                "description": "Transcrit les notes vocales dans les notifications. Cette fonctionnalité nécessite l'activation de l'aperçu du chat dans Notifications améliorées."
                             }
                         },
                         "name": "Meilleure transcription",
