@@ -241,7 +241,7 @@
                 "description": "Prevents anyone from knowing you've opened their Snaps/Chats and conversations",
                 "options": {
                     "blacklist": "Exclude from Stealth Mode",
-                    "whitelist": "Stealth Mode"
+                    "whitelist": "Stealth mode"
                 },
                 "name": "Stealth Mode"
             },
