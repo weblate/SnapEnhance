@@ -32,7 +32,11 @@
             "manage_scope": "Administrer omfang",
             "messaging_preview": "Forhåndsvisning",
             "friend_tracker": "Ven Tracker",
-            "edit_rule": "Rediger regel"
+            "edit_rule": "Rediger regel",
+            "manage_rule_feature": "Administrer regelfunktion",
+            "file_imports": "Filimport",
+            "manage_repos": "Administrer arkiver",
+            "better_location": "Bedre placering"
         },
         "sections": {
             "features": {
@@ -43,7 +47,11 @@
                 "reset_option": "Nulstil",
                 "config_export_success_toast": "Konfigurationen blev eksporteret",
                 "config_import_failure_toast": "Kunne ikke importere konfiguration {error}",
-                "saved_config_snackbar": "Konfiguration gemt"
+                "saved_config_snackbar": "Konfiguration gemt",
+                "config_export_failure_toast": "Kunne ikke eksportere konfiguration {error}",
+                "older_required": "Denne funktion kræver Snapchat v{version} eller ældre for at fungere korrekt",
+                "newer_required": "Denne funktion kræver Snapchat v{version} eller nyere for at fungere korrekt",
+                "search_button": "Søg"
             },
             "social": {
                 "streaks_expiration_short": "{hours} timer",
@@ -58,7 +66,9 @@
                 "remove_selected_tasks_title": "Er du sikker på, at du vil fjerne valgte opgaver?",
                 "remove_all_tasks_title": "Er du sikker på, at du vil fjerne alle opgaver?",
                 "delete_files_option": "Slet også filer",
-                "remove_selected_tasks_confirm": "Vil du fjerne {count} opgaver?"
+                "remove_selected_tasks_confirm": "Vil du fjerne {count} opgaver?",
+                "merge_button": "Flet",
+                "failed_to_open_file": "Kunne ikke åbne fil"
             },
             "logger_history": {
                 "chat_attachment": "Vedhæftet {index}",
@@ -82,7 +92,8 @@
                 "streaks_length_text": "Længde: {length}",
                 "streaks_expiration_text": "Udløber om {eta}",
                 "streaks_expiration_text_expired": "Udløbet",
-                "delete_scope_confirm_dialog_title": "Er du sikker på, at du vil slette et {scope}?"
+                "delete_scope_confirm_dialog_title": "Er du sikker på, at du vil slette et {scope}?",
+                "notes_placeholder": "Klik for at tilføje en note"
             },
             "logged_stories": {
                 "no_stories": "Ingen historier fundet",
@@ -91,8 +102,8 @@
             },
             "messaging_preview": {
                 "delete_selection_option": "Slet markering",
-                "bridge_connection_failed": "Kunne ikke oprette forbindelse til Snapchat via bridge-tjenesten",
-                "bridge_init_failed": "Kunne ikke initialisere meddelelses broen",
+                "bridge_connection_failed": "Kunne ikke oprette forbindelse til broen. Sørg for, at Snapchat kører i baggrunden",
+                "bridge_init_failed": "Kunne ikke initialisere meddelelsesbroen. Sørg for, at Snapchat kører i baggrunden",
                 "message_fetch_failed": "Kunne ikke hente beskeder",
                 "no_message_hint": "Ingen besked",
                 "save_selection_option": "Gem valg",
@@ -106,7 +117,12 @@
             "home": {
                 "update_title": "SnapEnhance Opdatering",
                 "update_content": "Version {version} er tilgængelig!",
-                "update_button": "Hent"
+                "update_button": "Hent",
+                "version_title": "v{versionName} · af rhunk",
+                "debug_build_summary_title": "Du kører en fejlfindingsversion af SnapEnhance",
+                "debug_build_summary_content": "Version {versionName} ({versionCode})",
+                "debug_build_summary_date": "Byggedato: {date} ({days} dage siden)",
+                "quick_actions_title": "Hurtige handlinger"
             },
             "home_logs": {
                 "no_logs_hint": "Ingen logfiler tilgængelige",
@@ -125,6 +141,29 @@
                 "export_button": "Eksport",
                 "clear_button": "Ryd",
                 "view_logger_history_button": "Se logger historik"
+            },
+            "manage_rule_feature": {
+                "disable_state_option": "Deaktiveret",
+                "disable_state_subtext": "Ingen venner/grupper vil blive påvirket",
+                "whitelist_state_option": "Ingen undtagen ...",
+                "whitelist_state_subtext": "Kun {count} venner/grupper vil blive påvirket af denne regel",
+                "whitelist_state_button": "Vælg tilladte venner/grupper",
+                "blacklist_state_option": "Alle undtagen ...",
+                "blacklist_state_subtext": "Alle undtagen {count} venner/grupper vil blive påvirket af denne regel",
+                "blacklist_state_button": "Vælg udeladte venner/grupper",
+                "clear_list_button": "Ryd venners/gruppers liste",
+                "dialog_clear_confirmation_text": "Er du sikker på, at du vil rydde listen?"
+            },
+            "file_imports": {
+                "import_file_button": "Importér fil",
+                "file_not_found": "Fil ikke fundet",
+                "file_import_failed": "Kunne ikke importere fil: {error}",
+                "file_imported": "Filen blev importeret",
+                "file_delete_failed": "Kunne ikke slette fil",
+                "no_files_hint": "Her kan du importere filer til brug i Snapchat. Tryk på knappen nedenfor for at importere en fil."
+            },
+            "better_location": {
+                "spoofed_coordinates_title": "Lat {latitude}, Lng {longitude}"
             }
         },
         "dialogs": {
