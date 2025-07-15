@@ -1197,8 +1197,8 @@
                 "SAVEABLE_SNAP": "Gembar snap"
             },
             "hide_ui_components": {
-                "hide_profile_call_buttons": "Fjern Profilopkaldsknapper",
-                "hide_chat_call_buttons": "Fjern Profilopkaldsknapper",
+                "hide_profile_call_buttons": "Fjern profilopkaldsknapper",
+                "hide_chat_call_buttons": "Fjern chat-opkaldsknapper",
                 "hide_live_location_share_button": "Fjern Knappen Live Placeringsdeling",
                 "hide_stickers_button": "Fjern Klistermærker Knap",
                 "hide_voice_record_button": "Fjern Stemmeoptagelsesknap",
@@ -1325,7 +1325,13 @@
             "double_tap_chat_action": {
                 "like_message": "Synes godt om besked",
                 "copy_text": "Kopier tekst til udklipsholder",
-                "delete_message": "Slet meddelelse"
+                "delete_message": "Slet meddelelse",
+                "mark_as_read": "Markér som læst",
+                "custom_emoji_reaction": "Brugerdefineret emoji-reaktion"
+            },
+            "startup_default_camera": {
+                "front": "Frontkamera",
+                "back": "Bagkamera"
             }
         }
     },
@@ -1342,7 +1348,8 @@
         "download_button": "Hent",
         "delete_logged_message_button": "Slet Logget Besked",
         "convert_message": "Konverter besked",
-        "edit_message": "Rediger besked"
+        "edit_message": "Rediger besked",
+        "show_chat_edit_history": "Vis chathistorik"
     },
     "opera_context_menu": {
         "download": "Hent medie",
@@ -1364,7 +1371,8 @@
         "streak_expiration": "udløber på {day} dage {hour} timer {minute} minutter",
         "total_messages": "Total sendt/modtagne meddelelser: {count}",
         "title": "Forhåndsvisning",
-        "unknown_user": "Ukendt bruger"
+        "unknown_user": "Ukendt bruger",
+        "no_messages": "Ingen beskeder fundet!"
     },
     "profile_info": {
         "title": "Profiloplysninger",
@@ -1409,7 +1417,8 @@
         "negative": "Nej",
         "cancel": "Annuller",
         "open": "Åbn",
-        "download": "Hent"
+        "download": "Hent",
+        "send": "Send"
     },
     "profile_picture_downloader": {
         "button": "Download Profilbillede",
@@ -1444,7 +1453,8 @@
             "title": "Download dash-medier",
             "segment_text": "Segment {from} - {to}"
         },
-        "dash_no_chapter": "Intet kapitel fundet"
+        "dash_no_chapter": "Intet kapitel fundet",
+        "content_saved_toast": "Gemt!"
     },
     "streaks_reminder": {
         "notification_title": "Streaks",
@@ -1639,5 +1649,11 @@
         "bitmoji_scene_changed": "{username} har ændret deres Bitmoji scene",
         "bitmoji_background_changed": "{username} har ændret deres Bitmoji baggrund",
         "notification_channel_name": "Venmutationobserver"
+    },
+    "send_override_dialog": {
+        "title": "Send medie som {type}",
+        "duration": "Varighed: {duration}",
+        "saveable_snap_hint": "Gør Snap gembar i chatten",
+        "unlimited_duration": "Ubegrænset"
     }
 }
