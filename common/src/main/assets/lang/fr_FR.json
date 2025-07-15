@@ -77,7 +77,7 @@
                 "version_title": "v{versionName} · par rhunk",
                 "debug_build_summary_title": "Vous utilisez une version de debug de SnapEnhance",
                 "debug_build_summary_content": "Version {versionName} ({versionCode})",
-                "debug_build_summary_date": "Date de création: {date} (Il y a {days} jours)",
+                "debug_build_summary_date": "Date de compilation : {date} (il y a {days} jours)",
                 "quick_actions_title": "Actions rapides"
             },
             "manage_scope": {
@@ -87,7 +87,7 @@
                 "participants_text": "{count} participant(s)",
                 "not_found": "Pas trouvé",
                 "streaks_title": "Flammes",
-                "streaks_length_text": "Longueur: {length}",
+                "streaks_length_text": "Longueur : {length}",
                 "streaks_expiration_text": "Expire dans {eta}",
                 "streaks_expiration_text_expired": "Expiré",
                 "reminder_button": "Définir un rappel",
@@ -1070,7 +1070,7 @@
                             },
                             "notification_transcript": {
                                 "name": "Transcription des notifications",
-                                "description": "Transcrit les notes vocales dans les notifications.\nCette fonctionnalité nécessite l'activation de l'aperçu du chat dans Notifications améliorées."
+                                "description": "Transcrit les notes vocales dans les notifications\nCette fonctionnalité nécessite l'activation de l'aperçu du chat dans Notifications améliorées"
                             }
                         },
                         "name": "Meilleure transcription",
@@ -1454,7 +1454,7 @@
             "segment_text": "Segment {from} - {to}"
         },
         "dash_no_chapter": "Aucun chapitre trouvé",
-        "content_saved_toast": "Sauvegarder!"
+        "content_saved_toast": "Enregistré !"
     },
     "streaks_reminder": {
         "notification_title": "Rappels des flammes",
