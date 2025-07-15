@@ -18,7 +18,8 @@
         "streak_expiration": "expiră în {day} zile {hour} ore {minute} minute",
         "total_messages": "Total mesaje trimise/primite: {count}",
         "title": "Previzualizare",
-        "unknown_user": "Utilizator Necunoscut"
+        "unknown_user": "Utilizator Necunoscut",
+        "no_messages": "Nu s-au găsit mesaje!"
     },
     "profile_info": {
         "display_name": "Nume afișat",
@@ -63,7 +64,8 @@
         "negative": "Nu",
         "cancel": "Anulare",
         "open": "Deschide",
-        "download": "Descarcă"
+        "download": "Descarcă",
+        "send": "Trimite"
     },
     "download_processor": {
         "download_started_toast": "Descărcarea a început",
@@ -80,9 +82,10 @@
             "note": "Notă",
             "original_story": "Povestea originală",
             "sticker": "Autocolant",
-            "snap": "Snap"
+            "snap": "Snap",
+            "gif": "GIF"
         },
-        "select_attachments_title": "Selectați atașamentele de descărcat",
+        "select_attachments_title": "Selectează atașamentele",
         "failed_gallery_toast": "Nu s-a salvat în galerie {error}",
         "dash_dialog": {
             "title": "Descărcare media dash",
@@ -91,7 +94,8 @@
         },
         "no_attachments_toast": "Nu s-au găsit atașamente!",
         "failed_processing_toast": "Procesarea eșuată {error}",
-        "dash_no_chapter": "Nu a fost găsit niciun capitol"
+        "dash_no_chapter": "Nu a fost găsit niciun capitol",
+        "content_saved_toast": "Salvat!"
     },
     "setup": {
         "mappings": {
@@ -197,7 +201,7 @@
             },
             "messaging_preview": {
                 "bridge_init_failed": "Nu s-a putut inițializa puntea de mesagerie. Asigură-te că Snapchat rulează în fundal",
-                "bridge_connection_failed": "Nu s-a putut conecta la bridge. Asigură-te că Snapchat rulează în fundal.",
+                "bridge_connection_failed": "Nu s-a putut conecta la bridge. Asigură-te că Snapchat rulează în fundal",
                 "message_fetch_failed": "Nu s-au putut prelua mesajele",
                 "no_message_hint": "Niciun mesaj",
                 "save_selection_option": "Salvați selecția",
@@ -1135,7 +1139,7 @@
                     },
                     "best_friend_pinning": {
                         "name": "Fixarea celui mai bun prieten",
-                        "description": "Vă permite să fixați un prieten drept cel mai bun prieten numărul unu. Notă: numai tu poți să-ți vezi cel mai bun prieten fixat"
+                        "description": "Îți permite să fixezi un prieten ca cel mai bun prieten al tău numărul unu. Notă: Doar tu poți vedea cel mai bun prieten fixat"
                     },
                     "better_transcript": {
                         "name": "Transcrierea îmbunătățită",
@@ -1151,9 +1155,29 @@
                             },
                             "notification_transcript": {
                                 "name": "Transcrierea Notificării",
-                                "description": "Transcribe notițele vocale în notificări.\nAceastă funcționalitate necesită activarea funcționalității Previzualizare Chat în Notificări Îmbunătățite."
+                                "description": "Transcribe notițele vocale în notificări\nAceastă funcționalitate necesită activarea funcționalității Previzualizare Chat în Notificări Îmbunătățite"
                             }
                         }
+                    },
+                    "voice_note_auto_play": {
+                        "name": "Redare Automată Notițe Vocale",
+                        "description": "Redă automat următoarea notiță vocală după ce se termină cea curentă"
+                    },
+                    "friend_notes": {
+                        "name": "Notițe Prieteni",
+                        "description": "Îți permite să adaugi notițe la profilele prietenilor"
+                    },
+                    "cof_experiments": {
+                        "name": "Experimente COF",
+                        "description": "Activează funcționalitățile Snapchat nelansate/beta"
+                    },
+                    "context_menu_fix": {
+                        "name": "Corecție Meniu Contextual",
+                        "description": "Încearcă să repari Meniul Feed Prieteni, deoarece atunci când dispozitivul este offline nu poate fi afișat corect"
+                    },
+                    "snapscore_changes": {
+                        "name": "Modificări Snapscore",
+                        "description": "Urmărește modificările Snapscore-ului prietenilor\nFolosește această funcționalitate doar în versiunile mai noi de Snapchat"
                     }
                 },
                 "description": "Caracteristici experimentale",
@@ -1184,6 +1208,24 @@
                     }
                 },
                 "description": "Rulați scripturi personalizate pentru a extinde SnapEnhance"
+            },
+            "friend_tracker": {
+                "name": "Urmăritor de Prieteni",
+                "description": "Înregistrează activitatea prietenilor pe Snapchat",
+                "properties": {
+                    "record_messaging_events": {
+                        "name": "Înregistrează Evenimente de Mesagerie",
+                        "description": "Înregistrează evenimente de mesagerie cum ar fi deschiderea unui snap, citirea unui mesaj, etc."
+                    },
+                    "allow_running_in_background": {
+                        "name": "Permite Rularea în Fundal",
+                        "description": "Permite urmărirea să ruleze în fundal. Notă: Acest lucru va consuma semnificativ bateria"
+                    },
+                    "auto_purge": {
+                        "name": "Ștergere Automată",
+                        "description": "Șterge automat evenimentele cache care sunt mai vechi decât durata specificată"
+                    }
+                }
             }
         },
         "notices": {
@@ -1269,7 +1311,8 @@
                 "chat_screen_record": "Înregistrare ecran",
                 "snap_replay": "Redare Repetată a Snap-ului",
                 "camera_roll_save": "Salvare în Rola de Cameră",
-                "abandon_video": "Apel video pierdut"
+                "abandon_video": "Apel video pierdut",
+                "speaking": "Vorbire"
             },
             "path_format": {
                 "create_author_folder": "Creați un folder pentru fiecare autor",
@@ -1291,7 +1334,11 @@
                 "hide_unread_chat_hint": "Elimină Sugerarea de Chaturi Necitite",
                 "hide_profile_call_buttons": "Eliminați butoanele de apel din profil",
                 "hide_chat_call_buttons": "Eliminați butoanele de apel din conversație",
-                "hide_voice_record_button": "Eliminați butonul de înregistrare vocală"
+                "hide_voice_record_button": "Eliminați butonul de înregistrare vocală",
+                "hide_post_to_story_buttons": "Elimină butoanele Postează pe Story înainte de a trimite un Snap",
+                "hide_billboard_prompt": "Elimină Solicitarea Billboard din Feed-ul Prietenilor",
+                "hide_snapchat_plus_gift_reminders": "Elimină mementourile de cadouri Snapchat Plus din conversații",
+                "hide_map_reactions": "Elimină Reacțiile Hărții"
             },
             "hide_story_suggestions": {
                 "hide_suggested_friend_stories": "Ascunde poveștile prietenilor sugerați",
@@ -1309,12 +1356,14 @@
                 "added_by_mention": "După mențiune",
                 "added_by_qr_code": "După codul QR",
                 "added_by_group_chat": "După conversația de grup",
-                "added_by_community": "După comunitate"
+                "added_by_community": "După comunitate",
+                "added_by_quick_add": "Prin Adăugare Rapidă (risc ridicat de a fi blocat)"
             },
             "disable_story_sections": {
                 "friends": "Prieteni",
                 "following": "Urmărire",
-                "discover": "Descoperă"
+                "discover": "Descoperă",
+                "suggested_stories": "Povești Sugerate"
             },
             "disable_cameras": {
                 "front": "Camera frontală",
@@ -1329,9 +1378,10 @@
             },
             "gallery_media_send_override": {
                 "SNAP": "Snap",
-                "ORIGINAL": "Original",
+                "ORIGINAL": "Media Originală",
                 "NOTE": "Notă audio",
-                "always_ask": "Intreaba mereu"
+                "always_ask": "Intreaba mereu",
+                "SAVEABLE_SNAP": "Snap Salvabil"
             },
             "app_appearance": {
                 "always_light": "Întotdeauna Luminat",
@@ -1360,6 +1410,26 @@
                 "bitmoji_background_changes": "Notifică când cineva își schimbă fundalul Bitmoji",
                 "bitmoji_scene_changes": "Notifică când cineva își schimbă scena Bitmoji",
                 "bitmoji_selfie_changes": "Notifică când cineva își schimbă selfie-ul Bitmoji"
+            },
+            "simple_snapchat": {
+                "always_enabled": "Întotdeauna Activat",
+                "always_disabled": "Întotdeauna Dezactivat"
+            },
+            "snapchat_plus": {
+                "not_subscribed": "Nu ești abonat",
+                "basic": "De Bază",
+                "ad_free": "Fără Reclame"
+            },
+            "double_tap_chat_action": {
+                "like_message": "Apreciază Mesajul",
+                "copy_text": "Copiază Textul în Clipboard",
+                "delete_message": "Șterge Mesajul",
+                "mark_as_read": "Marchează ca Citit",
+                "custom_emoji_reaction": "Reacție Emoji Personalizată"
+            },
+            "startup_default_camera": {
+                "front": "Cameră Frontală",
+                "back": "Cameră Spate"
             }
         }
     },
@@ -1430,7 +1500,8 @@
         "STATUS_PLUS_GIFT": "Cadou Status Plus",
         "TINY_SNAP": "Snap Mic",
         "STATUS_COUNTDOWN": "Numărătoare inversă",
-        "MAP_REACTION": "Reacția pe hartă"
+        "MAP_REACTION": "Reacția pe hartă",
+        "SHARE": "Partajează"
     },
     "media_download_source": {
         "profile_picture": "Poză de profil",
@@ -1507,7 +1578,8 @@
         "download_button": "Descarcă",
         "delete_logged_message_button": "Ștergeți mesajul salvat",
         "convert_message": "Convertiți mesajul",
-        "edit_message": "Editați mesajul"
+        "edit_message": "Editați mesajul",
+        "show_chat_edit_history": "Arată Istoricul Editărilor Chatului"
     },
     "friendship_link_type": {
         "mutual": "Reciproc",
@@ -1577,5 +1649,11 @@
         "bitmoji_scene_changed": "{username} și-a schimbat scena Bitmoji",
         "bitmoji_selfie_changed": "{username} și-a schimbat selfie-ul Bitmoji",
         "bitmoji_background_changed": "{username} și-a schimbat fundalul Bitmoji"
+    },
+    "send_override_dialog": {
+        "title": "Trimite media ca {type}",
+        "duration": "Durată: {duration}",
+        "saveable_snap_hint": "Fă ca Snap-ul să poată fi salvat în chat",
+        "unlimited_duration": "Nelimitat"
     }
 }
