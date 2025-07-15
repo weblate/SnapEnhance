@@ -88,7 +88,9 @@
                 "config_import_failure_toast": "Error al importar la configuración {error}",
                 "saved_config_snackbar": "Configuración guardada",
                 "config_export_failure_toast": "No se pudo exportar la configuración {error}",
-                "older_required": "Esta función requiere Snapchat v{version} o una versión anterior para funcionar correctamente."
+                "older_required": "Esta función requiere Snapchat v{version} o una versión anterior para funcionar correctamente",
+                "newer_required": "Esta función requiere Snapchat v{version} o una versión más reciente para funcionar correctamente",
+                "search_button": "Buscar"
             },
             "social": {
                 "friends_tab": "Amigxs",
@@ -107,7 +109,8 @@
                 "logged_stories_button": "Mostrar historias en el registro",
                 "delete_scope_confirm_dialog_title": "¿Segura/o de que quieres borrar un {scope}?",
                 "e2ee_title": "Cifrado de extremo a extremo",
-                "streaks_title": "Rachas"
+                "streaks_title": "Rachas",
+                "notes_placeholder": "Haz clic para añadir una nota"
             },
             "logged_stories": {
                 "story_failed_to_load": "Error al cargar",
@@ -154,7 +157,7 @@
                 "saved_coordinates_title": "Coordenadas guardadas",
                 "delete_dialog_title": "Eliminar coordenadas guardadas",
                 "search_bar": "Buscar",
-                "spoofed_coordinates_title": "Lat {latitude}, Lng {longitude}",
+                "spoofed_coordinates_title": "Latitud {latitude}, Longitud {longitude}",
                 "save_coordinates_dialog_title": "Guardar coordenadas",
                 "choose_location_button": "Elegir la ubicación",
                 "spoof_location_toggle": "Ubicación falsa",
@@ -186,7 +189,8 @@
                 "search_hint": "Buscar",
                 "fetch_error": "Error al cargar datos",
                 "category_groups": "Grupos",
-                "category_friends": "Amigxs"
+                "category_friends": "Amigxs",
+                "participants_text": "{count} participantes"
             },
             "scripting_warning": {
                 "title": "Aviso",
@@ -269,6 +273,9 @@
             },
             "pin_conversation": {
                 "name": "Fijar conversación"
+            },
+            "exclude_message_logger": {
+                "name": "Excluir del registrador de mensajes"
             }
         }
     },
@@ -331,6 +338,10 @@
                             "home_tab": {
                                 "name": "Pestaña de inicio",
                                 "description": "Anula la pestaña en la que se abre la app al abrir Snapchat"
+                            },
+                            "simple_snapchat": {
+                                "name": "Snapchat simple",
+                                "description": "Activa una versión simplificada de Snapchat"
                             }
                         },
                         "name": "Anular Bootstrap",
@@ -421,6 +432,10 @@
                     "auto_close_friend_feed_menu": {
                         "name": "Menú de feed de amigos cercanos automáticos",
                         "description": "Cierra automáticamente el menú de Feed de amigos después de presionar un botón de configuración"
+                    },
+                    "hide_quick_add_suggestions": {
+                        "name": "Ocultar sugerencias de Agregar rápido",
+                        "description": "Elimina las sugerencias de amigos de Agregar rápido"
                     }
                 },
                 "name": "Interfaz de usuario",
@@ -601,6 +616,10 @@
                             "message_filter": {
                                 "name": "Filtro de mensajes",
                                 "description": "Seleccione que mensajes deben ser registrados (vacío para todos los mensajes)"
+                            },
+                            "deleted_message_color": {
+                                "name": "Color de mensaje eliminado",
+                                "description": "Establece el color de los mensajes eliminados"
                             }
                         }
                     },
@@ -697,6 +716,18 @@
                     "skip_when_marking_as_seen": {
                         "description": "Salta automáticamente al siguiente Snap al marcar un Snap como visto.\nUsar en combinación con el botón Marcar como visto",
                         "name": "Saltar al marcar como visto"
+                    },
+                    "disable_snap_mode_restrictions": {
+                        "name": "Desactivar las restricciones del Modo Snap",
+                        "description": "Te permite ver Snaps autodestructivos sin restricciones"
+                    },
+                    "double_tap_chat_action": {
+                        "name": "Acción de doble toque en el chat",
+                        "description": "Realiza una acción personalizada al tocar dos veces un mensaje en el chat"
+                    },
+                    "double_tap_chat_action_custom_emoji": {
+                        "name": "Reacción con emoji personalizada al tocar dos veces en el chat",
+                        "description": "Establece una reacción con emoji personalizada para la acción de doble toque en el chat"
                     }
                 },
                 "name": "mensajería",
@@ -877,6 +908,10 @@
                     "back_custom_frame_rate": {
                         "description": "Anula la velocidad de fotogramas de la cámara trasera",
                         "name": "Velocidad de fotogramas trasera"
+                    },
+                    "startup_default_camera": {
+                        "name": "Cámara predeterminada al iniciar",
+                        "description": "Establece la cámara predeterminada al abrir Snapchat"
                     }
                 },
                 "name": "Cámara",
@@ -927,6 +962,10 @@
                                     "composer_logs": {
                                         "name": "Registro del compositor",
                                         "description": "Redirige los registros de la consola del compositor a SnapEnhance"
+                                    },
+                                    "custom_self_destruct_snap_delay": {
+                                        "name": "Retraso personalizado de autodestrucción del Snap",
+                                        "description": "Ofrece más opciones para el temporizador de autodestrucción al enviar un Snap"
                                     }
                                 },
                                 "name": "Ganchas de compositor",
@@ -942,7 +981,7 @@
                             },
                             "custom_shared_library": {
                                 "name": "Libreria compartida customizada",
-                                "description": "Carga una biblioteca compartida personalizada en Snapchat. Esta función es solo para fines de prueba."
+                                "description": "Carga una biblioteca compartida personalizada en Snapchat. Esta función es solo para fines de prueba"
                             }
                         },
                         "description": "Funciones inseguras que se integran al código nativo de Snapchat"
@@ -1068,6 +1107,10 @@
                             "preferred_transcription_lang": {
                                 "name": "Idioma prefiero para la transcripción",
                                 "description": "El idioma preferido para la transcripción de la nota de voz (por ejemplo EN, ES, FR)"
+                            },
+                            "notification_transcript": {
+                                "name": "Transcripción de notificaciones",
+                                "description": "Transcribe notas de voz en las notificaciones\nEsta función requiere que la función de Vista previa de chat esté habilitada en Mejores notificaciones"
                             }
                         },
                         "description": "Mejora la transcripción de notas de voz",
@@ -1076,6 +1119,14 @@
                     "voice_note_auto_play": {
                         "description": "Reproducir automáticamente la siguiente nota de voz después de que finalice la actual",
                         "name": "Reproducir automáticamente las notas de voz"
+                    },
+                    "friend_notes": {
+                        "name": "Notas de amigos",
+                        "description": "Te permite agregar notas a los perfiles de amigos"
+                    },
+                    "snapscore_changes": {
+                        "name": "Cambios en el puntaje de Snap",
+                        "description": "Rastrea los cambios en el puntaje de Snap de los amigos\nUsa esta función solo en versiones más recientes de Snapchat"
                     }
                 },
                 "name": "Experimental"
@@ -1307,6 +1358,26 @@
                 "bitmoji_avatar_changes": "Notificar si alguien cambia su avatar de Bitmoji",
                 "bitmoji_background_changes": "Notificar si alguien cambia el fondo de su Bitmoji",
                 "bitmoji_scene_changes": "Notificar si alguien cambia su escena de Bitmoji"
+            },
+            "simple_snapchat": {
+                "always_enabled": "Siempre activado",
+                "always_disabled": "Siempre desactivado"
+            },
+            "snapchat_plus": {
+                "not_subscribed": "No suscrito",
+                "basic": "Básico",
+                "ad_free": "Sin anuncios"
+            },
+            "double_tap_chat_action": {
+                "like_message": "Me gusta al mensaje",
+                "copy_text": "Copiar texto al portapapeles",
+                "delete_message": "Eliminar mensaje",
+                "mark_as_read": "Marcar como leído",
+                "custom_emoji_reaction": "Reacción con emoji personalizada"
+            },
+            "startup_default_camera": {
+                "front": "Cámara frontal",
+                "back": "Cámara trasera"
             }
         }
     },
@@ -1418,7 +1489,8 @@
             "title": "Descargar archivos de media del tablero",
             "download_all": "Descargar todo",
             "segment_text": "Segmento {from} - {to}"
-        }
+        },
+        "content_saved_toast": "¡Guardado!"
     },
     "biometric_auth": {
         "subtitle": "Por favor, autentícate para desbloquear Snapchat",
