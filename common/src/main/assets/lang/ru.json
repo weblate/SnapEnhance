@@ -28,7 +28,8 @@
                 "remove_selected_tasks_confirm": "Удалить {count} задач?",
                 "remove_all_tasks_confirm": "Убрать все задачи?",
                 "merge_files_toast": "Объединение {count} файла",
-                "failed_to_open_file": "Не удалось открыть файл"
+                "failed_to_open_file": "Не удалось открыть файл",
+                "merge_button": "Объединить"
             },
             "home_logs": {
                 "clear_logs_button": "Очистить логи",
@@ -55,7 +56,7 @@
                 "debug_build_summary_content": "Версия {названиеВерсии} ({кодВерсии})",
                 "debug_build_summary_title": "Вы используете устранение ошибок от SnapEnhance",
                 "version_title": "v(названиеВерсии) · создал rhunk",
-                "debug_build_summary_date": "Назначить дату: {дата} ({дни} дней назад)",
+                "debug_build_summary_date": "Дата сборки: {date} ({дней} назад)",
                 "quick_actions_title": "Быстрые Действия"
             },
             "features": {
@@ -67,7 +68,10 @@
                 "config_import_failure_toast": "Не удалось импортировать конфигурацию {error}",
                 "saved_config_snackbar": "Конфигурация сохранена",
                 "reset_option": "Сброс",
-                "config_export_failure_toast": "Не удалось экспортировать конфигурацию {ошибка}"
+                "config_export_failure_toast": "Не удалось экспортировать конфигурацию {ошибка}",
+                "older_required": "Для корректной работы этой функции требуется Snapchat версии v{version} или старше",
+                "newer_required": "Для корректной работы этой функции требуется Snapchat версии v{version} или новее",
+                "search_button": "Поиск"
             },
             "manage_scope": {
                 "logged_stories_button": "Показать сохранённые истории",
@@ -80,7 +84,8 @@
                 "streaks_title": "Серия",
                 "streaks_expiration_text_expired": "Истекло",
                 "reminder_button": "Установить напоминание",
-                "delete_scope_confirm_dialog_title": "Вы уверены, что хотите удалить {scope}?"
+                "delete_scope_confirm_dialog_title": "Вы уверены, что хотите удалить {scope}?",
+                "notes_placeholder": "Нажмите, чтобы добавить заметку"
             },
             "social": {
                 "streaks_expiration_short": "{hours} ч",
@@ -94,8 +99,8 @@
                 "save_from_cache_button": "Сохранить из кэша"
             },
             "messaging_preview": {
-                "bridge_connection_failed": "Не удалось подключиться к Snapchat через службу моста",
-                "bridge_init_failed": "Не удалось инициализировать мост обмена сообщениями",
+                "bridge_connection_failed": "Не удалось подключиться к мосту. Убедитесь, что Snapchat работает в фоновом режиме",
+                "bridge_init_failed": "Не удалось инициализировать мост обмена сообщениями. Убедитесь, что Snapchat работает в фоновом режиме",
                 "message_fetch_failed": "Не удалось получить сообщения",
                 "no_message_hint": "Нет сообщений",
                 "save_selection_option": "Сохранить выбранное",
@@ -122,7 +127,41 @@
                 "disable_state_option": "Выведенный из строя",
                 "disable_state_subtext": "Друзья/группы не будут изменены",
                 "whitelist_state_option": "Ни одного исключения ...",
-                "whitelist_state_subtext": "Только {число} друзей/групп будет изменено этим правилом"
+                "whitelist_state_subtext": "Только {число} друзей/групп будет изменено этим правилом",
+                "whitelist_state_button": "Выберите разрешенных друзей/группы",
+                "blacklist_state_option": "Все, кроме ...",
+                "blacklist_state_subtext": "Все, кроме {count} друзей/групп, будут затронуты этим правилом",
+                "blacklist_state_button": "Выберите исключенных друзей/группы",
+                "clear_list_button": "Очистить список друзей/групп",
+                "dialog_clear_confirmation_text": "Вы уверены, что хотите очистить список?"
+            },
+            "file_imports": {
+                "import_file_button": "Импортировать файл",
+                "file_not_found": "Файл не найден",
+                "file_import_failed": "Не удалось импортировать файл: {error}",
+                "file_imported": "Файл успешно импортирован",
+                "file_delete_failed": "Не удалось удалить файл",
+                "no_files_hint": "Здесь вы можете импортировать файлы для использования в Snapchat. Нажмите кнопку ниже, чтобы импортировать файл."
+            },
+            "better_location": {
+                "spoofed_coordinates_title": "Широта {latitude}, Долгота {longitude}",
+                "save_coordinates_dialog_title": "Сохранить координаты",
+                "saved_name_dialog_hint": "Сохраненное имя",
+                "latitude_dialog_hint": "Широта",
+                "longitude_dialog_hint": "Долгота",
+                "save_dialog_button": "Сохранить",
+                "choose_location_button": "Выберите местоположение",
+                "teleport_to_friend_button": "Телепортироваться к другу",
+                "spoof_location_toggle": "Поддельное местоположение",
+                "suspend_location_updates": "Приостановить обновление местоположения",
+                "saved_coordinates_title": "Сохраненные координаты",
+                "no_saved_coordinates_hint": "Нет сохраненных координат",
+                "delete_dialog_title": "Удалить сохраненную координату",
+                "delete_dialog_message": "Вы уверены, что хотите удалить эту сохраненную координату?",
+                "teleport_to_friend_title": "Телепортироваться к другу",
+                "search_bar": "Поиск",
+                "no_friends_map": "Нет друзей на карте",
+                "no_friends_found": "Друзья не найдены"
             }
         },
         "routes": {
@@ -138,7 +177,7 @@
             "manage_scope": "Управление область",
             "social": "Соц. сети",
             "better_location": "Улучшенная Локация",
-            "manage_rule_feature": "Изменить настройки",
+            "manage_rule_feature": "Функция управления правилами",
             "file_imports": "Импорт файлов",
             "friend_tracker": "Остлеживание друга",
             "edit_rule": "Изменить правила",
@@ -163,7 +202,15 @@
                 "search_hint": "Поиск",
                 "fetch_error": "Не удалось получить данные",
                 "category_groups": "Группы",
-                "category_friends": "Друзья"
+                "category_friends": "Друзья",
+                "participants_text": "{count} участников"
+            },
+            "export_config": {
+                "title": "Экспортировать конфиденциальные данные?",
+                "content": "Вы хотите экспортировать конфигурацию с конфиденциальными данными? (Например, координаты местоположения и т. д.)"
+            },
+            "file_imports": {
+                "no_files_settings_hint": "Файлы не найдены. Убедитесь, что вы импортировали необходимые файлы в разделе Импорт файлов"
             }
         }
     },
