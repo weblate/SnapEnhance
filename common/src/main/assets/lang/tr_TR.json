@@ -48,7 +48,10 @@
                 "config_import_failure_toast": "Konfigürasyon içe aktarılamadı {error}",
                 "saved_config_snackbar": "Konfigürasyon kaydedildi",
                 "config_export_success_toast": "Konfigürasyon başarıyla dışa aktarıldı",
-                "config_export_failure_toast": "Konfigürasyon dışa aktarılamadı {error}"
+                "config_export_failure_toast": "Konfigürasyon dışa aktarılamadı {error}",
+                "older_required": "Bu özellik doğru çalışmak için Snapchat v{version} veya daha eski sürümünü gerektirir",
+                "newer_required": "Bu özelliğin düzgün çalışabilmesi için Snapchat v{version} veya daha yeni bir sürüm gereklidir",
+                "search_button": "Ara"
             },
             "social": {
                 "streaks_expiration_short": "{hours} saat",
@@ -64,7 +67,8 @@
                 "remove_selected_tasks_confirm": "{count} görev kaldırılsın mı?",
                 "merge_files_toast": "{count} dosya birleştiriliyor",
                 "remove_all_tasks_confirm": "Tüm görevler kaldırılsın mı?",
-                "failed_to_open_file": "Dosya açılamadı"
+                "failed_to_open_file": "Dosya açılamadı",
+                "merge_button": "Birleştir"
             },
             "home": {
                 "update_title": "SnapEnhance Güncellemesi",
@@ -105,7 +109,8 @@
                 "streaks_expiration_text_expired": "Süresi doldu",
                 "reminder_button": "Hatırlatıcı Ayarla",
                 "participants_text": "{sayı} katılımcı",
-                "delete_scope_confirm_dialog_title": "Bir {scope} silmek istediğinizden emin misiniz?"
+                "delete_scope_confirm_dialog_title": "Bir {scope} silmek istediğinizden emin misiniz?",
+                "notes_placeholder": "Not eklemek için tıklayın"
             },
             "logged_stories": {
                 "story_failed_to_load": "Yükleme başarısız oldu",
@@ -184,7 +189,8 @@
                 "search_hint": "Ara",
                 "fetch_error": "Veri alınamadı",
                 "category_groups": "Gruplar",
-                "category_friends": "Arkadaşlar"
+                "category_friends": "Arkadaşlar",
+                "participants_text": "{count} katılımcı"
             },
             "scripting_warning": {
                 "content": "SnapEnhance, cihazınızda kullanıcı tanımlı kodun yürütülmesine izin veren bir komut dosyası aracı içerir. Çok dikkatli olun ve modülleri yalnızca bilinen, güvenilir kaynaklardan yükleyin. Yetkisiz veya doğrulanmamış modüller sisteminiz için güvenlik riskleri oluşturabilir.",
@@ -263,6 +269,9 @@
                     "blacklist": "Otomatik Açılan Snap'lerden Hariç Tut"
                 },
                 "name": "Snap'leri Otomatik Aç"
+            },
+            "exclude_message_logger": {
+                "name": "Mesaj Günlüğünden Hariç Tut"
             }
         },
         "toasts": {
@@ -402,6 +411,10 @@
                             "home_tab": {
                                 "name": "Ana Sayfa Sekmesi",
                                 "description": "Snapchat açılırken başlangıç sekmesini geçersiz kılar"
+                            },
+                            "simple_snapchat": {
+                                "name": "Basit Snapchat",
+                                "description": "Snapchat'in basitleştirilmiş bir sürümünü etkinleştirir"
                             }
                         }
                     },
@@ -476,6 +489,10 @@
                     "auto_close_friend_feed_menu": {
                         "name": "Arkadaş Akışı Menüsünü Otomatik Olarak Kapat",
                         "description": "Bir ayar düğmesine basıldıktan sonra Arkadaş Akışı Menüsünü otomatik olarak kapatır"
+                    },
+                    "hide_quick_add_suggestions": {
+                        "name": "Hızlı Ekle Önerilerini Gizle",
+                        "description": "Hızlı arkadaş ekleme önerilerini kaldırır"
                     }
                 }
             },
@@ -576,6 +593,10 @@
                             "keep_my_own_messages": {
                                 "name": "Kendi Mesajlarımı Sakla",
                                 "description": "Kendi mesajlarınızın silinmesini önler"
+                            },
+                            "deleted_message_color": {
+                                "name": "Silinen Mesaj Rengi",
+                                "description": "Silinen mesajların rengini ayarlar"
                             }
                         }
                     },
@@ -656,6 +677,18 @@
                     "skip_when_marking_as_seen": {
                         "name": "Görüldü Olarak İşaretlerken Atla",
                         "description": "Bir Snap'i görüldü olarak işaretlerken otomatik olarak bir sonraki Snap'e atlar.\nSnap'i Görüldü Olarak İşaretle Düğmesi ile birlikte kullanın"
+                    },
+                    "disable_snap_mode_restrictions": {
+                        "name": "Snap Modu Kısıtlamalarını Devre Dışı Bırak",
+                        "description": "Kendi kendini imha eden Snap'leri kısıtlama olmadan görüntülemenizi sağlar"
+                    },
+                    "double_tap_chat_action": {
+                        "name": "Sohbette Çift Dokunma Eylemi",
+                        "description": "Sohbette bir mesaja çift dokunulduğunda özel bir eylem gerçekleştirir"
+                    },
+                    "double_tap_chat_action_custom_emoji": {
+                        "name": "Sohbette Çift Dokunma Eylemi Özel Emoji Tepkisi",
+                        "description": "Çift dokunma sohbet eylemi için özel bir emoji tepkisi ayarlar"
                     }
                 }
             },
@@ -840,6 +873,10 @@
                     "back_custom_frame_rate": {
                         "name": "Arka Kamera Özel Kare Hızı",
                         "description": "Arka kamera kare hızını geçersiz kılar"
+                    },
+                    "startup_default_camera": {
+                        "name": "Başlangıçta Varsayılan Kamera",
+                        "description": "Snapchat açıldığında varsayılan kamerayı ayarlar"
                     }
                 }
             },
@@ -890,6 +927,10 @@
                                     "show_first_created_username": {
                                         "name": "İlk Oluşturulan Kullanıcı Adını Göster",
                                         "description": "Profil sayfasında mevcut kullanıcı adının yanında ilk oluşturulan kullanıcı adını gösterir"
+                                    },
+                                    "custom_self_destruct_snap_delay": {
+                                        "name": "Özel Kendi Kendini İmha Eden Snap Gecikmesi",
+                                        "description": "Bir Snap gönderirken kendi kendini imha etme zamanlayıcısı için daha fazla seçenek sunar"
                                     }
                                 },
                                 "name": "Composer Kancaları",
@@ -1026,6 +1067,10 @@
                             "preferred_transcription_lang": {
                                 "name": "Tercih Edilen Transkripsiyon Dili",
                                 "description": "Sesli not metni için tercih edilen dil (örn. EN, ES, FR)"
+                            },
+                            "notification_transcript": {
+                                "name": "Bildirim Metni",
+                                "description": "Bildirimlerde sesli notları yazıya döker\nBu özelliğin çalışabilmesi için Gelişmiş Bildirimler bölümünde Sohbet Önizleme özelliğinin etkinleştirilmiş olması gerekir"
                             }
                         },
                         "name": "Daha İyi Transkript",
@@ -1034,6 +1079,14 @@
                     "voice_note_auto_play": {
                         "name": "Sesli Not Otomatik Oynatma",
                         "description": "Geçerli sesli not bittikten sonra otomatik olarak bir sonraki sesli notu çalar"
+                    },
+                    "friend_notes": {
+                        "name": "Arkadaş Notları",
+                        "description": "Arkadaşların profillerine notlar eklemenizi sağlar"
+                    },
+                    "snapscore_changes": {
+                        "name": "Snapskor Değişiklikleri",
+                        "description": "Arkadaşların snapskorundaki değişiklikleri takip eder\nBu özelliği yalnızca Snapchat'in yeni sürümlerinde kullanın"
                     }
                 }
             },
@@ -1259,6 +1312,20 @@
                 "remove_friend": "Birisi sizi arkadaşlıktan çıkardığında bildir",
                 "birthday_changes": "Birisi doğum gününü değiştirdiğinde bildir",
                 "bitmoji_background_changes": "Birisi Bitmoji arka planını değiştirdiğinde bildir"
+            },
+            "simple_snapchat": {
+                "always_enabled": "Her Zaman Etkin",
+                "always_disabled": "Her Zaman Devre Dışı"
+            },
+            "snapchat_plus": {
+                "not_subscribed": "Abone Değil",
+                "basic": "Temel",
+                "ad_free": "Reklamsız"
+            },
+            "double_tap_chat_action": {
+                "like_message": "Mesajı Beğen",
+                "copy_text": "Metni Panoya Kopyala",
+                "delete_message": "Mesajı Sil"
             }
         }
     },
