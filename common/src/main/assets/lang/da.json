@@ -1325,7 +1325,7 @@
             "double_tap_chat_action": {
                 "like_message": "Synes godt om besked",
                 "copy_text": "Kopier tekst til udklipsholder",
-                "delete_message": "Slet besked"
+                "delete_message": "Slet meddelelse"
             }
         }
     },
