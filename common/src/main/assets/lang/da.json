@@ -163,7 +163,24 @@
                 "no_files_hint": "Her kan du importere filer til brug i Snapchat. Tryk på knappen nedenfor for at importere en fil."
             },
             "better_location": {
-                "spoofed_coordinates_title": "Lat {latitude}, Lng {longitude}"
+                "spoofed_coordinates_title": "Breddegrad {latitude}, Længdegrad {longitude}",
+                "save_coordinates_dialog_title": "Gem koordinater",
+                "saved_name_dialog_hint": "Gemt navn",
+                "latitude_dialog_hint": "Breddegrad",
+                "longitude_dialog_hint": "Længdegrad",
+                "save_dialog_button": "Gem",
+                "choose_location_button": "Vælg placering",
+                "teleport_to_friend_button": "Teleporter til ven",
+                "spoof_location_toggle": "Forfalsk placering",
+                "suspend_location_updates": "Suspender placeringsopdateringer",
+                "saved_coordinates_title": "Gemte koordinater",
+                "no_saved_coordinates_hint": "Ingen gemte koordinater",
+                "delete_dialog_title": "Slet gemt koordinat",
+                "delete_dialog_message": "Er du sikker på, at du vil slette dette gemte koordinat?",
+                "teleport_to_friend_title": "Teleporter til ven",
+                "search_bar": "Søg",
+                "no_friends_map": "Ingen venner på kortet",
+                "no_friends_found": "Ingen venner fundet"
             }
         },
         "dialogs": {
@@ -172,7 +189,8 @@
                 "search_hint": "Søg",
                 "fetch_error": "Dataene blev ikke hentet",
                 "category_groups": "Grupper",
-                "category_friends": "Venner"
+                "category_friends": "Venner",
+                "participants_text": "{count} deltagere"
             },
             "scripting_warning": {
                 "title": "Advarsel",
@@ -186,6 +204,14 @@
             "messaging_action": {
                 "title": "Vælg indholdstyper, der skal behandles",
                 "select_all_button": "Vælg alle"
+            },
+            "export_config": {
+                "title": "Eksporter følsomme data?",
+                "content": "Vil du eksportere konfigurationen med følsomme data? (Såsom placeringskoordinater, osv.)"
+            },
+            "file_imports": {
+                "no_files_settings_hint": "Ingen filer fundet. Sørg for, at du har importeret de påkrævede filer i sektionen Filimport",
+                "settings_select_file_hint": "Vælg en importeret fil"
             }
         }
     },
@@ -243,6 +269,9 @@
                     "blacklist": "Udeluk fra automatisk åbning af Snaps",
                     "whitelist": "Auto-åbn Snaps"
                 }
+            },
+            "exclude_message_logger": {
+                "name": "Udeluk fra beskedslogger"
             }
         },
         "toasts": {
@@ -346,6 +375,10 @@
                     "custom_path_format": {
                         "name": "Brugerdefineret sti",
                         "description": "Angiv et brugerdefineret stiformat for downloadede medier\n\nTilgængelige variabler:\n- %brugernavn%\n- %kilde%\n- %hash%\n- %dato_tid%"
+                    },
+                    "auto_download_voice_notes": {
+                        "name": "Automatisk download af stemmenoter",
+                        "description": "Downloader automatisk stemmenoter, når de afspilles"
                     }
                 }
             },
@@ -378,6 +411,10 @@
                             "home_tab": {
                                 "name": "Fanebladet Hjem",
                                 "description": "Tilsidesætter fanen opstart, når du åbner Snapchat"
+                            },
+                            "simple_snapchat": {
+                                "name": "Simpel Snapchat",
+                                "description": "Aktiverer en forenklet version af Snapchat"
                             }
                         }
                     },
@@ -448,6 +485,14 @@
                     "opera_media_quick_info": {
                         "description": "Viser nyttig information om medier såsom oprettelsesdato i opera fremviser kontekstmenu",
                         "name": "Opera Media Hurtig info"
+                    },
+                    "hide_quick_add_suggestions": {
+                        "name": "Skjul forslag til hurtig tilføjelse",
+                        "description": "Fjerner forslag til hurtig tilføjelse af venner"
+                    },
+                    "auto_close_friend_feed_menu": {
+                        "name": "Auto-luk vennefeed-menu",
+                        "description": "Lukker automatisk vennefeed-menuen efter at have trykket på en indstillingsknap"
                     }
                 }
             },
@@ -522,6 +567,10 @@
                             "stacked_media_messages": {
                                 "name": "Stablede medie beskeder",
                                 "description": "Kombinerer flere mediebeskeder i én tekstmeddelelse, når de ikke kan forhåndsvises. Brug i kombination med Chat forhåndsvisning"
+                            },
+                            "smart_replies": {
+                                "name": "Smart Svar",
+                                "description": "Tilføjer foreslåede svar til notifikationer (Android 10+). Bruges i kombination med Svar-knappen"
                             }
                         }
                     },
@@ -544,6 +593,10 @@
                             "auto_purge": {
                                 "name": "Automatisk udrensning",
                                 "description": "Sletter automatisk cachelagrede meddelelser, der er ældre end det angivne tidsrum"
+                            },
+                            "deleted_message_color": {
+                                "name": "Farve på slettet besked",
+                                "description": "Indstiller farven på slettede beskeder"
                             }
                         }
                     },
@@ -616,6 +669,26 @@
                     "unlimited_conversation_pinning": {
                         "description": "Giver dig mulighed for at fastgøre et ubegrænset antal samtaler lokalt",
                         "name": "Ubegrænset samtale fastgørelse"
+                    },
+                    "mark_snap_as_seen_button": {
+                        "name": "Marker Snap som set-knap",
+                        "description": "Føj en knap til at markere en Snap som set, når den vises.\nDette vil fungere, selv når stealth-tilstand er aktiveret"
+                    },
+                    "skip_when_marking_as_seen": {
+                        "name": "Spring over når markeret som set",
+                        "description": "Spring automatisk til næste snap, når du markerer en snap som set.\nBruges i kombination med Marker Snap som set-knappen"
+                    },
+                    "disable_snap_mode_restrictions": {
+                        "name": "Deaktiver Snap-tilstandsrestriktioner",
+                        "description": "Tillader dig at se selvdestruerende Snaps uden begrænsninger"
+                    },
+                    "double_tap_chat_action": {
+                        "name": "Dobbelt-tap chat-handling",
+                        "description": "Udfører en tilpasset handling, når der dobbelt-tappes på en besked i chat"
+                    },
+                    "double_tap_chat_action_custom_emoji": {
+                        "name": "Dobbelt-tap chat-handling Brugerdefineret emoji-reaktion",
+                        "description": "Indstiller en brugerdefineret emoji-reaktion for dobbelt-tap chat-handlingen"
                     }
                 }
             },
@@ -669,7 +742,7 @@
                             },
                             "suspend_location_updates": {
                                 "name": "Suspender placerings opdateringer",
-                                "description": "Tilføjer en knap i kortindstillingerne for at suspendere placerings opdateringer"
+                                "description": "Forhindrer din placering i at blive opdateret"
                             },
                             "spoof_battery_level": {
                                 "name": "Spoof batteriniveau",
@@ -682,6 +755,10 @@
                             "walk_radius": {
                                 "name": "Gå radius",
                                 "description": "Gå tilfældigt rundt inden for denne radius (ft)"
+                            },
+                            "show_battery_level": {
+                                "name": "Vis batteriniveau",
+                                "description": "Viser dine venners batteriniveau på kortet"
                             }
                         }
                     },
@@ -742,6 +819,10 @@
                         },
                         "name": "Medie upload kvalitet",
                         "description": "Tilsidesætter medie overførsel kvaliteten"
+                    },
+                    "disable_telecom_framework": {
+                        "name": "Deaktiver telekom-ramme",
+                        "description": "Forhindrer Snapchat i at bruge Android Telecom-rammen\nDette giver dig mulighed for at lytte til musik under et opkald"
                     }
                 }
             },
@@ -792,6 +873,10 @@
                     "hevc_recording": {
                         "description": "Bruger HEVC (H.265) codec til videooptagelse",
                         "name": "HEVC optagelse"
+                    },
+                    "startup_default_camera": {
+                        "name": "Standardkamera ved opstart",
+                        "description": "Indstiller standardkameraet, når Snapchat åbnes"
                     }
                 }
             },
@@ -842,10 +927,22 @@
                                     "show_first_created_username": {
                                         "name": "Vis første oprettede brugernavn",
                                         "description": "Viser det første oprettede brugernavn ud for det aktuelle brugernavn på profilsiden"
+                                    },
+                                    "custom_self_destruct_snap_delay": {
+                                        "name": "Brugerdefineret forsinkelse for selvdestruerende snap",
+                                        "description": "Giver flere muligheder for selvdestruktionstimeren, når du sender et Snap"
                                     }
                                 },
                                 "name": "Komponistkroge",
                                 "description": "Injicerer kode i Composer-grænsefladen på tværs af platforme"
+                            },
+                            "custom_emoji_font": {
+                                "name": "Brugerdefineret emoji-skrifttype",
+                                "description": "Tillader dig at bruge en brugerdefineret emoji-skrifttype. Virker kun med .ttf-skrifttyper"
+                            },
+                            "custom_shared_library": {
+                                "name": "Brugerdefineret delt bibliotek",
+                                "description": "Indlæser et brugerdefineret delt bibliotek i Snapchat. Denne funktion er kun til testformål"
                             }
                         }
                     },
@@ -952,6 +1049,44 @@
                     "best_friend_pinning": {
                         "description": "Tillader dig at fastgøre en ven som din bedste ven nummer ét. Bemærk: Kun du kan se din fastgjorte bedste ven",
                         "name": "Pinning af bedste ven"
+                    },
+                    "better_transcript": {
+                        "name": "Bedre udskrift",
+                        "description": "Forbedrer transskriptionen af stemmenoter",
+                        "properties": {
+                            "force_transcription": {
+                                "name": "Tving stemmenotetransskription",
+                                "description": "Tillader, at alle stemmenoter transskriberes"
+                            },
+                            "preferred_transcription_lang": {
+                                "name": "Foretrukket transskriptionssprog",
+                                "description": "Det foretrukne sprog for stemmenotetransskriptionen (f.eks. EN, ES, FR)"
+                            },
+                            "notification_transcript": {
+                                "name": "Notifikationsudskrift",
+                                "description": "Transskriberer stemmenoter i notifikationer\nDenne funktion kræver, at Chat Forhåndsvisning-funktionen er aktiveret i Bedre Notifikationer"
+                            }
+                        }
+                    },
+                    "voice_note_auto_play": {
+                        "name": "Stemmebesked automatisk afspilning",
+                        "description": "Afspiller automatisk den næste stemmebesked, når den nuværende er færdig"
+                    },
+                    "friend_notes": {
+                        "name": "Vennotater",
+                        "description": "Giver dig mulighed for at tilføje noter til venners profiler"
+                    },
+                    "cof_experiments": {
+                        "name": "COF Eksperimenter",
+                        "description": "Aktiverer uudgivne/beta Snapchat-funktioner"
+                    },
+                    "context_menu_fix": {
+                        "name": "Kontekstmenufix",
+                        "description": "Forsøg at reparere vennefeed-menuen, da den ikke kan vises korrekt, når enheden er offline"
+                    },
+                    "snapscore_changes": {
+                        "name": "Snapscoreændringer",
+                        "description": "Sporer ændringer i venners Snapscore\nBrug kun denne funktion i nyere versioner af Snapchat"
                     }
                 }
             },
@@ -1055,10 +1190,11 @@
                 "speaking": "Taler"
             },
             "gallery_media_send_override": {
-                "ORIGINAL": "Original",
+                "ORIGINAL": "Originalmedie",
                 "NOTE": "Lyd Note",
                 "SNAP": "Snap",
-                "always_ask": "Spørg altid for at være sikker"
+                "always_ask": "Spørg altid for at være sikker",
+                "SAVEABLE_SNAP": "Gembar snap"
             },
             "hide_ui_components": {
                 "hide_profile_call_buttons": "Fjern Profilopkaldsknapper",
@@ -1066,7 +1202,11 @@
                 "hide_live_location_share_button": "Fjern Knappen Live Placeringsdeling",
                 "hide_stickers_button": "Fjern Klistermærker Knap",
                 "hide_voice_record_button": "Fjern Stemmeoptagelsesknap",
-                "hide_unread_chat_hint": "Fjern ulæst chat tip"
+                "hide_unread_chat_hint": "Fjern ulæst chat tip",
+                "hide_post_to_story_buttons": "Fjerner knapper til opslag i historie, før du sender et Snap",
+                "hide_billboard_prompt": "Fjern billboardprompt i vennefeed",
+                "hide_snapchat_plus_gift_reminders": "Fjern Snapchat Plus gavepåmindelser i samtaler",
+                "hide_map_reactions": "Fjern kortreaktioner"
             },
             "home_tab": {
                 "map": "Kort",
@@ -1080,7 +1220,8 @@
                 "added_by_mention": "Efter Omtale",
                 "added_by_group_chat": "Efter Gruppechat",
                 "added_by_qr_code": "Via QR-kode",
-                "added_by_community": "Af Fællesskabet"
+                "added_by_community": "Af Fællesskabet",
+                "added_by_quick_add": "Via Hurtig tilføjelse (høj risiko for udelukkelse)"
             },
             "bypass_video_length_restriction": {
                 "single": "Enkelt medie",
@@ -1146,7 +1287,8 @@
             "disable_story_sections": {
                 "discover": "Opdage",
                 "friends": "Venner",
-                "following": "Følge"
+                "following": "Følge",
+                "suggested_stories": "Foreslåede historier"
             },
             "hide_story_suggestions": {
                 "hide_my_stories": "Skjul mine historier",
@@ -1170,6 +1312,20 @@
                 "bitmoji_avatar_changes": "Giv besked, når nogen ændrer deres Bitmoji avatar",
                 "bitmoji_background_changes": "Giv besked, når nogen ændrer deres Bitmoji baggrund",
                 "bitmoji_scene_changes": "Giv besked, når nogen ændrer deres Bitmoji scene"
+            },
+            "simple_snapchat": {
+                "always_enabled": "Altid aktiveret",
+                "always_disabled": "Altid deaktiveret"
+            },
+            "snapchat_plus": {
+                "not_subscribed": "Ikke abonneret",
+                "basic": "Grundlæggende",
+                "ad_free": "Reklamefri"
+            },
+            "double_tap_chat_action": {
+                "like_message": "Synes godt om besked",
+                "copy_text": "Kopier tekst til udklipsholder",
+                "delete_message": "Slet besked"
             }
         }
     },
@@ -1322,6 +1478,18 @@
         "change_language": {
             "name": "Skift sprog",
             "description": "Skift sproget for SnapEnhance"
+        },
+        "file_imports": {
+            "name": "Filimport",
+            "description": "Importér filer til brug i Snapchat"
+        },
+        "friend_tracker": {
+            "name": "Ven tracker",
+            "description": "Spor dine venner på Snapchat"
+        },
+        "logger_history": {
+            "name": "Loggerhistorik",
+            "description": "Se historikken over loggede beskeder"
         }
     },
     "material3_strings": {
