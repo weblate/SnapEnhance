@@ -249,7 +249,7 @@
     "rules": {
         "properties": {
             "stealth": {
-                "name": "Режим скрытности",
+                "name": "Режим невидимости",
                 "description": "Не позволяет никому узнать, что вы открыли их Snap/чаты и разговоры",
                 "options": {
                     "blacklist": "Исключить из скрытого режима",
@@ -587,7 +587,7 @@
                                     },
                                     "composer_console": {
                                         "name": "Консоль Composer",
-                                        "description": "Позволяет выполнять JavaScript-код в Composer (только для arm64)."
+                                        "description": "Позволяет выполнять JavaScript-код в Composer (только для arm64)"
                                     },
                                     "show_first_created_username": {
                                         "name": "Показать первое созданное имя пользователя",
@@ -795,7 +795,7 @@
                     },
                     "notification_blacklist": {
                         "name": "Выберите уведомления, которые следует заблокировать",
-                        "description": "Журнал сообщений"
+                        "description": "Выберите уведомления, которые должны быть заблокированы"
                     },
                     "message_logger": {
                         "name": "Предотвращает удаление сообщений",
@@ -1593,9 +1593,9 @@
         "none": "Ничего",
         "public_story": "Публичная история",
         "story_logger": "Журнал историй",
-        "message_logger": "Журнал сообщений",
+        "message_logger": "Регистратор сообщений",
         "voice_call": "Голосовой вызов",
-        "profile_picture": "Аватар",
+        "profile_picture": "Изображение профиля",
         "spotlight": "Spotlight"
     },
     "opera_context_menu": {
