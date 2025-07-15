@@ -243,7 +243,8 @@
         "total_messages": "Всего отправленных/полученных сообщений: {count}",
         "title": "Предварительный просмотр",
         "streak_expiration": "истекает через {day} дней {час} часов {минуту} минут",
-        "unknown_user": "Неизвестный пользователь"
+        "unknown_user": "Неизвестный пользователь",
+        "no_messages": "Сообщения не найдены!"
     },
     "rules": {
         "properties": {
@@ -315,7 +316,8 @@
         "positive": "Да",
         "negative": "Нет",
         "cancel": "Отмена",
-        "download": "Скачать"
+        "download": "Скачать",
+        "send": "Отправить"
     },
     "end_to_end_encryption": {
         "accept_public_key_button": "Принять открытый ключ",
@@ -737,7 +739,11 @@
                     },
                     "best_friend_pinning": {
                         "name": "Закрепить лучшего друга",
-                        "description": "Позволяет закрепить друга за собой в качестве лучшего друга номер один. Примечание: только вы можете видеть своего лучшего друга."
+                        "description": "Позволяет закрепить друга за собой в качестве лучшего друга номер один. Примечание: только вы можете видеть своего лучшего друга"
+                    },
+                    "snapscore_changes": {
+                        "name": "Изменения в Snapscore",
+                        "description": "Отслеживает изменения в Snapscore друзей\nИспользуйте эту функцию только в новых версиях Snapchat"
                     }
                 },
                 "name": "Экспериментальные",
@@ -1170,6 +1176,24 @@
                 },
                 "name": "Скриптинг",
                 "description": "Запуск пользовательских скриптов для расширения SnapEnhance"
+            },
+            "friend_tracker": {
+                "name": "Трекер друзей",
+                "description": "Запись активности друзей в Snapchat",
+                "properties": {
+                    "record_messaging_events": {
+                        "name": "Запись событий обмена сообщениями",
+                        "description": "Записывает события обмена сообщениями, такие как открытие снимка, чтение сообщения и т. д."
+                    },
+                    "allow_running_in_background": {
+                        "name": "Разрешить запуск в фоновом режиме",
+                        "description": "Позволяет GPS работать в фоновом режиме. Примечание: Это значительно разрядит ваш аккумулятор"
+                    },
+                    "auto_purge": {
+                        "name": "Автоматическая очистка",
+                        "description": "Автоматическое удаление кэшированных событий, возраст которых превышает указанный период времени"
+                    }
+                }
             }
         },
         "notices": {
@@ -1222,14 +1246,16 @@
                 "snap": "Snap",
                 "abandon_audio": "Пропущенный аудиовызов",
                 "chat_reaction": "Реакция в ЛС",
-                "group_chat_reaction": "Реакция в группе"
+                "group_chat_reaction": "Реакция в группе",
+                "speaking": "Говорить"
             },
             "add_friend_source_spoof": {
                 "added_by_mention": "По упоминанию",
                 "added_by_username": "По имени пользователя",
                 "added_by_group_chat": "В групповом чате",
                 "added_by_qr_code": "По QR-коду",
-                "added_by_community": "По сообществу"
+                "added_by_community": "По сообществу",
+                "added_by_quick_add": "По быстрому добавить (высокий риск быть забаненным)"
             },
             "disable_confirmation_dialogs": {
                 "hide_friend": "Скрыть друга",
@@ -1238,7 +1264,7 @@
                 "ignore_friend": "Игнорировать друга",
                 "remove_friend": "Удалить друга",
                 "block_friend": "Заблокировать друга",
-                "erase_message": "Удалить сообщение"
+                "erase_message": "Стереть сообщение"
             },
             "disable_cameras": {
                 "front": "Передняя камера",
@@ -1267,9 +1293,11 @@
                 "auto_open_snaps": "📷 Автоматическое открытие Снапов"
             },
             "gallery_media_send_override": {
-                "ORIGINAL": "Оригинал",
+                "ORIGINAL": "Оригинальное Медиа",
                 "NOTE": "Аудио-заметка",
-                "SNAP": "Snap"
+                "SNAP": "Snap",
+                "always_ask": "Всегда спрашивайте",
+                "SAVEABLE_SNAP": "Сохраняемая Snap"
             },
             "hide_ui_components": {
                 "hide_unread_chat_hint": "Убрать подсказку о непрочитанных сообщениях",
@@ -1277,7 +1305,11 @@
                 "hide_chat_call_buttons": "Убрать кнопки звонка в чате",
                 "hide_live_location_share_button": "Убрать кнопку обмена местоположением в реальном времени",
                 "hide_stickers_button": "Убрать кнопку стикеров",
-                "hide_voice_record_button": "Убрать кнопку голосовой записи"
+                "hide_voice_record_button": "Убрать кнопку голосовой записи",
+                "hide_post_to_story_buttons": "Уберите кнопки \"Опубликовать в истории\" перед отправкой снимка",
+                "hide_billboard_prompt": "Убрать подсказку для рекламы в ленте друзей",
+                "hide_snapchat_plus_gift_reminders": "Убрать напоминания о подарках Snapchat Plus в разговорах",
+                "hide_map_reactions": "Удалить реакции на карте"
             },
             "app_appearance": {
                 "always_light": "Всегда светлый",
@@ -1324,7 +1356,8 @@
             "disable_story_sections": {
                 "following": "Подписан на",
                 "discover": "Исследовать",
-                "friends": "Друзья"
+                "friends": "Друзья",
+                "suggested_stories": "Предлагаемые истории"
             },
             "bypass_video_length_restriction": {
                 "single": "Одиночные медиафайлы",
@@ -1345,6 +1378,26 @@
                 "bitmoji_avatar_changes": "Уведомление о изменении кем-то своего аватара Битмоджи",
                 "bitmoji_scene_changes": "Уведомление о изменении кем-то своего сценария Bitmoji",
                 "bitmoji_background_changes": "Уведомление о изменении кем-то своего фонового изображения в Bitmoji"
+            },
+            "simple_snapchat": {
+                "always_enabled": "Всегда включено",
+                "always_disabled": "Всегда отключено"
+            },
+            "snapchat_plus": {
+                "not_subscribed": "Не подписан",
+                "basic": "Основные",
+                "ad_free": "Без рекламы"
+            },
+            "double_tap_chat_action": {
+                "like_message": "Как сообщение",
+                "copy_text": "Копирование текста в буфер обмена",
+                "delete_message": "Удалить сообщение",
+                "mark_as_read": "Отметить как прочитанное",
+                "custom_emoji_reaction": "Польз. реакция эмодзи"
+            },
+            "startup_default_camera": {
+                "front": "Фронтальная камера",
+                "back": "Задняя камера"
             }
         }
     },
@@ -1422,7 +1475,8 @@
             "original_story": "Оригинальная история",
             "sticker": "наклейка",
             "external_media": "Внешняя медиа",
-            "note": "Примечание"
+            "note": "Примечание",
+            "gif": "ГИФка"
         },
         "no_attachments_toast": "Вложений не найдено!",
         "already_queued_toast": "СМИ уже в очереди!",
@@ -1435,13 +1489,14 @@
         "unsupported_content_type_toast": "Неподдерживаемый тип контента!",
         "failed_no_longer_available_toast": "Медиа больше не доступны",
         "failed_processing_toast": "Не удалось обработать {error}",
-        "select_attachments_title": "Выберите вложения для загрузки",
+        "select_attachments_title": "Выберите вложения",
         "download_started_toast": "Загрузка началась",
         "dash_dialog": {
             "title": "Скачать тире медиа",
             "download_all": "Скачать все",
             "segment_text": "Сегмент {from} – {to}"
-        }
+        },
+        "content_saved_toast": "Сохранено!"
     },
     "profile_info": {
         "display_name": "Отображаемое имя",
@@ -1527,7 +1582,8 @@
         "LIVE_LOCATION_SHARE": "Поделиться местоположением в реальном времени",
         "STATUS_CALL_MISSED_AUDIO": "Пропущенный аудиовызов",
         "CHAT": "Чат",
-        "SNAP": "Snap"
+        "SNAP": "Snap",
+        "SHARE": "Поделиться"
     },
     "media_download_source": {
         "pending": "В ожидании",
@@ -1564,7 +1620,8 @@
         "download_button": "Скачать",
         "delete_logged_message_button": "Удалить созраненные сообщения",
         "convert_message": "Преобразовать сообщение",
-        "edit_message": "Редактировать сообщение"
+        "edit_message": "Редактировать сообщение",
+        "show_chat_edit_history": "Показать историю редактирования чата"
     },
     "gallery_media_send_override": {
         "multiple_media_toast": "Вы можете отправить только одно медиа за раз"
@@ -1592,5 +1649,11 @@
         "birthday_removed": "{username} удалил свой день рождения ({birthday})",
         "birthday_added": "{username} добавил свой день рождения ({birthday})",
         "bitmoji_background_changed": "{username} изменил свой фон Bitmoji"
+    },
+    "send_override_dialog": {
+        "title": "Отправьте медиафайл как {type}",
+        "duration": "Продолжительность: {duration}",
+        "saveable_snap_hint": "Сделать Snap сохраняемым в чате",
+        "unlimited_duration": "Неограниченное кол-во"
     }
 }
