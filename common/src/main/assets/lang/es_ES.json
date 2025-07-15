@@ -75,7 +75,8 @@
                 "remove_all_tasks_confirm": "¿Borrar todas las tareas?",
                 "merge_files_toast": "Incorporando {count} archivos",
                 "no_tasks": "Sin tareas",
-                "failed_to_open_file": "Error al abrir el archivo"
+                "failed_to_open_file": "Error al abrir el archivo",
+                "merge_button": "Unir"
             },
             "features": {
                 "disabled": "Desactivado",
@@ -86,7 +87,8 @@
                 "config_import_success_toast": "Configuración importada con éxito",
                 "config_import_failure_toast": "Error al importar la configuración {error}",
                 "saved_config_snackbar": "Configuración guardada",
-                "config_export_failure_toast": "No se pudo exportar la configuración {error}"
+                "config_export_failure_toast": "No se pudo exportar la configuración {error}",
+                "older_required": "Esta función requiere Snapchat v{version} o una versión anterior para funcionar correctamente."
             },
             "social": {
                 "friends_tab": "Amigxs",
