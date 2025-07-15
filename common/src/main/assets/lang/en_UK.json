@@ -1121,6 +1121,14 @@
                     "voice_note_auto_play": {
                         "name": "Voice Note Auto Play",
                         "description": "Automatically plays the next voice note after the current one finishes"
+                    },
+                    "friend_notes": {
+                        "name": "Friend Notes",
+                        "description": "Allows you to add notes to friends' profiles"
+                    },
+                    "snapscore_changes": {
+                        "name": "Snapscore Changes",
+                        "description": "Tracks changes in friends' Snapscore\nUse this feature in newer versions of Snapchat only"
                     }
                 }
             },
@@ -1255,10 +1263,11 @@
                 "speaking": "Talking"
             },
             "gallery_media_send_override": {
-                "ORIGINAL": "Original",
+                "ORIGINAL": "Original Media",
                 "NOTE": "Audio Note",
                 "SNAP": "Snap",
-                "always_ask": "Always Ask"
+                "always_ask": "Always Ask",
+                "SAVEABLE_SNAP": "Saveable Snap"
             },
             "strip_media_metadata": {
                 "hide_caption_text": "Hide Caption Text",
@@ -1274,7 +1283,10 @@
                 "hide_stickers_button": "Remove Stickers Button",
                 "hide_voice_record_button": "Remove Voice Record Button",
                 "hide_unread_chat_hint": "Remove Unread Chat Hint",
-                "hide_post_to_story_buttons": "Remove Post to Story buttons before sending a Snap"
+                "hide_post_to_story_buttons": "Remove Post to Story buttons before sending a Snap",
+                "hide_billboard_prompt": "Remove Billboard Prompt In Friends' Feed",
+                "hide_snapchat_plus_gift_reminders": "Remove Snapchat+ gift reminders in conversations",
+                "hide_map_reactions": "Remove Map Reactions"
             },
             "hide_story_suggestions": {
                 "hide_suggested_friend_stories": "Hide suggested friend stories",
@@ -1321,7 +1333,8 @@
             "disable_story_sections": {
                 "friends": "Friends",
                 "discover": "Discover",
-                "following": "Following"
+                "following": "Following",
+                "suggested_stories": "Suggested Stories"
             },
             "disable_cameras": {
                 "back": "Back Camera",
@@ -1345,6 +1358,26 @@
                 "bitmoji_scene_changes": "Notify when someone changes their Bitmoji scene",
                 "bitmoji_avatar_changes": "Notify when someone changes their Bitmoji avatar",
                 "bitmoji_background_changes": "Notify when someone changes their Bitmoji background"
+            },
+            "simple_snapchat": {
+                "always_enabled": "Always Enabled",
+                "always_disabled": "Always Disabled"
+            },
+            "snapchat_plus": {
+                "not_subscribed": "Not Subscribed",
+                "basic": "Basic",
+                "ad_free": "Ad-Free"
+            },
+            "double_tap_chat_action": {
+                "like_message": "Like Message",
+                "copy_text": "Copy Text to Clipboard",
+                "delete_message": "Delete Message",
+                "mark_as_read": "Mark as Read",
+                "custom_emoji_reaction": "Custom Emoji Reaction"
+            },
+            "startup_default_camera": {
+                "front": "Front Camera",
+                "back": "Back Camera"
             }
         }
     },
@@ -1424,7 +1457,8 @@
             "segment_text": "Segment {from} - {to}",
             "download_all": "Download All"
         },
-        "download_toast": "Downloading {path}..."
+        "download_toast": "Downloading {path}...",
+        "content_saved_toast": "Saved!"
     },
     "streaks_reminder": {
         "notification_title": "Streaks",
@@ -1562,7 +1596,8 @@
         "negative": "No",
         "cancel": "Cancel",
         "open": "Open",
-        "download": "Download"
+        "download": "Download",
+        "send": "Send"
     },
     "half_swipe_notifier": {
         "notification_channel_name": "Half Swipe",
@@ -1614,5 +1649,11 @@
         "bitmoji_selfie_changed": "{username} has changed their Bitmoji selfie",
         "bitmoji_avatar_changed": "{username} has changed their Bitmoji avatar",
         "bitmoji_background_changed": "{username} has changed their Bitmoji background"
+    },
+    "send_override_dialog": {
+        "title": "Send media as {type}",
+        "duration": "Duration: {duration}",
+        "saveable_snap_hint": "Make Snap savable in the chat",
+        "unlimited_duration": "Unlimited"
     }
 }
