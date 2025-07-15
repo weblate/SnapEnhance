@@ -82,7 +82,7 @@
             },
             "manage_scope": {
                 "logged_stories_button": "Afficher les stories enregistrées",
-                "e2ee_title": "Chiffrement de bout en bout",
+                "e2ee_title": "Cryptage de bout en bout",
                 "rules_title": "Règles",
                 "participants_text": "{count} participant(s)",
                 "not_found": "Pas trouvé",
@@ -190,7 +190,7 @@
                 "fetch_error": "Échec de la récupération des données",
                 "category_groups": "Groupes",
                 "category_friends": "Amis",
-                "participants_text": "{count} participants"
+                "participants_text": "Participants {count}"
             },
             "scripting_warning": {
                 "content": "SnapEnhance inclut un outil de développement de scripts, permettant l'exécution d'un code défini par l'utilisateur sur votre appareil. Soyez extrêmement prudent et n'installez que des modules provenant de sources connues et fiables. Les modules non autorisés ou non vérifiés peuvent présenter des risques pour la sécurité de votre système.",
