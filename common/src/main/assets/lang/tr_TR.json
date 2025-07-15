@@ -1325,7 +1325,13 @@
             "double_tap_chat_action": {
                 "like_message": "Mesajı Beğen",
                 "copy_text": "Metni Panoya Kopyala",
-                "delete_message": "Mesajı Sil"
+                "delete_message": "Mesaj Sil",
+                "mark_as_read": "Okundu Olarak İşaretle",
+                "custom_emoji_reaction": "Özel Emoji Tepkisi"
+            },
+            "startup_default_camera": {
+                "front": "Ön Kamera",
+                "back": "Arka Kamera"
             }
         }
     },
@@ -1447,7 +1453,8 @@
             "download_all": "Tümünü İndir",
             "segment_text": "Segment {from} - {to}"
         },
-        "dash_no_chapter": "Bölüm bulunamadı"
+        "dash_no_chapter": "Bölüm bulunamadı",
+        "content_saved_toast": "Kaydedildi!"
     },
     "streaks_reminder": {
         "notification_title": "Seriler",
