@@ -1044,10 +1044,6 @@
                             }
                         }
                     },
-                    "edit_message": {
-                        "name": "Editar mensajes",
-                        "description": "Le permite editar mensajes en conversaciones"
-                    },
                     "app_lock": {
                         "name": "Bloqueo de aplicación",
                         "description": "Impide el acceso a Snapchat sin contraseña",
@@ -1525,7 +1521,6 @@
     },
     "chat_action_menu": {
         "delete_logged_message_button": "Borrar mensaje registrado",
-        "edit_message": "Editar mensaje",
         "convert_message": "Convertir mensaje",
         "preview_button": "Vista previa",
         "download_button": "Descargar",

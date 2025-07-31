@@ -1028,10 +1028,6 @@
                         "description": "Forhindrer Snapchat i at logge dig ud, når du logger på en anden enhed",
                         "name": "Undgå tvungen log ud"
                     },
-                    "edit_message": {
-                        "name": "Rediger beskeder",
-                        "description": "Giver dig mulighed for at redigere beskeder i samtaler"
-                    },
                     "app_lock": {
                         "name": "Applås",
                         "description": "Forhindrer adgang til Snapchat uden en adgangskode",
@@ -1348,7 +1344,6 @@
         "download_button": "Hent",
         "delete_logged_message_button": "Slet Logget Besked",
         "convert_message": "Konverter besked",
-        "edit_message": "Rediger besked",
         "show_chat_edit_history": "Vis chathistorik"
     },
     "opera_context_menu": {

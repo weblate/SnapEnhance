@@ -923,10 +923,6 @@
                         "name": "Hívásrögzítő",
                         "description": "Automatikusan rögzíti a hanghívásokat"
                     },
-                    "edit_message": {
-                        "description": "Lehetővé teszi az üzenetek szerkesztését a beszélgetésekben",
-                        "name": "Üzenetek szerkesztése"
-                    },
                     "media_file_picker": {
                         "name": "Média fájlválasztó",
                         "description": "Lehetővé teszi, hogy bármelyik videó/hangfájlt kiválaszd a galériából"
@@ -1214,7 +1210,6 @@
         "download_button": "Letöltés",
         "delete_logged_message_button": "Naplózott üzenet törlése",
         "convert_message": "Üzenet átalakítása",
-        "edit_message": "Üzenet szerkesztése",
         "show_chat_edit_history": "Chat szerkesztési előzmények megjelenítése"
     },
     "opera_context_menu": {

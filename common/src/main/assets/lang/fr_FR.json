@@ -1028,10 +1028,6 @@
                             }
                         }
                     },
-                    "edit_message": {
-                        "name": "Modifier les messages",
-                        "description": "Vous permet de modifier les messages dans les conversations"
-                    },
                     "app_lock": {
                         "properties": {
                             "lock_on_resume": {
@@ -1348,7 +1344,6 @@
         "download_button": "Télécharger",
         "delete_logged_message_button": "Supprimer le message enregistré",
         "convert_message": "Convertir le message",
-        "edit_message": "Modifier le message",
         "show_chat_edit_history": "Afficher l'historique des modifications du chat"
     },
     "opera_context_menu": {

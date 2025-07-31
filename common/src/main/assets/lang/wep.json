@@ -772,10 +772,6 @@
                         },
                         "description": "Ermöglicht es Ihnen, zwischen Konten zu wechseln, ohne sich auszuloggen\nHalten Sie lange auf das Suchsymbol neben Ihrem Bitmoji-Profil, um das Menü zu öffnen\nHinweis: Diese Funktion ist experimentell und wird wahrscheinlich in Zukunft geändert"
                     },
-                    "edit_message": {
-                        "name": "Nachrichten bearbeiten",
-                        "description": "Ermöglicht es Nachrichten in Konversationen zu bearbeiten"
-                    },
                     "app_lock": {
                         "name": "App-Sperre",
                         "description": "Verhindert den Zugriff auf Snapchat ohne einen passcode",
@@ -1281,8 +1277,7 @@
         "preview_button": "Vorschau",
         "download_button": "Download",
         "delete_logged_message_button": "Gespeicherte Nachrichten löschen",
-        "convert_message": "Nachricht konvertieren",
-        "edit_message": "Nachricht bearbeiten"
+        "convert_message": "Nachricht konvertieren"
     },
     "gallery_media_send_override": {
         "multiple_media_toast": "Du kannst nur eine Datei auf einmal senden"

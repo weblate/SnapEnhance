@@ -965,10 +965,6 @@
                         "name": "Anrufaufzeichner",
                         "description": "Zeichnet automatisch Audioanrufe auf"
                     },
-                    "edit_message": {
-                        "name": "Nachrichten bearbeiten",
-                        "description": "Ermöglicht es Nachrichten in Konversationen zu bearbeiten"
-                    },
                     "app_lock": {
                         "name": "App-Sperre",
                         "description": "Verhindert den Zugriff auf Snapchat ohne einen passcode",
@@ -1271,8 +1267,7 @@
         "preview_button": "Vorschau",
         "download_button": "Download",
         "delete_logged_message_button": "Gespeicherte Nachrichten löschen",
-        "convert_message": "Nachricht konvertieren",
-        "edit_message": "Nachricht bearbeiten"
+        "convert_message": "Nachricht konvertieren"
     },
     "opera_context_menu": {
         "download": "Medien herunterladen",

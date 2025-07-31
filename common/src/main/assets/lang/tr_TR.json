@@ -1028,10 +1028,6 @@
                             }
                         }
                     },
-                    "edit_message": {
-                        "name": "Mesajları Düzenle",
-                        "description": "Görüşmelerdeki mesajları düzenlemenizi sağlar"
-                    },
                     "app_lock": {
                         "properties": {
                             "lock_on_resume": {
@@ -1348,7 +1344,6 @@
         "download_button": "İndir",
         "delete_logged_message_button": "Kaydedilen Mesajı Sil",
         "convert_message": "Mesajı Dönüştür",
-        "edit_message": "Mesajı Düzenle",
         "show_chat_edit_history": "Sohbet Düzenleme Geçmişini Göster"
     },
     "opera_context_menu": {

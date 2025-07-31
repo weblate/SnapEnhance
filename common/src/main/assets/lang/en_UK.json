@@ -1032,10 +1032,6 @@
                         "name": "Convert Message Locally",
                         "description": "Converts snaps to chat external media locally. This appears in chat download context menu"
                     },
-                    "edit_message": {
-                        "name": "Edit Messages",
-                        "description": "Allows you to edit messages in conversations"
-                    },
                     "infinite_story_boost": {
                         "description": "Bypass the Story Boost Limit delay",
                         "name": "Infinite Story Boost"
@@ -1497,7 +1493,6 @@
         "download_button": "Download",
         "delete_logged_message_button": "Delete Logged Message",
         "convert_message": "Convert Message",
-        "edit_message": "Edit Message",
         "show_chat_edit_history": "Show Chat Edit History"
     },
     "opera_context_menu": {

@@ -1085,10 +1085,6 @@
                         "description": "Oferă o istorie a poveștilor prietenilor",
                         "name": "Înregistrare Poveste"
                     },
-                    "edit_message": {
-                        "description": "Vă permite să editați mesaje în conversații",
-                        "name": "Editați mesajele"
-                    },
                     "e2ee": {
                         "description": "Criptează mesajele dumneavoastră cu AES folosind o cheie secretă partajată\nAsigurați-vă că păstrați cheia într-un loc sigur!",
                         "properties": {
@@ -1578,7 +1574,6 @@
         "download_button": "Descarcă",
         "delete_logged_message_button": "Ștergeți mesajul salvat",
         "convert_message": "Convertiți mesajul",
-        "edit_message": "Editați mesajul",
         "show_chat_edit_history": "Arată Istoricul Editărilor Chatului"
     },
     "friendship_link_type": {
