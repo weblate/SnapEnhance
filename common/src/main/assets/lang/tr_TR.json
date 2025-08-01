@@ -411,10 +411,6 @@
                             "home_tab": {
                                 "name": "Ana Sayfa Sekmesi",
                                 "description": "Snapchat açılırken başlangıç sekmesini geçersiz kılar"
-                            },
-                            "simple_snapchat": {
-                                "name": "Basit Snapchat",
-                                "description": "Snapchat'in basitleştirilmiş bir sürümünü etkinleştirir"
                             }
                         }
                     },
@@ -1308,10 +1304,6 @@
                 "remove_friend": "Birisi sizi arkadaşlıktan çıkardığında bildir",
                 "birthday_changes": "Birisi doğum gününü değiştirdiğinde bildir",
                 "bitmoji_background_changes": "Birisi Bitmoji arka planını değiştirdiğinde bildir"
-            },
-            "simple_snapchat": {
-                "always_enabled": "Her Zaman Etkin",
-                "always_disabled": "Her Zaman Devre Dışı"
             },
             "snapchat_plus": {
                 "not_subscribed": "Abone Değil",

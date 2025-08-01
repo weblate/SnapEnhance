@@ -764,10 +764,6 @@
                             "home_tab": {
                                 "name": "முகப்பு தாவல்",
                                 "description": "ச்னாப்சாட்டைத் திறக்கும்போது தொடக்க தாவலை மீறுகிறது"
-                            },
-                            "simple_snapchat": {
-                                "name": "எளிய ச்னாப்சாட்",
-                                "description": "ச்னாப்சாட்டின் எளிமைப்படுத்தப்பட்ட பதிப்பை இயக்குகிறது"
                             }
                         }
                     },
@@ -936,10 +932,6 @@
                 "camera": "கேமரா",
                 "discover": "கண்டுபிடி",
                 "spotlight": "ச்பாட்லைட்"
-            },
-            "simple_snapchat": {
-                "always_enabled": "எப்போதும் இயக்கப்பட்டது",
-                "always_disabled": "எப்போதும் முடக்கப்பட்டது"
             },
             "add_friend_source_spoof": {
                 "added_by_qr_code": "QR குறியீடு மூலம்",

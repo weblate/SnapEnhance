@@ -411,10 +411,6 @@
                             "home_tab": {
                                 "name": "Fanebladet Hjem",
                                 "description": "Tilsidesætter fanen opstart, når du åbner Snapchat"
-                            },
-                            "simple_snapchat": {
-                                "name": "Simpel Snapchat",
-                                "description": "Aktiverer en forenklet version af Snapchat"
                             }
                         }
                     },
@@ -1308,10 +1304,6 @@
                 "bitmoji_avatar_changes": "Giv besked, når nogen ændrer deres Bitmoji avatar",
                 "bitmoji_background_changes": "Giv besked, når nogen ændrer deres Bitmoji baggrund",
                 "bitmoji_scene_changes": "Giv besked, når nogen ændrer deres Bitmoji scene"
-            },
-            "simple_snapchat": {
-                "always_enabled": "Altid aktiveret",
-                "always_disabled": "Altid deaktiveret"
             },
             "snapchat_plus": {
                 "not_subscribed": "Ikke abonneret",

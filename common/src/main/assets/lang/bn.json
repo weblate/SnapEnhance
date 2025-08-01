@@ -558,10 +558,6 @@
                             "home_tab": {
                                 "name": "হোম ট্যাব",
                                 "description": "স্ন্যাপচ্যাট খুললে স্টার্টআপ ট্যাব ওভাররাইড করে"
-                            },
-                            "simple_snapchat": {
-                                "name": "সহজ স্ন্যাপচ্যাট",
-                                "description": "স্ন্যাপচ্যাটের একটি সরলীকৃত সংস্করণ সক্ষম করে"
                             }
                         }
                     },
@@ -1436,10 +1432,6 @@
             "disable_cameras": {
                 "back": "পিছনের ক্যামেরা",
                 "front": "সামনের ক্যামেরা"
-            },
-            "simple_snapchat": {
-                "always_enabled": "সর্বদা সক্রিয়",
-                "always_disabled": "সর্বদা নিষ্ক্রিয়"
             },
             "snapchat_plus": {
                 "not_subscribed": "সাবস্ক্রাইব করা নেই",

@@ -338,10 +338,6 @@
                             "home_tab": {
                                 "name": "Pestaña de inicio",
                                 "description": "Anula la pestaña en la que se abre la app al abrir Snapchat"
-                            },
-                            "simple_snapchat": {
-                                "name": "Snapchat simple",
-                                "description": "Activa una versión simplificada de Snapchat"
                             }
                         },
                         "name": "Anular Bootstrap",
@@ -1354,10 +1350,6 @@
                 "bitmoji_avatar_changes": "Notificar si alguien cambia su avatar de Bitmoji",
                 "bitmoji_background_changes": "Notificar si alguien cambia el fondo de su Bitmoji",
                 "bitmoji_scene_changes": "Notificar si alguien cambia su escena de Bitmoji"
-            },
-            "simple_snapchat": {
-                "always_enabled": "Siempre activado",
-                "always_disabled": "Siempre desactivado"
             },
             "snapchat_plus": {
                 "not_subscribed": "No suscrito",

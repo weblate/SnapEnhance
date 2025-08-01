@@ -411,10 +411,6 @@
                             "home_tab": {
                                 "name": "Onglet d'accueil",
                                 "description": "Remplacement de l'onglet à l'ouverture"
-                            },
-                            "simple_snapchat": {
-                                "description": "Permet une version simplifiée de Snapchat",
-                                "name": "Snapchat simple"
                             }
                         }
                     },
@@ -1313,10 +1309,6 @@
                 "not_subscribed": "Non abonné",
                 "basic": "Basique",
                 "ad_free": "Platine"
-            },
-            "simple_snapchat": {
-                "always_enabled": "Toujours activé",
-                "always_disabled": "Toujours désactivé"
             },
             "double_tap_chat_action": {
                 "like_message": "Aime le message",

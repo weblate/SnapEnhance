@@ -408,10 +408,6 @@
                             "home_tab": {
                                 "name": "Home Registerkarte",
                                 "description": "Überschreibt den Start-Tab beim Öffnen von Snapchat"
-                            },
-                            "simple_snapchat": {
-                                "description": "Aktiviert eine vereinfachte Version von Snapchat",
-                                "name": "Einfaches Snapchat"
                             }
                         }
                     },

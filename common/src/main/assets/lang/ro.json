@@ -424,10 +424,6 @@
                             "app_appearance": {
                                 "name": "Aspectul aplicației",
                                 "description": "Setează un aspect persistent al aplicației"
-                            },
-                            "simple_snapchat": {
-                                "name": "Simplu Snapchat",
-                                "description": "Activează o versiune simplificată a Snapchat"
                             }
                         }
                     },
@@ -1406,10 +1402,6 @@
                 "bitmoji_background_changes": "Notifică când cineva își schimbă fundalul Bitmoji",
                 "bitmoji_scene_changes": "Notifică când cineva își schimbă scena Bitmoji",
                 "bitmoji_selfie_changes": "Notifică când cineva își schimbă selfie-ul Bitmoji"
-            },
-            "simple_snapchat": {
-                "always_enabled": "Întotdeauna Activat",
-                "always_disabled": "Întotdeauna Dezactivat"
             },
             "snapchat_plus": {
                 "not_subscribed": "Nu ești abonat",

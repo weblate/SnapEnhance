@@ -469,10 +469,6 @@
                             "app_appearance": {
                                 "name": "Внешний вид приложения",
                                 "description": "Устанавливает постоянный внешний вид приложения"
-                            },
-                            "simple_snapchat": {
-                                "name": "Простой Snapchat",
-                                "description": "Упрощенная версия Snapchat"
                             }
                         },
                         "description": "Переопределяет настройки пользовательского интерфейса Bootstrap"
@@ -1374,10 +1370,6 @@
                 "bitmoji_avatar_changes": "Уведомление о изменении кем-то своего аватара Битмоджи",
                 "bitmoji_scene_changes": "Уведомление о изменении кем-то своего сценария Bitmoji",
                 "bitmoji_background_changes": "Уведомление о изменении кем-то своего фонового изображения в Bitmoji"
-            },
-            "simple_snapchat": {
-                "always_enabled": "Всегда включено",
-                "always_disabled": "Всегда отключено"
             },
             "snapchat_plus": {
                 "not_subscribed": "Не подписан",

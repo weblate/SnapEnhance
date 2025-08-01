@@ -612,10 +612,6 @@
                             "home_tab": {
                                 "description": "Перевизначає вкладку запуску під час відкриття Snapchat",
                                 "name": "Вкладка «Домашня сторінка»"
-                            },
-                            "simple_snapchat": {
-                                "name": "Простий Snapchat",
-                                "description": "Вмикає спрощену версію Snapchat"
                             }
                         },
                         "name": "Перевизначення Bootstrap",
@@ -1324,10 +1320,6 @@
             "auto_reload": {
                 "all": "Усі (Snapchat + SnapEnhance)",
                 "snapchat_only": "Лише Snapchat"
-            },
-            "simple_snapchat": {
-                "always_disabled": "Завжди вимкнено",
-                "always_enabled": "Завжди ввімкнено"
             },
             "startup_default_camera": {
                 "front": "Фронтальна камера",
