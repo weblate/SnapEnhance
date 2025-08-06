@@ -1102,6 +1102,10 @@
                     "disable_log_anonymization": {
                         "description": "Вимикає анонімізацію журналів",
                         "name": "Вимкнути анонімізацію журналу"
+                    },
+                    "disable_optimization": {
+                        "name": "Вимкнути оптимізацію",
+                        "description": "Вимикає оптимізацію скриптів. Це може спричинити проблеми з продуктивністю."
                     }
                 },
                 "name": "Сценарії",
@@ -1148,7 +1152,8 @@
                 "initiate_video": "Вхідний відеодзвінок",
                 "abandon_audio": "Пропущений аудіодзвінок",
                 "chat_reply": "Чат Відповідь",
-                "abandon_video": "Пропущений відеодзвінок"
+                "abandon_video": "Пропущений відеодзвінок",
+                "map_live_location": "Розташування на карті в реальному часі"
             },
             "auto_purge": {
                 "3_months": "3 Місяці",
@@ -1205,8 +1210,8 @@
                 "custom_emoji_reaction": "Спеціальна реакція Emoji"
             },
             "old_bitmoji_selfie": {
-                "2d": "2D Bitmoji",
-                "3d": "3D Bitmoji"
+                "2d": "2D Bitmoji'",
+                "3d": "3D Bitmoji'"
             },
             "hide_story_suggestions": {
                 "hide_my_stories": "Сховати мої історії",
@@ -1567,7 +1572,9 @@
         "send": "Надіслати",
         "download": "Завантажити",
         "positive": "Так",
-        "open": "Відкрити"
+        "open": "Відкрити",
+        "restore_original": "Відновити оригінал",
+        "convert_external_media": "Конвертувати зовнішні носії"
     },
     "chat_export": {
         "exporter_dialog": {
@@ -1642,5 +1649,33 @@
         "unlock_button": "Розблокувати",
         "subtitle": "Щоб розблокувати Snapchat, пройдіть авторизацію",
         "title": "Розблокуйте Snapchat"
+    },
+    "tracker_events": {
+        "conversation_enter": "Вхід до розмови",
+        "conversation_exit": "Вихід з розмови",
+        "started_typing": "Почав друкувати",
+        "stopped_typing": "Перестав друкувати",
+        "started_speaking": "Почав говорити",
+        "stopped_speaking": "Перестав говорити",
+        "started_peeking": "Почав підглядати",
+        "stopped_peeking": "Перестав підглядати",
+        "message_read": "Повідомлення прочитано",
+        "message_deleted": "Повідомлення видалено",
+        "message_saved": "Повідомлення збережено",
+        "message_unsaved": "Повідомлення не збережено",
+        "message_edited": "Повідомлення відредаговано",
+        "message_reaction_add": "Реакція на повідомлення Додати",
+        "message_reaction_remove": "Реакція на повідомлення Вилучено",
+        "snap_opened": "Відкрито змінок",
+        "snap_replayed": "Знімок відтворено повторно",
+        "snap_replayed_twice": "Знімок відтворено двічі",
+        "snap_screenshot": "Знімок екрана",
+        "snap_screen_record": "Запис екрана змінки"
+    },
+    "tracker_actions": {
+        "log": "Журнал",
+        "in_app_notification": "Сповіщення в додатку",
+        "push_notification": "Push-сповіщення",
+        "custom": "Користувацька"
     }
 }
