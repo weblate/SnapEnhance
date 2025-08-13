@@ -1105,6 +1105,10 @@
                     "auto_reload": {
                         "description": "Recharge automatiquement les scripts lorsqu'ils sont modifiés",
                         "name": "Rechargement automatique"
+                    },
+                    "disable_optimization": {
+                        "name": "Désactiver l'optimisation",
+                        "description": "Désactive l'optimisation des scripts. Cela peut entraîner des problèmes de performances."
                     }
                 }
             },
@@ -1179,7 +1183,8 @@
                 "abandon_audio": "Appel audio manqué",
                 "initiate_video": "Appel vidéo entrant",
                 "abandon_video": "Appel vidéo manqué",
-                "speaking": "En train de parler"
+                "speaking": "En train de parler",
+                "map_live_location": "Localisation en direct sur la carte"
             },
             "gallery_media_send_override": {
                 "ORIGINAL": "Media Originale",
@@ -1405,7 +1410,9 @@
         "cancel": "Annuler",
         "open": "Ouvrir",
         "download": "Télécharger",
-        "send": "Envoyer"
+        "send": "Envoyer",
+        "restore_original": "Restaurer l'original",
+        "convert_external_media": "Convertir des médias externes"
     },
     "profile_picture_downloader": {
         "button": "Télécharger les photos de profil",
@@ -1642,5 +1649,33 @@
         "saveable_snap_hint": "Rendre Snap enregistrable dans le chat",
         "duration": "Durée : {duration}",
         "unlimited_duration": "Illimité"
+    },
+    "tracker_events": {
+        "conversation_enter": "Ouverture de conversation",
+        "conversation_exit": "Quitter la conversation",
+        "started_typing": "A commencé à écrire",
+        "stopped_typing": "A arrêté d’écrire",
+        "started_speaking": "A commencé à parler",
+        "stopped_speaking": "A arrêté de parler",
+        "started_peeking": "A commencé à entre ouvrir",
+        "stopped_peeking": "A arrêté d’entre ouvrir",
+        "message_read": "Message lu",
+        "message_deleted": "Message supprimé",
+        "message_saved": "Message enregistré",
+        "message_unsaved": "Message désenregistré",
+        "message_edited": "Message édité",
+        "message_reaction_add": "Réaction ajoutée au message",
+        "message_reaction_remove": "Réaction retirée du message",
+        "snap_opened": "Snap ouvert",
+        "snap_replayed": "Snap visionné à nouveau",
+        "snap_replayed_twice": "Snap visionné deux fois",
+        "snap_screenshot": "Capture d’écran du Snap",
+        "snap_screen_record": "Enregistrement d’écran du Snap"
+    },
+    "tracker_actions": {
+        "log": "Historique",
+        "in_app_notification": "Notification dans l’application",
+        "push_notification": "Notification push",
+        "custom": "Personnalisé"
     }
 }
