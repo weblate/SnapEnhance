@@ -317,7 +317,9 @@
         "negative": "Нет",
         "cancel": "Отмена",
         "download": "Скачать",
-        "send": "Отправить"
+        "send": "Отправить",
+        "restore_original": "Восстановить оригинал",
+        "convert_external_media": "Конвертировать внешние носители"
     },
     "end_to_end_encryption": {
         "accept_public_key_button": "Принять открытый ключ",
@@ -1164,6 +1166,10 @@
                     "auto_reload": {
                         "name": "Автоматическая перезагрузка",
                         "description": "Автоматически перезагружает скрипты при их изменении"
+                    },
+                    "disable_optimization": {
+                        "name": "Выключить оптимизацию",
+                        "description": "Выключает оптимизацию скриптов. Может вызвать проблемы с производительностью."
                     }
                 },
                 "name": "Скриптинг",
@@ -1239,7 +1245,8 @@
                 "abandon_audio": "Пропущенный аудиовызов",
                 "chat_reaction": "Реакция в ЛС",
                 "group_chat_reaction": "Реакция в группе",
-                "speaking": "Говорить"
+                "speaking": "Говорить",
+                "map_live_location": "Позиция на карте"
             },
             "add_friend_source_spoof": {
                 "added_by_mention": "По упоминанию",
@@ -1461,13 +1468,13 @@
         "attachment_type": {
             "snap": "Snap",
             "original_story": "Оригинальная история",
-            "sticker": "наклейка",
+            "sticker": "Стикер",
             "external_media": "Внешняя медиа",
             "note": "Примечание",
-            "gif": "ГИФка"
+            "gif": "GIF"
         },
         "no_attachments_toast": "Вложений не найдено!",
-        "already_queued_toast": "СМИ уже в очереди!",
+        "already_queued_toast": "Медиа уже в очереди!",
         "already_downloaded_toast": "Медиа уже загружено!",
         "download_toast": "Загрузка {path}...",
         "processing_toast": "Обработка {path}...",
@@ -1642,5 +1649,33 @@
         "duration": "Продолжительность: {duration}",
         "saveable_snap_hint": "Сделать Snap сохраняемым в чате",
         "unlimited_duration": "Неограниченное кол-во"
+    },
+    "tracker_events": {
+        "conversation_enter": "Войти в разговор",
+        "conversation_exit": "Выйти из разговора",
+        "started_typing": "Печатает",
+        "stopped_typing": "Перестал печатать",
+        "started_speaking": "Говорит",
+        "stopped_speaking": "Перестал говорить",
+        "started_peeking": "Подглядывает",
+        "stopped_peeking": "Перестал подглядывать",
+        "message_read": "Прочитано",
+        "message_deleted": "Сообщение удалено",
+        "message_saved": "Сообщение сохранено",
+        "message_unsaved": "Сообщение несохранено",
+        "message_edited": "Изменено",
+        "message_reaction_add": "Поставлена реакция",
+        "message_reaction_remove": "Реакция удалена",
+        "snap_opened": "Открыто",
+        "snap_replayed": "Просмотрено заново",
+        "snap_replayed_twice": "Просмотрено 2 раза",
+        "snap_screenshot": "Экран снят",
+        "snap_screen_record": "Начата запись экрана"
+    },
+    "tracker_actions": {
+        "log": "Авторизация",
+        "in_app_notification": "Уведомление в приложении",
+        "push_notification": "Пуш-уведомление",
+        "custom": "Кастомизировать"
     }
 }
