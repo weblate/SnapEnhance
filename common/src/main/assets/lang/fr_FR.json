@@ -475,8 +475,8 @@
                         "description": "Supprimer les suggestions de la section des stories"
                     },
                     "stealth_mode_indicator": {
-                        "name": "Indicateur de Mode Furtif",
-                        "description": "Ajoute un emoji 👻 à côté des conversations en mode furtif"
+                        "name": "Indicateur de Mode incognito",
+                        "description": "Ajoute un emoji 👻 à côté des conversations en mode incognito"
                     },
                     "message_indicators": {
                         "name": "Indicateur de messages",
@@ -489,6 +489,10 @@
                     "hide_quick_add_suggestions": {
                         "name": "Masquer les suggestions d'ajout rapide",
                         "description": "Supprime les suggestions d'ajout rapide d'amis"
+                    },
+                    "prevent_forced_keyboard": {
+                        "name": "Empêcher le clavier forcé",
+                        "description": "Empêche Snapchat d'afficher automatiquement le clavier lorsque vous ouvrez une conversation"
                     }
                 }
             },
@@ -656,7 +660,7 @@
                     },
                     "auto_mark_as_read": {
                         "name": "Marquer automatiquement comme lu",
-                        "description": "Marque automatiquement les messages/Snaps comme lus même lorsque le mode Stealth est activé"
+                        "description": "Marque automatiquement les messages/Snaps comme lus même lorsque le mode incognito est activé"
                     },
                     "friend_mutation_notifier": {
                         "name": "Notificateur de mutation d'ami",
@@ -668,7 +672,7 @@
                     },
                     "mark_snap_as_seen_button": {
                         "name": "Bouton Marquer Snap comme vu",
-                        "description": "Ajoute un bouton pour marquer un Snap comme vu lors de sa visualisation.\nCela fonctionnera même lorsque le mode furtif est activé"
+                        "description": "Ajoute un bouton pour marquer un Snap comme vu lors de sa visualisation.\nCela fonctionnera même lorsque le mode incognito est activé"
                     },
                     "skip_when_marking_as_seen": {
                         "name": "Ignorer lors du marquage comme vu",
@@ -1300,7 +1304,8 @@
             },
             "auto_mark_as_read": {
                 "conversation_read": "Marquer la conversation comme lue lors de l'envoi d'un message",
-                "snap_reply": "Marque les Snaps comme lus lorsqu'on y répond"
+                "snap_reply": "Marque les Snaps comme lus lorsqu'on y répond",
+                "save_snap_in_chat": "Marquer les snaps comme lus lors de leur enregistrement dans le chat en mode incognito"
             },
             "friend_mutation_notifier": {
                 "remove_friend": "Vous averti lorsque quelqu'un vous supprime en tant qu'ami",
@@ -1330,7 +1335,7 @@
     },
     "friend_menu_option": {
         "preview": "Aperçu",
-        "stealth_mode": "Mode furtif",
+        "stealth_mode": "Mode incognito",
         "auto_download_blacklist": "Liste noire des téléchargements automatiques",
         "anti_auto_save": "Empêcher l'enregistrement automatique",
         "mark_snaps_as_seen": "Marquer les Snaps comme vu",
