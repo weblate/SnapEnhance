@@ -47,7 +47,9 @@
                 "config_import_success_toast": "Config succesvol geïmporteerd",
                 "config_import_failure_toast": "Gefaald om config te importeren {error}",
                 "saved_config_snackbar": "Config opgeslagen",
-                "config_export_failure_toast": "Configuratie kan niet worden geëxporteerd {error}"
+                "config_export_failure_toast": "Configuratie kan niet worden geëxporteerd {error}",
+                "newer_required": "Deze functie verreist Snapchat v{version} of nieuwer om correct te werken",
+                "search_button": "Zoeken"
             },
             "social": {
                 "streaks_expiration_short": "{hours}u",
@@ -163,6 +165,12 @@
                 "file_imported": "Bestand succesvol geïmporteerd",
                 "no_files_hint": "Hier kan je bestanden importeren om in Snapchat te gebruiken. Druk op de onderstaande knop om een bestand te importeren.",
                 "import_file_button": "Bestand Importeren"
+            },
+            "manage_rule_feature": {
+                "disable_state_option": "Uitgeschakeld",
+                "disable_state_subtext": "Geen vrienden/groepen zullen beïnvloed worden",
+                "whitelist_state_option": "Niemand behalve...",
+                "whitelist_state_subtext": "Er zullen maar {count} vrienden/groepen beïnvloed worden door deze regel"
             }
         },
         "dialogs": {
