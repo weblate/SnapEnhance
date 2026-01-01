@@ -321,6 +321,9 @@
             },
             "hide_friend_feed": {
                 "name": "从朋友圈中隐藏"
+            },
+            "exclude_message_logger": {
+                "name": "从消息记录中排除"
             }
         },
         "modes": {
@@ -375,7 +378,8 @@
             "downloader": {
                 "properties": {
                     "path_format": {
-                        "name": "路径格式"
+                        "name": "路径格式",
+                        "description": "指定文件路径格式"
                     },
                     "prevent_self_auto_download": {
                         "description": "防止自动下载你自己的Snaps",
@@ -388,6 +392,25 @@
                     "auto_download_sources": {
                         "description": "选择启用自动下载的源",
                         "name": "自动下载源"
+                    },
+                    "allow_duplicate": {
+                        "name": "允许重复",
+                        "description": "允许多次下载同一媒体"
+                    },
+                    "merge_overlays": {
+                        "name": "合并覆盖",
+                        "description": "将Snap的文本和媒体组合成一个文件"
+                    },
+                    "force_image_format": {
+                        "name": "固定图像格式",
+                        "description": "强制以指定的格式保存图像"
+                    },
+                    "force_voice_note_format": {
+                        "name": "固定语音提示格式",
+                        "description": "将语音记录强制保存为指定的格式"
+                    },
+                    "auto_download_voice_notes": {
+                        "name": "自动下载语音笔记"
                     }
                 },
                 "description": "下载 Snapchat 媒体文件",
