@@ -85,7 +85,9 @@
                 "message_logger_title": "Реєстратор повідомлень",
                 "message_logger_summary": "{messageCount} повідомлень\n{storyCount} історій",
                 "view_logger_history_button": "Переглянути історію реєстратора",
-                "debug_title": "Налагодження"
+                "debug_title": "Налагодження",
+                "import_button": "Імпорт",
+                "import_success_toast": "База даних успішно імпортована"
             },
             "tasks": {
                 "remove_selected_tasks_title": "Ви впевнені, що бажаєте видалити вибрані завдання?",
