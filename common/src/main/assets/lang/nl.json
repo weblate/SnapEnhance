@@ -13,7 +13,7 @@
         "permissions": {
             "dialog": "Om door te gaan moet je voldoen aan de volgende vereisten:",
             "notification_access": "Toegang tot meldingen",
-            "battery_optimization": "Accu optimalisatie",
+            "battery_optimization": "Batterijoptimalisatie",
             "display_over_other_apps": "Weergeven vóór andere apps",
             "request_button": "Aanvraag"
         }
@@ -49,7 +49,8 @@
                 "saved_config_snackbar": "Config opgeslagen",
                 "config_export_failure_toast": "Configuratie kan niet worden geëxporteerd {error}",
                 "newer_required": "Deze functie verreist Snapchat v{version} of nieuwer om correct te werken",
-                "search_button": "Zoeken"
+                "search_button": "Zoeken",
+                "older_required": "Voor een correcte werking vereist deze functie Snapchat v{version} of ouder"
             },
             "social": {
                 "streaks_expiration_short": "{hours}u",
@@ -65,7 +66,8 @@
                 "merge_files_toast": "{count} bestand(en) samenvoegen",
                 "remove_selected_tasks_confirm": "{count} taken verwijderen?",
                 "delete_files_option": "Verwijderen ook bestanden",
-                "failed_to_open_file": "Bestand kan niet worden geopend"
+                "failed_to_open_file": "Bestand kan niet worden geopend",
+                "merge_button": "Samenvoegen"
             },
             "home": {
                 "update_title": "SnapEnhance Update",
@@ -93,7 +95,9 @@
                 "debug_title": "Debug",
                 "view_logger_history_button": "Bekijk Logs Geschiedenis",
                 "message_logger_summary": "{messageCount} berichten\n{storyCount} verhalen",
-                "clear_button": "Wissen"
+                "clear_button": "Wissen",
+                "import_button": "Importeren",
+                "import_success_toast": "Database succesvol geïmporteerd"
             },
             "manage_scope": {
                 "logged_stories_button": "Toon gelogde verhalen",
@@ -106,7 +110,8 @@
                 "streaks_expiration_text": "Verloopt in {eta}",
                 "streaks_expiration_text_expired": "Verlopen",
                 "reminder_button": "Zet herinnering",
-                "delete_scope_confirm_dialog_title": "Weet u zeker dat u {scope} wilt verwijderen?"
+                "delete_scope_confirm_dialog_title": "Weet u zeker dat u {scope} wilt verwijderen?",
+                "notes_placeholder": "Klik om een notitie toe te voegen"
             },
             "logged_stories": {
                 "story_failed_to_load": "Gefaald om te laden",
@@ -170,7 +175,13 @@
                 "disable_state_option": "Uitgeschakeld",
                 "disable_state_subtext": "Geen vrienden/groepen zullen beïnvloed worden",
                 "whitelist_state_option": "Niemand behalve...",
-                "whitelist_state_subtext": "Er zullen maar {count} vrienden/groepen beïnvloed worden door deze regel"
+                "whitelist_state_subtext": "Er zullen maar {count} vrienden/groepen beïnvloed worden door deze regel",
+                "whitelist_state_button": "Selecteer toegestane vrienden/groepen",
+                "blacklist_state_option": "Iedereen behalve ...",
+                "blacklist_state_subtext": "Iedereen behalve {count} vrienden/groepen wordt door deze regel beïnvloed",
+                "blacklist_state_button": "Selecteer uitgesloten vrienden/groepen",
+                "clear_list_button": "Lijst met vrienden/groepen wissen",
+                "dialog_clear_confirmation_text": "Weet u zeker dat u de lijst wilt wissen?"
             }
         },
         "dialogs": {
@@ -179,7 +190,8 @@
                 "search_hint": "Zoeken",
                 "fetch_error": "Kan gegevens niet ophalen",
                 "category_groups": "Groepen",
-                "category_friends": "Vrienden"
+                "category_friends": "Vrienden",
+                "participants_text": "{count} deelnemers"
             },
             "scripting_warning": {
                 "title": "Waarschuwing",
@@ -258,6 +270,9 @@
                     "blacklist": "Uitsluiten van Automatisch Openen van Snaps",
                     "whitelist": "Snaps Automatisch Openen"
                 }
+            },
+            "exclude_message_logger": {
+                "name": "Uitsluiten van berichtlogger"
             }
         },
         "toasts": {
@@ -418,6 +433,12 @@
                     "disable_spotlight": {
                         "name": "Spotlight uitschakelen",
                         "description": "Schakelt de Spotlight pagina uit"
+                    },
+                    "auto_close_friend_feed_menu": {
+                        "description": "Het Vriendenfeed‑menu wordt automatisch gesloten na het kiezen van een instelling"
+                    },
+                    "vertical_story_viewer": {
+                        "name": "Verticale verhalenviewer"
                     }
                 },
                 "name": "Gebruikersomgeving"
@@ -456,6 +477,18 @@
         "regen_mappings": {
             "name": "Mappings Regenereren",
             "description": "Mappings Handmatig Regenereren"
+        },
+        "file_imports": {
+            "name": "Bestandsimport",
+            "description": "Importeer bestanden voor gebruik in Snapchat"
+        },
+        "friend_tracker": {
+            "name": "Vriendentracker",
+            "description": "Volg de activiteiten van je vrienden op Snapchat"
+        },
+        "logger_history": {
+            "name": "Loggeschiedenis",
+            "description": "Bekijk de loggeschiedenis van berichten"
         }
     }
 }
