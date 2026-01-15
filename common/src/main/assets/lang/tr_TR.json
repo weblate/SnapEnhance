@@ -1010,10 +1010,6 @@
                         "name": "Medya Dosyası Seçici",
                         "description": "Galeriden herhangi bir video/ses dosyası seçmenizi sağlar"
                     },
-                    "call_recorder": {
-                        "description": "Sesli aramaları otomatik olarak kaydeder",
-                        "name": "Arama Kaydedici"
-                    },
                     "account_switcher": {
                         "name": "Hesap Değiştirici",
                         "description": "Oturumu kapatmadan hesaplar arasında geçiş yapmanızı sağlar\nMenüyü açmak için Bitmoji profilinizin yanındaki arama simgesine uzun basın\nNot: Bu özellik deneyseldir ve muhtemelen gelecekte değişecektir",

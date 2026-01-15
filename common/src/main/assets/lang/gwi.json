@@ -961,10 +961,6 @@
                         "name": "Geschichtenprotokollierer",
                         "description": "Liefert eine Historie der Stories von Freund:innen"
                     },
-                    "call_recorder": {
-                        "name": "Anrufaufzeichner",
-                        "description": "Zeichnet automatisch Audioanrufe auf"
-                    },
                     "app_lock": {
                         "name": "App-Sperre",
                         "description": "Verhindert den Zugriff auf Snapchat ohne einen passcode",

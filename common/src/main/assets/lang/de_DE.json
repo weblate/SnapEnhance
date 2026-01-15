@@ -970,10 +970,6 @@
                         "description": "Liefert eine Historie der Stories von Freund:innen",
                         "name": "Geschichtenprotokollierer"
                     },
-                    "call_recorder": {
-                        "name": "Anrufaufzeichner",
-                        "description": "Zeichnet automatisch Audioanrufe auf"
-                    },
                     "media_file_picker": {
                         "name": "Mediendatei-Auswahl",
                         "description": "Ermöglicht es beliebige Video und Audio Dateien von der Gallerie auszuwählen"

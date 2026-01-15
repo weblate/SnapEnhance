@@ -758,10 +758,6 @@
                         "name": "Geschichtenprotokollierer",
                         "description": "Liefert eine Historie der Stories von Freund:innen"
                     },
-                    "call_recorder": {
-                        "name": "Anrufaufzeichner",
-                        "description": "Zeichnet automatisch Audioanrufe auf"
-                    },
                     "account_switcher": {
                         "name": "­Accountwechsler",
                         "properties": {

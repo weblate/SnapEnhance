@@ -1028,10 +1028,6 @@
                             }
                         }
                     },
-                    "call_recorder": {
-                        "name": "Grabador de llamadas",
-                        "description": "Grabar llamadas de audio automáticamente"
-                    },
                     "account_switcher": {
                         "name": "Cambiar cuenta",
                         "description": "Le permite cambiar entre cuentas sin cerrar la sesión\nHaz un pulso largo en el icono de buscar al lado de tu perfil de Bitmoji para abrir el menú\nTen en cuenta: esta función es experimental y probablemente cambiará en el futuro",

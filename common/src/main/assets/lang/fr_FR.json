@@ -1016,10 +1016,6 @@
                         "name": "Sélecteur de fichiers multimédias",
                         "description": "Vous permet de choisir n'importe quel fichier vidéo/audio dans la galerie"
                     },
-                    "call_recorder": {
-                        "name": "Enregistreur d'appel",
-                        "description": "Enregistre automatiquement les appels audio"
-                    },
                     "account_switcher": {
                         "name": "Changeur de compte",
                         "description": "Vous permet de passer d'un compte à un autre sans vous déconnecter\nAppuyez longuement sur l'icône de recherche à côté de votre profil Bitmoji pour ouvrir le menu\nRemarque : cette fonctionnalité est expérimentale et risque de changer à l'avenir",

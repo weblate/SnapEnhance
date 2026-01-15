@@ -641,10 +641,6 @@
                         "name": "Berättelselogger",
                         "description": "Ger en historia av vänners berättelser"
                     },
-                    "call_recorder": {
-                        "name": "Samtalsinspelning",
-                        "description": "Spelar automatiskt in ljudsamtal"
-                    },
                     "hidden_snapchat_plus_features": {
                         "description": "Aktiverar outgivna/beta Snapchat Plus-funktioner\nKanske inte fungerar på äldre Snapchat-versioner",
                         "name": "Dolda Snapchat Plus-funktioner"

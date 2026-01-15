@@ -1002,10 +1002,6 @@
                         "name": "Konverter besked lokalt",
                         "description": "Konverterer snaps til at chatte eksterne medier lokalt. Dette vises i chat download kontekstmenu"
                     },
-                    "call_recorder": {
-                        "name": "Opkaldsoptager",
-                        "description": "Optager automatisk lydopkald"
-                    },
                     "account_switcher": {
                         "properties": {
                             "auto_backup_current_account": {

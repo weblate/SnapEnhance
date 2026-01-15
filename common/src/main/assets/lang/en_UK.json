@@ -1020,10 +1020,6 @@
                             }
                         }
                     },
-                    "call_recorder": {
-                        "name": "Call Recorder",
-                        "description": "Automatically records audio calls"
-                    },
                     "convert_message_locally": {
                         "name": "Convert Message Locally",
                         "description": "Converts snaps to chat external media locally. This appears in chat download context menu"

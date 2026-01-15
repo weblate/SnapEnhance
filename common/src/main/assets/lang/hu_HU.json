@@ -919,10 +919,6 @@
                         "name": "Nincs Friend Score késleltetés",
                         "description": "Eltávolítja a késleltetést a Friends Score megtekintésekor"
                     },
-                    "call_recorder": {
-                        "name": "Hívásrögzítő",
-                        "description": "Automatikusan rögzíti a hanghívásokat"
-                    },
                     "media_file_picker": {
                         "name": "Média fájlválasztó",
                         "description": "Lehetővé teszi, hogy bármelyik videó/hangfájlt kiválaszd a galériából"
