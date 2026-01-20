@@ -386,6 +386,10 @@
                     "call_recorder": {
                         "name": "Диктофон дзвінків",
                         "description": "Автоматично записує аудіодзвінки"
+                    },
+                    "chat_wallpaper_downloader": {
+                        "name": "Завантажувач шпалер чату",
+                        "description": "Дозволяє завантажувати шпалери чату зі сторінки профілю"
                     }
                 },
                 "name": "Завантажувач",
@@ -1641,7 +1645,8 @@
         "pending": "В очікуванні",
         "story": "Розповідь",
         "profile_picture": "Фото профілю",
-        "message_logger": "Реєстратор повідомлень"
+        "message_logger": "Реєстратор повідомлень",
+        "chat_wallpaper": "Шпалери для чату"
     },
     "streaks_reminder": {
         "notification_text": "Ви втратите серію з {friend} через {hoursLeft} год",
@@ -1693,5 +1698,8 @@
         "in_app_notification": "Сповіщення в додатку",
         "push_notification": "Push-сповіщення",
         "custom": "Користувацька"
+    },
+    "chat_wallpaper_downloader": {
+        "download_button": "Завантажити шпалери для чату"
     }
 }
