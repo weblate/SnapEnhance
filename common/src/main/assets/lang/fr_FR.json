@@ -163,7 +163,7 @@
                 "delete_dialog_message": "Êtes-vous sûr de vouloir supprimer cette coordonnée enregistrée ?",
                 "search_bar": "Rechercher",
                 "no_friends_found": "Aucun ami trouvé",
-                "save_dialog_button": "Sauvegarder",
+                "save_dialog_button": "Sauvegardé",
                 "choose_location_button": "Choisir un emplacement",
                 "teleport_to_friend_button": "Se téléporter à un ami",
                 "no_saved_coordinates_hint": "Aucune coordonnée enregistrée",
@@ -381,6 +381,18 @@
                     "auto_download_voice_notes": {
                         "name": "Téléchargement automatique des messages vocaux",
                         "description": "Télécharge automatiquement les messages vocaux lors de leur lecture"
+                    },
+                    "file_hash_check": {
+                        "name": "Vérification du hachage des fichiers",
+                        "description": "Vérifie le hachage des fichiers existants pour éviter les téléchargements en double. Cela peut ralentir le processus de téléchargement."
+                    },
+                    "call_recorder": {
+                        "name": "Enregistreur d'appels",
+                        "description": "Enregistre automatiquement les appels audio"
+                    },
+                    "chat_wallpaper_downloader": {
+                        "name": "Téléchargeur de fond d'écran de chat",
+                        "description": "Permet de télécharger des fonds d'écran de chat depuis la page de profil"
                     }
                 }
             },
@@ -1328,6 +1340,11 @@
             "startup_default_camera": {
                 "front": "Caméra frontale",
                 "back": "Caméra arrière"
+            },
+            "call_recorder": {
+                "only_record_self": "Enregistrer uniquement soi-même",
+                "only_record_others": "Enregistrez uniquement les autres",
+                "record_both": "Enregistrer les deux faces"
             }
         }
     },
@@ -1451,7 +1468,7 @@
             "segment_text": "Segment {from} - {to}"
         },
         "dash_no_chapter": "Aucun chapitre trouvé",
-        "content_saved_toast": "Enregistré !"
+        "content_saved_toast": "Sauvegardé !"
     },
     "streaks_reminder": {
         "notification_title": "Rappels des flammes",
@@ -1492,7 +1509,8 @@
         "story": "Story",
         "chat_media": "Média de Chat",
         "voice_call": "Appel vocal",
-        "message_logger": "Enregistreur de messages"
+        "message_logger": "Enregistreur de messages",
+        "chat_wallpaper": "Fond d'écran de Chat"
     },
     "material3_strings": {
         "date_input_invalid_not_allowed": "Date invalide",
@@ -1680,5 +1698,8 @@
         "in_app_notification": "Notification dans l’application",
         "push_notification": "Notification push",
         "custom": "Personnalisé"
+    },
+    "chat_wallpaper_downloader": {
+        "download_button": "Télécharger le fond d'écran de Chat"
     }
 }
