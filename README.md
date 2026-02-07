@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/bocajthomas/SE-Extended/dev/images/logo/SE%20Extended%20Logo.png" height="240" />
+  <img src="images/logo/SE_Extended.png" height="240" />
 
 # SE Extended
 **An Xposed module designed to extend Snapchat with power user features.**
@@ -20,17 +20,17 @@
 [![](https://img.shields.io/badge/Main_Features-000000?style=for-the-badge)](#main-features)
 [![](https://img.shields.io/badge/Download-000000?style=for-the-badge)](#download)
 [![](https://img.shields.io/badge/Contact-000000?style=for-the-badge)](#contact)
-[![](https://img.shields.io/badge/Wiki-000000?style=for-the-badge)](https://github.com/bocajthomas/SE-Extended/wiki)
+[![](https://img.shields.io/badge/Wiki-000000?style=for-the-badge)](https://git.seextended.org/bocajthomas/SE-Extended/wiki)
 
 [![](https://img.shields.io/badge/Contributing-000000?style=for-the-badge)](#contributing)
 [![](https://img.shields.io/badge/Privacy-000000?style=for-the-badge)](#privacy)
 [![](https://img.shields.io/badge/Credits-000000?style=for-the-badge)](#credits)
 [![](https://img.shields.io/badge/License-000000?style=for-the-badge)](#license)
-[![](https://img.shields.io/badge/Changelog-000000?style=for-the-badge)](https://github.com/bocajthomas/SE-Extended/wiki/Changes-Compared-to-SnapEnhance)
+[![](https://img.shields.io/badge/Changelog-000000?style=for-the-badge)](https://git.seextended.org/bocajthomas/SE-Extended/wiki/Changes-Compared-to-SnapEnhance)
 </div>
 
 ## Introduction
-SE Extended is a fork of the original [SnapEnhance](https://github.com/rhunk/SnapEnhance) project that aims to provide extended features that power users want the most. <br/>
+SE Extended is a fork of the original [SnapEnhance](https://git.snapenhance.io/rhunk/SnapEnhance) project that aims to provide extended features that power users want the most. <br/>
 While other forks today are shipping lazy AI-generated code, over cluttered UI, lying about their 'bypasses' to get user attention and locking builds behind paywalls, SE Extended does it differently, we actually respect the license, write our code by hand, keep everything 100% free, and offer a clean and modern UI thanks to Material 3 Expressive.
 SE Extended does what others can't, by building a powerful Xposed module driven by user needs, not by profit or 'hype'.
 
@@ -232,10 +232,10 @@ SE Extended does what others can't, by building a powerful Xposed module driven 
 - `Auto Purge`
 </details>
 
-See [Changes Compared to SnapEnhance](https://github.com/bocajthomas/SE-Extended/wiki/Changes-Compared-to-SnapEnhance) for the full in depth changelog
+See [Changes Compared to SnapEnhance](https://git.seextended.org/bocajthomas/SE-Extended/wiki/Changes-Compared-to-SnapEnhance) for the full in depth changelog
 
 ## Download
-To get SE Extended up and running please see the [`Installation-guide`](https://github.com/bocajthomas/SE-Extended/wiki/Installation-Guide),
+To get SE Extended up and running please see the [`Installation-guide`](https://git.seextended.org/bocajthomas/SE-Extended/wiki/Installation-Guide),
 
 ## Contact
 Join our [Telegram Channel](https://t.me/SE_Extended) for Discussions, announcements, and releases!
@@ -250,19 +250,19 @@ Contributions are welcome!<br/>
 Thanks to everyone involved <br/>
 **Pull Requests:**
 - [ΞTΞRNAL](https://github.com/particle-box)
-    - feat(core/ui_tweaks): multiple hide ui components [#106](https://github.com/bocajthomas/SE-Extended/pull/106)
-    - fix(core/ui_tweaks): infinite loading animation [#116](https://github.com/bocajthomas/SE-Extended/pull/116)
-    - chore: readme [#172](https://github.com/bocajthomas/SE-Extended/pull/172)
+    - feat(core/ui_tweaks): multiple hide ui components [#106](https://git.seextended.org/bocajthomas/SE-Extended/pulls/106)
+    - fix(core/ui_tweaks): infinite loading animation [#116](https://git.seextended.org/bocajthomas/SE-Extended/pulls/116)
+    - chore: readme [#172](https://git.seextended.org/bocajthomas/SE-Extended/pulls/172)
 
 - [CanerKaraca23](https://github.com/CanerKaraca23)
-    - chore: update dependencies [#127](https://github.com/bocajthomas/SE-Extended/pull/127)
+    - chore: update dependencies [#127](https://git.seextended.org/bocajthomas/SE-Extended/pulls/127)
 
 - [Gabriel Longshaw](https://github.com/gabriellongshaw)
-    - chore(readme): capitalisation and grammar [#182](https://github.com/bocajthomas/SE-Extended/pull/182)
+    - chore(readme): capitalisation and grammar [#182](https://git.seextended.org/bocajthomas/SE-Extended/pulls/182)
 
 **WIKI:**
 - [Feet Licker](https://github.com/jizzmaster420)
-  - Fix "App Not Installed" (Conflicting Package Error) [here](https://github.com/bocajthomas/SE-Extended/wiki/Common-Issues#fix-app-not-installed-conflicting-package-error)
+  - Fix "App Not Installed" (Conflicting Package Error) [here](https://git.seextended.org/bocajthomas/SE-Extended/wiki/Common-Issues#fix-app-not-installed-conflicting-package-error)
 
 **Translations:**
 - Bengali - [ΞTΞRNAL](https://github.com/particle-box)
@@ -311,7 +311,7 @@ We do not collect any user information. However, Please be aware that third-part
 
 ## Credits
 SE Extended uses some third-party libraries, these include:
-- [SnapEnhance](https://github.com/rhunk/SnapEnhance) - Original Project
+- [SnapEnhance](https://git.snapenhance.io/rhunk/SnapEnhance) - Original Project
 - [libxposed](https://github.com/libxposed/api) - Xposed Framework API
 - [ffmpeg-kit-full-gpl](https://github.com/arthenica/ffmpeg-kit) - FFmpeg Wrapper
 - [osmdroid](https://github.com/osmdroid/osmdroid) - Maps
