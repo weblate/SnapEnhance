@@ -189,7 +189,7 @@ class HomeAbout: Routes.Route() {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    openLink("https://github.com/bocajthomas/SE-Extended/wiki")
+                                    openLink("https://git.seextended.org/bocajthomas/SE-Extended/wiki")
                                 }
                                 .padding(15.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -208,7 +208,7 @@ class HomeAbout: Routes.Route() {
                                     lineHeight = 20.sp
                                 )
                                 Text(
-                                    text = "https://github.com/bocajthomas/SE-Extended/wiki",
+                                    text = "https://git.seextended.org/bocajthomas/SE-Extended/wiki",
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight.Light,
                                     lineHeight = 15.sp
@@ -293,7 +293,7 @@ class HomeAbout: Routes.Route() {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    openLink("https://github.com/bocajthomas/SE-Extended?tab=GPL-3.0-1-ov-file")
+                                    openLink("https://git.seextended.org/bocajthomas/SE-Extended/src/branch/dev/LICENSE")
                                 }
                                 .padding(15.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -329,7 +329,7 @@ class HomeAbout: Routes.Route() {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    openLink("https://github.com/bocajthomas/SE-Extended")
+                                    openLink("https://git.seextended.org/bocajthomas/SE-Extended")
                                 }
                                 .padding(15.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -348,7 +348,7 @@ class HomeAbout: Routes.Route() {
                                     lineHeight = 20.sp
                                 )
                                 Text(
-                                    text = "https://github.com/bocajthomas/SE-Extended",
+                                    text = "https://git.seextended.org/bocajthomas/SE-Extended",
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight.Light,
                                     lineHeight = 15.sp

@@ -904,7 +904,7 @@ class ScriptingRootSection : Routes.Route() {
             onClick = {
                 context.androidContext.startActivity(
                     Intent(Intent.ACTION_VIEW).apply {
-                        data = "https://github.com/bocajthomas/SE-Extended/wiki/Scripting-Documentation".toUri()
+                        data = "https://git.seextended.org/bocajthomas/SE-Extended/wiki/Scripting-Documentation".toUri()
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     }
                 )

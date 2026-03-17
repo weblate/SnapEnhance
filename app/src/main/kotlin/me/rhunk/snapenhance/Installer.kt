@@ -9,14 +9,13 @@ import android.util.Log
 
 class Installer : BroadcastReceiver() {
     private val TAG = "Installer"
-
     fun deleteExtractedUpdate(context: Context) {
         val dir = context.getExternalFilesDir(null) ?: return
         val files = dir.listFiles() ?: return
-        for (i in files.indices) {
-            val file = files[i]
+        for (file in files) {
             if (file.name.contains("update_extract_")) {
-                file.deleteRecursively()
+                val deleted = file.deleteRecursively()
+                Log.d(TAG, "Cleanup temporary folder ${file.name}: $deleted")
             }
         }
     }
@@ -32,6 +31,7 @@ class Installer : BroadcastReceiver() {
                     Log.i(TAG, "Installation successful")
                     deleteExtractedUpdate(context)
                 }
+
                 PackageInstaller.STATUS_PENDING_USER_ACTION -> {
                     val activityIntent = if (android.os.Build.VERSION.SDK_INT >= 33) {
                         intent.getParcelableExtra(Intent.EXTRA_INTENT, Intent::class.java)
@@ -44,6 +44,7 @@ class Installer : BroadcastReceiver() {
                         context.startActivity(it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                     }
                 }
+
                 else -> {
                     Log.e(TAG, "Installation failed with status $status: $message")
                     deleteExtractedUpdate(context)

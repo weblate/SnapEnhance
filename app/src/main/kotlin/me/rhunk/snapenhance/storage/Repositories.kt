@@ -43,42 +43,65 @@ fun AppDatabase.initBuiltInRepos() {
     CoroutineScope(executor.asCoroutineDispatcher()).launch {
         BUILT_IN_REPOSITORIES.forEach { url ->
             var modifiedUrl = url
-            if (url.startsWith("https://github.com/")) {
-                val splitUrl = modifiedUrl.removePrefix("https://github.com/").split("/")
-                val repoName = splitUrl[0] + "/" + splitUrl[1]
+            if (url.contains("git.seextended.org")) {
+                val pathSegments = url.removePrefix("https://git.seextended.org/").split("/")
+                if (pathSegments.size >= 2) {
+                    val owner = pathSegments[0]
+                    val repo = pathSegments[1]
 
-                runCatching {
-                    okHttpClient.newCall(
-                        Request.Builder().url("https://api.github.com/repos/$repoName").build()
-                    ).execute().use { response ->
-                        if (!response.isSuccessful) {
-                            context.log.warn("Failed to fetch default branch for built-in repo $url: ${response.code}")
-                            return@forEach
+                    runCatching {
+                        val apiReq = Request.Builder()
+                            .url("https://git.seextended.org/api/v1/repos/$owner/$repo")
+                            .build()
+
+                        okHttpClient.newCall(apiReq).execute().use { response ->
+                            if (!response.isSuccessful) {
+                                context.log.warn("Forgejo API failed for $repo: ${response.code}")
+                                return@forEach
+                            }
+                            val json = response.body?.string() ?: return@forEach
+                            val defaultBranch = gson.fromJson(json, Map::class.java)["default_branch"] as String
+
+                            modifiedUrl = "https://git.seextended.org/$owner/$repo/raw/branch/$defaultBranch/"
+                            context.log.info("Resolved Forgejo branch for $repo: $defaultBranch")
                         }
-                        val json = response.body.string()
-                        val defaultBranch = gson.fromJson(json, Map::class.java)["default_branch"] as String
-                        context.log.info("Resolved default branch for $repoName: $defaultBranch")
-                        modifiedUrl = "https://raw.githubusercontent.com/$repoName/$defaultBranch/"
+                    }.onFailure {
+                        context.log.error("Failed to connect to Forgejo API for $url", it)
+                        return@forEach
                     }
-                }.onFailure {
-                    context.log.error("Failed to resolve built-in GitHub URL: $url", it)
-                    return@forEach
                 }
             }
 
+            else if (url.startsWith("https://github.com/")) {
+                val splitUrl = modifiedUrl.removePrefix("https://github.com/").split("/")
+                val repoName = "${splitUrl[0]}/${splitUrl[1]}"
+
+                runCatching {
+                    val request = Request.Builder().url("https://api.github.com/repos/$repoName").build()
+                    okHttpClient.newCall(request).execute().use { response ->
+                        if (!response.isSuccessful) return@forEach
+                        val json = response.body?.string() ?: return@forEach
+                        val defaultBranch = gson.fromJson(json, Map::class.java)["default_branch"] as String
+                        modifiedUrl = "https://raw.githubusercontent.com/$repoName/$defaultBranch/"
+                    }
+                }.onFailure {
+                    context.log.error("Failed to resolve GitHub URL: $url", it)
+                    return@forEach
+                }
+            }
             val indexUri = modifiedUrl.toUri().buildUpon().appendPath("index.json").build()
 
             runCatching {
-                okHttpClient.newCall(
-                    Request.Builder().url(indexUri.toString()).build()
-                ).execute().use { response ->
+                val request = Request.Builder().url(indexUri.toString()).build()
+                okHttpClient.newCall(request).execute().use { response ->
                     if (!response.isSuccessful) {
                         context.log.warn("Failed to fetch index for built-in repo $indexUri: ${response.code}")
                         return@forEach
                     }
-                    val repoIndex = gson.fromJson(response.body.charStream(), RepositoryIndex::class.java).also {
+                    gson.fromJson(response.body?.charStream(), RepositoryIndex::class.java).also {
                         context.log.info("Validated built-in repository index: $it")
                     }
+
                     addRepo(modifiedUrl)
                 }
             }.onFailure {

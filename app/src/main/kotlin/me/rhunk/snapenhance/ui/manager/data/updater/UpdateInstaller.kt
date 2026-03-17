@@ -19,32 +19,43 @@ fun installApk(
     fileProviderAuthority: String,
     logger: AbstractLogger
 ) {
-    if (!apkFile.exists()) return
+    if (!apkFile.exists()) {
+        logger.error("Installation failed: APK file does not exist at ${apkFile.absolutePath}")
+        return
+    }
 
     val packageInstaller = context.packageManager.packageInstaller
     val params = PackageInstaller.SessionParams(
         PackageInstaller.SessionParams.MODE_FULL_INSTALL
     )
+
     try {
         val sessionId = packageInstaller.createSession(params)
         val session = packageInstaller.openSession(sessionId)
+
         transferFileToSession(session, apkFile, logger)
+        
         val intent = Intent(context, Installer::class.java).apply {
             action = "INSTALL_PACKAGE_RESULT"
         }
+
         val pendingIntentFlags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
         } else {
             PendingIntent.FLAG_UPDATE_CURRENT
         }
+
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             sessionId,
             intent,
             pendingIntentFlags
         )
+
         session.commit(pendingIntent.intentSender)
         session.close()
+        logger.info("Installation session $sessionId committed.")
+
     } catch (e: Exception) {
         logger.error("PackageInstaller failed to start session.", e)
     }

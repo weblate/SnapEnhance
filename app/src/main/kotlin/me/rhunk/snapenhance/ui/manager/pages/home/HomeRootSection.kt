@@ -200,14 +200,14 @@ class HomeRootSection : Routes.Route() {
                 )
 
                 ExternalLinkIcon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_github),
-                    link = "https://github.com/bocajthomas/SE-Extended",
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_forgejo_round),
+                    link = "https://git.seextended.org/bocajthomas/SE-Extended",
                     iconScale = 1.0f
                 )
 
                 ExternalLinkIcon(
                     imageVector = Icons.AutoMirrored.Rounded.Help,
-                    link = "https://github.com/bocajthomas/SE-Extended/wiki",
+                    link = "https://git.seextended.org/bocajthomas/SE-Extended/wiki",
                     iconScale = 1.2f
                 )
 
@@ -399,15 +399,8 @@ class HomeRootSection : Routes.Route() {
                                 }
                                 pop()
                             }
-                            ClickableText(
-                                text = buildSummary,
-                                onClick = { offset ->
-                                    buildSummary.getStringAnnotations(
-                                        tag = "git_hash", start = offset, end = offset
-                                    ).firstOrNull()?.let {
-                                        openLink("https://github.com/bocajthomas/SE-Extended/commit/${it.item}")
-                                    }
-                                }
+                            Text(
+                                text = buildSummary
                             )
                             Text(
                                 fontSize = 12.sp,
