@@ -44,7 +44,7 @@ jobs:
           echo "Found Build Tools Version: $VERSION"
           echo "BUILD_TOOL_VERSION=$VERSION" >> $GITHUB_ENV
 
-      - name: Sign Armv8 APK
+      - name: Sign ARMV8 APK
         id: sign_armv8
         uses: actions/sign-android-release@master
         with:
@@ -59,7 +59,7 @@ jobs:
           JAVA_HOME: /usr/lib/jvm/java-21-openjdk-amd64
           BUILD_TOOLS_VERSION: ${{ env.BUILD_TOOL_VERSION }}
 
-      - name: Sign Armv7 APK
+      - name: Sign ARMV7 APK
         id: sign_armv7
         uses: actions/sign-android-release@master
         with:
@@ -79,22 +79,25 @@ jobs:
         run: |
           ./gradlew getVersion
           echo "version=$(cat app/build/version.txt)" >> $GITHUB_ENV
+          echo "sha_short=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
 
       - name: Delete Unsigned APKs
         run: |
           find app/build/outputs/apk/armv8/debug/ -type f ! -name '*-signed*' -delete
-          mv ${{steps.sign_armv8.outputs.signedReleaseFile}} app/build/outputs/apk/armv8/debug/snapenhance-${{ env.version }}-armv8-${GITHUB_SHA::7}.apk
-
           find app/build/outputs/apk/armv7/debug/ -type f ! -name '*-signed*' -delete
-          mv ${{steps.sign_armv7.outputs.signedReleaseFile}} app/build/outputs/apk/armv7/debug/snapenhance-${{ env.version }}-armv7-${GITHUB_SHA::7}.apk
 
-      - name: Upload Armv7 APK
+      - name: Rename APK Files
+        run: |
+          mv app/build/outputs/apk/armv8/debug/*.apk app/build/outputs/apk/armv8/debug/SE-Extended-${{ env.version }}-ARMV8-${{ steps.version-env.outputs.sha_short }}.apk
+          mv app/build/outputs/apk/armv7/debug/*.apk app/build/outputs/apk/armv7/debug/SE-Extended-${{ env.version }}-ARMV7-${{ steps.version-env.outputs.sha_short }}.apk
+
+      - name: Upload ARMV7 APK
         uses: actions/upload-artifact@v3
         with:
           name: SE-Extended-ARMV7-Debug
           path: app/build/outputs/apk/armv7/debug/*.apk
 
-      - name: Upload Armv8 APK
+      - name: Upload ARMV8 APK
         uses: actions/upload-artifact@v3
         with:
           name: SE-Extended-ARMV8-Debug
