@@ -241,9 +241,8 @@ class HomeRootSection : Routes.Route() {
             val latestRelease by UpdateFetcher.latestRelease.collectAsState()
             val downloading by isDownloading.collectAsState()
             val updateReady by isReadyToInstall.collectAsState()
-            var latestUpdate by remember { mutableStateOf(UpdateFetcher.latestRelease) }
             val androidContext = LocalContext.current
-            val isUpdateCardVisible = if (shouldShowUpdates) latestUpdate != null else false
+            val isUpdateCardVisible = shouldShowUpdates && latestRelease != null
             val isDebugCardVisible = BuildConfig.DEBUG
             val updateCardShape = if (isDebugCardVisible) cardShapeGroupedTop else cardShapeSingle
             val debugInfoCardShape = when {
