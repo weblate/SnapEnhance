@@ -197,7 +197,7 @@ class HomeUpdating: Routes.Route() {
                                             .fillMaxWidth()
                                             .clickable {
                                                 updateCheckerInterval.value = "daily"
-                                                UpdateNotification.updateNotiRepeater(context.androidContext, force = true)
+                                                UpdateNotification.updateCheckRepeater(context.androidContext, force = true)
                                             },
                                         verticalAlignment = Alignment.CenterVertically,
                                         horizontalArrangement = Arrangement.SpaceBetween
@@ -207,7 +207,7 @@ class HomeUpdating: Routes.Route() {
                                             selected = getUpdateCheckerInterval == "daily",
                                             onClick = {
                                                 updateCheckerInterval.value = "daily"
-                                                UpdateNotification.updateNotiRepeater(context.androidContext, force = true)
+                                                UpdateNotification.updateCheckRepeater(context.androidContext, force = true)
                                             }
                                         )
                                     }
@@ -222,7 +222,7 @@ class HomeUpdating: Routes.Route() {
                                             .fillMaxWidth()
                                             .clickable {
                                                 updateCheckerInterval.value = "weekly"
-                                                UpdateNotification.updateNotiRepeater(context.androidContext, force = true)
+                                                UpdateNotification.updateCheckRepeater(context.androidContext, force = true)
                                             },
                                         verticalAlignment = Alignment.CenterVertically,
                                         horizontalArrangement = Arrangement.SpaceBetween
@@ -232,7 +232,7 @@ class HomeUpdating: Routes.Route() {
                                             selected = getUpdateCheckerInterval == "weekly",
                                             onClick = {
                                                 updateCheckerInterval.value = "weekly"
-                                                UpdateNotification.updateNotiRepeater(context.androidContext, force = true)
+                                                UpdateNotification.updateCheckRepeater(context.androidContext, force = true)
                                             }
                                         )
                                     }
@@ -256,7 +256,7 @@ class HomeUpdating: Routes.Route() {
                                             selected = getUpdateCheckerInterval == "monthly",
                                             onClick = {
                                                 updateCheckerInterval.value = "monthly"
-                                                UpdateNotification.updateNotiRepeater(context.androidContext, force = true)
+                                                UpdateNotification.updateCheckRepeater(context.androidContext, force = true)
                                             }
                                         )
                                     }
