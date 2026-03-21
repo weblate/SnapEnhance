@@ -27,7 +27,7 @@ import androidx.navigation.compose.rememberNavController
 import dev.chrisbanes.haze.rememberHazeState
 import me.rhunk.snapenhance.RemoteSideContext
 import me.rhunk.snapenhance.SharedContextHolder
-import me.rhunk.snapenhance.UpdateNotification.Companion.updateNotiRepeater
+import me.rhunk.snapenhance.UpdateNotification.Companion.updateCheckRepeater
 import me.rhunk.snapenhance.common.ui.theme.AppMaterialTheme
 import me.rhunk.snapenhance.common.ui.rememberMutableStringPreferenceState
 
@@ -68,7 +68,7 @@ class MainActivity : ComponentActivity() {
 
         val shouldCheckForUpdates = managerContext.sharedPreferences.getBoolean("app_update_checker", true)
         if (shouldCheckForUpdates) {
-            updateNotiRepeater(this, force = false)
+            updateCheckRepeater(this, force = false)
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

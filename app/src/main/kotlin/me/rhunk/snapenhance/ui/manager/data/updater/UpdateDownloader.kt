@@ -4,125 +4,98 @@ import android.content.Context
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import me.rhunk.snapenhance.common.logger.AbstractLogger
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.File
 import java.util.zip.ZipInputStream
-
 import me.rhunk.snapenhance.ui.manager.data.updater.UpdateFetcher.latestRelease
-
-private fun getBaseDownloadDir(context: Context): File {
-    return context.getExternalFilesDir(null) ?: throw IllegalStateException("External storage directory is null/unavailable.")
-}
 
 private val scope = CoroutineScope(Dispatchers.IO)
 private val client = OkHttpClient()
 
-private val _downloadProgress = MutableStateFlow(0f)
-val downloadProgress: StateFlow<Float> = _downloadProgress
-private val _isDownloading = MutableStateFlow(false)
-val isDownloading: StateFlow<Boolean> = _isDownloading
+val isDownloading = MutableStateFlow(false)
+val isReadyToInstall = MutableStateFlow(false)
 
-fun updateProgress(progress: Float) { _downloadProgress.value = progress }
-fun setDownloading(isDownloading: Boolean) { _isDownloading.value = isDownloading }
-
-private fun unzip(zip: File, dir: File): File? {
-    val destFolder = File(dir, "update_extract_${System.currentTimeMillis()}")
-    destFolder.mkdirs()
-
-    ZipInputStream(zip.inputStream()).use { zipInputStream ->
-        var entry = zipInputStream.nextEntry
-        while (entry != null) {
-            if (!entry.isDirectory && entry.name.lowercase().endsWith(".apk")) {
-                val outputFile = File(destFolder, entry.name.substringAfterLast('/'))
-                outputFile.outputStream().use { outputStream ->
-                    zipInputStream.copyTo(outputStream)
-                }
-                zip.delete()
-                return outputFile
-            }
-            zipInputStream.closeEntry()
-            entry = zipInputStream.nextEntry
-        }
-    }
-    destFolder.deleteRecursively()
-    return null
+private fun getBaseDownloadDir(context: Context): File {
+    return context.getExternalFilesDir(null) ?: throw IllegalStateException("External storage unavailable")
 }
 
-fun downloadUpdate(
-    context: Context,
-    logger: AbstractLogger,
-    fileProviderAuthority: String
-) = scope.launch {
-    if (_isDownloading.value) return@launch
-
-    val downloadBaseDir = try {
-        getBaseDownloadDir(context)
-    } catch (e: IllegalStateException) {
-        logger.error("External storage is unavailable for download.", e)
-        return@launch
-    }
-
-    val release = latestRelease ?: run {
-        logger.error("Download failed: No release information found.")
-        return@launch
-    }
-
-    val url = release.releaseUrl
-    val isZip = url.lowercase().contains(".zip")
-    val downloadedUpdateName = if (isZip) "update-${release.versionName}.zip" else "update-${release.versionName}.apk"
-    val downloadedFile = File(downloadBaseDir, downloadedUpdateName)
-
-    _isDownloading.value = true
-    _downloadProgress.value = 0f
-
+private fun unzip(zip: File, dir: File, logger: AbstractLogger): File? {
+    val destFolder = File(dir, "update_extract_${System.currentTimeMillis()}")
+    if (!destFolder.exists()) destFolder.mkdirs()
+    var apkFile: File? = null
     try {
-        val request = Request.Builder().url(url).build()
-        client.newCall(request).execute().use { response ->
-            if (!response.isSuccessful) {
-                throw Exception("Download failed | HTTPS: ${response.code}")
-            }
-            val body = response.body ?: throw Exception("Empty response body")
-            val totalBytes = body.contentLength()
-            var bytesRead: Long = 0
-
-            downloadedFile.outputStream().use { output ->
-                val input = body.byteStream()
-                val buffer = ByteArray(4096)
-                var read: Int
-
-                while (input.read(buffer).also { read = it } != -1) {
-                    output.write(buffer, 0, read)
-                    bytesRead += read
-                    if (totalBytes > 0) {
-                        _downloadProgress.value = bytesRead.toFloat() / totalBytes.toFloat()
+        zip.inputStream().use { fis ->
+            ZipInputStream(fis).use { zis ->
+                var entry = zis.nextEntry
+                while (entry != null) {
+                    val file = File(destFolder, entry.name)
+                    if (!entry.isDirectory) {
+                        file.parentFile?.mkdirs()
+                        file.outputStream().use { zis.copyTo(it) }
+                        if (file.extension.lowercase() == "apk") {
+                            apkFile = file
+                        }
                     }
+                    zis.closeEntry()
+                    entry = zis.nextEntry
                 }
-            }
-
-            val finalApkFile = if (isZip) {
-                unzip(downloadedFile, downloadBaseDir)
-            } else {
-                downloadedFile
-            }
-
-            if (finalApkFile != null) {
-                withContext(Dispatchers.Main) {
-                    installApk(context, finalApkFile, fileProviderAuthority, logger)
-                }
-            } else {
-                logger.error("No APK found in downloaded archive.")
             }
         }
     } catch (e: Exception) {
-        logger.error("Download, unzip, or install failed", e)
-    } finally {
-        if (downloadedFile.exists()) downloadedFile.delete()
-        _isDownloading.value = false
-        _downloadProgress.value = 0f
+        logger.error("Unzip failed", e)
+    }
+    return apkFile
+}
+
+fun downloadUpdate(context: Context, logger: AbstractLogger) {
+    val release = latestRelease.value ?: return
+    val url = release.releaseUrl
+
+    scope.launch {
+        isDownloading.value = true
+        val downloadBaseDir = getBaseDownloadDir(context)
+        val downloadedZip = File(downloadBaseDir, "update_temp.zip")
+
+        try {
+            val request = Request.Builder().url(url).build()
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) throw Exception("Download failed: ${response.code}")
+
+                val body = response.body
+
+                downloadedZip.outputStream().use { output ->
+                    val input = body.byteStream()
+                    val buffer = ByteArray(8192)
+                    var read: Int
+                    var totalDownloaded = 0L
+
+                    while (input.read(buffer).also { read = it } != -1) {
+                        output.write(buffer, 0, read)
+                        totalDownloaded += read
+                    }
+                    logger.debug("Download finished, Received $totalDownloaded bytes.")
+                }
+
+                val apkFile = unzip(downloadedZip, downloadBaseDir, logger)
+                if (apkFile != null && apkFile.exists()) {
+                    isReadyToInstall.value = true
+                    isDownloading.value = false
+                    installApk(context, apkFile, logger)
+                } else {
+                    isReadyToInstall.value = false
+                    throw Exception("no apk found in the downloaded artifacts")
+                }
+
+            }
+        } catch (e: Exception) {
+            logger.error("Update failed", e)
+            isDownloading.value = false
+            isReadyToInstall.value = false
+        } finally {
+            if (downloadedZip.exists()) downloadedZip.delete()
+        }
     }
 }

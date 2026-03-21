@@ -1,17 +1,21 @@
 package me.rhunk.snapenhance.ui.manager.data.updater
 
-import android.content.Context
 import com.google.gson.JsonParser
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import me.rhunk.snapenhance.UpdateNotification
 import me.rhunk.snapenhance.common.BuildConfig
 import me.rhunk.snapenhance.common.logger.AbstractLogger
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.util.concurrent.TimeUnit
+import android.content.Context
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
+import me.rhunk.snapenhance.UpdateNotification
 
 object UpdateFetcher {
     data class LatestRelease(
@@ -19,16 +23,11 @@ object UpdateFetcher {
         val releaseUrl: String
     )
 
-    var cachedRelease: LatestRelease? = null
-        private set
-
-    val latestRelease: LatestRelease? get() = cachedRelease
+    private val _latestRelease = MutableStateFlow<LatestRelease?>(null)
+    val latestRelease: StateFlow<LatestRelease?> = _latestRelease.asStateFlow()
 
     private var lastCheckTime: Long = 0
     private const val CACHE_DURATION_MS = 60 * 60 * 1000L
-
-    private const val FORGEJO_BASE_URL = "https://git.seextended.org/api/v1"
-    private const val REPO_PATH = "bocajthomas/SE-Extended"
 
     private val client = OkHttpClient.Builder()
         .connectTimeout(10, TimeUnit.SECONDS)
@@ -37,108 +36,83 @@ object UpdateFetcher {
 
     fun getLatestUpdate(): LatestRelease? {
         val currentTime = System.currentTimeMillis()
-        if (cachedRelease != null && (currentTime - lastCheckTime) < CACHE_DURATION_MS) {
-            return cachedRelease
+        if (_latestRelease.value != null && (currentTime - lastCheckTime) < CACHE_DURATION_MS) {
+            return _latestRelease.value
         }
 
-        val result = if (BuildConfig.DEBUG) fetchLatestDebugCI() else fetchLatestRelease()
-        lastCheckTime = currentTime
-        cachedRelease = result
-        return result
+        return runBlocking(Dispatchers.IO) {
+            val result = if (BuildConfig.DEBUG) fetchLatestDebugCI() else fetchLatestRelease()
+            lastCheckTime = currentTime
+            _latestRelease.value = result
+            result
+        }
     }
 
-    private fun fetchLatestRelease() = runCatching {
-        val endpoint = "$FORGEJO_BASE_URL/repos/$REPO_PATH/releases"
-        val request = Request.Builder().url(endpoint).build()
+    private fun fetchLatestDebugCI(): LatestRelease? = runCatching {
+        val url = "https://git.seextended.org/api/v1/repos/bocajthomas/SE-Extended/actions/runs?event=workflow_dispatch"
+        val response = client.newCall(Request.Builder().url(url).build()).execute()
 
-        val response = client.newCall(request).execute()
-        if (!response.isSuccessful) throw Throwable("Forgejo API Error: ${response.code}")
+        val bodyString = response.body?.string() ?: throw Throwable("Empty response body")
 
-        val bodyString = response.body?.string() ?: throw Throwable("Empty response")
-        val releases = JsonParser.parseString(bodyString).asJsonArray
+        if (!response.isSuccessful) {
+            AbstractLogger.directError("Failed to fetch CI Build:", Throwable("${response.code}"))
+        }
 
-        if (releases.size() == 0) {
-            AbstractLogger.directDebug("Update Check: No releases found on Forgejo.")
+        val json = try {
+            JsonParser.parseString(bodyString).asJsonObject
+        } catch (e: Exception) {
+            AbstractLogger.directError("invalid JSON: $bodyString", e)
+            throw e
+        }
+
+        val runs = json.getAsJsonArray("workflow_runs") ?: throw Throwable("No runs array")
+
+        val latestRun = runs.map { it.asJsonObject }.filter { run ->
+            val isSuccess = run.get("status")?.asString == "success"
+            val workflowFile = run.get("workflow_id")?.asString ?: ""
+            val branch = run.get("prettyref")?.asString ?: ""
+
+            isSuccess && workflowFile == "debug.yml" && branch == "dev"
+        }.maxByOrNull { it.get("id").asInt } ?: return@runCatching null
+
+        val commitSha = latestRun.get("commit_sha").asString
+        val runId = latestRun.get("id").asInt
+
+        if (commitSha == BuildConfig.GIT_HASH) {
             return@runCatching null
         }
 
-        val latestRelObj = releases.get(0).asJsonObject
-        val latestVersion = latestRelObj.getAsJsonPrimitive("tag_name").asString
-
-        if (latestVersion.removePrefix("v") == BuildConfig.VERSION_NAME) {
-            AbstractLogger.directDebug("No updates found. Using latest version: $latestVersion")
-            return@runCatching null
-        }
-
-        LatestRelease(
-            versionName = latestVersion,
-            releaseUrl = "https://git.seextended.org/$REPO_PATH/releases/latest"
-        )
-    }.onFailure {
-        AbstractLogger.directError("Failed to fetch latest Forgejo release", it)
-    }.getOrNull()
-
-    private fun fetchLatestDebugCI() = runCatching {
-        val endpoint = "$FORGEJO_BASE_URL/repos/$REPO_PATH/actions/runs"
-        val request = Request.Builder().url(endpoint).build()
-
-        val response = client.newCall(request).execute()
-
-        if (response.code == 202) {
-            AbstractLogger.directDebug("Forgejo Actions API is rebuilding cache (202).")
-            return@runCatching null
-        }
-
-        if (!response.isSuccessful) throw Throwable("Forgejo Actions Error: ${response.code}")
-
-        val bodyString = response.body?.string() ?: throw Throwable("Empty CI body")
-        val actionRuns = JsonParser.parseString(bodyString).asJsonObject
-        val workflowRuns = actionRuns.getAsJsonArray("workflow_runs") ?: return@runCatching null
-
-        val latestRun = workflowRuns.map { it.asJsonObject }.firstOrNull { run ->
-            val status = run.getAsJsonPrimitive("status")?.asString
-            val conclusion = run.getAsJsonPrimitive("conclusion")?.asString
-            status == "completed" && conclusion == "success"
-        }
-
-        if (latestRun == null) {
-            AbstractLogger.directDebug("Update Check: No successful Action runs found.")
-            return@runCatching null
-        }
-
-        val headSha = latestRun.getAsJsonPrimitive("head_sha")?.asString ?: return@runCatching null
-
-        if (headSha == BuildConfig.GIT_HASH) {
-            AbstractLogger.directDebug("No CI updates found. Hash $headSha is current.")
-            return@runCatching null
-        }
         val arch = System.getProperty("os.arch") ?: "arm64-v8a"
-        val apkName = if (arch.contains("64", ignoreCase = true)) {
-            "SE-Extended-ARMV8-Debug.zip"
-        } else {
-            "SE-Extended-ARMV7-Debug.zip"
-        }
+        val artifactName = if (arch.contains("64")) "SE-Extended-ARMV8-Debug" else "SE-Extended-ARMV7-Debug"
 
         LatestRelease(
-            versionName = headSha.take(7) + "-debug",
-            releaseUrl = latestRun.getAsJsonPrimitive("html_url").asString + "/$apkName"
+            versionName = "${commitSha.take(7)}-debug",
+            releaseUrl = "https://git.seextended.org/bocajthomas/SE-Extended/actions/runs/$runId/artifacts/$artifactName"
         )
     }.onFailure {
-        AbstractLogger.directError("Failed to fetch latest Forgejo debug CI", it)
+        AbstractLogger.directError("CI Fetch Failed", it)
     }.getOrNull()
 
-    fun checkForUpdates(context: Context, isManual: Boolean = false) {
+    // TODO: when closer to a stable v1.0.0 release, fix to actually get the latest stable releases
+    private fun fetchLatestRelease(): LatestRelease? = runCatching {
+        val url = "https://git.seextended.org/bocajthomas/SE-Extended/releases"
+        val response = client.newCall(Request.Builder().url(url).build()).execute()
+        val releases = JsonParser.parseString(response.body?.string()).asJsonArray
+        if (releases.size() == 0) return@runCatching null
+
+        val latest = releases[0].asJsonObject
+        val tagName = latest.get("tag_name").asString
+        if (tagName.replace("v", "") == BuildConfig.VERSION_NAME) return@runCatching null
+
+        LatestRelease(versionName = tagName, releaseUrl = latest.get("html_url").asString)
+    }.getOrNull()
+
+    fun checkForUpdates(context: Context) {
         CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val update = getLatestUpdate()
+            val update = getLatestUpdate()
+            if (update != null) {
                 withContext(Dispatchers.Main) {
-                    if (update != null) {
-                        UpdateNotification.showNotification(context, update)
-                    }
-                }
-            } catch (e: Exception) {
-                if (isManual) {
-                    AbstractLogger.directError("Check Failed", e)
+                    UpdateNotification.showUpdateNotification(context, update)
                 }
             }
         }
@@ -153,7 +127,7 @@ object UpdateFetcher {
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    onResult(cachedRelease)
+                    onResult(null)
                 }
             }
         }

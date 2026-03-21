@@ -305,14 +305,6 @@
 
         <receiver android:name=".UpdateNotification" />
 
-        <receiver
-            android:name=".Installer"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="INSTALL_PACKAGE_RESULT" />
-            </intent-filter>
-        </receiver>
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="me.rhunk.snapenhance.fileprovider"

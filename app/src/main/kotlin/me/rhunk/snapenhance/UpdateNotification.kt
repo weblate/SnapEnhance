@@ -7,14 +7,12 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.core.app.NotificationCompat
 import me.rhunk.snapenhance.ui.manager.data.updater.UpdateFetcher
 
 class UpdateNotification : BroadcastReceiver() {
     companion object {
-        private const val NOTIFICATION_CHANNEL_ID = "app_update"
-        private const val NOTIFICATION_ID = 1001
-
         private fun getPendingIntent(context: Context, noCreate: Boolean = false): PendingIntent? {
             val intent = Intent(context, UpdateNotification::class.java)
             val flags = if (noCreate) {
@@ -25,7 +23,7 @@ class UpdateNotification : BroadcastReceiver() {
             return PendingIntent.getBroadcast(context, 0, intent, flags)
         }
 
-        fun updateNotiRepeater(context: Context, force: Boolean = false) {
+        fun updateCheckRepeater(context: Context, force: Boolean = false) {
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             val remoteContext = RemoteSideContext(context)
             val existingIntent = getPendingIntent(context, noCreate = true)
@@ -51,27 +49,26 @@ class UpdateNotification : BroadcastReceiver() {
             )
         }
 
-        fun showNotification(context: Context, update: UpdateFetcher.LatestRelease) {
+        fun showUpdateNotification(context: Context, update: UpdateFetcher.LatestRelease) {
             val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val channelId = "app_update"
             val remoteContext = RemoteSideContext(context)
             remoteContext.translation.load()
-            val channel = NotificationChannel(
-                NOTIFICATION_CHANNEL_ID,
-                    "App Updates",
-                    NotificationManager.IMPORTANCE_HIGH
-            )
-            manager.createNotificationChannel(channel)
-            val launchIntent = context.packageManager.getLaunchIntentForPackage(context.packageName)?.apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                putExtra("update_url", update.releaseUrl)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val channel = NotificationChannel(channelId, "App Updates", NotificationManager.IMPORTANCE_HIGH).apply {
+                    description = "Notifications for new SE-Extended builds"
+                }
+                manager.createNotificationChannel(channel)
             }
+
+            val intent = context.packageManager.getLaunchIntentForPackage(context.packageName)
             val pendingIntent = PendingIntent.getActivity(
-                context,
-                0,
-                launchIntent,
+                context, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
-            val notification = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
+
+            val notification = NotificationCompat.Builder(context, channelId)
                 .setSmallIcon(R.drawable.launcher_icon_monochrome)
                 .setContentTitle(remoteContext.translation["manager.update_notification.content_title"])
                 .setContentText(remoteContext.translation.format("manager.update_notification.content_description", "versionName" to update.versionName))
@@ -79,11 +76,13 @@ class UpdateNotification : BroadcastReceiver() {
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .build()
-            manager.notify(NOTIFICATION_ID, notification)
+
+            manager.notify(1001, notification)
         }
     }
 
     override fun onReceive(context: Context, intent: Intent?) {
+        if (intent == null) return
         UpdateFetcher.checkForUpdates(context)
     }
 }

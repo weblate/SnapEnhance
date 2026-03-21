@@ -7,7 +7,6 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.Help
@@ -17,6 +16,7 @@ import androidx.compose.material.icons.rounded.BugReport
 import androidx.compose.material.icons.rounded.DashboardCustomize
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Settings
+import androidx.compose.material.icons.rounded.Verified
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -39,7 +39,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import androidx.navigation.NavBackStackEntry
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import me.rhunk.snapenhance.R
 import me.rhunk.snapenhance.action.EnumQuickActions
 import me.rhunk.snapenhance.common.BuildConfig
@@ -57,6 +59,7 @@ class HomeRootSection : Routes.Route() {
     companion object {
         val cardMargin = 10.dp
     }
+
     private lateinit var activityLauncherHelper: ActivityLauncherHelper
     private val cards by lazy {
         EnumQuickActions.entries.map {
@@ -192,7 +195,6 @@ class HomeRootSection : Routes.Route() {
                     .fillMaxWidth()
                     .padding(all = 5.dp)
             ) {
-
                 ExternalLinkIcon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_telegram_round),
                     link = "https://t.me/SE_Extended",
@@ -235,9 +237,11 @@ class HomeRootSection : Routes.Route() {
                 key = "promo_mode",
                 defaultValue = false
             )
-            var latestUpdate by remember { mutableStateOf(UpdateFetcher.cachedRelease) }
-            val progress by downloadProgress.collectAsState()
-            val isDownloading by isDownloading.collectAsState()
+
+            val latestRelease by UpdateFetcher.latestRelease.collectAsState()
+            val downloading by isDownloading.collectAsState()
+            val updateReady by isReadyToInstall.collectAsState()
+            var latestUpdate by remember { mutableStateOf(UpdateFetcher.latestRelease) }
             val androidContext = LocalContext.current
             val isUpdateCardVisible = if (shouldShowUpdates) latestUpdate != null else false
             val isDebugCardVisible = BuildConfig.DEBUG
@@ -249,8 +253,9 @@ class HomeRootSection : Routes.Route() {
 
             LaunchedEffect(Unit) {
                 if (!shouldShowUpdates) return@LaunchedEffect
-                UpdateFetcher.fetchUpdateInBackground { result ->
-                    latestUpdate = result
+
+                withContext(Dispatchers.IO) {
+                    UpdateFetcher.getLatestUpdate()
                 }
             }
 
@@ -258,7 +263,6 @@ class HomeRootSection : Routes.Route() {
                 modifier = Modifier.fillMaxWidth().animateContentSize(),
                 verticalArrangement = Arrangement.spacedBy(3.dp),
             ) {
-
                 if (promoMode) return@Column
 
                 if (isUpdateCardVisible || isDebugCardVisible) {
@@ -267,10 +271,9 @@ class HomeRootSection : Routes.Route() {
 
                 if (isUpdateCardVisible) {
                     Card(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth().animateContentSize(),
                         colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                            contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                            containerColor = MaterialTheme.colorScheme.surfaceVariant
                         ),
                         shape = updateCardShape
                     ) {
@@ -294,53 +297,38 @@ class HomeRootSection : Routes.Route() {
                                         fontSize = 12.sp,
                                         text = translation.format(
                                             "update_content",
-                                            "version" to (latestUpdate?.versionName ?: "unknown")
+                                            "version" to (latestRelease?.versionName ?: "unknown")
                                         ),
                                         lineHeight = 20.sp,
                                         overflow = TextOverflow.Ellipsis,
                                     )
                                 }
-                                Button(
-                                    modifier = Modifier.height(40.dp),
-                                    onClick = {
-                                        downloadUpdate(
-                                            context = androidContext,
-                                            logger = context.log,
-                                            fileProviderAuthority = androidContext.packageName + ".fileprovider"
-                                        )
-                                    },
-                                    enabled = !isDownloading,
-                                    shapes = ButtonDefaults.shapes()
-                                ) {
-                                    if (isDownloading) {
-                                        Text(text = translation["downloading_button"])
-                                    } else {
-                                        Text(text = translation["download_button"])
+
+                                if (!downloading && !updateReady) {
+                                    Button(
+                                        onClick = {
+                                            downloadUpdate(
+                                                androidContext,
+                                                context.log
+                                            )
+                                        },
+                                        shapes = ButtonDefaults.shapes()
+                                    ) {
+                                        Text(translation["download_button"])
                                     }
-                                }
-                            }
-
-                            if (isDownloading) {
-                                Spacer(modifier = Modifier.height(5.dp))
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.SpaceBetween,
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    LinearWavyProgressIndicator(
-                                        progress = { progress },
-                                        modifier = Modifier
-                                            .weight(1f)
-                                            .height(8.dp)
-                                            .padding(end = 10.dp)
-                                    )
-
-                                    Text(
-                                        text = "${(progress * 100).toInt()}%",
-                                        fontSize = 14.sp,
-                                        lineHeight = 20.sp,
-                                        overflow = TextOverflow.Ellipsis,
-                                    )
+                                } else {
+                                    if (!updateReady) {
+                                        CircularWavyProgressIndicator(
+                                            modifier = Modifier.size(35.dp)
+                                        )
+                                    } else {
+                                        Icon(
+                                            imageVector = Icons.Rounded.Verified,
+                                            contentDescription = null,
+                                            tint = MaterialTheme.colorScheme.primary,
+                                            modifier = Modifier.size(35.dp)
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -419,162 +407,164 @@ class HomeRootSection : Routes.Route() {
                         }
                     }
                 }
-            }
 
-            var showQuickActionsMenu by remember { mutableStateOf(false) }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 10.dp, end = 5.dp, top = 5.dp, bottom = 5.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    translation["quick_actions_title"], fontSize = 20.sp,
-                    modifier = Modifier.weight(1f)
-                )
-
-                IconButton(
-                    onClick = { showQuickActionsMenu = !showQuickActionsMenu },
-                    shapes = IconButtonDefaults.shapes()
+                var showQuickActionsMenu by remember { mutableStateOf(false) }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 10.dp, end = 5.dp, top = 5.dp, bottom = 5.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(if (mappedTiles.isEmpty()) Icons.Rounded.Add else Icons.Rounded.Edit, contentDescription = null)
-                }
+                    Text(
+                        translation["quick_actions_title"], fontSize = 20.sp,
+                        modifier = Modifier.weight(1f)
+                    )
 
-                if (showQuickActionsMenu) {
-                    LazyColumnBottomSheet(
-                        onDismiss = { showQuickActionsMenu = false },
+                    IconButton(
+                        onClick = { showQuickActionsMenu = !showQuickActionsMenu },
+                        shapes = IconButtonDefaults.shapes()
                     ) {
-                        val cardList = cards.toList()
+                        Icon(
+                            if (mappedTiles.isEmpty()) Icons.Rounded.Add else Icons.Rounded.Edit,
+                            contentDescription = null
+                        )
+                    }
 
-                        Column(
-                            verticalArrangement = Arrangement.spacedBy(3.dp)
+                    if (showQuickActionsMenu) {
+                        LazyColumnBottomSheet(
+                            onDismiss = { showQuickActionsMenu = false }
                         ) {
-                            cardList.forEachIndexed { index, (cardInfo, action) ->
-                                val (title, icon) = cardInfo
+                            val cardList = cards.toList()
+                            Column(
+                                verticalArrangement = Arrangement.spacedBy(3.dp)
+                            ) {
+                                cardList.forEachIndexed { index, (cardInfo, action) ->
+                                    val (title, icon) = cardInfo
 
-                                fun toggle(state: Boolean? = null) {
-                                    val isCurrentlySelected = selectedTiles.contains(title)
-                                    val targetState = state ?: !isCurrentlySelected
+                                    fun toggle(state: Boolean? = null) {
+                                        val isCurrentlySelected = selectedTiles.contains(title)
+                                        val targetState = state ?: !isCurrentlySelected
 
-                                    if (targetState) {
-                                        selectedTiles.add(0, title)
-                                    } else {
-                                        selectedTiles.remove(title)
+                                        if (targetState) {
+                                            selectedTiles.add(0, title)
+                                        } else {
+                                            selectedTiles.remove(title)
+                                        }
+
+                                        context.coroutineScope.launch {
+                                            context.database.setQuickTiles(selectedTiles)
+                                        }
                                     }
 
-                                    context.coroutineScope.launch {
-                                        context.database.setQuickTiles(selectedTiles)
-                                    }
-                                }
-
-                                Card(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    shape = cardShape(cardList.size, index)
-                                ) {
-                                    Row(
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        horizontalArrangement = Arrangement.SpaceBetween,
-                                        modifier = Modifier.clickable { toggle() }
-                                            .fillMaxWidth()
+                                    Card(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        shape = cardShape(cardList.size, index)
                                     ) {
-                                        Text(
-                                            text = title,
-                                            fontSize = 16.sp,
-                                            modifier = Modifier.weight(1f)
-                                                .padding(start = 10.dp)
-                                        )
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.SpaceBetween,
+                                            modifier = Modifier.clickable { toggle() }
+                                                .fillMaxWidth()
+                                        ) {
+                                            Text(
+                                                text = title,
+                                                fontSize = 16.sp,
+                                                modifier = Modifier.weight(1f)
+                                                    .padding(start = 10.dp)
+                                            )
 
-                                        Checkbox(
-                                            checked = selectedTiles.contains(title),
-                                            onCheckedChange = {
-                                                toggle(it)
-                                            }
-                                        )
+                                            Checkbox(
+                                                checked = selectedTiles.contains(title),
+                                                onCheckedChange = {
+                                                    toggle(it)
+                                                }
+                                            )
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-            }
 
-            if (mappedTiles.isEmpty()) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    ElevatedCard(
-                        modifier = Modifier
-                            .padding(16.dp)
-                            .size(200.dp),
-                        shape = MaterialShapes.Arrow.toShape()
+                if (mappedTiles.isEmpty()) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
                     ) {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Icon(
-                                imageVector = Icons.Rounded.DashboardCustomize,
-                                contentDescription = null,
-                                modifier = Modifier.size(80.dp)
-                            )
-                        }
-                    }
-                    Text(
-                        text = translation["quick_actions_empty"],
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(8.dp)
-                    )
-                    Text(
-                        text = translation["quick_actions_empty_desc"],
-                        style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier.padding(8.dp)
-                    )
-                }
-            } else {
-                FlowRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    maxItemsInEachRow = 3,
-                    horizontalArrangement = Arrangement.spacedBy(5.dp),
-                    verticalArrangement = Arrangement.spacedBy(5.dp)
-                ) {
-                    val tileHeight = LocalDensity.current.run {
-                        remember { (context.androidContext.resources.displayMetrics.widthPixels / 3).toDp() - cardMargin / 2 }
-                    }
-
-                    remember(selectedTiles.size, context.translation.loadedLocale) {
-                        selectedTiles.mapNotNull {
-                            cards.entries.find { entry -> entry.key.first == it }
-                        }
-                    }.forEach { (card, action) ->
                         ElevatedCard(
                             modifier = Modifier
-                                .height(tileHeight)
-                                .weight(1f),
-                            onClick = { action(routes) },
-                            shape = cardShapeSingle
+                                .padding(16.dp)
+                                .size(200.dp),
+                            shape = MaterialShapes.Arrow.toShape()
                         ) {
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(all = 5.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.SpaceEvenly
+                            Box(
+                                modifier = Modifier.fillMaxSize(),
+                                contentAlignment = Alignment.Center
                             ) {
                                 Icon(
-                                    imageVector = card.second, contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    modifier = Modifier.size(42.dp)
+                                    imageVector = Icons.Rounded.DashboardCustomize,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(80.dp)
                                 )
-                                Text(
-                                    text = card.first,
-                                    lineHeight = 16.sp,
-                                    fontSize = 11.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    textAlign = TextAlign.Center,
-                                    overflow = TextOverflow.Ellipsis
-                                )
+                            }
+                        }
+                        Text(
+                            text = translation["quick_actions_empty"],
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier.padding(8.dp)
+                        )
+                        Text(
+                            text = translation["quick_actions_empty_desc"],
+                            style = MaterialTheme.typography.bodySmall,
+                            modifier = Modifier.padding(8.dp)
+                        )
+                    }
+                } else {
+                    FlowRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        maxItemsInEachRow = 3,
+                        horizontalArrangement = Arrangement.spacedBy(5.dp),
+                        verticalArrangement = Arrangement.spacedBy(5.dp)
+                    ) {
+                        val tileHeight = LocalDensity.current.run {
+                            remember { (context.androidContext.resources.displayMetrics.widthPixels / 3).toDp() - cardMargin / 2 }
+                        }
+
+                        remember(selectedTiles.size, context.translation.loadedLocale) {
+                            selectedTiles.mapNotNull {
+                                cards.entries.find { entry -> entry.key.first == it }
+                            }
+                        }.forEach { (card, action) ->
+                            ElevatedCard(
+                                modifier = Modifier
+                                    .height(tileHeight)
+                                    .weight(1f),
+                                onClick = { action(routes) },
+                                shape = cardShapeSingle
+                            ) {
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(all = 5.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.SpaceEvenly
+                                ) {
+                                    Icon(
+                                        imageVector = card.second, contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        modifier = Modifier.size(42.dp)
+                                    )
+                                    Text(
+                                        text = card.first,
+                                        lineHeight = 16.sp,
+                                        fontSize = 11.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        textAlign = TextAlign.Center,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                }
                             }
                         }
                     }
