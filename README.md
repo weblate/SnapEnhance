@@ -8,7 +8,7 @@
 
 <br/>
 
-[![](https://img.shields.io/github/actions/workflow/status/bocajthomas/SE-Extended/debug.yml?style=for-the-badge&label=Builds&color=white&labelColor=black&logoColor=white)](https://github.com/bocajthomas/SE-Extended/actions/workflows/debug.yml)
+![Builds](https://git.seextended.org/bocajthomas/SE-Extended/badges/workflows/debug.yml/badge.svg?style=for-the-badge&label=Builds&color=white&labelColor=black&logoColor=white)
 [![Downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fse-extended.bocajsolutions.co.uk%2Factions%2Fartifacts%2Fdownloads%2F&query=badge_downloads&label=downloads&style=for-the-badge&color=white&labelColor=black)](https://github.com/bocajthomas/SE-Extended/actions)
 ![Weblate project translated](https://img.shields.io/weblate/progress/se-extended?style=for-the-badge&label=Translated&color=white&labelColor=black&logoColor=white)
 
