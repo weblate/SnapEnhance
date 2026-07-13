@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2026 bocajthomas
+ *
+ * This file is a derivative work of LiquidBottomTab.kt from the AndroidLiquidGlass
+ * project by Kyant0 (licensed under the Apache License, Version 2.0)
+ * Original Source: https://github.com/Kyant0/AndroidLiquidGlass
+ *
+ * This modified file is licensed under the GNU General Public License v3.0.
+ */
+
 package me.rhunk.snapenhance.ui.components
 
 import androidx.compose.foundation.clickable
@@ -16,7 +26,6 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.kyant.capsule.ContinuousCapsule
 
-// https://github.com/Kyant0/AndroidLiquidGlass/blob/master/catalog/src/main/java/com/kyant/backdrop/catalog/components/LiquidBottomTab.kt
 internal val LocalLiquidBottomTabScale = staticCompositionLocalOf { { 0.90f } }
 
 @Composable

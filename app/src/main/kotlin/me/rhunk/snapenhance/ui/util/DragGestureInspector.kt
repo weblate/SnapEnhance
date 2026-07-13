@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2026 bocajthomas
+ *
+ * This file is a derivative work of DragGestureInspector.kt from the AndroidLiquidGlass
+ * project by Kyant0 (licensed under the Apache License, Version 2.0)
+ * Original Source: https://github.com/Kyant0/AndroidLiquidGlass
+ *
+ * This modified file is licensed under the GNU General Public License v3.0.
+ */
+
 package me.rhunk.snapenhance.ui.util
 
 import androidx.compose.foundation.gestures.awaitEachGesture
@@ -12,7 +22,6 @@ import androidx.compose.ui.input.pointer.changedToUpIgnoreConsumed
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.util.fastFirstOrNull
 
-// https://github.com/Kyant0/AndroidLiquidGlass/blob/master/catalog/src/main/java/com/kyant/backdrop/catalog/utils/DragGestureInspector.kt
 suspend fun PointerInputScope.inspectDragGestures(
     onDragStart: (down: PointerInputChange) -> Unit = {},
     onDragEnd: (change: PointerInputChange) -> Unit = {},

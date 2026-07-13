@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2026 bocajthomas
+ *
+ * This file is a derivative work of DampedDragAnimation.kt from the AndroidLiquidGlass
+ * project by Kyant0 (licensed under the Apache License, Version 2.0)
+ * Original Source: https://github.com/Kyant0/AndroidLiquidGlass
+ *
+ * This modified file is licensed under the GNU General Public License v3.0.
+ */
+
 package me.rhunk.snapenhance.ui.util
 
 import androidx.compose.animation.core.Animatable
@@ -15,8 +25,6 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlin.math.abs
-
-// https://github.com/Kyant0/AndroidLiquidGlass/blob/master/catalog/src/main/java/com/kyant/backdrop/catalog/utils/DampedDragAnimation.kt
 
 class DampedDragAnimation(
     private val animationScope: CoroutineScope,

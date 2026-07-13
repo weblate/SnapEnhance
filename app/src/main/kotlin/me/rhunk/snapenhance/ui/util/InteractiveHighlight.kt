@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2026 bocajthomas
+ *
+ * This file is a derivative work of InteractiveHighlight.kt from the AndroidLiquidGlass
+ * project by Kyant0 (licensed under the Apache License, Version 2.0)
+ * Original Source: https://github.com/Kyant0/AndroidLiquidGlass
+ *
+ * This modified file is licensed under the GNU General Public License v3.0.
+ */
+
 package me.rhunk.snapenhance.ui.util
 
 import android.graphics.RuntimeShader
@@ -19,7 +29,6 @@ import androidx.compose.ui.util.fastCoerceIn
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-// https://github.com/Kyant0/AndroidLiquidGlass/blob/master/catalog/src/main/java/com/kyant/backdrop/catalog/utils/InteractiveHighlight.kt
 class InteractiveHighlight(
     val animationScope: CoroutineScope,
     val position: (size: Size, offset: Offset) -> Offset = { _, offset -> offset }
