@@ -2,13 +2,26 @@
     "setup": {
         "mappings": {
             "generate_failure_no_snapchat": "SE Extended konnte Snapchat nicht finden, bitte versuche Snapchat neu zu installieren.",
-            "generate_failure": "Beim Versuch, Zuordnungen zu generieren, ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
+            "generate_failure": "Beim Versuch, Zuordnungen zu generieren, ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+            "info": "Mappings werden generiert, dies kann eine Weile dauern ..."
         },
         "permissions": {
             "notification_access": "Benachrichtigungszugriff",
             "battery_optimization": "Batterieoptimierung",
             "display_over_other_apps": "Über anderen Apps anzeigen",
-            "request_button": "Anfordern"
+            "request_button": "Anfordern",
+            "description": "Um fortzufahren, müssen Sie die folgenden Anforderungen erfüllen:",
+            "install_unknown_apps": "Unbekannte Apps Installieren"
+        },
+        "save_folder": {
+            "description": "SE Extended benötigt die Speicherberechtigung, um Medien von Snapchat herunterzuladen und zu speichern.\nBitte wählen Sie den Speicherort, an dem die Medien gespeichert werden sollen.",
+            "select_folder_button": "Ordner Auswählen"
+        },
+        "disclaimer": {
+            "title": "Willkommen im SE Extended Modul.",
+            "subtitle": "Haftungsausschluss:",
+            "statement": "- Benutzer müssen die volle Verantwortung für alle Risiken übernehmen, die mit der Verwendung dieses Moduls verbunden sind.\n- Das SE Extended Modul kann das Verhalten der Snapchat-App verändern. Benutzer sollten die Funktionsweise des Moduls sorgfältig prüfen und ihre eigenen Entscheidungen bezüglich der Verwendung treffen.\n- Der Entwickler übernimmt keine Verantwortung für Warnungen oder Sperrungen, die auf Ihrem Snapchat-Konto aufgrund der Verwendung des SE Extended Moduls auftreten können, und alle Konsequenzen sind von den Benutzern selbst zu tragen.",
+            "agree_button": "Zustimmen und fortfahren"
         }
     },
     "manager": {
@@ -31,7 +44,16 @@
             "manage_repos": "Repositorys verwalten",
             "edit_theme": "Design ändern",
             "theming": "Thematisierung",
-            "manage_rule_feature": "Regelfunktion verwalten"
+            "manage_rule_feature": "Regelfunktion verwalten",
+            "home_credits": "Credits",
+            "home_about": "Über",
+            "home_third_party_libraries": "Drittanbieterbibliotheken",
+            "home_advanced_debug_settings": "Erweiterte Debug-Einstellungen",
+            "home_updating": "Wird aktualisiert",
+            "home_appearance": "Aussehen",
+            "home_app_theme": "App-Design",
+            "liquid_glass_settings": "Liquid Glass Einstellungen",
+            "easter_egg": "Easter Egg"
         },
         "sections": {
             "features": {
@@ -65,12 +87,14 @@
             "home": {
                 "update_title": "SnapEnhance Update",
                 "update_content": "Version {version} ist verfügbar!",
-                "update_button": "Herunterladen",
+                "update_button": "Aktualisieren",
                 "version_title": "V{versionName} · Ein Fork von bocajthomas",
                 "quick_actions_title": "Schnelle Aktionen",
-                "debug_build_summary_title": "Sie führen einen debug build von SE Extended",
+                "debug_build_summary_title": "Sie benutzen einen debug build von SE Extended",
                 "debug_build_summary_content": "Ausführung {versionName} ({versionCode})",
-                "debug_build_summary_date": "Baudatum: {date} ({days} Vor Tagen)"
+                "debug_build_summary_date": "Baudatum: {date} ({days} Vor Tagen)",
+                "download_button": "Herunterladen",
+                "downloading_button": "Herunterladen.."
             },
             "home_logs": {
                 "saving_logs_toast": "Speichern von Protokollen, das kann eine Weile dauern ...",
@@ -87,7 +111,17 @@
                 "success_toast": "Erledigt!",
                 "import_success_toast": "Datenbank erfolgreich importiert",
                 "clear_button": "Löschen",
-                "view_logger_history_button": "Historie des Nachrichtenaufzeichners ansehen"
+                "view_logger_history_button": "Historie des Nachrichtenaufzeichners ansehen",
+                "general_title": "Allgemein",
+                "import_failed_toast": "Datenbankimport fehlgeschlagen",
+                "export_success_toast": "Datenbank erfolgreich exportiert",
+                "export_failed_toast": "Datenbankexport fehlgeschlagen",
+                "merge_success_toast": "Datenbanken erfolgreich zusammengefügt",
+                "merge_failed_toast": "Datenbanken konnten nicht zusammengefügt werden",
+                "clear_success_toast": "Datenbank erfolgreich gelöscht",
+                "clear_failed_toast": "Datenbank konnte nicht gelöscht werden",
+                "message_logger_message_count": "{messageCount} Nachrichten",
+                "message_logger_story_count": "{storyCount} Stories"
             },
             "logged_stories": {
                 "story_failed_to_load": "Laden fehlgeschlagen",
@@ -170,6 +204,17 @@
                 "whitelist_state_button": "Wähle erlaubte Freunde/Gruppen",
                 "blacklist_state_button": "",
                 "clear_list_button": ""
+            },
+            "home_appearance": {
+                "theming_title": "Design",
+                "navigation_bar_title": "Navigationsleiste",
+                "app_theme_title": "App Design",
+                "animation_title": "Animation",
+                "app_theme_description": "Farbschema und Nachtmodus ändern",
+                "blur_effect_title": "Blur Aktivieren (Beta)",
+                "blur_effect_description": "Ermöglicht einen Blureffekt für Container",
+                "app_icon_title": "App-Symbol",
+                "app_icon_description": "Das App-Symbol ändern"
             }
         },
         "dialogs": {
