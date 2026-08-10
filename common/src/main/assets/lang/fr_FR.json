@@ -2,13 +2,26 @@
     "setup": {
         "mappings": {
             "generate_failure_no_snapchat": "SE Extended n'a pas pu détecter Snapchat, essayez de réinstaller Snapchat.",
-            "generate_failure": "Une erreur s'est produite lors de la génération des mappings, veuillez réessayer."
+            "generate_failure": "Une erreur s'est produite lors de la génération des mappings, veuillez réessayer.",
+            "info": "Génération des mappages, cela peut prendre un certain temps ..."
         },
         "permissions": {
             "notification_access": "Accès aux notifications",
             "battery_optimization": "Optimisation de la batterie",
             "display_over_other_apps": "Superposer aux autres applis",
-            "request_button": "Autoriser"
+            "request_button": "Autoriser",
+            "description": "Pour continuer, vous devez remplir les conditions suivantes :",
+            "install_unknown_apps": "Installer des Applications Inconnues"
+        },
+        "save_folder": {
+            "description": "Se Extended a besoin de l'autorisation Stockage pour télécharger et stocker les médias de Snapchat.\nChoisissez l'emplacement de sauvegarde des médias téléchargés.",
+            "select_folder_button": "Sélectionnez un dossier"
+        },
+        "disclaimer": {
+            "title": "Bienvenue dans le module SE Extended.",
+            "subtitle": "Avertissement :",
+            "statement": "- L'utilisateur assume l'entière responsabilité de l'utilisation de ce module.\n\n- Le module SE Extended peut modifier le comportement de l'application Snapchat. L'utilisateur doit examiner attentivement le fonctionnement du module et prendre ses décisions concernant son utilisation.\n- Le développeur n'est responsable d'aucun avertissement ou bannissement de votre compte Snapchat qui pourrait provenir de l'utilisation du module SE Extended, et toute les conséquences sont à la charge de l'utilisateur.",
+            "agree_button": "J'accepte et continue"
         }
     },
     "manager": {
@@ -31,7 +44,16 @@
             "theming": "Thèmes",
             "edit_theme": "Modifier le thème",
             "manage_repos": "Gérer les dépôts",
-            "manage_rule_feature": "Gérer la règle de la fonctionnalité"
+            "manage_rule_feature": "Gérer la règle de la fonctionnalité",
+            "home_credits": "Crédits",
+            "home_about": "À propos",
+            "home_third_party_libraries": "Librairie tierces",
+            "home_advanced_debug_settings": "Fonctionnalités avancées de débogage",
+            "home_updating": "Mise à jour",
+            "home_appearance": "Apparence",
+            "home_app_theme": "Theme de l'application",
+            "liquid_glass_settings": "Paramètres Liquid Glass",
+            "easter_egg": "Easter Egg"
         },
         "sections": {
             "features": {
@@ -64,13 +86,15 @@
             },
             "home": {
                 "update_content": "La version {version} est disponible !",
-                "update_button": "Télécharger",
+                "update_button": "Mettre à jour",
                 "update_title": "Mise à jour SnapEnhance",
-                "version_title": "v{versionName} · par rhunk",
+                "version_title": "v{versionName} · Forké par bocajthomas",
                 "debug_build_summary_title": "Vous utilisez une version de debug de SnapEnhance",
                 "debug_build_summary_content": "Version {versionName} ({versionCode})",
                 "debug_build_summary_date": "Date de création: {date} (Il y a {days} jours)",
-                "quick_actions_title": "Actions rapides"
+                "quick_actions_title": "Actions rapides",
+                "download_button": "Télécharger",
+                "downloading_button": "En cours de téléchargement"
             },
             "manage_scope": {
                 "logged_stories_button": "Afficher les stories enregistrées",
@@ -101,7 +125,9 @@
                 "success_toast": "Succès !",
                 "import_success_toast": "Base de données importée avec succès",
                 "clear_button": "Vider",
-                "view_logger_history_button": "Afficher l'historique de l'enregistreur"
+                "view_logger_history_button": "Afficher l'historique de l'enregistreur",
+                "general_title": "Général",
+                "import_failed_toast": "Echec de l'importation de la base de données"
             },
             "logged_stories": {
                 "story_failed_to_load": "Échec du chargement",
