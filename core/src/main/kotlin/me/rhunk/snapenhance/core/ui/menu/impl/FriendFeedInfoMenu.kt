@@ -4,9 +4,11 @@ import android.content.DialogInterface
 import android.content.res.Resources
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
@@ -145,6 +147,7 @@ class FriendFeedInfoMenu : AbstractMenu() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private suspend fun showConversationPreview(
         targetUser: String?,
         conversationId: String
@@ -444,6 +447,7 @@ class FriendFeedInfoMenu : AbstractMenu() {
 
     private val messaging by lazy { context.feature(Messaging::class)}
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewAdded(event: AddViewEvent) {
         fun hasAvatarHeader(viewGroup: ViewGroup): Boolean {
             val constraintLayout = viewGroup.getChildAt(0)?.takeIf { it.javaClass.name.endsWith("ConstraintLayout") } as? ViewGroup ?: return false
@@ -474,6 +478,7 @@ class FriendFeedInfoMenu : AbstractMenu() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun injectIntoActionSheetItems(contextView: View, isGroupMenu: Boolean = false, viewConsumer: ((View) -> Unit)) {
         val friendFeedMenuOptions by context.config.userInterface.friendFeedMenuButtons
         val getIconStyle = context.config.userInterface.iconStyle.getNullable()
@@ -566,6 +571,7 @@ class FriendFeedInfoMenu : AbstractMenu() {
             context.mainActivity?.triggerRootCloseTouchEvent()
         }
 
+        @RequiresApi(Build.VERSION_CODES.Q)
         @Composable
         fun ComposeFriendFeedMenu() {
             Column(

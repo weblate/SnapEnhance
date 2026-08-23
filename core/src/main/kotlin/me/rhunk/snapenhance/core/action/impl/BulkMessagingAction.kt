@@ -3,11 +3,13 @@ package me.rhunk.snapenhance.core.action.impl
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -253,12 +255,13 @@ class BulkMessagingAction : AbstractAction() {
             ) {
                 var filterMenuExpanded by remember { mutableStateOf(false) }
 
+
                 ExposedDropdownMenuBox(
                     expanded = filterMenuExpanded,
                     onExpandedChange = { filterMenuExpanded = it },
                 ) {
                     ElevatedCard(
-                        modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable)
+                        modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
                     ) {
                         Text(text = filter.name, modifier = Modifier.padding(5.dp))
                     }
@@ -285,7 +288,7 @@ class BulkMessagingAction : AbstractAction() {
                     onExpandedChange = { sortMenuExpanded = it },
                 ) {
                     ElevatedCard(
-                        modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable)
+                        modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
                     ) {
                         Text(text = "Sort by", modifier = Modifier.padding(5.dp))
                     }
@@ -571,6 +574,7 @@ class BulkMessagingAction : AbstractAction() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun run() {
         context.coroutineScope.launch(Dispatchers.Main) {
             createComposeAlertDialog(context.mainActivity!!) {

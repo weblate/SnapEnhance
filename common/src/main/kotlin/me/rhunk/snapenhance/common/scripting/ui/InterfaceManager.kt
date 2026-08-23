@@ -2,6 +2,9 @@ package me.rhunk.snapenhance.common.scripting.ui
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import me.rhunk.snapenhance.common.scripting.bindings.AbstractBinding
 import me.rhunk.snapenhance.common.scripting.bindings.BindingSide
@@ -9,21 +12,27 @@ import me.rhunk.snapenhance.common.scripting.ktx.contextScope
 import me.rhunk.snapenhance.common.scripting.ktx.scriptableObject
 import me.rhunk.snapenhance.common.scripting.ui.components.Node
 import me.rhunk.snapenhance.common.scripting.ui.components.NodeType
-import me.rhunk.snapenhance.common.scripting.ui.components.impl.ActionNode
-import me.rhunk.snapenhance.common.scripting.ui.components.impl.ActionType
-import me.rhunk.snapenhance.common.scripting.ui.components.impl.RowColumnNode
-import me.rhunk.snapenhance.common.scripting.ui.components.impl.TextInputNode
+import me.rhunk.snapenhance.common.scripting.ui.components.impl.*
 import me.rhunk.snapenhance.common.ui.createComposeAlertDialog
 import org.mozilla.javascript.Function
 import org.mozilla.javascript.annotations.JSFunction
 
-
 class InterfaceBuilder {
-    val nodes = mutableListOf<Node>()
+    val nodes = mutableStateListOf<Node>()
     var onDisposeCallback: (() -> Unit)? = null
 
     private fun createNode(type: NodeType, block: Node.() -> Unit): Node {
         return Node(type).apply(block).also { nodes.add(it) }
+    }
+
+    @JSFunction
+    fun removeNode(node: Node) {
+        nodes.remove(node)
+    }
+
+    @JSFunction
+    fun addNode(node: Node) {
+        nodes.add(node)
     }
 
     fun onDispose(block: () -> Unit) {
@@ -55,8 +64,56 @@ class InterfaceBuilder {
         attributes["callback"] = callback
     }
 
-    fun button(label: String, callback: () -> Unit) = createNode(NodeType.BUTTON) {
-        label(label)
+    fun button(label: String, callback: () -> Unit) = ButtonStyleNode(NodeType.BUTTON).apply {
+        attributes["label"] = label
+        attributes["callback"] = callback
+    }.also { nodes.add(it) }
+
+    fun icon(icon: String, size: Int) = createNode(NodeType.ICON) {
+        attributes["icon"] = icon
+        attributes["size"] = size
+    }
+
+    fun iconButton(icon: String, callback: () -> Unit) = IconButtonStyleNode(NodeType.ICON_BUTTON).apply {
+        attributes["icon"] = icon
+        attributes["callback"] = callback
+    }.also { nodes.add(it) }
+
+    @JvmOverloads
+    fun progressIndicator(variant: String, progress: Int? = null) = createNode(NodeType.PROGRESS_INDICATOR) {
+        attributes["variant"] = variant
+        attributes["progress"] = progress
+    }
+
+    fun checkBox(state: Boolean?, callback: (Boolean) -> Unit) = createNode(NodeType.CHECKBOX) {
+        attributes["state"] = state
+        attributes["callback"] = callback
+    }
+
+    fun radioButton(state: Boolean?, callback: (Boolean) -> Unit) = createNode(NodeType.RADIO_BUTTON) {
+        attributes["state"] = state
+        attributes["callback"] = callback
+    }
+
+    fun loadingIndicator(variant: String) = createNode(NodeType.LOADING_INDICATOR) {
+        attributes["variant"] = variant
+    }
+
+    fun divider(variant: String) = createNode(NodeType.DIVIDER) {
+        attributes["variant"] = variant
+    }
+
+    @JvmOverloads
+    fun card(block: (InterfaceBuilder) -> Unit, callback: (() -> Unit)? = null) = CardStyleNode(NodeType.CARD).apply {
+        attributes["callback"] = callback
+        children.addAll(InterfaceBuilder().apply(block).nodes)
+    }.also { nodes.add(it) }
+
+    @JvmOverloads
+    fun webComponent(html: String, css: String = "", js: String = "", callback: ((String) -> Unit)? = null) = createNode(NodeType.WEB_COMPONENT) {
+        attributes["html"] = html
+        attributes["css"] = css
+        attributes["js"] = js
         attributes["callback"] = callback
     }
 
@@ -82,8 +139,6 @@ class InterfaceBuilder {
         callback(callback)
     }.also { nodes.add(it) }
 }
-
-
 
 @Suppress("unused")
 class InterfaceManager : AbstractBinding("interface-manager", BindingSide.COMMON) {
@@ -123,6 +178,7 @@ class InterfaceManager : AbstractBinding("interface-manager", BindingSide.COMMON
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     @JSFunction fun createAlertDialog(activity: Activity, builder: (AlertDialog.Builder) -> Unit, callback: (interfaceBuilder: InterfaceBuilder, alertDialog: AlertDialog) -> Unit): AlertDialog {
         return createComposeAlertDialog(activity, builder = builder) { alertDialog ->
             ScriptInterface(interfaceBuilder = remember {
@@ -135,6 +191,7 @@ class InterfaceManager : AbstractBinding("interface-manager", BindingSide.COMMON
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     @JSFunction fun createAlertDialog(activity: Activity, callback: (interfaceBuilder: InterfaceBuilder, alertDialog: AlertDialog) -> Unit): AlertDialog {
         return createAlertDialog(activity, {}, callback)
     }

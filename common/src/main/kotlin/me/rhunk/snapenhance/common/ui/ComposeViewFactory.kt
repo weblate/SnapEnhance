@@ -3,6 +3,7 @@ package me.rhunk.snapenhance.common.ui
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnAttachStateChangeListener
@@ -10,6 +11,7 @@ import android.view.WindowManager
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.OnBackPressedDispatcherOwner
 import androidx.activity.setViewTreeOnBackPressedDispatcherOwner
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -33,6 +35,7 @@ import kotlinx.coroutines.launch
 import me.rhunk.snapenhance.common.ui.theme.AppMaterialTheme
 
 // https://github.com/tberghuis/FloatingCountdownTimer/blob/master/app/src/main/java/xyz/tberghuis/floatingtimer/service/overlayViewFactory.kt
+@RequiresApi(Build.VERSION_CODES.Q)
 fun createComposeView(
     context: Context,
     viewCompositionStrategy: ViewCompositionStrategy = ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed,
@@ -79,6 +82,7 @@ fun createComposeView(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.Q)
 fun createComposeAlertDialog(context: Context, builder: AlertDialog.Builder.() -> Unit = {}, content: @Composable (alertDialog: AlertDialog) -> Unit): AlertDialog {
     lateinit var alertDialog: AlertDialog
 

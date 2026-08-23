@@ -16,7 +16,6 @@ import me.rhunk.snapenhance.task.PendingTask
 import java.io.File
 import java.util.concurrent.Executors
 
-
 class ArgumentList  {
     private val arguments = mutableListOf<Pair<String, String>>()
 

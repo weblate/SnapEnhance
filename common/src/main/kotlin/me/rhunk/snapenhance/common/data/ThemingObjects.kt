@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-
 @Parcelize
 data class ThemeColorEntry(
     @SerializedName("key")
@@ -65,10 +64,6 @@ data class RepositoryThemeManifest(
     val description: String?,
     val version: String?,
     val filepath: String,
-)
-
-data class RepositoryIndex(
-    val themes: List<RepositoryThemeManifest> = emptyList(),
 )
 
 enum class ThemingAttributeType {

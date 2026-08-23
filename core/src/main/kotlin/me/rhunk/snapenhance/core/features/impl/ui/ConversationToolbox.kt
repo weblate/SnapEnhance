@@ -2,11 +2,13 @@ package me.rhunk.snapenhance.core.features.impl.ui
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.os.Build
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -19,8 +21,11 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
@@ -55,6 +60,7 @@ class ConversationToolbox : Feature("Conversation Toolbox") {
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     @SuppressLint("SetTextI18n")
     override fun init() {
         onNextActivityCreate {
@@ -138,6 +144,7 @@ class ConversationToolbox : Feature("Conversation Toolbox") {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun openToolbox() {
         val openedConversationId = context.feature(Messaging::class).openedConversationUUID?.toString() ?: run {
             context.shortToast("You must open a conversation first")
@@ -190,11 +197,12 @@ class ConversationToolbox : Feature("Conversation Toolbox") {
                                     .fillMaxWidth()
                                     .padding(10.dp)
                             ) {
-                                runCatching {
+                                var composableError by remember(title, openedConversationId) { mutableStateOf<Throwable?>(null) }
+
+                                if (composableError != null) {
+                                    Text("Failed to load composable: ${composableError?.message}")
+                                } else {
                                     composable(alertDialog, openedConversationId)
-                                }.onFailure { throwable ->
-                                    Text("Failed to load composable: ${throwable.message}")
-                                    context.log.error("Failed to load composable: ${throwable.message}", throwable)
                                 }
                             }
                         }

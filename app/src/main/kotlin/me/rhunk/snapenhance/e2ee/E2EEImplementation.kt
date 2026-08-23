@@ -12,7 +12,6 @@ import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
-
 class E2EEImplementation (
     private val context: RemoteSideContext
 ) : E2eeInterface.Stub() {

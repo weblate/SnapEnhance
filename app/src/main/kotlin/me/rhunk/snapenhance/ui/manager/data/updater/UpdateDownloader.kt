@@ -64,7 +64,7 @@ fun downloadUpdate(context: Context, logger: AbstractLogger) {
             client.newCall(request).execute().use { response ->
                 if (!response.isSuccessful) throw Exception("Download failed: ${response.code}")
 
-                val body = response.body
+                val body = response.body ?: throw Exception("Response body is null")
 
                 downloadedZip.outputStream().use { output ->
                     val input = body.byteStream()

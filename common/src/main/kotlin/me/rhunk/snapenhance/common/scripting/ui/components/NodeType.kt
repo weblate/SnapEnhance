@@ -10,4 +10,13 @@ enum class NodeType {
     LIST,
     ACTION,
     TEXT_INPUT,
+    ICON,
+    ICON_BUTTON,
+    PROGRESS_INDICATOR,
+    LOADING_INDICATOR,
+    RADIO_BUTTON,
+    CHECKBOX,
+    CARD,
+    DIVIDER,
+    WEB_COMPONENT
 }

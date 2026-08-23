@@ -1,5 +1,7 @@
 package me.rhunk.snapenhance.common.scripting.ui.components
 
+import androidx.compose.ui.text.font.FontWeight
+
 @Suppress("MemberVisibilityCanBePrivate")
 open class Node(
     val type: NodeType,
@@ -15,6 +17,28 @@ open class Node(
                 }
             }
         }
+    }
+
+    companion object {
+        private val fontWeights = mapOf(
+            "thin" to FontWeight.Thin,
+            "extraLight" to FontWeight.ExtraLight,
+            "light" to FontWeight.Light,
+            "normal" to FontWeight.Normal,
+            "medium" to FontWeight.Medium,
+            "semiBold" to FontWeight.SemiBold,
+            "bold" to FontWeight.Bold,
+            "extraBold" to FontWeight.ExtraBold,
+            "black" to FontWeight.Black
+        )
+
+        private val textStyles = listOf(
+            "displayLarge", "displayMedium", "displaySmall",
+            "headlineLarge", "headlineMedium", "headlineSmall",
+            "titleLarge", "titleMedium", "titleSmall",
+            "bodyLarge", "bodyMedium", "bodySmall",
+            "labelLarge", "labelMedium", "labelSmall"
+        )
     }
 
     init {
@@ -40,13 +64,29 @@ open class Node(
         return this
     }
 
-    fun padding(padding: Int): Node {
-        attributes["padding"] = padding
+    fun padding(vararg values: Int): Node {
+        attributes["padding"] = values.toList()
         return this
     }
 
     fun fontSize(size: Int): Node {
         attributes["fontSize"] = size
+        return this
+    }
+
+    fun fontWeight(weight: String): Node {
+        attributes["fontWeight"] = fontWeights[weight] ?: throw IllegalArgumentException("Invalid Weight")
+        return this
+    }
+
+    fun textStyle(style: String): Node {
+        if (style !in textStyles) { throw IllegalArgumentException("Invalid Style") }
+        attributes["textStyle"] = style
+        return this
+    }
+
+    fun lineHeight(height: Int): Node {
+        attributes["lineHeight"] = height
         return this
     }
 

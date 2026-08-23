@@ -36,32 +36,38 @@ class DampedDragAnimation(
     val onDragStarted: DampedDragAnimation.(position: Offset) -> Unit,
     val onDragStopped: DampedDragAnimation.() -> Unit,
     val onDrag: DampedDragAnimation.(size: IntSize, dragAmount: Offset) -> Unit,
+    val valueAnimationSpecDampingRatio: Float,
+    val valueAnimationSpecStiffness: Float,
+    val velocityAnimationSpecDampingRatio: Float,
+    val velocityAnimationSpecStiffness: Float,
+    val velocityAnimationSpecTimes: Float,
+    val pressProgressAnimationSpecDampingRatio: Float,
+    val pressProgressAnimationSpecStiffness: Float,
+    val pressProgressAnimationSpecVisibilityThreshold: Float,
+    val scaleXAnimationSpecDampingRatio: Float,
+    val scaleXAnimationSpecStiffness: Float,
+    val scaleXAnimationSpecVisibilityThreshold: Float,
+    val scaleYAnimationSpecDampingRatio: Float,
+    val scaleYAnimationSpecStiffness: Float,
+    val scaleYAnimationSpecVisibilityThreshold: Float,
+    val velocityAnimationInitialValue: Float,
+    val velocityAnimationVisibilityThreshold: Float,
+    val pressProgressAnimationInitialValue: Float,
+    val pressProgressAnimationVisibilityThreshold: Float,
+    val scaleXAnimationVisibilityThreshold: Float,
+    val scaleYAnimationVisibilityThreshold: Float,
+    val pressProgressAnimationValue: Float,
+    val releaseThresholdsTimesValue: Float,
+    val releaseTargetValue: Float,
+    val valueAnimationValue: Float,
+    val velocityTrackerOffsetY: Float,
 ) {
-
-    private val valueAnimationSpec =
-        spring(1f, 1000f, visibilityThreshold)
-    private val velocityAnimationSpec =
-        spring(0.5f, 300f, visibilityThreshold * 10f)
-    private val pressProgressAnimationSpec =
-        spring(1f, 1000f, 0.001f)
-    private val scaleXAnimationSpec =
-        spring(0.6f, 250f, 0.001f)
-    private val scaleYAnimationSpec =
-        spring(0.7f, 250f, 0.001f)
-
-    private val valueAnimation =
-        Animatable(initialValue, visibilityThreshold)
-    private val velocityAnimation =
-        Animatable(0f, 5f)
-    private val pressProgressAnimation =
-        Animatable(0f, 0.001f)
-    private val scaleXAnimation =
-        Animatable(initialScale, 0.001f)
-    private val scaleYAnimation =
-        Animatable(initialScale, 0.001f)
-
+    private val valueAnimation = Animatable(initialValue, visibilityThreshold)
+    private val pressProgressAnimation = Animatable(pressProgressAnimationInitialValue, pressProgressAnimationVisibilityThreshold)
+    private val scaleXAnimation = Animatable(initialScale, scaleXAnimationVisibilityThreshold)
+    private val scaleYAnimation = Animatable(initialScale, scaleYAnimationVisibilityThreshold)
+    private val velocityAnimation = Animatable(velocityAnimationInitialValue, velocityAnimationVisibilityThreshold)
     private val mutatorMutex = MutatorMutex()
-
     private val velocityTracker = VelocityTracker()
 
     val value: Float get() = valueAnimation.value
@@ -94,9 +100,9 @@ class DampedDragAnimation(
     fun press() {
         velocityTracker.resetTracking()
         animationScope.launch {
-            launch { pressProgressAnimation.animateTo(1f, pressProgressAnimationSpec) }
-            launch { scaleXAnimation.animateTo(pressedScale, scaleXAnimationSpec) }
-            launch { scaleYAnimation.animateTo(pressedScale, scaleYAnimationSpec) }
+            launch { pressProgressAnimation.animateTo(pressProgressAnimationValue, spring(pressProgressAnimationSpecDampingRatio, pressProgressAnimationSpecStiffness, pressProgressAnimationSpecVisibilityThreshold)) }
+            launch { scaleXAnimation.animateTo(pressedScale, spring(scaleXAnimationSpecDampingRatio, scaleXAnimationSpecStiffness, scaleXAnimationSpecVisibilityThreshold)) }
+            launch { scaleYAnimation.animateTo(pressedScale, spring(scaleYAnimationSpecDampingRatio, scaleYAnimationSpecStiffness, scaleYAnimationSpecVisibilityThreshold)) }
         }
     }
 
@@ -104,21 +110,21 @@ class DampedDragAnimation(
         animationScope.launch {
             awaitFrame()
             if (value != targetValue) {
-                val threshold = (valueRange.endInclusive - valueRange.start) * 0.025f
+                val threshold = (valueRange.endInclusive - valueRange.start) * releaseThresholdsTimesValue
                 snapshotFlow { valueAnimation.value }
                     .filter { abs(it - valueAnimation.targetValue) < threshold }
                     .first()
             }
-            launch { pressProgressAnimation.animateTo(0f, pressProgressAnimationSpec) }
-            launch { scaleXAnimation.animateTo(initialScale, scaleXAnimationSpec) }
-            launch { scaleYAnimation.animateTo(initialScale, scaleYAnimationSpec) }
+            launch { pressProgressAnimation.animateTo(releaseTargetValue, spring(pressProgressAnimationSpecDampingRatio, pressProgressAnimationSpecStiffness, pressProgressAnimationSpecVisibilityThreshold)) }
+            launch { scaleXAnimation.animateTo(initialScale, spring(scaleXAnimationSpecDampingRatio, scaleXAnimationSpecStiffness, scaleXAnimationSpecVisibilityThreshold)) }
+            launch { scaleYAnimation.animateTo(initialScale, spring(scaleYAnimationSpecDampingRatio, scaleYAnimationSpecStiffness, scaleYAnimationSpecVisibilityThreshold)) }
         }
     }
 
     fun updateValue(value: Float) {
         val targetValue = value.coerceIn(valueRange)
         animationScope.launch {
-            launch { valueAnimation.animateTo(targetValue, valueAnimationSpec) { updateVelocity() } }
+            launch { valueAnimation.animateTo(targetValue, spring(valueAnimationSpecDampingRatio, valueAnimationSpecStiffness, visibilityThreshold)) { updateVelocity() } }
         }
     }
 
@@ -127,9 +133,9 @@ class DampedDragAnimation(
             mutatorMutex.mutate {
                 press()
                 val targetValue = value.coerceIn(valueRange)
-                launch { valueAnimation.animateTo(targetValue, valueAnimationSpec) }
+                launch { valueAnimation.animateTo(targetValue, spring(valueAnimationSpecDampingRatio, valueAnimationSpecStiffness, visibilityThreshold)) }
                 if (velocity != 0f) {
-                    launch { velocityAnimation.animateTo(0f, velocityAnimationSpec) }
+                    launch { velocityAnimation.animateTo(valueAnimationValue, spring(velocityAnimationSpecDampingRatio, velocityAnimationSpecStiffness, visibilityThreshold * velocityAnimationSpecTimes)) }
                 }
                 release()
             }
@@ -139,9 +145,9 @@ class DampedDragAnimation(
     private fun updateVelocity() {
         velocityTracker.addPosition(
             System.currentTimeMillis(),
-            Offset(value, 0f)
+            Offset(value, velocityTrackerOffsetY)
         )
         val targetVelocity = velocityTracker.calculateVelocity().x / (valueRange.endInclusive - valueRange.start)
-        animationScope.launch { velocityAnimation.animateTo(targetVelocity, velocityAnimationSpec) }
+        animationScope.launch { velocityAnimation.animateTo(targetVelocity, spring(velocityAnimationSpecDampingRatio, velocityAnimationSpecStiffness, visibilityThreshold * velocityAnimationSpecTimes)) }
     }
 }

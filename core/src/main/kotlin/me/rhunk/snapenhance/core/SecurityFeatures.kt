@@ -1,7 +1,9 @@
 package me.rhunk.snapenhance.core
 
+import android.os.Build
 import android.system.Os
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
@@ -48,6 +50,7 @@ class SecurityFeatures(
         transact(this, 0)?.toString(2)?.padStart(32, '0')?.count { it == '1' }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     fun init() {
         val snapchatVersionCode = context.androidContext.packageManager?.getPackageInfo(context.androidContext.packageName, 0)?.longVersionCode ?: throw IllegalStateException("Failed to get version code")
         var shouldDisablePlugin = MOD_DETECTION_VERSION_CHECK.checkVersion(snapchatVersionCode)?.second == VersionRequirement.OLDER_REQUIRED
@@ -91,6 +94,12 @@ class SecurityFeatures(
         context.log.verbose("disablePlugin=${context.disablePlugin}")
         if (!context.disablePlugin) return
 
+        /*
+        Add Experimental Features:
+        /snapchat.friending.server.FriendRequests/IncomingFriendSync
+        /snapchat.friending.server.FriendAction/AddFriends
+        /com.snapchat.atlas.gw.AtlasGw/GetFriendsUserScore // Testing
+        */
         val allowedEPs = listOf(
             "/messagingcoreservice.MessagingCoreService/",
             "/GetConvoSafetyPrompt",

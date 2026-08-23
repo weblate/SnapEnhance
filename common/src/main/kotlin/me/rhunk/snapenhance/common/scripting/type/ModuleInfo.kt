@@ -1,6 +1,7 @@
 package me.rhunk.snapenhance.common.scripting.type
 
 import java.io.BufferedReader
+import kotlin.String
 
 data class ModuleInfo(
     val name: String,
@@ -17,8 +18,9 @@ data class ModuleInfo(
     val notice: List<String>,
     val changelogUrl: String? = null,
     val howToUseUrl: String? = null,
-    val scriptCoverUrl: String? = null
-
+    val scriptCoverUrl: String? = null,
+    val scriptIconUrl: String? = null,
+    val license: String? = null,
 ) {
     fun ensurePermissionGranted(permission: Permissions) {
         if (!grantedPermissions.contains(permission.key)) {
@@ -65,6 +67,8 @@ fun BufferedReader.readModuleInfo(): ModuleInfo {
         notice = properties["notice"]?.split(",")?.map { it.trim() } ?: emptyList(),
         changelogUrl = properties["changelogUrl"],
         howToUseUrl = properties["howToUseUrl"],
-        scriptCoverUrl = properties["scriptCoverUrl"]
+        scriptCoverUrl = properties["scriptCoverUrl"],
+        scriptIconUrl = properties["scriptIconUrl"],
+        license = properties["license"],
     )
 }

@@ -32,6 +32,12 @@ object AppIcons {
             colorId = R.color.king_icon_background
         ),
         AppIcon(
+            key = "trash",
+            aliasClassName = "$packageName.MainActivityAliasTrash",
+            resourceId = R.mipmap.trash_icon_foreground,
+            colorId = R.color.trash_icon_background
+        ),
+        AppIcon(
             key = "inverse",
             aliasClassName = "$packageName.MainActivityAliasInverse",
             resourceId = R.mipmap.inverse_icon_foreground,
@@ -108,6 +114,54 @@ object AppIcons {
             aliasClassName = "$packageName.MainActivityAliasOgSnapEnhance",
             resourceId = R.mipmap.og_snapenhance_icon_foreground,
             colorId = R.color.og_snapenhance_icon_background
+        ),
+        AppIcon(
+            key = "mary_jane",
+            aliasClassName = "$packageName.MainActivityAliasMaryJane",
+            resourceId = R.mipmap.mary_jane_icon_foreground,
+            colorId = R.color.mary_jane_icon_background
+        ),
+        AppIcon(
+            key = "lime",
+            aliasClassName = "$packageName.MainActivityAliasLime",
+            resourceId = R.mipmap.lime_icon_foreground,
+            colorId = R.color.lime_icon_background
+        ),
+        AppIcon(
+            key = "midnight_blue",
+            aliasClassName = "$packageName.MainActivityAliasMidnightBlue",
+            resourceId = R.mipmap.midnight_blue_icon_foreground,
+            colorId = R.color.midnight_blue_icon_background
+        ),
+        AppIcon(
+            key = "ash_black",
+            aliasClassName = "$packageName.MainActivityAliasAshBlack",
+            resourceId = R.mipmap.ash_black_icon_foreground,
+            colorId = R.color.ash_black_icon_background
+        ),
+        AppIcon(
+            key = "deep_lichen",
+            aliasClassName = "$packageName.MainActivityAliasDeepLichen",
+            resourceId = R.mipmap.deep_lichen_icon_foreground,
+            colorId = R.color.deep_lichen_icon_background
+        ),
+        AppIcon(
+            key = "estate_red",
+            aliasClassName = "$packageName.MainActivityAliasEstateRed",
+            resourceId = R.mipmap.estate_red_icon_foreground,
+            colorId = R.color.estate_red_icon_background
+        ),
+        AppIcon(
+            key = "walnut_brown",
+            aliasClassName = "$packageName.MainActivityAliasWalnutBrown",
+            resourceId = R.mipmap.walnut_brown_icon_foreground,
+            colorId = R.color.walnut_brown_icon_background
+        ),
+        AppIcon(
+            key = "mulled_wine",
+            aliasClassName = "$packageName.MainActivityAliasMulledWine",
+            resourceId = R.mipmap.mulled_wine_icon_foreground,
+            colorId = R.color.mulled_wine_icon_background
         )
     )
     fun getIconByKey(key: String): AppIcon {

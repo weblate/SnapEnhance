@@ -59,7 +59,7 @@ open class ScriptRuntime(
         val moduleInfo = bufferedReader.readModuleInfo()
 
         if (moduleInfo.minSEVersion != null && moduleInfo.minSEVersion > BuildConfig.VERSION_CODE) {
-            throw Exception("Module requires a newer version of SnapEnhance (min version: ${moduleInfo.minSEVersion})")
+            throw Exception("Module requires a newer version of SE Extended (min version: ${moduleInfo.minSEVersion})")
         }
 
         return JSModule(

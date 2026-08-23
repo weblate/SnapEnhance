@@ -8,7 +8,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.DeleteOutline
 import androidx.compose.material.icons.filled.FilterList
-import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.PersonSearch
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -265,7 +264,7 @@ fun LogsTab(
                     ) {
                         Card(
                             modifier = Modifier
-                                .menuAnchor(MenuAnchorType.PrimaryNotEditable)
+                                .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
                                 .padding(2.dp)
                         ) {
                             Text(context.translation["manager.dialogs.export_logs.export_as"] + " " + exportType, modifier = Modifier.padding(8.dp))
@@ -386,7 +385,7 @@ fun LogsTab(
                     ) {
                         Card(
                             modifier = Modifier
-                                .menuAnchor(MenuAnchorType.PrimaryNotEditable)
+                                .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
                                 .padding(2.dp)
                         ) {
                             Text(filterType.name, modifier = Modifier.padding(8.dp))
@@ -462,7 +461,7 @@ fun LogsTab(
                     value = filter,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .menuAnchor(MenuAnchorType.PrimaryNotEditable)
+                        .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
                         .padding(8.dp),
                     onValueChange = {
                         filter = it

@@ -1,7 +1,7 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 package me.rhunk.snapenhance.ui.manager.pages.home
 
-import android.content.Intent
+import android.content.Context
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
@@ -37,7 +37,6 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.net.toUri
 import androidx.navigation.NavBackStackEntry
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -47,6 +46,7 @@ import me.rhunk.snapenhance.action.EnumQuickActions
 import me.rhunk.snapenhance.common.BuildConfig
 import me.rhunk.snapenhance.common.action.EnumAction
 import me.rhunk.snapenhance.common.ui.*
+import me.rhunk.snapenhance.common.util.ktx.openLink
 import me.rhunk.snapenhance.storage.getQuickTiles
 import me.rhunk.snapenhance.storage.setQuickTiles
 import me.rhunk.snapenhance.ui.components.LazyColumnBottomSheet
@@ -75,20 +75,6 @@ class HomeRootSection : Routes.Route() {
         }
     }
 
-    // TODO: Refactor into a helper class
-    private fun openLink(link: String) {
-        kotlin.runCatching {
-            context.activity?.startActivity(Intent(Intent.ACTION_VIEW).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                data = link.toUri()
-            })
-        }.onFailure {
-            context.log.error("Couldn't open link", it)
-            context.shortToast("Couldn't open link. Check SE Extended logs for more details.")
-        }
-    }
-
-    // TODO: Refactor into components/
     @Composable
     fun ExternalLinkIcon(
         modifier: Modifier = Modifier,
@@ -102,7 +88,7 @@ class HomeRootSection : Routes.Route() {
             contentAlignment = Alignment.Center
         ) {
             IconButton(
-                onClick = { openLink(link) },
+                onClick = { context.androidContext.openLink(link) },
                 shapes = IconButtonDefaults.shapes()
             ) {
                 Icon(
@@ -139,9 +125,9 @@ class HomeRootSection : Routes.Route() {
 
     @OptIn(ExperimentalLayoutApi::class)
     override val content: @Composable (NavBackStackEntry) -> Unit = {
-        val avenirNextFontFamily = remember {
+        val gilroyExtraBoldFontFamily = remember {
             FontFamily(
-                Font(R.font.avenir_next_medium, FontWeight.Medium)
+                Font(R.font.gilroy_extrabold, FontWeight.Medium)
             )
         }
         val scrollState = remember { ScrollState(0) }
@@ -158,7 +144,7 @@ class HomeRootSection : Routes.Route() {
                     ).map { it.toChar() }.joinToString("").reversed()
                 },
                 fontSize = 30.sp,
-                fontFamily = avenirNextFontFamily,
+                fontFamily = gilroyExtraBoldFontFamily,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             )
 
@@ -233,7 +219,9 @@ class HomeRootSection : Routes.Route() {
                 key = "app_update_checker",
                 defaultValue = true
             )
-            var promoMode by context.sharedPreferences.rememberMutableBooleanPreferenceState(
+
+            val promoModePreferences = remember { context.androidContext.getSharedPreferences("promo_mode", Context.MODE_PRIVATE) }
+            var promoMode by promoModePreferences.rememberMutableBooleanPreferenceState(
                 key = "promo_mode",
                 defaultValue = false
             )
@@ -259,150 +247,156 @@ class HomeRootSection : Routes.Route() {
             }
 
             Column(
-                modifier = Modifier.fillMaxWidth().animateContentSize(),
+                modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(3.dp),
             ) {
-                if (promoMode) return@Column
+                Column(
+                    modifier = Modifier.fillMaxWidth().animateContentSize(),
+                    verticalArrangement = Arrangement.spacedBy(3.dp),
+                ) {
+                    if (promoMode) return@Column
 
-                if (isUpdateCardVisible || isDebugCardVisible) {
-                    Spacer(modifier = Modifier.height(10.dp))
-                }
+                    if (isUpdateCardVisible || isDebugCardVisible) {
+                        Spacer(modifier = Modifier.height(10.dp))
+                    }
 
-                if (isUpdateCardVisible) {
-                    Card(
-                        modifier = Modifier.fillMaxWidth().animateContentSize(),
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceVariant
-                        ),
-                        shape = updateCardShape
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(all = 10.dp)
+                    if (isUpdateCardVisible) {
+                        Card(
+                            modifier = Modifier.fillMaxWidth().animateContentSize(),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant
+                            ),
+                            shape = updateCardShape
                         ) {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(all = 10.dp)
                             ) {
-                                Column {
-                                    Text(
-                                        text = translation["update_title"],
-                                        fontSize = 14.sp,
-                                        fontWeight = FontWeight.Bold,
-                                    )
-                                    Text(
-                                        fontSize = 12.sp,
-                                        text = translation.format(
-                                            "update_content",
-                                            "version" to (latestRelease?.versionName ?: "unknown")
-                                        ),
-                                        lineHeight = 20.sp,
-                                        overflow = TextOverflow.Ellipsis,
-                                    )
-                                }
-
-                                if (!downloading && !updateReady) {
-                                    Button(
-                                        onClick = {
-                                            downloadUpdate(
-                                                androidContext,
-                                                context.log
-                                            )
-                                        },
-                                        shapes = ButtonDefaults.shapes()
-                                    ) {
-                                        Text(translation["download_button"])
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Column {
+                                        Text(
+                                            text = translation["update_title"],
+                                            fontSize = 14.sp,
+                                            fontWeight = FontWeight.Bold,
+                                        )
+                                        Text(
+                                            fontSize = 12.sp,
+                                            text = translation.format(
+                                                "update_content",
+                                                "version" to (latestRelease?.versionName
+                                                    ?: "unknown")
+                                            ),
+                                            lineHeight = 20.sp,
+                                            overflow = TextOverflow.Ellipsis,
+                                        )
                                     }
-                                } else {
-                                    if (!updateReady) {
-                                        CircularWavyProgressIndicator(
-                                            modifier = Modifier.size(35.dp)
-                                        )
+
+                                    if (!downloading && !updateReady) {
+                                        Button(
+                                            onClick = {
+                                                downloadUpdate(
+                                                    androidContext,
+                                                    context.log
+                                                )
+                                            },
+                                            shapes = ButtonDefaults.shapes()
+                                        ) {
+                                            Text(translation["download_button"])
+                                        }
                                     } else {
-                                        Icon(
-                                            imageVector = Icons.Rounded.Verified,
-                                            contentDescription = null,
-                                            tint = MaterialTheme.colorScheme.primary,
-                                            modifier = Modifier.size(35.dp)
-                                        )
+                                        if (!updateReady) {
+                                            CircularWavyProgressIndicator(
+                                                modifier = Modifier.size(35.dp)
+                                            )
+                                        } else {
+                                            Icon(
+                                                imageVector = Icons.Rounded.Verified,
+                                                contentDescription = null,
+                                                tint = MaterialTheme.colorScheme.primary,
+                                                modifier = Modifier.size(35.dp)
+                                            )
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
 
-                if (isDebugCardVisible) {
-                    Card(
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                            contentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                        ),
-                        shape = debugInfoCardShape
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(all = 10.dp)
+                    if (isDebugCardVisible) {
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                                contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                            ),
+                            shape = debugInfoCardShape
                         ) {
-                            Text(
-                                text = translation["debug_build_summary_title"],
-                                fontSize = 14.sp,
-                                fontWeight = FontWeight.Bold,
-                            )
-                            val buildSummary = buildAnnotatedString {
-                                withStyle(
-                                    style = SpanStyle(
-                                        fontSize = 13.sp,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                        fontWeight = FontWeight.Light
-                                    )
-                                ) {
-                                    append(
-                                        remember {
-                                            translation.format(
-                                                "debug_build_summary_content",
-                                                "versionName" to BuildConfig.VERSION_NAME,
-                                                "versionCode" to BuildConfig.VERSION_CODE.toString(),
-                                            )
-                                        }
-                                    )
-                                    append(" - ")
-                                }
-                                pushStringAnnotation(
-                                    tag = "git_hash",
-                                    annotation = BuildConfig.GIT_HASH
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(all = 10.dp)
+                            ) {
+                                Text(
+                                    text = translation["debug_build_summary_title"],
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold,
                                 )
-                                withStyle(
-                                    style = SpanStyle(
-                                        fontSize = 13.sp, fontWeight = FontWeight.Bold,
-                                        color = MaterialTheme.colorScheme.primary
+                                val buildSummary = buildAnnotatedString {
+                                    withStyle(
+                                        style = SpanStyle(
+                                            fontSize = 13.sp,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            fontWeight = FontWeight.Light
+                                        )
+                                    ) {
+                                        append(
+                                            remember {
+                                                translation.format(
+                                                    "debug_build_summary_content",
+                                                    "versionName" to BuildConfig.VERSION_NAME,
+                                                    "versionCode" to BuildConfig.VERSION_CODE.toString(),
+                                                )
+                                            }
+                                        )
+                                        append(" - ")
+                                    }
+                                    pushStringAnnotation(
+                                        tag = "git_hash",
+                                        annotation = BuildConfig.GIT_HASH
                                     )
-                                ) {
-                                    append(BuildConfig.GIT_HASH.substring(0, 7))
+                                    withStyle(
+                                        style = SpanStyle(
+                                            fontSize = 13.sp, fontWeight = FontWeight.Bold,
+                                            color = MaterialTheme.colorScheme.primary
+                                        )
+                                    ) {
+                                        append(BuildConfig.GIT_HASH.substring(0, 7))
+                                    }
+                                    pop()
                                 }
-                                pop()
+                                Text(
+                                    text = buildSummary
+                                )
+                                Text(
+                                    fontSize = 12.sp,
+                                    text = remember {
+                                        translation.format(
+                                            "debug_build_summary_date",
+                                            "date" to DateFormat.getDateTimeInstance()
+                                                .format(BuildConfig.BUILD_TIMESTAMP),
+                                            "days" to ((System.currentTimeMillis() - BuildConfig.BUILD_TIMESTAMP) / 86400000).toInt()
+                                                .toString()
+                                        )
+                                    },
+                                    lineHeight = 20.sp,
+                                    fontWeight = FontWeight.Light
+                                )
                             }
-                            Text(
-                                text = buildSummary
-                            )
-                            Text(
-                                fontSize = 12.sp,
-                                text = remember {
-                                    translation.format(
-                                        "debug_build_summary_date",
-                                        "date" to DateFormat.getDateTimeInstance()
-                                            .format(BuildConfig.BUILD_TIMESTAMP),
-                                        "days" to ((System.currentTimeMillis() - BuildConfig.BUILD_TIMESTAMP) / 86400000).toInt()
-                                            .toString()
-                                    )
-                                },
-                                lineHeight = 20.sp,
-                                fontWeight = FontWeight.Light
-                            )
                         }
                     }
                 }
@@ -462,8 +456,7 @@ class HomeRootSection : Routes.Route() {
                                         Row(
                                             verticalAlignment = Alignment.CenterVertically,
                                             horizontalArrangement = Arrangement.SpaceBetween,
-                                            modifier = Modifier.clickable { toggle() }
-                                                .fillMaxWidth()
+                                            modifier = Modifier.clickable { toggle() }.fillMaxWidth()
                                         ) {
                                             Text(
                                                 text = title,

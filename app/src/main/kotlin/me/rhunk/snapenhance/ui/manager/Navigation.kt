@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -18,6 +19,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,17 +36,24 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navigation
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp.Companion.Hairline
-import com.kyant.backdrop.backdrops.rememberLayerBackdrop
+import com.kyant.backdrop.Backdrop
+import com.kyant.backdrop.backdrops.LayerBackdrop
+import com.kyant.backdrop.backdrops.layerBackdrop
 import dev.chrisbanes.haze.hazeEffect
 import dev.chrisbanes.haze.materials.ExperimentalHazeMaterialsApi
 import dev.chrisbanes.haze.materials.HazeMaterials
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
+import me.rhunk.snapenhance.R
 import me.rhunk.snapenhance.RemoteSideContext
 import me.rhunk.snapenhance.ui.components.LiquidBottomTab
 import me.rhunk.snapenhance.ui.components.LiquidBottomTabs
 import me.rhunk.snapenhance.common.ui.rememberMutableBooleanPreferenceState
+import me.rhunk.snapenhance.common.ui.rememberMutableFloatPreferenceState
 import me.rhunk.snapenhance.common.ui.rememberMutableStringPreferenceState
 
 class Navigation(
@@ -121,10 +130,17 @@ class Navigation(
             }
         } else Modifier
 
+        val gilroyExtraBoldFontFamily = remember {
+            FontFamily(
+                Font(R.font.gilroy_extrabold, FontWeight.Medium)
+            )
+        }
+
         LaunchedEffect(navBackStackEntry) {
             scrollBehavior.state.heightOffset = 0f
             scrollBehavior.state.contentOffset = 0f
         }
+
 
         Column(
             modifier = Modifier
@@ -139,7 +155,7 @@ class Navigation(
                     if (!isSearchBarVisible) {
                         currentRoute?.apply {
                             title?.invoke() ?: routeInfo.translatedKey?.value?.let {
-                                Text(text = it)
+                                Text(text = it, fontFamily = gilroyExtraBoldFontFamily)
                             }
                         }
                     }
@@ -172,16 +188,14 @@ class Navigation(
                         }
                     }
                 },
-                actions = {
-                    currentRoute?.topBarActions?.invoke(this)
-                },
+                actions = { currentRoute?.topBarActions?.invoke(this) },
                 colors = topBarColors,
                 scrollBehavior = scrollBehavior,
                 windowInsets = TopAppBarDefaults.windowInsets
             )
-
             Row(
-                modifier = Modifier.fillMaxWidth().background(if (useBlurEffect) Color.Transparent else defaultBackgroundColor),
+                modifier = Modifier.fillMaxWidth()
+                    .background(if (useBlurEffect) Color.Transparent else defaultBackgroundColor),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -192,15 +206,15 @@ class Navigation(
 
     @OptIn(ExperimentalHazeMaterialsApi::class)
     @Composable
-    fun BottomBar(hazeState: HazeState) {
+    fun BottomBar(hazeState: HazeState, liquidBackdrop: Backdrop) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = remember(navBackStackEntry) { routes.getCurrentRoute(navBackStackEntry) }
         val primaryRoutes = remember { routes.getRoutes().filter { it.routeInfo.showInNavBar } }
+
         val useBlurEffect by context.sharedPreferences.rememberMutableBooleanPreferenceState(
             "appearance_use_blur",
             false
         )
-        val liquidBackdrop = rememberLayerBackdrop()
         val hideBottomBarLabels by context.sharedPreferences.rememberMutableBooleanPreferenceState(
             "appearance_hide_bottom_bar_labels",
             false
@@ -209,6 +223,81 @@ class Navigation(
             "appearance_use_liquid_glass",
             false
         )
+
+        val liquidBottomTabsModifierPaddingStartValue by context.sharedPreferences.rememberMutableFloatPreferenceState("liquidBottomTabsModifierPaddingStartValue", 10f)
+        val liquidBottomTabsModifierPaddingEndValue by context.sharedPreferences.rememberMutableFloatPreferenceState("liquidBottomTabsModifierPaddingEndValue", 10f)
+        val liquidBottomTabsModifierPaddingTopValue by context.sharedPreferences.rememberMutableFloatPreferenceState("liquidBottomTabsModifierPaddingTopValue", 0f)
+        val liquidBottomTabsModifierPaddingBottomValue by context.sharedPreferences.rememberMutableFloatPreferenceState("liquidBottomTabsModifierPaddingBottomValue ", 55f)
+
+        var liquidRecomposeTrigger by androidx.compose.runtime.remember {
+            androidx.compose.runtime.mutableIntStateOf(0)
+        }
+
+        androidx.compose.runtime.DisposableEffect(context.sharedPreferences) {
+            val listener = android.content.SharedPreferences.OnSharedPreferenceChangeListener { _, _ ->
+                liquidRecomposeTrigger++
+            }
+            context.sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
+            onDispose {
+                context.sharedPreferences.unregisterOnSharedPreferenceChangeListener(listener)
+            }
+        }
+
+        val isLiquidGlassPage = currentRoute?.routeInfo?.id == "liquid_glass_settings"
+
+        if (isLiquidGlassPage) {
+            var dummySelectedIndex by remember { androidx.compose.runtime.mutableIntStateOf(0) }
+
+            val dummyTabs = remember {
+                listOf(
+                    Triple("Page 1", Icons.Rounded.Star, 0),
+                    Triple("Page 2", Icons.Rounded.Star, 1),
+                    Triple("Page 3", Icons.Rounded.Star, 2),
+                    Triple("Page 4", Icons.Rounded.Star, 3),
+                    Triple("Page 5", Icons.Rounded.Star, 4),
+                )
+            }
+
+            Box(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                androidx.compose.runtime.key(liquidRecomposeTrigger) {
+                    LiquidBottomTabs(
+                        sharedPreferences = context.sharedPreferences,
+                        selectedTabIndex = { dummySelectedIndex },
+                        onTabSelected = { index -> if (index >= 0) dummySelectedIndex = index },
+                        backdrop = liquidBackdrop,
+                        tabsCount = dummyTabs.size,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .align(Alignment.Center)
+                            .padding(
+                                start = liquidBottomTabsModifierPaddingStartValue.dp,
+                                end = liquidBottomTabsModifierPaddingEndValue.dp,
+                                top = liquidBottomTabsModifierPaddingTopValue.dp,
+                                bottom = liquidBottomTabsModifierPaddingBottomValue.dp
+                            )
+
+                    ) {
+                        dummyTabs.forEachIndexed { index, (title, icon, _) ->
+                            LiquidBottomTab(
+                                onClick = { dummySelectedIndex = index }
+                            ) {
+                                Icon(imageVector = icon, contentDescription = null)
+                                Text(
+                                    textAlign = TextAlign.Center,
+                                    softWrap = false,
+                                    fontSize = 12.sp,
+                                    modifier = Modifier.wrapContentWidth(unbounded = true),
+                                    text = title,
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+            return
+        }
 
         val containerColor = NavigationBarDefaults.containerColor
         val borderColor = MaterialTheme.colorScheme.outlineVariant
@@ -281,41 +370,54 @@ class Navigation(
             Box(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                LiquidBottomTabs(
-                    selectedTabIndex = { selectedIndex },
-                    onTabSelected = { index ->
-                        if (index >= 0) primaryRoutes[index].navigateReset()
-                    },
-                    backdrop = liquidBackdrop,
-                    tabsCount = primaryRoutes.size,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.Center)
-                        .padding(start = 10.dp, end = 10.dp, bottom = 55.dp)
-                ) {
-                    primaryRoutes.forEachIndexed { index, route ->
-                        val isSelected = selectedIndex == index
-                        LiquidBottomTab(
-                            onClick = {
-                                val currentEntry = navController.currentBackStackEntry
-                                val currentRouteId = currentEntry?.destination?.route
-                                val isExactlyAtRoot = currentRouteId == route.routeInfo.id || currentRouteId == "main_${route.routeInfo.id}"
+                androidx.compose.runtime.key(liquidRecomposeTrigger) {
+                    LiquidBottomTabs(
+                        sharedPreferences = context.sharedPreferences,
+                        selectedTabIndex = { selectedIndex },
+                        onTabSelected = { index -> if (index >= 0) primaryRoutes[index].navigateReset() },
+                        backdrop = liquidBackdrop,
+                        tabsCount = primaryRoutes.size,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .align(Alignment.Center)
+                            .padding(
+                                start = liquidBottomTabsModifierPaddingStartValue.dp,
+                                end = liquidBottomTabsModifierPaddingEndValue.dp,
+                                top = liquidBottomTabsModifierPaddingTopValue.dp,
+                                bottom = liquidBottomTabsModifierPaddingBottomValue.dp
+                            )
+                    ) {
+                        primaryRoutes.forEachIndexed { index, route ->
+                            val isSelected = selectedIndex == index
+                            LiquidBottomTab(
+                                onClick = {
+                                    val currentEntry = navController.currentBackStackEntry
+                                    val currentRouteId = currentEntry?.destination?.route
+                                    val isExactlyAtRoot =
+                                        currentRouteId == route.routeInfo.id || currentRouteId == "main_${route.routeInfo.id}"
 
-                                if (!isSelected || !isExactlyAtRoot) {
-                                    route.navigateReset()
+                                    if (!isSelected || !isExactlyAtRoot) {
+                                        route.navigateReset()
+                                    }
                                 }
-                            }
-                        ) {
-                            Icon(imageVector = route.routeInfo.icon, contentDescription = null)
+                            ) {
+                                Icon(imageVector = route.routeInfo.icon, contentDescription = null)
 
-                            if (!hideBottomBarLabels || isSelected) {
-                                Text(
-                                    textAlign = TextAlign.Center,
-                                    softWrap = false,
-                                    fontSize = 12.sp,
-                                    modifier = Modifier.wrapContentWidth(unbounded = true),
-                                    text = remember(context.translation.loadedLocale) { context.translation["manager.routes.${route.routeInfo.key.substringBefore("/")}"] },
-                                )
+                                if (!hideBottomBarLabels || isSelected) {
+                                    Text(
+                                        textAlign = TextAlign.Center,
+                                        softWrap = false,
+                                        fontSize = 12.sp,
+                                        modifier = Modifier.wrapContentWidth(unbounded = true),
+                                        text = remember(context.translation.loadedLocale) {
+                                            context.translation["manager.routes.${
+                                                route.routeInfo.key.substringBefore(
+                                                    "/"
+                                                )
+                                            }"]
+                                        },
+                                    )
+                                }
                             }
                         }
                     }
@@ -331,7 +433,12 @@ class Navigation(
     }
 
     @Composable
-    fun Content(paddingValues: PaddingValues, startDestination: String, hazeState: HazeState) {
+    fun Content(
+        paddingValues: PaddingValues,
+        startDestination: String,
+        hazeState: HazeState,
+        liquidBackdrop: LayerBackdrop
+    ) {
         val contentPadding = PaddingValues(top = 0.dp, bottom = 0.dp)
         val animationSpeed by context.sharedPreferences.rememberMutableStringPreferenceState(
             key = "animation_speed",
@@ -346,6 +453,7 @@ class Navigation(
             modifier = Modifier
                 .padding(contentPadding)
                 .fillMaxSize()
+                .layerBackdrop(liquidBackdrop)
                 .hazeSource(state = hazeState),
             enterTransition = { fadeIn(tween(animationSpeedInt)) },
             exitTransition = { fadeOut(tween(animationSpeedInt)) }

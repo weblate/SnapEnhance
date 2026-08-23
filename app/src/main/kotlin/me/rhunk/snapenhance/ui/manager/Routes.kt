@@ -14,6 +14,7 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
 import me.rhunk.snapenhance.RemoteSideContext
+import me.rhunk.snapenhance.ui.manager.pages.DebugTestingUI // TO REMOVE
 import me.rhunk.snapenhance.ui.manager.pages.EasterEgg
 import me.rhunk.snapenhance.ui.manager.pages.location.BetterLocationRoot
 import me.rhunk.snapenhance.ui.manager.pages.FileImportsRoot
@@ -39,6 +40,7 @@ import me.rhunk.snapenhance.ui.manager.pages.home.HomeAdvancedDebugSettings
 import me.rhunk.snapenhance.ui.manager.pages.home.HomeCredits
 import me.rhunk.snapenhance.ui.manager.pages.home.HomeThirdPartyLibraries
 import me.rhunk.snapenhance.ui.manager.pages.home.HomeUpdating
+import me.rhunk.snapenhance.ui.manager.pages.scripting.ModuleInfo
 import me.rhunk.snapenhance.ui.manager.pages.theming.ThemingRoot
 import me.rhunk.snapenhance.ui.manager.pages.tracker.EditRule
 import me.rhunk.snapenhance.ui.manager.pages.tracker.FriendTrackerManagerRoot
@@ -78,6 +80,7 @@ class Routes(
     val homeAppTheme = route(RouteInfo("home_app_theme"), HomeAppTheme())
 
     val liquidGlassSettingsRoot = route(RouteInfo("liquid_glass_settings"), LiquidGlassSettingsRoot())
+    val debugTestingUi = route(RouteInfo("debug_testing_ui"), DebugTestingUI())
 
     val loggerHistory = route(RouteInfo("logger_history"), LoggerHistoryRoot()).parent(home)
     val friendTracker = route(RouteInfo("friend_tracker"), FriendTrackerManagerRoot()).parent(home)
@@ -94,6 +97,7 @@ class Routes(
     val loggedStories = route(RouteInfo("logged_stories/?id={id}"), LoggedStories()).parent(social)
 
     val scripting = route(RouteInfo("scripts", icon = Icons.Rounded.DataObject, primary = true), ScriptingRootSection())
+    val moduleInfo = route(RouteInfo("module_info/?name={name}"), ModuleInfo().parent(scripting))
 
     val betterLocation = route(RouteInfo("better_location", showInNavBar = false, primary = true), BetterLocationRoot())
 
@@ -108,6 +112,7 @@ class Routes(
         open val floatingActionButton: @Composable () -> Unit = {}
         open val content: @Composable (NavBackStackEntry) -> Unit = {}
         open val customComposables: NavGraphBuilder.() -> Unit = {}
+        open val shouldHideTopAppBar: Boolean = false
 
         var parentRoute: Route? = null
             private set

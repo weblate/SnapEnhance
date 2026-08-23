@@ -5,6 +5,13 @@
 -dontwarn androidx.window.sidecar.**
 -dontwarn androidx.window.reflection.**
 
+-dontwarn javax.management.**
+-dontwarn org.slf4j.impl.StaticLoggerBinder
+-dontwarn java.rmi.**
+-dontwarn javax.security.auth.**
+-dontwarn org.apache.tomcat.jni.**
+-dontwarn org.ietf.jgss.**
+
 -keep enum * { *; }
 
 -keep class com.android.tools.smali.dexlib2.** { *; }

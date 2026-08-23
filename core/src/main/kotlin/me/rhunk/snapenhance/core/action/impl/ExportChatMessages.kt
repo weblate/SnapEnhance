@@ -2,7 +2,9 @@ package me.rhunk.snapenhance.core.action.impl
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.os.Build
 import android.os.Environment
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -99,7 +101,7 @@ class ExportChatMessages : AbstractAction() {
                         onValueChange = {},
                         readOnly = true,
                         singleLine = true,
-                        modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable)
+                        modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
                     )
 
                     ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
@@ -159,7 +161,7 @@ class ExportChatMessages : AbstractAction() {
                         value = exportType.extension,
                         onValueChange = {},
                         readOnly = true,
-                        modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable)
+                        modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
                     )
 
                     ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
@@ -188,7 +190,7 @@ class ExportChatMessages : AbstractAction() {
                         } ?: exporterTranslation["text_field_selection_all"],
                         onValueChange = {},
                         readOnly = true,
-                        modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable)
+                        modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
                     )
 
                     ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
@@ -271,6 +273,7 @@ class ExportChatMessages : AbstractAction() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun run() {
         context.coroutineScope.launch(Dispatchers.Main) {
             createComposeAlertDialog(context.mainActivity!!) { alertDialog ->

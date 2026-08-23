@@ -160,7 +160,7 @@ class ThemingRoot: Routes.Route() {
             throw Exception("Failed to fetch theme from URL ${result.message}")
         }
 
-        importTheme(result.body.string(), url)
+        importTheme(result.body?.string() ?: return, url)
     }
 
     override val init: () -> Unit = {

@@ -52,8 +52,14 @@ fun ThemeCatalog(root: ThemingRoot) {
                         return@forEach
                     }
 
+                    val body = response.body ?: run {
+                        context.log.error("Theme index response body is null for $indexUri")
+                        context.shortToast("Failed to fetch index of $indexUri")
+                        return@forEach
+                    }
+
                     runCatching {
-                        indexes[rootUri] = context.gson.fromJson(response.body.charStream(), RepositoryIndex::class.java)
+                        indexes[rootUri] = context.gson.fromJson(body.charStream(), RepositoryIndex::class.java)
                     }.onFailure {
                         context.log.error("Failed to parse theme index from $indexUri", it)
                         context.shortToast("Failed to parse index of $indexUri")
@@ -77,7 +83,13 @@ fun ThemeCatalog(root: ThemingRoot) {
                 return
             }
 
-            val themeContent = response.body.bytes().toString(Charsets.UTF_8)
+            val body = response.body ?: run {
+                context.log.error("Theme response body is null for $themeUri")
+                context.shortToast("Failed to fetch theme from $themeUri")
+                return
+            }
+
+            val themeContent = body.bytes().toString(Charsets.UTF_8)
             root.importTheme(themeContent, themeUri.toString())
         }
     }
@@ -211,9 +223,7 @@ fun ThemeCatalog(root: ThemingRoot) {
                     shape = cardShape(remoteThemes.size, index)
                 ) {
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp),
+                        modifier = Modifier.fillMaxWidth().padding(8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(Icons.Rounded.Palette, contentDescription = null, modifier = Modifier.padding(16.dp))

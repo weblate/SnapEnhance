@@ -1,5 +1,6 @@
 package me.rhunk.snapenhance.common.ui
 
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.graphics.Shape
@@ -11,6 +12,8 @@ val cardShapeGroupedBottom: Shape = RoundedCornerShape(topStart = 5.dp, topEnd =
 
 val bottomSheetShape: Shape =  RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp, bottomStart = 0.dp, bottomEnd = 0.dp)
 val bottomSheetClipShape: Shape = RoundedCornerShape(15.dp)
+
+val pillCardShapeCircleShape:  Shape = CircleShape
 
 fun cardShape(groupSize: Int, index: Int): Shape {
     return when (groupSize) {

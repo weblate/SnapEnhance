@@ -1,16 +1,14 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import java.io.ByteArrayOutputStream
 
 plugins {
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.compose.compiler)
-    id("kotlin-parcelize")
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
     namespace = rootProject.ext["applicationId"].toString() + ".common"
-    compileSdk = 36
+    compileSdk = 37
 
     buildFeatures {
         aidl = true
@@ -25,13 +23,14 @@ android {
         buildConfigField("String", "APPLICATION_ID", "\"${rootProject.ext["applicationId"]}\"")
         buildConfigField("long", "BUILD_TIMESTAMP", "${System.currentTimeMillis()}L")
         buildConfigField("String", "BUILD_HASH", "\"${rootProject.ext["buildHash"]}\".toString()")
-        val gitHash = ByteArrayOutputStream()
 
-        exec {
-            commandLine("git", "rev-parse", "HEAD")
-            standardOutput = gitHash
-        }
-        buildConfigField("String", "GIT_HASH", "\"${gitHash.toString(Charsets.UTF_8).trim()}\"")
+        val gitHash = runCatching {
+            providers.exec {
+                commandLine("git", "rev-parse", "HEAD")
+            }.standardOutput.asText.get().trim()
+        }.getOrDefault("unknown")
+
+        buildConfigField("String", "GIT_HASH", "\"$gitHash\"")
         buildConfigField("String", "SIF_ENDPOINT", "\"${properties["debug_sif_endpoint"]?.toString() ?: "https://github.com/SnapEnhance/resources/raw/refs/heads/main/sif"}\"")
     }
 
@@ -56,6 +55,7 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.okhttp)
     implementation(libs.androidx.documentfile)
+    implementation("org.jetbrains.kotlin:kotlin-parcelize-runtime:2.2.20")
     implementation(libs.rhino)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -65,6 +65,7 @@ dependencies {
         exclude(group = "org.mozilla", module = "rhino-runtime")
     }
     implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.ui)
 
     compileOnly(libs.androidx.activity.ktx)
     compileOnly(platform(libs.androidx.compose.bom))

@@ -308,7 +308,7 @@ class LoggerHistoryRoot : Routes.Route() {
                                 )
                             },
                             shapes = MenuDefaults.itemShape(index, conversations.size),
-                            trailingIcon = {
+                            trailingContent = {
                                 if (isSelected) {
                                     Icon(Icons.Rounded.Check, contentDescription = null)
                                 }

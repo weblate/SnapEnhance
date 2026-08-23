@@ -2,9 +2,11 @@ package me.rhunk.snapenhance.core.features.impl.experiments
 
 import android.location.Location
 import android.location.LocationManager
+import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -236,6 +238,7 @@ class BetterLocation : Feature("Better Location") {
             if (!event.viewClassName.endsWith("MapScreenRoot")) return@subscribe
 
             event.view.addOnAttachStateChangeListener(object: View.OnAttachStateChangeListener {
+                @RequiresApi(Build.VERSION_CODES.Q)
                 override fun onViewAttachedToWindow(v: View) {
                     val mapView = event.view.findViewById<View>(mapViewId) ?: throw IllegalStateException("Map view not found")
                     val view = (mapView.parent as ViewGroup).children().firstOrNull { it is RelativeLayout } as? RelativeLayout ?: throw IllegalStateException("Map view parent not found")

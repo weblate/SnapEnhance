@@ -19,7 +19,6 @@ class UserInterfaceTweaks : ConfigContainer() {
         val amount = integer("amount", defaultValue = 1)
     }
 
-
     val friendFeedMenuButtons = multiple(
         "friend_feed_menu_buttons","conversation_info", "mark_snaps_as_seen", "mark_stories_as_seen_locally", *MessagingRuleType.entries.filter { it.showInFriendMenu }.map { it.key }.toTypedArray()
     ).apply {
@@ -65,7 +64,7 @@ class UserInterfaceTweaks : ConfigContainer() {
         "lavender_field",
         "lemon_drop",
         "modern_farmhouse",
-    ) { addNotices(FeatureNotice.UNSTABLE); requireRestart(); versionCheck = RES_OBF_VERSION_CHECK.copy(isDisabled = true)  }
+    ) { addNotices(FeatureNotice.UNSTABLE); requireRestart(); versionCheck = RES_OBF_VERSION_CHECK.copy(isDisabled = true)   }
     val friendFeedMessagePreview = container("friend_feed_message_preview", FriendFeedMessagePreview()) { requireRestart() }
     val customFriendFeedLabel = string("custom_friend_feed_label") { requireRestart() }
     val iconStyle = unique("icon_style","outlined", "filled", "sharp", "two-tone") {  requireRestart() }

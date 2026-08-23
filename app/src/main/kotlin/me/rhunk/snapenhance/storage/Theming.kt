@@ -8,7 +8,6 @@ import me.rhunk.snapenhance.common.data.DatabaseThemeContent
 import me.rhunk.snapenhance.common.util.ktx.getIntOrNull
 import me.rhunk.snapenhance.common.util.ktx.getStringOrNull
 
-
 fun AppDatabase.getThemeList(): List<DatabaseTheme> {
     return runBlocking(executor.asCoroutineDispatcher()) {
         database.rawQuery("SELECT * FROM themes ORDER BY id DESC", null).use { cursor ->

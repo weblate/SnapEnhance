@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -33,6 +32,7 @@ import me.rhunk.snapenhance.common.data.SocialScope
 import me.rhunk.snapenhance.common.ui.*
 import me.rhunk.snapenhance.common.util.snap.BitmojiSelfie
 import me.rhunk.snapenhance.storage.*
+import me.rhunk.snapenhance.ui.components.DefaultBottomSheet
 import me.rhunk.snapenhance.ui.manager.Routes
 import me.rhunk.snapenhance.ui.util.BottomSheets
 import me.rhunk.snapenhance.ui.util.coil.BitmojiImage
@@ -58,61 +58,20 @@ class ManageScope: Routes.Route() {
         val navBackStackEntry by routes.navController.currentBackStackEntryAsState()
         var deleteConfirmBottomSheet by remember { mutableStateOf(false) }
         val coroutineScope = rememberCoroutineScope()
-        val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
         if (deleteConfirmBottomSheet) {
-            val scope =
-                navBackStackEntry?.arguments?.getString("scope")?.let { SocialScope.getByName(it) }
-                    ?: return@topBarActions
+            val scope = navBackStackEntry?.arguments?.getString("scope")?.let { SocialScope.getByName(it) } ?: return@topBarActions
             val id = navBackStackEntry?.arguments?.getString("id")!!
 
-            ModalBottomSheet(
-                onDismissRequest = { deleteConfirmBottomSheet = false },
-                sheetState = sheetState,
-                sheetGesturesEnabled = false,
-                shape = bottomSheetShape
+            DefaultBottomSheet(
+                onDismiss = { deleteConfirmBottomSheet = false }
             ) {
-                LazyColumn(
-                    modifier = Modifier
-                        .padding(10.dp, 10.dp, 10.dp, 10.dp),
-                    verticalArrangement = Arrangement.spacedBy(3.dp)
-                ) {
-                    item {
-                        Column {
-                            Text(
-                                text = translation.format("delete_scope_confirm_dialog_title", "scope" to context.translation["scopes.${scope.key}"]),
-                                fontSize = 15.sp,
-                                fontWeight = FontWeight.Bold,
-                                modifier = Modifier.padding(bottom = 10.dp)
-                            )
-                            HorizontalDivider(
-                                modifier = Modifier
-                                    .padding(top = 15.dp, bottom = 10.dp)
-                                    .fillMaxWidth()
-                            )
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.End
-                            ) {
-                                Button(
-                                    onClick = { deleteConfirmBottomSheet = false },
-                                    shapes = ButtonDefaults.shapes()
-                                ) {
-                                    Text(context.translation["button.cancel"])
-                                }
-                                Spacer(modifier = Modifier.width(10.dp))
-                                Button(
-                                    onClick = {
-                                        deleteScope(scope, id, coroutineScope); deleteConfirmBottomSheet = false
-                                    },
-                                    shapes = ButtonDefaults.shapes()
-                                ) {
-                                    Text(context.translation["button.ok"])
-                                }
-                            }
-                        }
-                    }
-                }
+                bottomSheets.ConfirmBottomSheet(
+                    title = context.translation.format("manager.dialogs.delete_friend.title", "scope" to context.translation["scopes.${scope.key}"]),
+                    message = context.translation.format("manager.dialogs.delete_friend.content", "scope" to context.translation["scopes.${scope.key}"]),
+                    onConfirm = { deleteScope(scope, id, coroutineScope); deleteConfirmBottomSheet = false },
+                    onDismiss = { deleteConfirmBottomSheet = false }
+                )
             }
         }
 

@@ -465,7 +465,6 @@ class TasksRootSection : Routes.Route() {
         val scope = rememberCoroutineScope()
         recentTasks = remember { mutableStateListOf() }
         val allTasks = activeTasks.map { it.task to it } + recentTasks.map { it to null }
-        val totalTaskCount = allTasks.size
         var lastFetchedTaskId by remember { mutableStateOf(null as Long?) }
 
         fun handleDismissal(task: Task, pendingTask: PendingTask?) {
@@ -505,86 +504,82 @@ class TasksRootSection : Routes.Route() {
             }
         }
 
-        // TODO: refactor into sub actions
-
-        LazyColumn(
-            state = scrollState,
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(3.dp),
-            contentPadding = lazyColumnContentPadding(staticVertical = 10.dp)
-        ) {
-            item {
-                if (activeTasks.isEmpty() && recentTasks.isEmpty()) {
-                    Box(
-                        modifier = Modifier.fillParentMaxSize(),
-                        contentAlignment = Alignment.Center
+        if (activeTasks.isEmpty() && recentTasks.isEmpty()) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    ElevatedCard(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .size(200.dp),
+                        shape = MaterialShapes.Ghostish.toShape()
                     ) {
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
                         ) {
-                            ElevatedCard(
-                                modifier = Modifier
-                                    .padding(16.dp)
-                                    .size(200.dp),
-                                shape = MaterialShapes.Ghostish.toShape()
-                            ) {
-                                Box(
-                                    modifier = Modifier.fillMaxSize(),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Rounded.TaskAlt,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(100.dp)
-                                    )
-                                }
-                            }
-                            Text(
-                                text = translation["tasks_empty"],
-                                style = MaterialTheme.typography.bodyMedium,
-                                modifier = Modifier.padding(8.dp)
-                            )
-                            Text(
-                                text = translation["tasks_empty_desc"],
-                                style = MaterialTheme.typography.bodySmall,
-                                modifier = Modifier.padding(8.dp)
+                            Icon(
+                                imageVector = Icons.Rounded.TaskAlt,
+                                contentDescription = null,
+                                modifier = Modifier.size(100.dp)
                             )
                         }
                     }
-                }
-            }
-
-            items(allTasks, key = { it.first.hash }) { (task, pendingTask) ->
-                val index = allTasks.indexOfFirst { it.first == task }
-                val shape = cardShape(allTasks.size, index)
-
-                val isSelected by remember { derivedStateOf { taskSelection.any { it.first == task } } }
-
-                DismissibleCardItem(
-                    onDelete = { handleDismissal(task, pendingTask) },
-                    modifier = Modifier.animateItem(
-                        placementSpec = tween(durationMillis = 400),
-                        fadeOutSpec = tween(durationMillis = 300)
-                    ),
-                    shape = shape
-                ) {
-                    TaskCardContent(
-                        task = task,
-                        pendingTask = pendingTask,
-                        isSelected = isSelected,
-                        toggleSelection = {
-                            val documentFile = DocumentFile.fromSingleUri(context.androidContext, task.extra?.toUri() ?: return@TaskCardContent)
-                            if (isSelected) taskSelection.removeIf { it.first == task }
-                            else taskSelection.add(task to documentFile)
-                        },
-                        shape = shape
+                    Text(
+                        text = translation["tasks_empty"],
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                    Text(
+                        text = translation["tasks_empty_desc"],
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(8.dp)
                     )
                 }
             }
-            item {
-                LaunchedEffect(remember { derivedStateOf { scrollState.firstVisibleItemIndex } }) {
-                    fetchNewRecentTasks()
+        } else {
+            LazyColumn(
+                state = scrollState,
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(3.dp),
+                contentPadding = lazyColumnContentPadding(staticVertical = 10.dp)
+            ) {
+                items(allTasks, key = { it.first.hash }) { (task, pendingTask) ->
+                    val index = allTasks.indexOfFirst { it.first == task }
+                    val shape = cardShape(allTasks.size, index)
+
+                    val isSelected by remember { derivedStateOf { taskSelection.any { it.first == task } } }
+
+                    DismissibleCardItem(
+                        onDelete = { handleDismissal(task, pendingTask) },
+                        modifier = Modifier.animateItem(
+                            placementSpec = tween(durationMillis = 400),
+                            fadeOutSpec = tween(durationMillis = 300)
+                        ),
+                        shape = shape
+                    ) {
+                        TaskCardContent(
+                            task = task,
+                            pendingTask = pendingTask,
+                            isSelected = isSelected,
+                            toggleSelection = {
+                                val documentFile = DocumentFile.fromSingleUri(context.androidContext, task.extra?.toUri() ?: return@TaskCardContent)
+                                if (isSelected) taskSelection.removeIf { it.first == task }
+                                else taskSelection.add(task to documentFile)
+                            },
+                            shape = shape
+                        )
+                    }
+                }
+                item {
+                    LaunchedEffect(remember { derivedStateOf { scrollState.firstVisibleItemIndex } }) {
+                        fetchNewRecentTasks()
+                    }
                 }
             }
         }

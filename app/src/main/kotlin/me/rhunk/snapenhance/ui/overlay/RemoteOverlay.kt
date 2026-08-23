@@ -2,8 +2,10 @@ package me.rhunk.snapenhance.ui.overlay
 
 import android.app.Dialog
 import android.content.Intent
+import android.os.Build
 import android.provider.Settings
 import android.view.WindowManager
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,6 +29,7 @@ import me.rhunk.snapenhance.ui.manager.Navigation
 import me.rhunk.snapenhance.ui.manager.Routes
 import androidx.core.net.toUri
 import androidx.core.graphics.drawable.toDrawable
+import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 
 class RemoteOverlay(
     private val context: RemoteSideContext
@@ -55,6 +58,7 @@ class RemoteOverlay(
         }
         val navigation = remember { Navigation(context, navHostController) }
         val hazeState = rememberHazeState()
+        val liquidBackdrop = rememberLayerBackdrop()
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
         Scaffold(
@@ -63,7 +67,7 @@ class RemoteOverlay(
         ) { innerPadding ->
             navigation.Content(
                 innerPadding,
-                startDestination = remember { startRoute(navigation.routes).routeInfo.id }, hazeState
+                startDestination = remember { startRoute(navigation.routes).routeInfo.id }, hazeState, liquidBackdrop
             )
         }
     }
@@ -76,6 +80,7 @@ class RemoteOverlay(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     fun show(route: (Routes) -> Routes.Route) {
         if (!checkForPermissions()) {
             return

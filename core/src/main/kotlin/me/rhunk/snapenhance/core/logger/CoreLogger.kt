@@ -45,7 +45,7 @@ class CoreLogger(
             XposedBridge.invokeOriginalMethod(
                 printLnMethod,
                 null,
-                arrayOf(priority, tag, message)
+                arrayOf<Any?>(priority, tag, message)
             )
         }
     }

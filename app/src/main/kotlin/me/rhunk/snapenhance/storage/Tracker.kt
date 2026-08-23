@@ -13,7 +13,6 @@ import me.rhunk.snapenhance.common.util.ktx.getLongOrNull
 import me.rhunk.snapenhance.common.util.ktx.getStringOrNull
 import kotlin.coroutines.suspendCoroutine
 
-
 fun AppDatabase.clearTrackerRules() {
     runBlocking {
         suspendCoroutine { continuation ->
@@ -114,7 +113,7 @@ fun AppDatabase.getTrackerRule(ruleId: Int): TrackerRule? {
 
 fun AppDatabase.setTrackerRuleName(ruleId: Int, name: String) {
     executeAsync {
-        database.execSQL("UPDATE tracker_rules SET name = ? WHERE id = ?", arrayOf(name, ruleId))
+        database.execSQL("UPDATE tracker_rules SET name = ? WHERE id = ?", arrayOf<Any?>(name, ruleId))
     }
 }
 
@@ -178,7 +177,7 @@ fun AppDatabase.setRuleTrackerScopes(ruleId: Int, type: TrackerScopeType, scopes
     executeAsync {
         database.execSQL("DELETE FROM tracker_scopes WHERE rule_id = ?", arrayOf(ruleId))
         scopes.forEach { scopeId ->
-            database.execSQL("INSERT INTO tracker_scopes (rule_id, scope_type, scope_id) VALUES (?, ?, ?)", arrayOf(
+            database.execSQL("INSERT INTO tracker_scopes (rule_id, scope_type, scope_id) VALUES (?, ?, ?)", arrayOf<Any?>(
                 ruleId,
                 type.key,
                 scopeId
@@ -207,9 +206,9 @@ fun AppDatabase.updateFriendScore(userId: String, score: Long): Long {
                 }
 
                 if (currentScore != null) {
-                    database.execSQL("UPDATE friend_scores SET score = ? WHERE userId = ?", arrayOf(score, userId))
+                    database.execSQL("UPDATE friend_scores SET score = ? WHERE userId = ?", arrayOf<Any?>(score, userId))
                 } else {
-                    database.execSQL("INSERT INTO friend_scores (userId, score) VALUES (?, ?)", arrayOf(userId, score))
+                    database.execSQL("INSERT INTO friend_scores (userId, score) VALUES (?, ?)", arrayOf<Any?>(userId, score))
                 }
 
                 continuation.resumeWith(Result.success(currentScore ?: -1))

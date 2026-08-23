@@ -73,3 +73,41 @@ fun SharedPreferences.rememberMutableStringPreferenceState(
     }
     return state
 }
+
+@Composable
+fun SharedPreferences.rememberMutableFloatPreferenceState(
+    key: String,
+    defaultValue: Float
+): MutableState<Float> {
+
+    val internalState = remember { mutableStateOf(getFloat(key, defaultValue)) }
+
+    val state = remember {
+        object : MutableState<Float> {
+            override var value: Float
+                get() = internalState.value
+                set(newValue) {
+                    internalState.value = newValue
+                    edit().putFloat(key, newValue).apply()
+                }
+            override fun component1(): Float = value
+            override fun component2(): (Float) -> Unit = { value = it }
+        }
+    }
+
+    val preferenceChangeListener = remember {
+        SharedPreferences.OnSharedPreferenceChangeListener { sp, changedKey ->
+            if (changedKey == key) {
+                internalState.value = sp.getFloat(key, defaultValue)
+            }
+        }
+    }
+
+    DisposableEffect(this, key) {
+        registerOnSharedPreferenceChangeListener(preferenceChangeListener)
+        onDispose {
+            unregisterOnSharedPreferenceChangeListener(preferenceChangeListener)
+        }
+    }
+    return state
+}

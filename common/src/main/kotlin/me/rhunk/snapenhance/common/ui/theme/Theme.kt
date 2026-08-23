@@ -3,20 +3,44 @@ package me.rhunk.snapenhance.common.ui.theme
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat.getInsetsController
 import me.rhunk.snapenhance.common.data.theme.AppPalette
 import me.rhunk.snapenhance.common.data.theme.ThemeMode
+import me.rhunk.snapenhance.common.ui.rememberMutableBooleanPreferenceState
 import me.rhunk.snapenhance.common.ui.rememberMutableStringPreferenceState
 import me.rhunk.snapenhance.common.ui.theme.palettes.*
 
 object Themes {
+    val pureBlackDarkModeBackground = Color(0xFF000000)
+    val pureBlackDarkModeOnBackground = Color(0xFFFFFFFF)
+    val pureBlackDarkModeSurface = Color(0xFF000000)
+    val pureBlackDarkModeOnSurface = Color(0xFFFFFFFF)
+    val pureBlackDarkModeSurfaceContainer = Color(0xFF0C0C0C)
+    val pureBlackDarkModeSurfaceContainerHigh = Color(0xFF131313)
+    val pureBlackDarkModeSurfaceContainerHighest = Color(0xFF1B1B1B)
+
+    private val themeRegistry = mapOf(
+        "monochrome" to Monochrome,
+        "purraurora" to PurrAurora,
+        "strawberry_daiquiri" to StrawberryDaiquiri,
+        "tidal_wave" to TidalWave,
+        "green_apple" to GreenApple,
+        "midnight_dusk" to MidnightDusk,
+        "nord" to Nord,
+        "teal_turqoise" to TealTurqoise
+    )
+
     @Composable
     fun getPalettes(context: Context): List<AppPalette> {
         val palettes = mutableListOf<AppPalette>()
@@ -29,41 +53,26 @@ object Themes {
             ))
         }
 
-        palettes.addAll(
-            listOf(
-                Monochrome,
-                PurrAurora,
-                StrawberryDaiquiri,
-                TidalWave,
-                GreenApple
-            )
-        )
-
+        palettes.addAll(themeRegistry.values)
         return palettes
     }
 
     fun getPalettesByName(key: String, context: Context): AppPalette {
-        return when (key) {
-            "monochrome" -> Monochrome
-            "purraurora" -> PurrAurora
-            "strawberry_daiquiri" -> StrawberryDaiquiri
-            "tidal_wave" -> TidalWave
-            "green_apple" -> GreenApple
-            else -> {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    AppPalette(
-                        key = "dynamic",
-                        lightColors = dynamicLightColorScheme(context),
-                        darkColors = dynamicDarkColorScheme(context)
-                    )
-                } else {
-                    Monochrome
-                }
-            }
+        themeRegistry[key]?.let { return it }
+
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            AppPalette(
+                key = "dynamic",
+                lightColors = dynamicLightColorScheme(context),
+                darkColors = dynamicDarkColorScheme(context)
+            )
+        } else {
+            Monochrome
         }
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.Q)
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun AppMaterialTheme(
@@ -81,6 +90,12 @@ fun AppMaterialTheme(
         key = "theme_mode",
         defaultValue = ThemeMode.SYSTEM.name
     )
+
+    val usePureDarkMode by preferences.rememberMutableBooleanPreferenceState(
+        key = "appearance_use_pure_dark_mode",
+        defaultValue = false
+    )
+
     val systemDarkTheme = isSystemInDarkTheme()
     val useDarkTheme = when (themeMode) {
         ThemeMode.LIGHT.name -> false
@@ -108,12 +123,32 @@ fun AppMaterialTheme(
     }
 
     val colorScheme: ColorScheme = if (useDarkTheme) {
-        selectedTheme.darkColors
+        val darkBase = selectedTheme.darkColors
+        if (usePureDarkMode) {
+            darkBase.copy(
+                background = Themes.pureBlackDarkModeBackground,
+                onBackground = Themes.pureBlackDarkModeOnBackground,
+                surface = Themes.pureBlackDarkModeSurface,
+                onSurface = Themes.pureBlackDarkModeOnSurface,
+                surfaceContainer = Themes.pureBlackDarkModeSurfaceContainer,
+                surfaceContainerHigh = Themes.pureBlackDarkModeSurfaceContainerHigh,
+                surfaceContainerHighest = Themes.pureBlackDarkModeSurfaceContainerHighest,
+            )
+        } else {
+            darkBase
+        }
     } else {
         selectedTheme.lightColors
     }
 
-    MaterialTheme(
+    val promoModePreferences = remember { context.getSharedPreferences("promo_mode", Context.MODE_PRIVATE) }
+    var promoMode by promoModePreferences.rememberMutableBooleanPreferenceState(
+        key = "promo_mode",
+        defaultValue = false
+    )
+
+    MaterialExpressiveTheme(
+        typography = if (promoMode) ProductSansTypography else Typography(),
         colorScheme = colorScheme,
         content = content,
         motionScheme = MotionScheme.expressive()

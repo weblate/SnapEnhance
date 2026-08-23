@@ -31,20 +31,27 @@ import kotlinx.coroutines.launch
 
 class InteractiveHighlight(
     val animationScope: CoroutineScope,
-    val position: (size: Size, offset: Offset) -> Offset = { _, offset -> offset }
+    val position: (size: Size, offset: Offset) -> Offset = { _, offset -> offset },
+    val pressProgressAnimationSpecDampingRatio: Float,
+    val pressProgressAnimationSpecStiffness: Float,
+    val pressProgressAnimationSpecVisibilityThreshold: Float,
+    val positionAnimationSpecDampingRatio: Float,
+    val positionAnimationSpecStiffness: Float,
+    val pressProgressAnimationInitialValue: Float,
+    val pressProgressAnimationVisibilityThreshold: Float,
+    val shaderNotNullDrawRectColorWhiteAlpha: Float,
+    val shaderSetColorUniformWhiteAlpha: Float,
+    val shaderSetFloatUniformRadiusTimes: Float,
+    val shaderIsNullDrawRectColorWhiteAlpha: Float,
+    val onDragStartTargetValue: Float,
+    val onDragEndTargetValue: Float,
+    val onDragCancelTargetValue: Float,
 ) {
 
-    private val pressProgressAnimationSpec =
-        spring(0.5f, 300f, 0.001f)
-    private val positionAnimationSpec =
-        spring(0.5f, 300f, Offset.VisibilityThreshold)
-
-    private val pressProgressAnimation =
-        Animatable(0f, 0.001f)
-    private val positionAnimation =
-        Animatable(Offset.Zero, Offset.VectorConverter, Offset.VisibilityThreshold)
-
+    private val positionAnimation = Animatable(Offset.Zero, Offset.VectorConverter, Offset.VisibilityThreshold)
+    private val pressProgressAnimation = Animatable(pressProgressAnimationInitialValue, pressProgressAnimationVisibilityThreshold)
     private var startPosition = Offset.Zero
+
     val pressProgress: Float get() = pressProgressAnimation.value
     val offset: Offset get() = positionAnimation.value - startPosition
 
@@ -73,14 +80,14 @@ half4 main(float2 coord) {
             if (progress > 0f) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && shader != null) {
                     drawRect(
-                        Color.White.copy(0.08f * progress),
+                        Color.White.copy(shaderNotNullDrawRectColorWhiteAlpha * progress),
                         blendMode = BlendMode.Plus
                     )
                     shader.apply {
                         val position = position(size, positionAnimation.value)
                         setFloatUniform("size", size.width, size.height)
-                        setColorUniform("color", Color.White.copy(0.15f * progress).toArgb())
-                        setFloatUniform("radius", size.minDimension * 1.5f)
+                        setColorUniform("color", Color.White.copy(shaderSetColorUniformWhiteAlpha * progress).toArgb())
+                        setFloatUniform("radius", size.minDimension * shaderSetFloatUniformRadiusTimes)
                         setFloatUniform(
                             "position",
                             position.x.fastCoerceIn(0f, size.width),
@@ -93,7 +100,7 @@ half4 main(float2 coord) {
                     )
                 } else {
                     drawRect(
-                        Color.White.copy(0.25f * progress),
+                        Color.White.copy(shaderIsNullDrawRectColorWhiteAlpha * progress),
                         blendMode = BlendMode.Plus
                     )
                 }
@@ -108,20 +115,20 @@ half4 main(float2 coord) {
                 onDragStart = { down ->
                     startPosition = down.position
                     animationScope.launch {
-                        launch { pressProgressAnimation.animateTo(1f, pressProgressAnimationSpec) }
+                        launch { pressProgressAnimation.animateTo(onDragStartTargetValue, spring(pressProgressAnimationSpecDampingRatio, pressProgressAnimationSpecStiffness, pressProgressAnimationSpecVisibilityThreshold)) }
                         launch { positionAnimation.snapTo(startPosition) }
                     }
                 },
                 onDragEnd = {
                     animationScope.launch {
-                        launch { pressProgressAnimation.animateTo(0f, pressProgressAnimationSpec) }
-                        launch { positionAnimation.animateTo(startPosition, positionAnimationSpec) }
+                        launch { pressProgressAnimation.animateTo(onDragEndTargetValue, spring(pressProgressAnimationSpecDampingRatio, pressProgressAnimationSpecStiffness, pressProgressAnimationSpecVisibilityThreshold)) }
+                        launch { positionAnimation.animateTo(startPosition, spring(positionAnimationSpecDampingRatio, positionAnimationSpecStiffness, Offset.VisibilityThreshold)) }
                     }
                 },
                 onDragCancel = {
                     animationScope.launch {
-                        launch { pressProgressAnimation.animateTo(0f, pressProgressAnimationSpec) }
-                        launch { positionAnimation.animateTo(startPosition, positionAnimationSpec) }
+                        launch { pressProgressAnimation.animateTo(onDragCancelTargetValue, spring(pressProgressAnimationSpecDampingRatio, pressProgressAnimationSpecStiffness, pressProgressAnimationSpecVisibilityThreshold)) }
+                        launch { positionAnimation.animateTo(startPosition, spring(positionAnimationSpecDampingRatio, positionAnimationSpecStiffness, Offset.VisibilityThreshold)) }
                     }
                 }
             ) { change, _ ->

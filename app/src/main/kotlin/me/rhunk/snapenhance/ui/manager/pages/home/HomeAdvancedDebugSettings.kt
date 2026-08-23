@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.edit
 import androidx.navigation.NavBackStackEntry
 import me.rhunk.snapenhance.common.ui.cardShapeGroupedBottom
+import me.rhunk.snapenhance.common.ui.cardShapeGroupedMiddle
 import me.rhunk.snapenhance.common.ui.cardShapeGroupedTop
 import me.rhunk.snapenhance.common.ui.lazyColumnContentPadding
 import me.rhunk.snapenhance.common.ui.rememberMutableBooleanPreferenceState
@@ -51,7 +52,11 @@ class HomeAdvancedDebugSettings : Routes.Route() {
         }
     }
     override val content: @Composable (NavBackStackEntry) -> Unit = {
-        var promoMode = context.sharedPreferences.rememberMutableBooleanPreferenceState(
+        val promoPrefs = remember {
+            context.androidContext.getSharedPreferences("promo_mode", android.content.Context.MODE_PRIVATE)
+        }
+
+        val promoMode = promoPrefs.rememberMutableBooleanPreferenceState(
             key = "promo_mode",
             defaultValue = false
         )
@@ -77,12 +82,12 @@ class HomeAdvancedDebugSettings : Routes.Route() {
 
                     ElevatedCard(
                         modifier = Modifier.fillMaxWidth(),
-                        shape = cardShapeGroupedBottom
+                        shape = cardShapeGroupedMiddle
                     ) {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clickable { }
+                                .clickable { promoMode.value = !getPromoMode }
                                 .heightIn(min = 55.dp)
                                 .padding(start = 15.dp, end = 16.dp),
                             horizontalArrangement = Arrangement.SpaceBetween,
@@ -103,6 +108,30 @@ class HomeAdvancedDebugSettings : Routes.Route() {
                                     promoMode.value = newState
                                 }
                             )
+                        }
+                    }
+
+                    ElevatedCard(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = cardShapeGroupedBottom
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { routes.debugTestingUi.navigate() }
+                                .heightIn(min = 55.dp)
+                                .padding(start = 15.dp, end = 16.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column(
+                                modifier = Modifier.weight(1f),
+                            ) {
+                                Text(
+                                    text = "Debug Testing UI",
+                                    fontSize = 14.sp
+                                )
+                            }
                         }
                     }
                 }

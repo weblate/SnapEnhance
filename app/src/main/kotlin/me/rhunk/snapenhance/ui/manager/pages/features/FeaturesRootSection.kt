@@ -17,7 +17,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.OpenInNew
-import androidx.compose.material.icons.filled.RestartAlt
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -48,6 +47,7 @@ import me.rhunk.snapenhance.common.ui.*
 import me.rhunk.snapenhance.ui.components.*
 import me.rhunk.snapenhance.ui.manager.MainActivity
 import me.rhunk.snapenhance.ui.manager.Routes
+import me.rhunk.snapenhance.ui.manager.data.MenuAction
 import me.rhunk.snapenhance.ui.util.*
 
 class FeaturesRootSection : Routes.Route() {
@@ -636,7 +636,7 @@ class FeaturesRootSection : Routes.Route() {
 
         if (showSearchBar) return@topBarActions
 
-        var showExportDropdownMenu by remember { mutableStateOf(false) }
+        var showActionDropdownMenu by remember { mutableStateOf(false) }
         var showResetConfirmationBottomSheet by remember { mutableStateOf(false) }
         var showExportBottomSheet by remember { mutableStateOf(false) }
 
@@ -692,34 +692,46 @@ class FeaturesRootSection : Routes.Route() {
             }
         }
 
-        val actions = remember {
-            mapOf(
-                translation["import_option"] to {
-                    activityLauncher {
-                        openFile("application/json") { uri ->
-                            context.androidContext.contentResolver.openInputStream(Uri.parse(uri))?.use {
-                                runCatching {
-                                    context.config.loadFromString(it.readBytes().toString(Charsets.UTF_8))
-                                }.onFailure {
-                                    context.longToast(translation.format("config_import_failure_toast", "error" to it.message.toString()))
-                                    return@use
-                                }
-                                context.shortToast(translation["config_import_success_toast"])
-                                context.coroutineScope.launch(Dispatchers.Main) {
-                                    navigateReload()
+        val actions = remember(translation) {
+            listOf(
+                MenuAction(
+                    name = translation["import_option"],
+                    icon = Icons.Rounded.SaveAlt,
+                    action = {
+                        activityLauncher {
+                            openFile("application/json") { uri ->
+                                context.androidContext.contentResolver.openInputStream(Uri.parse(uri))?.use {
+                                    runCatching {
+                                        context.config.loadFromString(it.readBytes().toString(Charsets.UTF_8))
+                                    }.onFailure {
+                                        context.longToast(translation.format("config_import_failure_toast", "error" to it.message.toString()))
+                                        return@use
+                                    }
+                                    context.shortToast(translation["config_import_success_toast"])
+                                    context.coroutineScope.launch(Dispatchers.Main) {
+                                        navigateReload()
+                                    }
                                 }
                             }
                         }
                     }
-                },
-                translation["export_option"] to { showExportBottomSheet = true },
-                translation["reset_option"] to { showResetConfirmationBottomSheet = true }
+                ),
+                MenuAction(
+                    name = translation["export_option"],
+                    icon = Icons.Rounded.Save,
+                    action = { showExportBottomSheet = true }
+                ),
+                MenuAction(
+                    name = translation["reset_option"],
+                    icon = Icons.Rounded.Restore,
+                    action = { showResetConfirmationBottomSheet = true }
+                ),
             )
         }
 
         if (context.activity != null) {
             IconButton(
-                onClick = { showExportDropdownMenu = !showExportDropdownMenu},
+                onClick = { showActionDropdownMenu = !showActionDropdownMenu},
                 shapes = IconButtonDefaults.shapes()
             ) {
                 Icon(
@@ -729,32 +741,28 @@ class FeaturesRootSection : Routes.Route() {
             }
         }
 
-        if (showExportDropdownMenu) {
+        if (showActionDropdownMenu) {
             DropdownMenuPopup(
                 expanded = true,
-                onDismissRequest = { showExportDropdownMenu = false }
+                onDismissRequest = { showActionDropdownMenu = false }
             ) {
-                val actionEntries = actions.toList()
-
                 DropdownMenuGroup(
                     shapes = MenuDefaults.groupShape(0, 1)
                 ) {
-                    actionEntries.fastForEachIndexed { index, (name, action) ->
+                    actions.fastForEachIndexed { index, menuAction ->
                         DropdownMenuItem(
                             selected = false,
                             onClick = {
-                                action()
-                                showExportDropdownMenu = false
+                                menuAction.action()
+                                showActionDropdownMenu = false
                             },
-                            text = { Text(text = name) },
-                            shapes = MenuDefaults.itemShape(index, actionEntries.size),
+                            text = { Text(text = menuAction.name) },
+                            shapes = MenuDefaults.itemShape(index, actions.size),
                             leadingIcon = {
-                                val icon = when {
-                                    name.contains("export", true) -> Icons.Rounded.FileUpload
-                                    name.contains("import", true) -> Icons.Rounded.FileDownload
-                                    else -> Icons.Default.RestartAlt
-                                }
-                                Icon(icon, contentDescription = null)
+                                Icon(
+                                    imageVector = menuAction.icon,
+                                    contentDescription = null
+                                )
                             }
                         )
                     }

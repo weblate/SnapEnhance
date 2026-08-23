@@ -1,6 +1,5 @@
 package me.rhunk.snapenhance.ui.manager.pages.home
 
-import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -34,28 +33,16 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.net.toUri
 import androidx.navigation.NavBackStackEntry
 import me.rhunk.snapenhance.R
 import me.rhunk.snapenhance.common.ui.cardShapeGroupedBottom
 import me.rhunk.snapenhance.common.ui.cardShapeGroupedMiddle
 import me.rhunk.snapenhance.common.ui.cardShapeGroupedTop
 import me.rhunk.snapenhance.common.ui.lazyColumnContentPadding
+import me.rhunk.snapenhance.common.util.ktx.openLink
 import me.rhunk.snapenhance.ui.manager.Routes
 
 class HomeAbout: Routes.Route() {
-    private fun openLink(link: String) {
-        kotlin.runCatching {
-            context.activity?.startActivity(Intent(Intent.ACTION_VIEW).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                data = link.toUri()
-            })
-        }.onFailure {
-            context.log.error("Couldn't open link", it)
-            context.shortToast("Couldn't open link. Check SE Extended logs for more details.")
-        }
-    }
-
     override val content: @Composable (NavBackStackEntry) -> Unit = {
         val packageName = context.androidContext.packageName
         val clipboardManager = LocalClipboardManager.current
@@ -115,7 +102,7 @@ class HomeAbout: Routes.Route() {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    openLink("https://t.me/SE_Extended")
+                                    context.androidContext.openLink("https://t.me/SE_Extended")
                                 }
                                 .padding(15.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -152,7 +139,7 @@ class HomeAbout: Routes.Route() {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    openLink("https://www.reddit.com/r/SEExtendedApp/")
+                                    context.androidContext.openLink("https://www.reddit.com/r/SEExtendedApp/")
                                 }
                                 .padding(15.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -189,7 +176,7 @@ class HomeAbout: Routes.Route() {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    openLink("https://git.seextended.org/bocajthomas/SE-Extended/wiki")
+                                    context.androidContext.openLink("https://git.seextended.org/bocajthomas/SE-Extended/wiki")
                                 }
                                 .padding(15.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -225,7 +212,7 @@ class HomeAbout: Routes.Route() {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    openLink("https://ko-fi.com/seextended")
+                                    context.androidContext.openLink("https://ko-fi.com/seextended")
                                 }
                                 .padding(15.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -257,7 +244,7 @@ class HomeAbout: Routes.Route() {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    openLink("https://hosted.weblate.org/projects/se-extended/se-extended/")
+                                    context.androidContext.openLink("https://hosted.weblate.org/projects/se-extended/se-extended/")
                                 }
                                 .padding(15.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -293,7 +280,7 @@ class HomeAbout: Routes.Route() {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    openLink("https://git.seextended.org/bocajthomas/SE-Extended/src/branch/dev/LICENSE")
+                                    context.androidContext.openLink("https://git.seextended.org/bocajthomas/SE-Extended/src/branch/dev/LICENSE")
                                 }
                                 .padding(15.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -329,7 +316,7 @@ class HomeAbout: Routes.Route() {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    openLink("https://git.seextended.org/bocajthomas/SE-Extended")
+                                    context.androidContext.openLink("https://git.seextended.org/bocajthomas/SE-Extended")
                                 }
                                 .padding(15.dp),
                             verticalAlignment = Alignment.CenterVertically

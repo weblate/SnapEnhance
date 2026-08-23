@@ -1,16 +1,14 @@
-import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.compose.compiler)
     id("kotlin-parcelize")
 }
 
 android {
     namespace = rootProject.ext["applicationId"].toString() + ".manager"
-    compileSdk = 36
+    compileSdk = 37
 
     androidResources {
         noCompress += ".so"
@@ -46,12 +44,6 @@ android {
         }
     }
 
-    applicationVariants.all {
-        outputs.map { it as BaseVariantOutputImpl }.forEach { outputVariant ->
-            outputVariant.outputFileName = "Manager.apk"
-        }
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
@@ -64,6 +56,19 @@ android {
                 "-XXLanguage:+PropertyParamAnnotationDefaultTargetMode",
                 "-Xjvm-default=all"
             )
+        }
+    }
+}
+
+tasks.configureEach {
+    if (name.startsWith("package")) {
+        doLast {
+            val apkDir = layout.buildDirectory.dir("outputs/apk").get().asFile
+            apkDir.walkTopDown()
+                .filter { it.isFile && it.extension == "apk" && it.name != "Manager.apk" }
+                .forEach { apkFile ->
+                    apkFile.renameTo(file("${apkFile.parent}/Manager.apk"))
+                }
         }
     }
 }

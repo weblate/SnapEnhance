@@ -134,7 +134,12 @@ class RemoteScriptManager(
     }.getOrNull()
 
     private fun getScriptFileNames(): List<String> {
-        return (getScriptsFolder() ?: return emptyList()).listFiles().filter { it.name?.endsWith(".js") ?: false }.map { it.name!! }
+        val folder = getScriptsFolder() ?: return emptyList()
+
+        return folder.listFiles()
+            .filter { it.name?.endsWith(".js") ?: false }
+            .sortedByDescending { it.lastModified() }
+            .map { it.name!! }
     }
 
     fun importFromUrl(
@@ -145,15 +150,19 @@ class RemoteScriptManager(
         if (!response.isSuccessful) {
             throw Exception("Failed to fetch script. Code: ${response.code}")
         }
-        response.body.byteStream().use { inputStream ->
+
+        val body = response.body ?: throw Exception("Response body is null")
+
+        body.byteStream().use { inputStream ->
             val bufferedInputStream = inputStream.buffered()
             bufferedInputStream.mark(0)
             val moduleInfo = bufferedInputStream.bufferedReader().readModuleInfo()
             bufferedInputStream.reset()
 
             val scriptPath = filepath ?: (moduleInfo.name + ".js")
-            val scriptFile = getScriptsFolder()?.findFile(scriptPath) ?: getScriptsFolder()?.createFile("text/javascript", scriptPath)
-            ?: throw Exception("Failed to create script file")
+            val scriptFile = getScriptsFolder()?.findFile(scriptPath)
+                ?: getScriptsFolder()?.createFile("text/javascript", scriptPath)
+                ?: throw Exception("Failed to create script file")
 
             context.androidContext.contentResolver.openOutputStream(scriptFile.uri, "wt")?.use { output ->
                 bufferedInputStream.copyTo(output)
@@ -173,7 +182,8 @@ class RemoteScriptManager(
             if (!response.isSuccessful) {
                 return@runCatching null
             }
-            response.body.byteStream().use { inputStream ->
+
+            response.body?.byteStream()?.use { inputStream ->
                 val reader = inputStream.buffered().bufferedReader()
                 val moduleInfo = reader.readModuleInfo()
                 moduleInfo.takeIf {

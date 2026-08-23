@@ -17,10 +17,13 @@ fun AppDatabase.setQuickTiles(keys: List<String>) {
     executeAsync {
         database.execSQL("DELETE FROM quick_tiles")
         keys.forEachIndexed { index, key ->
-            database.execSQL("INSERT INTO quick_tiles (`key`, position) VALUES (?, ?)", arrayOf(
-                key,
-                index
-            ))
+            database.execSQL(
+                "INSERT INTO quick_tiles (`key`, position) VALUES (?, ?)",
+                arrayOf<Any?>(
+                    key,
+                    index
+                )
+            )
         }
     }
 }

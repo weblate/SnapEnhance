@@ -69,7 +69,7 @@ class ManageReposSection: Routes.Route() {
                         if (!response.isSuccessful) {
                             throw Exception("Failed to fetch default branch: ${response.code}")
                         }
-                        val json = response.body.string()
+                        val json = response.body?.string()
                         val defaultBranch = context.gson.fromJson(json, Map::class.java)["default_branch"] as String
                         context.log.info("Default branch for $repoName is $defaultBranch")
                         modifiedUrl = "https://raw.githubusercontent.com/$repoName/$defaultBranch/"
@@ -84,7 +84,7 @@ class ManageReposSection: Routes.Route() {
                         throw Exception("Failed to fetch index from $indexUri: ${response.code}")
                     }
                     runCatching {
-                        val repoIndex = context.gson.fromJson(response.body.charStream(), RepositoryIndex::class.java).also {
+                        val repoIndex = context.gson.fromJson(response.body?.charStream(), RepositoryIndex::class.java).also {
                             context.log.info("repository index: $it")
                         }
 
@@ -165,6 +165,7 @@ class ManageReposSection: Routes.Route() {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = lazyColumnContentPadding(staticVertical = 10.dp, hasFAB = true),
+            verticalArrangement = Arrangement.spacedBy(3.dp),
         ) {
             if (repositories.isEmpty()) {
                 item {

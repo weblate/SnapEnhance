@@ -8,7 +8,6 @@ import me.rhunk.snapenhance.common.util.ktx.getDoubleOrNull
 import me.rhunk.snapenhance.common.util.ktx.getInteger
 import me.rhunk.snapenhance.common.util.ktx.getStringOrNull
 
-
 fun AppDatabase.getLocationCoordinates(): List<LocationCoordinates> {
     return runBlocking(executor.asCoroutineDispatcher()) {
         database.rawQuery("SELECT * FROM location_coordinates ORDER BY id DESC", null).use { cursor ->

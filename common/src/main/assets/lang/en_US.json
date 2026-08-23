@@ -57,9 +57,11 @@
             "manage_scope": "Manage Scope",
             "messaging_preview": "Preview",
             "scripts": "Scripts",
+            "module_info": "Module Info",
             "better_location": "Better Location",
             "liquid_glass_settings": "Liquid Glass Settings",
-            "easter_egg": "Easter Egg"
+            "easter_egg": "Easter Egg",
+            "debug_testing_ui": "Debug Testing UI"
         },
         "sections": {
             "home": {
@@ -77,7 +79,8 @@
                 "quick_actions_empty_desc": "Click the + to add quick actions"
             },
             "home_logs": {
-                "no_logs_hint": "No logs available",
+                "logs_empty": "No logs found",
+                "logs_empty_desc": "Available logs will appear here",
                 "clear_logs_button": "Clear Logs",
                 "export_logs_button": "Export Logs",
                 "saving_logs_toast": "Saving logs, this may take a while ...",
@@ -108,7 +111,7 @@
                 "navigation_bar_title": "Navigation Bar",
                 "app_theme_title": "App Theme",
                 "animation_title": "Animation",
-                "app_theme_description": "Change color scheme and night mode",
+                "app_theme_description": "Change color scheme and theme mode",
                 "blur_effect_title": "Enable Blur (Beta)",
                 "blur_effect_description": "Enables containers to have a blur effect",
                 "app_icon_title": "App Icon",
@@ -125,8 +128,7 @@
             "home_app_theme": {
                 "theme_palettes_title": "Color Palettes",
                 "theme_mode_title": "Theme Mode",
-                "sample_text": "Sample Text",
-                "sample_button": "Sample Button",
+                "pure_black_dark_mode_title": "Pure black dark mode",
                 "auto_button": "Auto",
                 "light_button": "Light",
                 "dark_button": "Dark"
@@ -213,15 +215,20 @@
             },
             "scripts": {
                 "scripts_empty": "No scripts found",
-                "scripts_empty_desc": "User scripts will appear here",
+                "scripts_empty_desc": "Installed scripts will appear here",
                 "set_up_script_folder": "Set up your script folder",
                 "select_folder_button": "Select folder",
                 "search_script_placeholder": "Search scripts",
                 "open_scripts_folder_button": "Open Scripts Folder",
                 "import_from_url_button": "Import from URL",
                 "manage_repositories_button": "Manage repositories",
-                "installed_scripts_title": "Installed Scripts",
-                "script_catalog_title": "Script Catalog"
+                "installed_scripts_tab": "Installed Scripts",
+                "script_catalog_tab": "Script Catalog",
+                "script_catalog_empty": "No scripts available",
+                "script_catalog_empty_desc": "Available scripts will appear here"
+            },
+            "module_info": {
+
             },
             "manage_scope": {
                 "logged_stories_button": "Show Logged Stories",
@@ -234,7 +241,6 @@
                 "streaks_expiration_text": "Expires in {eta}",
                 "streaks_expiration_text_expired": "Expired",
                 "reminder_button": "Set Reminder",
-                "delete_scope_confirm_dialog_title": "Are you sure you want to delete a {scope}?",
                 "notes_placeholder": "Click to add a note"
             },
             "logged_stories": {
@@ -373,6 +379,10 @@
                 "category_friends": "Friends",
                 "participants_text": "{count} participants"
             },
+            "delete_friend": {
+                "title": "Delete {scope}",
+                "content": "Are you sure you want to delete a {scope}?"
+            },
             "scripting_warning": {
                 "title": "Warning",
                 "content": "SE Extended includes a scripting tool, allowing the execution of user-defined code on your device. Use extreme caution and only install modules from known, reliable sources. Unauthorized or unverified modules may pose security risks to your system."
@@ -411,7 +421,7 @@
             "file_imports": {
                 "title": "Select an imported file",
                 "files_empty": "No files found",
-                "files_empty_desc": "Make sure you have imported the required files in the File Imports section"
+                "files_empty_desc": "Make sure you have imported the required files in the File Imports section, you can find this by the quick actions on the home page"
             },
             "import_theme_url": {
                 "title": "Import Theme from URL",
@@ -489,34 +499,46 @@
            "content_description": "Version {versionName} is now available!"
         },
         "pallets": {
-           "dynamic": "Dynamic",
-           "monochrome": "Monochrome",
-           "purraurora": "PurrAurora",
-           "strawberry_daiquiri": "Strawberry Daiquiri",
-           "tidal_wave": "Tidal Wave",
-           "green_apple": "Green Apple"
+            "dynamic": "Dynamic",
+            "monochrome": "Monochrome",
+            "purraurora": "PurrAurora",
+            "strawberry_daiquiri": "Strawberry Daiquiri",
+            "tidal_wave": "Tidal Wave",
+            "green_apple": "Green Apple",
+            "midnight_dusk": "Midnight Dusk",
+            "nord": "Nord",
+            "teal_turqoise": "Teal Turqoise"
         },
         "animation_speeds": {
-           "slow": "Slow",
-           "medium": "Medium",
-           "fast": "Fast"
+            "slow": "Slow",
+            "medium": "Medium",
+            "fast": "Fast"
         },
         "app_icons": {
-          "default": "Default",
-          "king": "King",
-          "inverse": "Inverse",
-          "light_blue": "Light Blue",
-          "light_green": "Light Green",
-          "light_pink": "Light Pink",
-          "dark_purple": "Dark Purple",
-          "golden_earth": "Golden Earth",
-          "honeycomb": "Honeycomb",
-          "regal_dusk": "Regal Dusk",
-          "cloud_nine": "Cloud Nine",
-          "zen_garden": "Zen Garden",
-          "ocean_flare": "Ocean Flare",
-          "canyon_dusk": "Canyon Dusk",
-          "og_snapenhance": "OG SnapEnhance"
+            "default": "Default",
+            "king": "King",
+            "trash": "Trash",
+            "inverse": "Inverse",
+            "light_blue": "Light Blue",
+            "light_green": "Light Green",
+            "light_pink": "Light Pink",
+            "dark_purple": "Dark Purple",
+            "golden_earth": "Golden Earth",
+            "honeycomb": "Honeycomb",
+            "regal_dusk": "Regal Dusk",
+            "cloud_nine": "Cloud Nine",
+            "zen_garden": "Zen Garden",
+            "ocean_flare": "Ocean Flare",
+            "canyon_dusk": "Canyon Dusk",
+            "og_snapenhance": "OG SnapEnhance",
+            "mary_jane": "Mary Jane",
+            "lime": "Lime",
+            "midnight_blue": "Midnight Blue",
+            "ash_black": "Ash Black",
+            "deep_lichen": "Deep Lichen",
+            "estate_red": "Estate Red",
+            "walnut_brown": "Walnut Brown",
+            "mulled_wine": "Mulled Wine"
         }
     },
 
@@ -1532,6 +1554,10 @@
                     "disable_optimization": {
                         "name": "Disable Optimization",
                         "description": "Disables the optimization of scripts. This may cause performance issues."
+                    },
+                    "disable_toasts": {
+                        "name": "Disable Toasts",
+                        "description": "Disable the load & unload toasts shown"
                     }
                 }
             },

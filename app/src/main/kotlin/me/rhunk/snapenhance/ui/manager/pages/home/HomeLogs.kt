@@ -10,13 +10,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.KeyboardDoubleArrowDown
-import androidx.compose.material.icons.rounded.KeyboardDoubleArrowUp
-import androidx.compose.material.icons.rounded.MoreVert
-import androidx.compose.material.icons.rounded.Info
-import androidx.compose.material.icons.rounded.Report
-import androidx.compose.material.icons.rounded.Warning
-import androidx.compose.material.icons.rounded.BugReport
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -28,6 +22,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.util.fastForEachIndexed
 import androidx.navigation.NavBackStackEntry
 import kotlinx.coroutines.*
 import me.rhunk.snapenhance.LogReader
@@ -40,6 +35,7 @@ import me.rhunk.snapenhance.ui.util.pullrefresh.rememberPullRefreshState
 import me.rhunk.snapenhance.ui.util.saveFile
 import me.rhunk.snapenhance.common.ui.lazyColumnContentPadding
 import androidx.core.net.toUri
+import me.rhunk.snapenhance.ui.manager.data.MenuAction
 
 class HomeLogs : Routes.Route() {
     private val logListState by lazy { LazyListState(0) }
@@ -50,49 +46,80 @@ class HomeLogs : Routes.Route() {
     }
 
     override val topBarActions: @Composable (RowScope.() -> Unit) = {
-        var showDropDown by remember { mutableStateOf(false) }
+        var showActionDropdownMenu by remember { mutableStateOf(false) }
 
         IconButton(
-            onClick = { showDropDown = true },
+            onClick = { showActionDropdownMenu = true },
             shapes = IconButtonDefaults.shapes()
         ) {
             Icon(Icons.Rounded.MoreVert, contentDescription = null)
         }
 
-        DropdownMenu(
-            expanded = showDropDown,
-            onDismissRequest = { showDropDown = false },
-            modifier = Modifier.align(Alignment.CenterVertically)
-        ) {
-            DropdownMenuItem(onClick = {
-                context.coroutineScope.launch {
-                    context.log.clearLogs()
-                }
-                navigateReload()
-                showDropDown = false
-            }, text = {
-                Text(translation["clear_logs_button"])
-            })
-
-            DropdownMenuItem(onClick = {
-                activityLauncherHelper.saveFile("SE Extended-logs-${System.currentTimeMillis()}.zip", "application/zip") { uri ->
-                    context.coroutineScope.launch {
-                        context.shortToast(translation["saving_logs_toast"])
-                        context.androidContext.contentResolver.openOutputStream(uri.toUri())?.use {
-                            runCatching {
-                                context.log.exportLogsToZip(it)
-                                context.longToast(translation["saved_logs_success_toast"])
-                            }.onFailure {
-                                context.longToast(translation["saved_logs_failure_toast"])
-                                context.log.error("Failed to save logs to $uri!", it)
+        val actions = remember(translation) {
+            listOf(
+                MenuAction(
+                    name = translation["clear_logs_button"],
+                    icon = Icons.Rounded.Delete,
+                    action = {
+                        context.coroutineScope.launch {
+                            context.log.clearLogs()
+                        }
+                        navigateReload()
+                    }
+                ),
+                MenuAction(
+                    name = translation["export_logs_button"],
+                    icon = Icons.Rounded.Save,
+                    action = {
+                        activityLauncherHelper.saveFile(
+                            "SE Extended-logs-${System.currentTimeMillis()}.zip",
+                            "application/zip"
+                        ) { uri ->
+                            context.coroutineScope.launch {
+                                context.shortToast(translation["saving_logs_toast"])
+                                context.androidContext.contentResolver.openOutputStream(uri.toUri())
+                                    ?.use {
+                                        runCatching {
+                                            context.log.exportLogsToZip(it)
+                                            context.longToast(translation["saved_logs_success_toast"])
+                                        }.onFailure {
+                                            context.longToast(translation["saved_logs_failure_toast"])
+                                            context.log.error("Failed to save logs to $uri!", it)
+                                        }
+                                    }
                             }
                         }
                     }
+                )
+            )
+        }
+        if (showActionDropdownMenu) {
+            DropdownMenuPopup(
+                expanded = true,
+                onDismissRequest = { showActionDropdownMenu = false }
+            ) {
+                DropdownMenuGroup(
+                    shapes = MenuDefaults.groupShape(0, 1)
+                ) {
+                    actions.fastForEachIndexed { index, menuAction ->
+                        DropdownMenuItem(
+                            selected = false,
+                            onClick = {
+                                menuAction.action()
+                                showActionDropdownMenu = false
+                            },
+                            text = { Text(text = menuAction.name) },
+                            shapes = MenuDefaults.itemShape(index, actions.size),
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = menuAction.icon,
+                                    contentDescription = null
+                                )
+                            }
+                        )
+                    }
                 }
-                showDropDown = false
-            }, text = {
-                Text(translation["export_logs_button"])
-            })
+            }
         }
     }
 
@@ -136,84 +163,116 @@ class HomeLogs : Routes.Route() {
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
-            LazyColumn(
-                modifier = Modifier.horizontalScroll(ScrollState(0)),
-                contentPadding = lazyColumnContentPadding(staticVertical = 10.dp),
-                state = logListState
-            ) {
-                item {
-                    if (lineCount == 0 && logReader != null) {
+            if (lineCount == 0 && logReader != null) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        ElevatedCard(
+                            modifier = Modifier
+                                .padding(16.dp)
+                                .size(200.dp),
+                            shape = MaterialShapes.PixelCircle.toShape()
+                        ) {
+                            Box(
+                                modifier = Modifier.fillMaxSize(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Rounded.BugReport,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(100.dp)
+                                )
+                            }
+                        }
                         Text(
-                            text = translation["no_logs_hint"],
-                            modifier = Modifier.padding(16.dp),
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.Light
+                            text = translation["logs_empty"],
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier.padding(8.dp)
+                        )
+                        Text(
+                            text = translation["logs_empty_desc"],
+                            style = MaterialTheme.typography.bodySmall,
+                            modifier = Modifier.padding(8.dp)
                         )
                     }
                 }
-                items(lineCount) { index ->
-                    val logLine by remember(index) {
-                        mutableStateOf(runBlocking(Dispatchers.IO) {
-                            logReader?.getLogLine(index)
-                        })
-                    }
-                    logLine?.let { line ->
-                        Box(modifier = Modifier
-                            .fillMaxWidth()
-                            .pointerInput(Unit) {
-                                detectTapGestures(
-                                    onLongPress = {
-                                        coroutineScope.launch {
-                                            clipboardManager.setText(
-                                                AnnotatedString(
-                                                    line.message
+            } else {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .horizontalScroll(ScrollState(0)),
+                    contentPadding = lazyColumnContentPadding(staticVertical = 10.dp),
+                    state = logListState
+                ) {
+                    items(lineCount) { index ->
+                        val logLine by remember(index) {
+                            mutableStateOf(runBlocking(Dispatchers.IO) {
+                                logReader?.getLogLine(index)
+                            })
+                        }
+                        logLine?.let { line ->
+                            Box(modifier = Modifier
+                                .fillMaxWidth()
+                                .pointerInput(Unit) {
+                                    detectTapGestures(
+                                        onLongPress = {
+                                            coroutineScope.launch {
+                                                clipboardManager.setText(
+                                                    AnnotatedString(
+                                                        line.message
+                                                    )
                                                 )
-                                            )
+                                            }
                                         }
-                                    }
-                                )
-                            }) {
-                            Column(
-                                modifier = Modifier
-                                    .padding(4.dp)
-                                    .fillMaxWidth()
-                                    .defaultMinSize(minHeight = 30.dp, minWidth = displayWidthDp),
-                            ) {
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
+                                    )
+                                }) {
+                                Column(
+                                    modifier = Modifier
+                                        .padding(4.dp)
+                                        .fillMaxWidth()
+                                        .defaultMinSize(minHeight = 30.dp, minWidth = displayWidthDp),
                                 ) {
-                                    Icon(
-                                        imageVector = when (line.logLevel) {
-                                            LogLevel.DEBUG -> Icons.Rounded.BugReport
-                                            LogLevel.ERROR, LogLevel.ASSERT -> Icons.Rounded.Report
-                                            LogLevel.INFO, LogLevel.VERBOSE -> Icons.Rounded.Info
-                                            LogLevel.WARN -> Icons.Rounded.Warning
-                                            else -> Icons.Rounded.Info
-                                        },
-                                        modifier = Modifier.size(16.dp),
-                                        contentDescription = null,
-                                    )
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                    ) {
+                                        Icon(
+                                            imageVector = when (line.logLevel) {
+                                                LogLevel.DEBUG -> Icons.Rounded.BugReport
+                                                LogLevel.ERROR, LogLevel.ASSERT -> Icons.Rounded.Report
+                                                LogLevel.INFO, LogLevel.VERBOSE -> Icons.Rounded.Info
+                                                LogLevel.WARN -> Icons.Rounded.Warning
+                                                else -> Icons.Rounded.Info
+                                            },
+                                            modifier = Modifier.size(16.dp),
+                                            contentDescription = null,
+                                        )
+
+                                        Text(
+                                            text = LogChannel.fromChannel(line.tag)?.shortName ?: line.tag,
+                                            modifier = Modifier.padding(start = 4.dp),
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 12.sp,
+                                        )
+
+                                        Text(
+                                            text = line.dateTime,
+                                            modifier = Modifier.padding(start = 4.dp, end = 4.dp),
+                                            fontSize = 10.sp
+                                        )
+                                    }
 
                                     Text(
-                                        text = LogChannel.fromChannel(line.tag)?.shortName ?: line.tag,
-                                        modifier = Modifier.padding(start = 4.dp),
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 12.sp,
-                                    )
-
-                                    Text(
-                                        text = line.dateTime,
-                                        modifier = Modifier.padding(start = 4.dp, end = 4.dp),
-                                        fontSize = 10.sp
+                                        text = line.message.trimIndent(),
+                                        lineHeight = 10.sp,
+                                        fontSize = 9.sp,
+                                        maxLines = Int.MAX_VALUE,
                                     )
                                 }
-
-                                Text(
-                                    text = line.message.trimIndent(),
-                                    lineHeight = 10.sp,
-                                    fontSize = 9.sp,
-                                    maxLines = Int.MAX_VALUE,
-                                )
                             }
                         }
                     }

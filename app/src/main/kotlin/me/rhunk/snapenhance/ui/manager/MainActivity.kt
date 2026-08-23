@@ -8,6 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -23,6 +24,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import dev.chrisbanes.haze.rememberHazeState
 import me.rhunk.snapenhance.RemoteSideContext
@@ -30,6 +32,7 @@ import me.rhunk.snapenhance.SharedContextHolder
 import me.rhunk.snapenhance.UpdateNotification.Companion.updateCheckRepeater
 import me.rhunk.snapenhance.common.ui.theme.AppMaterialTheme
 import me.rhunk.snapenhance.common.ui.rememberMutableStringPreferenceState
+import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 
 class MainActivity : ComponentActivity() {
     private lateinit var navController: NavHostController
@@ -48,6 +51,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.auto(
@@ -63,6 +67,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         managerContext = SharedContextHolder.remote(this).apply {
             activity = this@MainActivity
+            config.load()
             checkForRequirements()
         }
 
@@ -85,6 +90,9 @@ class MainActivity : ComponentActivity() {
                 })
             }
 
+            val navBackStackEntry by navController.currentBackStackEntryAsState()
+            val currentRoute = remember(navBackStackEntry) { routes.getCurrentRoute(navBackStackEntry) }
+
             val defaultPage by managerContext.sharedPreferences.rememberMutableStringPreferenceState(
                 key = "appearance_default_page",
                 defaultValue = "home"
@@ -92,16 +100,21 @@ class MainActivity : ComponentActivity() {
             val theme = getSharedPreferences("selected_theme", MODE_PRIVATE)
             val startDestination = remember { intent.getStringExtra("route") ?: defaultPage }
             val hazeState = rememberHazeState()
+            val liquidBackdrop = rememberLayerBackdrop()
 
             AppMaterialTheme(preferences = theme) {
                 val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
                 Scaffold(
                     containerColor = MaterialTheme.colorScheme.background,
                     modifier = Modifier.fillMaxSize().nestedScroll(scrollBehavior.nestedScrollConnection),
-                    topBar = { navigation.TopBar(hazeState, scrollBehavior) },
-                    bottomBar = { navigation.BottomBar(hazeState) },
+                    topBar = {
+                        if (currentRoute?.shouldHideTopAppBar != true) {
+                            navigation.TopBar(hazeState, scrollBehavior)
+                        }
+                    },
+                    bottomBar = { navigation.BottomBar(hazeState, liquidBackdrop) },
                     floatingActionButton = { navigation.FloatingActionButton() }
-                ) { innerPadding -> navigation.Content(innerPadding, startDestination, hazeState) }
+                ) { innerPadding -> navigation.Content(innerPadding, startDestination, hazeState, liquidBackdrop) }
             }
         }
     }

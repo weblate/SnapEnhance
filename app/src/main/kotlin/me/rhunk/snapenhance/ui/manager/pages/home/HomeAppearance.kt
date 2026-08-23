@@ -232,9 +232,7 @@ class HomeAppearance: Routes.Route() {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clickable {
-                                    showAppIconMenu = true
-                                }
+                                .clickable { showAppIconMenu = true }
                                 .padding(15.dp),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically

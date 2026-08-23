@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 bocajthomas
+ * SPDX-License-Identifier: GPL-3.0
+*/
+
 package me.rhunk.snapenhance.common.ui.theme.palettes
 
 import androidx.compose.material3.darkColorScheme

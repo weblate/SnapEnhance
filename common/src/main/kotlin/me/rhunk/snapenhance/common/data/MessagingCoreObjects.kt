@@ -15,7 +15,6 @@ import me.rhunk.snapenhance.common.util.ktx.getLongOrNull
 import me.rhunk.snapenhance.common.util.ktx.getStringOrNull
 import kotlin.time.Duration.Companion.hours
 
-
 enum class RuleState(
     val key: String
 ) {

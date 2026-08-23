@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.Environment
 import android.os.PowerManager
 import android.provider.Settings
 import androidx.compose.foundation.clickable
@@ -91,6 +92,29 @@ class PermissionsScreen : SetupScreen() {
                             activityLauncherHelper.requestPermission(Manifest.permission.POST_NOTIFICATIONS) { resultCode, _ ->
                                 coroutineScope.launch {
                                     grantedPermissions[perm.translationKey] = resultCode == Activity.RESULT_OK
+                                }
+                            }
+                        }
+                    }
+                ),
+
+                PermissionData(
+                    translationKey = "manage_external_storage",
+                    isPermissionGranted = {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                            Environment.isExternalStorageManager()
+                        } else {
+                            true
+                        }
+                    },
+                    requestPermission = { perm ->
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                            activityLauncherHelper.launch(Intent().apply {
+                                action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
+                                data = "package:${context.androidContext.packageName}".toUri()
+                            }) { _, _ ->
+                                coroutineScope.launch {
+                                    grantedPermissions[perm.translationKey] = Environment.isExternalStorageManager()
                                 }
                             }
                         }

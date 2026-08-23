@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlinAndroid) apply false
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.rust.android) apply false
+    alias(libs.plugins.kotlin.parcelize) apply false
 }
 
 var versionName = "1.0.0"

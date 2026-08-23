@@ -8,7 +8,6 @@ import me.rhunk.snapenhance.common.util.SQLiteDatabaseHelper
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-
 class AppDatabase(
     val context: RemoteSideContext,
 ) {

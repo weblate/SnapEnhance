@@ -1,6 +1,5 @@
 package me.rhunk.snapenhance.task
 
-
 enum class TaskType(
     val key: String
 ) {

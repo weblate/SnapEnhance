@@ -3,10 +3,13 @@ package me.rhunk.snapenhance.ui.manager.pages.home
 
 import android.content.Context
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,8 +18,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ButtonGroupDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.ToggleButton
 import androidx.compose.runtime.Composable
@@ -35,7 +40,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavBackStackEntry
 import me.rhunk.snapenhance.common.data.theme.ThemeMode
 import me.rhunk.snapenhance.common.data.theme.updateSystemBars
+import me.rhunk.snapenhance.common.ui.cardShapeGroupedBottom
+import me.rhunk.snapenhance.common.ui.cardShapeGroupedTop
+import me.rhunk.snapenhance.common.ui.cardShapeSingle
 import me.rhunk.snapenhance.common.ui.lazyColumnContentPadding
+import me.rhunk.snapenhance.common.ui.rememberMutableBooleanPreferenceState
 import me.rhunk.snapenhance.common.ui.rememberMutableStringPreferenceState
 import me.rhunk.snapenhance.common.ui.theme.Themes
 import me.rhunk.snapenhance.ui.components.PalettePreview
@@ -49,6 +58,13 @@ class HomeAppTheme: Routes.Route() {
             key = "theme_name",
             defaultValue = Themes.getPalettes(localContext).first().key
         )
+
+        val usePureDarkModePref = preferences.rememberMutableBooleanPreferenceState(
+            key = "appearance_use_pure_dark_mode",
+            defaultValue = false
+        )
+        val usePureDarkMode by usePureDarkModePref
+
         val allPalettes = Themes.getPalettes(localContext)
         var selectedThemeMode by preferences.rememberMutableStringPreferenceState(
             key = "theme_mode",
@@ -119,27 +135,62 @@ class HomeAppTheme: Routes.Route() {
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
-                FlowRow(
-                    Modifier.padding(horizontal = 10.dp).fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(ButtonGroupDefaults.ConnectedSpaceBetween),
-                    verticalArrangement = Arrangement.spacedBy(2.dp),
+
+                val showPureBlackDarkMode = selectedThemeMode == ThemeMode.DARK.name || selectedThemeMode == ThemeMode.SYSTEM.name && isSystemInDarkTheme()
+
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp),
+                    verticalArrangement = Arrangement.spacedBy(3.dp)
                 ) {
-                    themeOptions.forEachIndexed { index, label ->
-                        ToggleButton(
-                            checked = getSelectedIndex == index,
-                            onCheckedChange = { setSelectedIndex(index) },
-                            shapes =
-                                when (index) {
-                                    0 -> ButtonGroupDefaults.connectedLeadingButtonShapes()
-                                    themeOptions.lastIndex -> ButtonGroupDefaults.connectedTrailingButtonShapes()
-                                    else -> ButtonGroupDefaults.connectedMiddleButtonShapes()
-                                },
-                            modifier = Modifier.semantics {
-                                role = Role.RadioButton
-                            }
-                                .weight(1f),
+                    ElevatedCard(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = if (showPureBlackDarkMode) { cardShapeGroupedTop } else { cardShapeSingle },
+                    ) {
+                        FlowRow(
+                            Modifier.padding(10.dp).fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(ButtonGroupDefaults.ConnectedSpaceBetween),
+                            verticalArrangement = Arrangement.spacedBy(2.dp),
                         ) {
-                            Text(translation[label])
+                            themeOptions.forEachIndexed { index, label ->
+                                ToggleButton(
+                                    checked = getSelectedIndex == index,
+                                    onCheckedChange = { setSelectedIndex(index) },
+                                    shapes =
+                                        when (index) {
+                                            0 -> ButtonGroupDefaults.connectedLeadingButtonShapes()
+                                            themeOptions.lastIndex -> ButtonGroupDefaults.connectedTrailingButtonShapes()
+                                            else -> ButtonGroupDefaults.connectedMiddleButtonShapes()
+                                        },
+                                    modifier = Modifier.semantics {
+                                        role = Role.RadioButton
+                                    }.weight(1f),
+                                ) {
+                                    Text(translation[label])
+                                }
+                            }
+                        }
+                    }
+                    if (showPureBlackDarkMode) {
+                        ElevatedCard(
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = cardShapeGroupedBottom,
+                        ) {
+                            Row(
+                                modifier = Modifier.clickable { usePureDarkModePref.value = !usePureDarkModePref.value }.padding(horizontal = 15.dp, vertical = 5.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Text(
+                                    text = translation["pure_black_dark_mode_title"],
+                                    modifier = Modifier.padding(start = 5.dp).weight(1f)
+                                )
+
+                                Switch(
+                                    checked = usePureDarkMode,
+                                    onCheckedChange = { newState ->
+                                        usePureDarkModePref.value = newState
+                                    }
+                                )
+                            }
                         }
                     }
                 }

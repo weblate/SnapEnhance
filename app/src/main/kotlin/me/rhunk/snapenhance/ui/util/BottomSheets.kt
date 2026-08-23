@@ -286,6 +286,10 @@ class BottomSheets(
             ) {
                 Button(
                     onClick = { dismiss() },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                    ),
                     shapes = ButtonDefaults.shapes()
                 ) {
                     Text(text = translation["button.cancel"])
@@ -366,6 +370,10 @@ class BottomSheets(
             ) {
                 Button(
                     onClick = { onDismiss() },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                    ),
                     shapes = ButtonDefaults.shapes()
                 ) {
                     Text(text = translation["button.cancel"])
@@ -649,7 +657,7 @@ class BottomSheets(
                         }
 
                         runCatching {
-                            val body = JsonParser.parseString(response.body.string()).asJsonArray
+                            val body = JsonParser.parseString(response.body?.string()).asJsonArray
                             addressResults = body.take(5).map { jsonElement ->
                                 val jsonObject = jsonElement.asJsonObject
                                 Triple(

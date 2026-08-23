@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove" tools:ignore="all" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove" />
@@ -26,7 +27,7 @@
         tools:targetApi="36"
         android:allowBackup="true"
         android:hasFragileUserData="true"
-        android:enableOnBackInvokedCallback="true"
+        android:enableOnBackInvokedCallback="false"
         android:icon="@mipmap/default_icon"
         android:roundIcon="@mipmap/default_rounded_icon">
 
@@ -275,6 +276,141 @@
             android:exported="true"
             android:icon="@mipmap/og_snapenhance_icon"
             android:roundIcon="@mipmap/og_snapenhance_rounded_icon"
+            android:label="@string/app_name"
+            android:targetActivity=".ui.manager.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".MainActivityAliasMaryJane"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/mary_jane_icon"
+            android:roundIcon="@mipmap/mary_jane_rounded_icon"
+            android:label="@string/app_name"
+            android:targetActivity=".ui.manager.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".MainActivityAliasTrash"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/trash_icon"
+            android:roundIcon="@mipmap/trash_rounded_icon"
+            android:label="@string/app_name"
+            android:targetActivity=".ui.manager.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".MainActivityAliasLime"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/lime_icon"
+            android:roundIcon="@mipmap/lime_rounded_icon"
+            android:label="@string/app_name"
+            android:targetActivity=".ui.manager.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".MainActivityAliasMidnightBlue"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/midnight_blue_icon"
+            android:roundIcon="@mipmap/midnight_blue_rounded_icon"
+            android:label="@string/app_name"
+            android:targetActivity=".ui.manager.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".MainActivityAliasAshBlack"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ash_black_icon"
+            android:roundIcon="@mipmap/ash_black_rounded_icon"
+            android:label="@string/app_name"
+            android:targetActivity=".ui.manager.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".MainActivityAliasDeepLichen"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/deep_lichen_icon"
+            android:roundIcon="@mipmap/deep_lichen_rounded_icon"
+            android:label="@string/app_name"
+            android:targetActivity=".ui.manager.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".MainActivityAliasEstateRed"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/estate_red_icon"
+            android:roundIcon="@mipmap/estate_red_rounded_icon"
+            android:label="@string/app_name"
+            android:targetActivity=".ui.manager.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".MainActivityAliasWalnutBrown"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/walnut_brown_icon"
+            android:roundIcon="@mipmap/walnut_brown_rounded_icon"
+            android:label="@string/app_name"
+            android:targetActivity=".ui.manager.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".MainActivityAliasMulledWine"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/mulled_wine_icon"
+            android:roundIcon="@mipmap/mulled_wine_rounded_icon"
             android:label="@string/app_name"
             android:targetActivity=".ui.manager.MainActivity">
             <intent-filter>

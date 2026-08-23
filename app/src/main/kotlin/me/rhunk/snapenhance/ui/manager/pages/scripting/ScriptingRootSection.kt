@@ -3,10 +3,13 @@ package me.rhunk.snapenhance.ui.manager.pages.scripting
 
 import android.content.Intent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.*
 import androidx.compose.material.icons.rounded.*
@@ -17,6 +20,7 @@ import androidx.compose.ui.semantics.*
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -32,6 +36,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
@@ -50,14 +55,26 @@ import me.rhunk.snapenhance.storage.setScriptEnabled
 import me.rhunk.snapenhance.ui.components.LazyColumnBottomSheet
 import me.rhunk.snapenhance.ui.manager.Routes
 import me.rhunk.snapenhance.ui.util.ActivityLauncherHelper
+import me.rhunk.snapenhance.ui.util.Base64ToImage
 import me.rhunk.snapenhance.ui.util.chooseFolder
 import me.rhunk.snapenhance.ui.util.pullrefresh.PullRefreshIndicator
 import me.rhunk.snapenhance.ui.util.pullrefresh.pullRefresh
 import me.rhunk.snapenhance.ui.util.pullrefresh.rememberPullRefreshState
+import okhttp3.OkHttpClient
 
 class ScriptingRootSection : Routes.Route() {
     private lateinit var activityLauncherHelper: ActivityLauncherHelper
-    private val reloadDispatcher = AsyncUpdateDispatcher(updateOnFirstComposition = false)
+    private var reloadTrigger by mutableStateOf(0)
+    private val scriptOptions by lazy {
+        listOf(
+            translation["installed_scripts_tab"],
+            translation["script_catalog_tab"]
+        )
+    }
+    private var selectedIndex by mutableIntStateOf(0)
+    private val showScriptCover = true // TODO: allow users to toggle this off in settings in the future.
+    val localReloadDispatcher = AsyncUpdateDispatcher(updateOnFirstComposition = false)
+    val okHttpClient by lazy { OkHttpClient() }
 
     override val init: () -> Unit = {
         activityLauncherHelper = ActivityLauncherHelper(context.activity!!)
@@ -75,51 +92,72 @@ class ScriptingRootSection : Routes.Route() {
             var isLoading by remember {
                 mutableStateOf(false)
             }
-            ElevatedCard(
-                modifier = Modifier
-                    .fillMaxWidth(),
+
+            Column(
+                modifier = Modifier.padding(10.dp)
             ) {
-                Column(
+                Text(
+                    text = context.translation["manager.dialogs.import_script_url.title"],
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(bottom = 10.dp).fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                )
+                Text(
+                    text = context.translation["manager.dialogs.import_script_url.description"],
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Light,
+                    fontStyle = FontStyle.Italic,
+                    modifier = Modifier.padding(8.dp),
+                    textAlign = TextAlign.Center,
+                )
+                OutlinedTextField(
+                    value = url,
+                    onValueChange = {
+                        url = it
+                    },
+                    label = {
+                        Text(text = context.translation["manager.dialogs.import_script_url.url_hint"])
+                    },
+                    placeholder = { Text(
+                        text = "https://raw.githubusercontent.com/{username}/{repo}/{branch}/{filename}.js",
+                        modifier = Modifier.basicMarquee()
+                    ) },
+                    singleLine = true,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = context.translation["manager.dialogs.import_script_url.title"],
-                        fontSize = 22.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(8.dp),
-                    )
-                    Text(
-                        text = context.translation["manager.dialogs.import_script_url.description"],
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Light,
-                        fontStyle = FontStyle.Italic,
-                        modifier = Modifier.padding(8.dp),
-                        textAlign = TextAlign.Center,
-                    )
-                    TextField(
-                        value = url,
-                        onValueChange = {
-                            url = it
-                        },
-                        label = {
-                            Text(text = context.translation["manager.dialogs.import_script_url.url_hint"])
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .focusRequester(focusRequester)
-                            .onGloballyPositioned {
-                                focusRequester.requestFocus()
-                            }
-                    )
-                    LaunchedEffect(Unit) {
-                        context.androidContext.getUrlFromClipboard()?.let {
-                            url = it
+                        .focusRequester(focusRequester)
+                        .onGloballyPositioned {
+                            focusRequester.requestFocus()
                         }
+                )
+                LaunchedEffect(Unit) {
+                    context.androidContext.getUrlFromClipboard()?.let {
+                        url = it
                     }
-
+                }
+                HorizontalDivider(
+                    modifier = Modifier
+                        .padding(top = 15.dp, bottom = 5.dp)
+                        .fillMaxWidth()
+                )
+                Row(
+                    modifier = Modifier
+                        .padding(top = 10.dp)
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Button(
+                        onClick = { dismiss() },
+                        shapes = ButtonDefaults.shapes(),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                        )
+                    ) {
+                        Text(text = context.translation["button.cancel"])
+                    }
+                    Spacer(modifier = Modifier.width(10.dp))
                     Button(
                         enabled = url.isNotBlank(),
                         onClick = {
@@ -128,7 +166,7 @@ class ScriptingRootSection : Routes.Route() {
                                 runCatching {
                                     val moduleInfo = context.scriptManager.importFromUrl(url)
                                     context.shortToast("Script ${moduleInfo.name} imported!")
-                                    reloadDispatcher.dispatch()
+                                    localReloadDispatcher.dispatch()
                                     withContext(Dispatchers.Main) {
                                         dismiss()
                                     }
@@ -144,7 +182,7 @@ class ScriptingRootSection : Routes.Route() {
                     ) {
                         if (isLoading) {
                             CircularWavyProgressIndicator(
-                                modifier = Modifier.size(30.dp),
+                                modifier = Modifier.size(18.dp),
                                 color = MaterialTheme.colorScheme.onPrimary
                             )
                         } else {
@@ -186,7 +224,7 @@ class ScriptingRootSection : Routes.Route() {
                                 context.shortToast("Updated ${script.name} to version ${moduleInfo.version}")
                                 context.database.setScriptEnabled(script.name, false)
                                 withContext(context.database.executor.asCoroutineDispatcher()) {
-                                    reloadDispatcher.dispatch()
+                                    localReloadDispatcher.dispatch()
                                 }
                             }.onFailure {
                                 context.log.error("Failed to update module", it)
@@ -262,7 +300,7 @@ class ScriptingRootSection : Routes.Route() {
                                 val modulePath = getModulePath(script.name)!!
                                 unloadScript(modulePath)
                                 getScriptsFolder()?.findFile(modulePath)?.delete()
-                                reloadDispatcher.dispatch()
+                                localReloadDispatcher.dispatch()
                                 context.shortToast("Deleted script ${script.name}!")
                             }.onFailure {
                                 context.log.error("Failed to delete module", it)
@@ -322,7 +360,7 @@ class ScriptingRootSection : Routes.Route() {
         icon: ImageVector,
         text: String,
         containerColor: Color = MaterialTheme.colorScheme.secondaryContainer,
-        shape: Shape = RoundedCornerShape(10.dp),
+        shape: Shape = RoundedCornerShape(500.dp),
         contentColor: Color
     ) =
         Surface(
@@ -331,7 +369,7 @@ class ScriptingRootSection : Routes.Route() {
             contentColor = contentColor,
         ) {
             Row(
-                modifier = Modifier.padding(all = 5.dp),
+                modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -341,7 +379,7 @@ class ScriptingRootSection : Routes.Route() {
                     modifier = Modifier.size(10.dp)
                 )
 
-                Spacer(modifier = Modifier.width(6.dp))
+                Spacer(modifier = Modifier.width(5.dp))
 
                 Text(
                     text = text,
@@ -369,13 +407,15 @@ class ScriptingRootSection : Routes.Route() {
             context.scriptManager.checkForUpdate(script)
         }
 
+        val shouldDisableToasts = context.config.root.scripting.disableToasts.get()
+
         LaunchedEffect(Unit) {
-            reloadDispatcher.addCallback(reloadCallback)
+            localReloadDispatcher.addCallback(reloadCallback)
         }
 
         DisposableEffect(Unit) {
             onDispose {
-                reloadDispatcher.removeCallback(reloadCallback)
+                localReloadDispatcher.removeCallback(reloadCallback)
             }
         }
 
@@ -386,25 +426,30 @@ class ScriptingRootSection : Routes.Route() {
             ElevatedCard(
                 shape = cardShapeGroupedTop,
                 modifier = Modifier.fillMaxWidth(),
+                onClick = { routes.moduleInfo.navigate { put("name", script.name) } }
             ) {
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center
                 ) {
-                    if (!script.scriptCoverUrl.isNullOrEmpty()) {
+                    if (showScriptCover && !script.scriptCoverUrl.isNullOrEmpty()) {
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(150.dp)
                         ) {
-                            AsyncImage(
-                                model = script.scriptCoverUrl,
-                                contentDescription = "Script Cover",
-                                modifier = Modifier.fillMaxSize(),
-                                contentScale = ContentScale.Crop,
-                            )
+                            val coverUrl = script.scriptCoverUrl
+                            if (coverUrl != null && coverUrl.startsWith("data:image/")) {
+                                Base64ToImage(base64String = coverUrl)
+                            } else {
+                                AsyncImage(
+                                    model = coverUrl,
+                                    contentDescription = "Script Cover",
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentScale = ContentScale.Crop
+                                )
+                            }
 
                             Box(
                                 modifier = Modifier
@@ -461,34 +506,50 @@ class ScriptingRootSection : Routes.Route() {
                         }
                         Spacer(modifier = Modifier.height(5.dp))
                         if (script.notice.isNotEmpty()) {
-                            Column (
+                            Column(
                                 horizontalAlignment = Alignment.Start,
                                 verticalArrangement = Arrangement.spacedBy(5.dp)
                             ) {
+                                val rowNotices = mutableListOf<String>()
+                                var hasInternalBehavior = false
+
                                 for (notice in script.notice) {
                                     when (notice) {
-                                        "unstable" -> LabelItem(
-                                            icon = Icons.Rounded.Warning,
-                                            text = "Unstable",
-                                            contentColor = Color(0xFFFFFB87)
-                                        )
-
-                                        "ban_risk" -> LabelItem(
-                                            icon = Icons.Rounded.Warning,
-                                            text = "This script may cause bans",
-                                            contentColor = Color(0xFFFF8585)
-                                        )
-
-                                        "internal_behavior" -> LabelItem(
-                                            icon = Icons.Rounded.Warning,
-                                            text = "This script may break Snapchat's internal behavior",
-                                            contentColor = Color(0xFFFFFB87)
-                                        )
-
+                                        "unstable", "ban_risk" -> rowNotices.add(notice)
+                                        "internal_behavior" -> hasInternalBehavior = true
                                         else -> {
                                             context.log.error("notice: $notice is not supported")
                                         }
                                     }
+                                }
+
+                                if (rowNotices.isNotEmpty()) {
+                                    Row(
+                                        horizontalArrangement = Arrangement.spacedBy(5.dp)
+                                    ) {
+                                        for (notice in rowNotices) {
+                                            when (notice) {
+                                                "unstable" -> LabelItem(
+                                                    icon = Icons.Rounded.Warning,
+                                                    text = "Unstable",
+                                                    contentColor = Color(0xFFFFFB87)
+                                                )
+                                                "ban_risk" -> LabelItem(
+                                                    icon = Icons.Rounded.Warning,
+                                                    text = "This script may cause bans",
+                                                    contentColor = Color(0xFFFF8585)
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (hasInternalBehavior) {
+                                    LabelItem(
+                                        icon = Icons.Rounded.Warning,
+                                        text = "This script may break Snapchat's internal behavior",
+                                        contentColor = Color(0xFFFFFB87)
+                                    )
                                 }
                             }
                         }
@@ -553,9 +614,13 @@ class ScriptingRootSection : Routes.Route() {
                                         context.scriptManager.loadScript(modulePath)
                                         context.scriptManager.runtime.getModuleByName(script.name)
                                             ?.callFunction("module.onSnapEnhanceLoad")
-                                        context.shortToast("Loaded script ${script.name}")
+                                        if (!shouldDisableToasts) {
+                                            context.shortToast("Loaded script ${script.name}")
+                                        }
                                     } else {
-                                        context.shortToast("Unloaded script ${script.name}")
+                                        if (!shouldDisableToasts) {
+                                            context.shortToast("Unloaded script ${script.name}")
+                                        }
                                     }
 
                                     context.database.setScriptEnabled(script.name, isChecked)
@@ -596,74 +661,93 @@ class ScriptingRootSection : Routes.Route() {
 
     override val floatingActionButton: @Composable () -> Unit = {
         var showImportBottomSheet by remember { mutableStateOf(false) }
+        var fabMenuExpanded by rememberSaveable { mutableStateOf(false) }
 
         if (showImportBottomSheet) {
             ImportRemoteScript {
                 showImportBottomSheet = false
             }
         }
-        val scriptingFolder = remember(reloadDispatcher) {
+        val scriptingFolder = remember(reloadTrigger) {
             context.scriptManager.getScriptsFolder()
         }
-
         val primaryColor = MaterialTheme.colorScheme.primary
         val onPrimaryColor = MaterialTheme.colorScheme.onPrimary
 
-        var fabMenuExpanded by rememberSaveable { mutableStateOf(false) }
-
-        if (scriptingFolder != null) {
-            FloatingActionButtonMenu(
-                modifier = Modifier.offset(x = 18.dp, y = 18.dp),
-                expanded = fabMenuExpanded,
-                button = {
-                    ToggleFloatingActionButton(
-                        modifier = Modifier.semantics {
-                            traversalIndex = -1f
-                            stateDescription = if (fabMenuExpanded) "Expanded" else "Collapsed"
-                            contentDescription = "null"
-                        },
-                        checked = fabMenuExpanded,
-                        onCheckedChange = { fabMenuExpanded = !fabMenuExpanded },
-                        containerColor = { primaryColor },
-                    ) {
-                        val imageVector by remember {
-                            derivedStateOf {
-                                if (checkedProgress > 0.5f) Icons.Rounded.Close else Icons.AutoMirrored.Rounded.Launch
+        when (selectedIndex) {
+            0 -> {
+                if (scriptingFolder != null) {
+                    FloatingActionButtonMenu(
+                        modifier = Modifier.offset(x = 18.dp, y = 18.dp),
+                        expanded = fabMenuExpanded,
+                        button = {
+                            ToggleFloatingActionButton(
+                                modifier = Modifier.semantics {
+                                    traversalIndex = -1f
+                                    stateDescription =
+                                        if (fabMenuExpanded) "Expanded" else "Collapsed"
+                                    contentDescription = "null"
+                                },
+                                checked = fabMenuExpanded,
+                                onCheckedChange = { fabMenuExpanded = !fabMenuExpanded },
+                                containerColor = { primaryColor },
+                            ) {
+                                val imageVector by remember {
+                                    derivedStateOf {
+                                        if (checkedProgress > 0.5f) Icons.Rounded.Close else Icons.AutoMirrored.Rounded.Launch
+                                    }
+                                }
+                                Icon(
+                                    painter = rememberVectorPainter(imageVector),
+                                    contentDescription = null,
+                                    modifier = Modifier.animateIcon(
+                                        checkedProgress = { checkedProgress },
+                                        color = { onPrimaryColor }
+                                    )
+                                )
                             }
-                        }
-                        Icon(
-                            painter = rememberVectorPainter(imageVector),
-                            contentDescription = null,
-                            modifier = Modifier.animateIcon(
-                                checkedProgress = { checkedProgress },
-                                color = { onPrimaryColor }
-                            )
+                        },
+                    ) {
+                        FloatingActionButtonMenuItem(
+                            onClick = {
+                                context.scriptManager.getScriptsFolder()?.let {
+                                    context.androidContext.openLink(it.uri.toString())
+                                }
+                                fabMenuExpanded = false
+                            },
+                            icon = {
+                                Icon(
+                                    Icons.Rounded.FolderOpen,
+                                    contentDescription = "Folder"
+                                )
+                            },
+                            text = { Text(text = translation["open_scripts_folder_button"]) },
+                            containerColor = primaryColor,
+                            contentColor = onPrimaryColor
+                        )
+
+                        FloatingActionButtonMenuItem(
+                            onClick = {
+                                if (context.scriptManager.getScriptsFolder() != null) {
+                                    showImportBottomSheet = true
+                                }
+                                fabMenuExpanded = false
+                            },
+                            icon = { Icon(Icons.Rounded.Link, contentDescription = "Link") },
+                            text = { Text(text = translation["import_from_url_button"]) },
+                            containerColor = primaryColor,
+                            contentColor = onPrimaryColor
                         )
                     }
-                },
-            ) {
-                FloatingActionButtonMenuItem(
-                    onClick = {
-                        context.scriptManager.getScriptsFolder()?.let {
-                            context.androidContext.openLink(it.uri.toString())
-                        }
-                        fabMenuExpanded = false
-                    },
-                    icon = { Icon(Icons.Rounded.FolderOpen, contentDescription = "Folder") },
-                    text = { Text(text = translation["open_scripts_folder_button"]) },
-                    containerColor = primaryColor,
-                    contentColor = onPrimaryColor
-                )
+                }
+            }
 
-                FloatingActionButtonMenuItem(
-                    onClick = {
-                        if (context.scriptManager.getScriptsFolder() != null) {
-                            showImportBottomSheet = true
-                        }
-                        fabMenuExpanded = false
-                    },
-                    icon = { Icon(Icons.Rounded.Link, contentDescription = "Link") },
-                    text = { Text(text = translation["import_from_url_button"]) },
+            1 -> {
+                ExtendedFloatingActionButton(
+                    modifier = Modifier.offset(x = 2.dp, y = 2.dp),
+                    onClick = { routes.manageRepos.navigate() },
+                    icon = { Icon(Icons.Rounded.Public, contentDescription = null) },
+                    text = { Text(context.translation["manager.sections.theming.manage_repositories_button"]) },
                     containerColor = primaryColor,
                     contentColor = onPrimaryColor
                 )
@@ -693,9 +777,7 @@ class ScriptingRootSection : Routes.Route() {
                     Text(
                         text = context.translation["manager.dialogs.script_settings.no_settings_found"],
                         style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier
-                            .padding(10.dp)
-                            .fillMaxWidth(),
+                        modifier = Modifier.padding(10.dp).fillMaxWidth(),
                         textAlign = TextAlign.Center,
                     )
                 }
@@ -705,32 +787,34 @@ class ScriptingRootSection : Routes.Route() {
         }
     }
 
-    override val content: @Composable (NavBackStackEntry) -> Unit = {
+    @Composable
+    private fun InstalledScripts() {
         val scriptingFolder by rememberAsyncMutableState(
             defaultValue = null,
-            updateDispatcher = reloadDispatcher
+            updateDispatcher = localReloadDispatcher
         ) {
             context.scriptManager.getScriptsFolder()
         }
 
         val scriptModules by rememberAsyncMutableState(
             defaultValue = emptyList(),
-            updateDispatcher = reloadDispatcher
+            updateDispatcher = localReloadDispatcher
         ) {
             context.scriptManager.sync()
             context.scriptManager.getSyncedModules()
         }
-
+        val listState = rememberLazyListState()
         val coroutineScope = rememberCoroutineScope()
+        var refreshing by remember { mutableStateOf(false) }
 
-        var refreshing by remember {
-            mutableStateOf(false)
+        LaunchedEffect(key1 = scriptModules) {
+            listState.scrollToItem(0)
         }
 
         LaunchedEffect(Unit) {
             refreshing = true
             withContext(Dispatchers.IO) {
-                reloadDispatcher.dispatch()
+                localReloadDispatcher.dispatch()
                 refreshing = false
             }
         }
@@ -738,7 +822,7 @@ class ScriptingRootSection : Routes.Route() {
         val pullRefreshState = rememberPullRefreshState(refreshing, onRefresh = {
             refreshing = true
             coroutineScope.launch(Dispatchers.IO) {
-                reloadDispatcher.dispatch()
+                localReloadDispatcher.dispatch()
                 refreshing = false
             }
         })
@@ -747,8 +831,13 @@ class ScriptingRootSection : Routes.Route() {
             modifier = Modifier.fillMaxSize()
         ) {
             LazyColumn(
+                state = listState,
                 modifier = Modifier.fillMaxSize().pullRefresh(pullRefreshState),
-                contentPadding = lazyColumnContentPadding(staticVertical = 10.dp, hasFAB = true),
+                contentPadding = lazyColumnContentPadding(
+                    staticVertical = 10.dp,
+                    hasSubAction = true,
+                    hasFAB = true
+                ),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(10.dp),
             ) {
@@ -791,8 +880,9 @@ class ScriptingRootSection : Routes.Route() {
                                             activityLauncherHelper.chooseFolder {
                                                 context.config.root.scripting.moduleFolder.set(it)
                                                 context.config.writeConfig()
+                                                reloadTrigger++
                                                 coroutineScope.launch {
-                                                    reloadDispatcher.dispatch()
+                                                    localReloadDispatcher.dispatch()
                                                 }
                                             }
                                         },
@@ -845,7 +935,11 @@ class ScriptingRootSection : Routes.Route() {
             PullRefreshIndicator(
                 refreshing = refreshing,
                 state = pullRefreshState,
-                modifier = Modifier.align(Alignment.TopCenter).componentPadding(staticVertical = 0.dp, staticHorizontal = 0.dp)
+                modifier = Modifier.align(Alignment.TopCenter).componentPadding(
+                    staticVertical = 0.dp,
+                    staticHorizontal = 0.dp,
+                    hasSubAction = true
+                )
             )
 
             var scriptingWarning by remember {
@@ -858,6 +952,7 @@ class ScriptingRootSection : Routes.Route() {
 
             if (scriptingWarning) {
                 var timeout by remember { mutableIntStateOf(10) }
+
                 LaunchedEffect(Unit) {
                     while (timeout > 0) {
                         delay(1000)
@@ -865,12 +960,27 @@ class ScriptingRootSection : Routes.Route() {
                     }
                 }
 
-                LazyColumnBottomSheet(
-                    onDismiss = { if (timeout == 0) scriptingWarning = false }
-                ) {
-                    Column(
+                val sheetState = rememberModalBottomSheetState(
+                    skipPartiallyExpanded = true,
+                    confirmValueChange = { targetValue ->
+                        timeout == 0 || targetValue != SheetValue.Hidden
+                    }
+                )
 
-                    ) {
+                LazyColumnBottomSheet(
+                    sheetState = sheetState,
+                    sheetGesturesEnabled = true,
+                    properties = ModalBottomSheetProperties(
+                        shouldDismissOnBackPress = false,
+                        shouldDismissOnClickOutside = false
+                    ),
+                    onDismiss = {
+                        if (timeout == 0) {
+                            scriptingWarning = false
+                        }
+                    }
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
                         Text(
                             text = context.translation["manager.dialogs.scripting_warning.title"],
                             style = MaterialTheme.typography.titleLarge,
@@ -899,7 +1009,7 @@ class ScriptingRootSection : Routes.Route() {
         }
     }
 
-    override val topBarActions: @Composable() (RowScope.() -> Unit) = {
+    override val topBarActions: @Composable (RowScope.() -> Unit) = {
         IconButton(
             onClick = {
                 context.androidContext.startActivity(
@@ -915,6 +1025,63 @@ class ScriptingRootSection : Routes.Route() {
                 imageVector = Icons.AutoMirrored.Rounded.LibraryBooks,
                 contentDescription = "Documentation"
             )
+        }
+    }
+
+    override val topBarSubActions: @Composable (RowScope.() -> Unit) = {
+        val getSelectedIndex = selectedIndex
+
+        FlowRow(
+            Modifier.padding(horizontal = 8.dp).fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(ButtonGroupDefaults.ConnectedSpaceBetween),
+            verticalArrangement = Arrangement.spacedBy(2.dp),
+        ) {
+            scriptOptions.forEachIndexed { index, label ->
+                ToggleButton(
+                    checked = getSelectedIndex == index,
+                    onCheckedChange = { selectedIndex = index },
+                    shapes =
+                        when (index) {
+                            0 -> ButtonGroupDefaults.connectedLeadingButtonShapes()
+                            scriptOptions.lastIndex -> ButtonGroupDefaults.connectedTrailingButtonShapes()
+                            else -> ButtonGroupDefaults.connectedMiddleButtonShapes()
+                        },
+                    modifier = Modifier.semantics { role = Role.RadioButton }
+                        .weight(1f),
+                ) {
+                    Text(label)
+                }
+            }
+        }
+    }
+
+    override val content: @Composable (NavBackStackEntry) -> Unit = {
+        val getCurrentSelectedIndex = selectedIndex
+        val pagerState = rememberPagerState(
+            initialPage = getCurrentSelectedIndex,
+            pageCount = { scriptOptions.size }
+        )
+
+        LaunchedEffect(getCurrentSelectedIndex) {
+            if (getCurrentSelectedIndex != pagerState.currentPage) {
+                pagerState.animateScrollToPage(getCurrentSelectedIndex)
+            }
+        }
+
+        LaunchedEffect(pagerState.currentPage) {
+            if (selectedIndex != pagerState.currentPage) {
+                selectedIndex = pagerState.currentPage
+            }
+        }
+
+        HorizontalPager(
+            state = pagerState,
+            modifier = Modifier.fillMaxSize()
+        ) { page ->
+            when (page) {
+                0 -> InstalledScripts()
+                1 -> ScriptCatalog(this@ScriptingRootSection)
+            }
         }
     }
 }

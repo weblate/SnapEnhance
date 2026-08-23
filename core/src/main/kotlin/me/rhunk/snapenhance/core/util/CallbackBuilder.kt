@@ -70,8 +70,8 @@ class CallbackBuilder(
 
     companion object {
         fun createEmptyObject(constructor: Constructor<*>): Any? {
-            //compute the args for the constructor with null or default primitive values
-            val args = constructor.parameterTypes.map { type: Class<*> ->
+            // Compute the args for the constructor with null or default primitive values
+            val args = constructor.parameterTypes.map<Class<*>, Any?> { type: Class<*> ->
                 if (type.isPrimitive) {
                     return@map when (type.name) {
                         "boolean" -> false
@@ -89,6 +89,5 @@ class CallbackBuilder(
             }.toTypedArray()
             return constructor.newInstance(*args)
         }
-
     }
 }

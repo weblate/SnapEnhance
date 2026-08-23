@@ -54,6 +54,13 @@ class JSModule(
                     putConst("minSnapchatVersion", this, moduleInfo.minSnapchatVersion)
                     putConst("minSEVersion", this, moduleInfo.minSEVersion)
                     putConst("grantedPermissions", this, moduleInfo.grantedPermissions)
+                    putConst("note", this, moduleInfo.note)
+                    putConst("notice", this, moduleInfo.notice)
+                    putConst("changelogUrl", this, moduleInfo.changelogUrl)
+                    putConst("howToUseUrl", this, moduleInfo.howToUseUrl)
+                    putConst("scriptCoverUrl", this, moduleInfo.scriptCoverUrl)
+                    putConst("scriptIconUrl", this, moduleInfo.scriptIconUrl)
+                    putConst("license", this, moduleInfo.license)
                 })
             })
 

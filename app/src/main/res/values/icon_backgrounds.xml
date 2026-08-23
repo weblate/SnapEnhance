@@ -15,4 +15,13 @@
     <color name="ocean_flare_icon_background">#1F4068</color>
     <color name="canyon_dusk_icon_background">#FF9F43</color>
     <color name="og_snapenhance_icon_background">#FFFC00</color>
+    <color name="mary_jane_icon_background">#000000</color>
+    <color name="trash_icon_background">#000000</color>
+    <color name="lime_icon_background">#C6FF34</color>
+    <color name="midnight_blue_icon_background">#1A1A2E</color>
+    <color name="ash_black_icon_background">#3B3C36</color>
+    <color name="deep_lichen_icon_background">#1A2517</color>
+    <color name="estate_red_icon_background">#5B0E14</color>
+    <color name="walnut_brown_icon_background">#67625C</color>
+    <color name="mulled_wine_icon_background">#670627</color>
 </resources>

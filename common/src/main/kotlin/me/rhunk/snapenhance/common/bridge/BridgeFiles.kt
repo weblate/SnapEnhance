@@ -9,7 +9,6 @@ import me.rhunk.snapenhance.common.util.LazyBridgeValue
 import me.rhunk.snapenhance.common.util.lazyBridge
 import java.io.File
 
-
 enum class FileHandleScope(
     val key: String
 ) {

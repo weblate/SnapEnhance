@@ -3,7 +3,6 @@ package me.rhunk.snapenhance.storage
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.runBlocking
 
-
 fun AppDatabase.setScriptEnabled(name: String, enabled: Boolean) {
     executeAsync {
         if (enabled) {
