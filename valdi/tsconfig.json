@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
     "outDir": "build/typescript",
+    "rootDir": "./src/main/ts",
     "target": "ES2023",
-    "typeRoots": ["types/*"]
+    "typeRoots": ["types/*"],
+    "noImplicitAny": false,
+    "useUnknownInCatchVariables": false
   },
   "include": ["./src/main/ts/**/*", "./types/**/*"]
 }
