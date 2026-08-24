@@ -56,6 +56,7 @@ class RemoteOverlay(
         LaunchedEffect(Unit) {
             dismissCallback = { navHostController.popBackStack() }
         }
+
         val navigation = remember { Navigation(context, navHostController) }
         val hazeState = rememberHazeState()
         val liquidBackdrop = rememberLayerBackdrop()
@@ -103,11 +104,11 @@ class RemoteOverlay(
             dialog.window?.apply {
                 setBackgroundDrawable(Color.Transparent.value.toInt().toDrawable())
                 setFlags(
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
                             WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
+                            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
                 )
                 setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY)
                 setLayout(

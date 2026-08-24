@@ -2,8 +2,10 @@ package me.rhunk.snapenhance.bridge
 
 import android.app.Service
 import android.content.Intent
+import android.os.Build
 import android.os.IBinder
 import android.os.ParcelFileDescriptor
+import androidx.annotation.RequiresApi
 import kotlinx.coroutines.runBlocking
 import me.rhunk.snapenhance.RemoteSideContext
 import me.rhunk.snapenhance.SharedContextHolder
@@ -218,6 +220,7 @@ class BridgeService : Service() {
             messagingBridge = bridge
         }
 
+        @RequiresApi(Build.VERSION_CODES.Q)
         override fun openOverlay(type: String) {
             runCatching {
                 val overlayType = OverlayType.fromKey(type) ?: throw IllegalArgumentException("Unknown overlay type: $type")

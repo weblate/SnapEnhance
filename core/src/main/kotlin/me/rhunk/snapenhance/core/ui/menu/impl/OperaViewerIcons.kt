@@ -1,11 +1,13 @@
 package me.rhunk.snapenhance.core.ui.menu.impl
 
+import android.os.Build
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.annotation.RequiresApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material.icons.outlined.*
@@ -33,6 +35,7 @@ class OperaViewerIcons : AbstractMenu() {
     private val actionMenuIconMargin by lazy { context.userInterface.dpToPx(5) }
     private val actionMenuIconMarginTop by lazy { context.userInterface.dpToPx(10) }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewAdded(event: AddViewEvent) {
         if (event.view is FrameLayout && event.parent.javaClass.superclass?.name?.endsWith("OpenLayout") == true) {
             val viewGroup = event.view as? ViewGroup ?: return
@@ -45,6 +48,7 @@ class OperaViewerIcons : AbstractMenu() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun inject(parent: ViewGroup) {
         val mediaDownloader = context.feature(MediaDownloader::class)
         val getIconStyle = context.config.userInterface.iconStyle.getNullable()
