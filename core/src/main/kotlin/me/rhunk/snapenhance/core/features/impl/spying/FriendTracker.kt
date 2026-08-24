@@ -327,14 +327,18 @@ class FriendTracker : Feature("Friend Tracker") {
         if (sessionEventsConfig.recordMessagingEvents.get()) {
             val messageHandlerClass = findClass("com.snapchat.client.duplex.MessageHandler\$CppProxy").apply {
                 hook("onReceive", HookStage.BEFORE) { param ->
-                    param.setResult(null)
+                    val obj = param.thisObject<Any>()
+                    val nativeRef = runCatching {
+                        obj::class.java.getDeclaredField("nativeRef").apply { isAccessible = true }.getLong(obj)
+                    }.getOrNull()
 
-                    val byteBuffer = param.arg<ByteBuffer>(0)
-                    val content = byteBuffer.let {
-                        val bytes = ByteArray(it.limit())
-                        it.get(bytes)
-                        bytes
+                    if (nativeRef == -1L) {
+                        param.setResult(null)
                     }
+
+                    val byteBuffer = param.arg<ByteBuffer>(0).duplicate()
+                    val content = ByteArray(byteBuffer.remaining()).also { byteBuffer.get(it) }
+
                     val reader = ProtoReader(content)
                     reader.getString(1, 1)?.let {
                         val eventData = reader.followPath(1, 2) ?: return@let
@@ -350,9 +354,18 @@ class FriendTracker : Feature("Friend Tracker") {
                     }
                     handleMessagingEvent(reader)
                 }
-                hook("nativeDestroy", HookStage.BEFORE) { it.setResult(null) }
-            }
 
+                hook("nativeDestroy", HookStage.BEFORE) { param ->
+                    val obj = param.thisObject<Any>()
+                    val nativeRef = runCatching {
+                        obj::class.java.getDeclaredField("nativeRef").apply { isAccessible = true }.getLong(obj)
+                    }.getOrNull()
+
+                    if (nativeRef == -1L) {
+                        param.setResult(null)
+                    }
+                }
+            }
 
             findClass("com.snapchat.client.messaging.Session").hook("create", HookStage.BEFORE) { param ->
                 if (!NativeLib.initialized) {
