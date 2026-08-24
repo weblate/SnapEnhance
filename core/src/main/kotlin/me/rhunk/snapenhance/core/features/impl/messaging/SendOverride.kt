@@ -1,5 +1,7 @@
 package me.rhunk.snapenhance.core.features.impl.messaging
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -37,6 +39,7 @@ class SendOverride : Feature("Send Override") {
     private var selectedType by mutableStateOf("SNAP")
     private var customDuration by mutableFloatStateOf(10f)
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     @OptIn(ExperimentalLayoutApi::class)
     override fun init() {
         val stripMediaMetadata = context.config.messaging.stripMediaMetadata.get()
@@ -232,12 +235,15 @@ class SendOverride : Feature("Send Override") {
             }
 
             if (configOverrideType != "always_ask") {
-                if (sendMedia(configOverrideType, 10)) {
+                val overrideTypeUpper = configOverrideType.uppercase(Locale.ROOT)
+                val durationMs = if (overrideTypeUpper == "SAVEABLE_SNAP") null else 10000
+
+                if (sendMedia(overrideTypeUpper, durationMs)) {
                     event.invokeOriginal()
                 }
                 return@subscribe
             }
-
+            
             context.runOnUiThread {
                 createComposeAlertDialog(context.mainActivity!!) { alertDialog ->
                     val mainTranslation = remember {
