@@ -220,7 +220,6 @@ SE Extended does what others can't, by building a powerful Xposed module driven 
 - `Module Folder`
 - `Auto Reload`
 - `Integated UI`
-- `Old Tool Box Add View`
 - `Disable Log Anonymization`
 </details>
 
