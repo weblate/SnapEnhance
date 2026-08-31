@@ -78,7 +78,6 @@ class UITweaks : Feature("UITweaks") {
         val deviceAspectRatio = displayMetrics.widthPixels.toFloat() / displayMetrics.heightPixels.toFloat()
 
         val chatNoteRecordButton = getId("chat_note_record_button", "id")
-        val unreadHintButton = getId("unread_hint_button", "id")
 
         Resources::class.java.methods.first { it.name == "getDimensionPixelSize"}.hook(
             HookStage.AFTER,
@@ -188,10 +187,6 @@ class UITweaks : Feature("UITweaks") {
 
             if (viewId == chatNoteRecordButton && hiddenElements.contains("hide_voice_record_button")) {
                 view.hideViewCompletely()
-            }
-            
-            if (viewId == unreadHintButton && hiddenElements.contains("hide_unread_chat_hint")) {
-                event.canceled = true
             }
         }
     }
