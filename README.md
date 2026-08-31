@@ -221,6 +221,7 @@ SE Extended does what others can't, by building a powerful Xposed module driven 
 - `Auto Reload`
 - `Integated UI`
 - `Disable Log Anonymization`
+- `Disable Toasts`
 </details>
 
 <details closed>
@@ -285,14 +286,6 @@ Thanks to everyone involved <br/>
 You can help translate SE Extended on [Hosted Weblate](https://hosted.weblate.org/projects/se-extended/se-extended/).
 
 [![Translation status](https://hosted.weblate.org/widget/se-extended/se-extended/multi-auto.svg)](https://hosted.weblate.org/engage/se-extended/)
-## Star History
-<a href="https://star-history.com/#bocajthomas/SE-Extended&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=bocajthomas/SE-Extended&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=bocajthomas/SE-Extended&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=bocajthomas/SE-Extended&type=Date" />
- </picture>
-</a>
 
 ## Privacy
 We do not collect any user information. However, Please be aware that third-party libraries may collect data as described in their respective privacy policies.
