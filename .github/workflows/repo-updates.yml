@@ -1,4 +1,4 @@
-name: Github Updates
+name: Repo Updates
 on:
   push:
     branches:
@@ -25,7 +25,7 @@ jobs:
             fi
             {
               echo 'commit_list<<EOF'
-              jq -r --arg repo "${{ github.repository }}" '.commits | reverse | .[] | "[#\(.id | .[0:7])](https://github.com/\($repo)/commit/\(.id)) - \(.message | split("\n")[0] | split(" - ")[0])"' $GITHUB_EVENT_PATH
+              jq -r --arg repo "${{ github.repository }}" '.commits | reverse | .[] | "[#\(.id | .[0:7])](\($repo)/commit/\(.id)) - \(.message | split("\n")[0] | split(" - ")[0])"' $GITHUB_EVENT_PATH
               echo 'EOF'
             } >> $GITHUB_OUTPUT
 
@@ -35,46 +35,48 @@ jobs:
 
       - name: Sending Message for Push
         if: steps.info.outputs.trigger == 'push'
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_CHAT_ID }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          disable_web_page_preview: true
-          format: markdown
-          message: |
-            [${{ github.repository }}](https://github.com/${{ github.repository }})
+        uses: docker://ghcr.io/appleboy/drone-telegram:1.4.0
+        env:
+          PLUGIN_TO: ${{ secrets.TELEGRAM_CHAT_ID }}
+          PLUGIN_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          PLUGIN_DISABLE_WEB_PAGE_PREVIEW: "true"
+          PLUGIN_FORMAT: "markdown"
+          PLUGIN_MESSAGE: |
+            [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }})
 
             ${{ steps.info.outputs.header }}
             ${{ steps.info.outputs.commit_list }}
 
       - name: Sending Message for Watch
         if: steps.info.outputs.trigger == 'watch'
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_CHAT_ID }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          disable_web_page_preview: true
-          format: markdown
-          message: |
-            ⭐ [@${{ github.actor }}](https://github.com/${{ github.actor }}) starred [${{ github.repository }}](https://github.com/${{ github.repository }}).
+        uses: docker://ghcr.io/appleboy/drone-telegram:1.4.0
+        env:
+          PLUGIN_TO: ${{ secrets.TELEGRAM_CHAT_ID }}
+          PLUGIN_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          PLUGIN_DISABLE_WEB_PAGE_PREVIEW: "true"
+          PLUGIN_FORMAT: "markdown"
+          PLUGIN_MESSAGE: |
+            ⭐ [@${{ github.actor }}](${{ github.server_url }}/${{ github.actor }}) starred [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }}).
 
       - name: Delete previous workflow runs
         if: always()
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+          FORGEJO_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           CURRENT_RUN_ID=${{ github.run_id }}
           WORKFLOW_NAME="${{ github.workflow }}"
-          WORKFLOW_RUNS=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/${{ github.repository }}/actions/runs?status=completed")
+          API_URL="${{ github.api_url }}"
+          
+          WORKFLOW_RUNS=$(curl -s -H "Authorization: Bearer $FORGEJO_TOKEN" \
+            -H "Accept: application/json" \
+            "$API_URL/repos/${{ github.repository }}/actions/runs?status=completed")
 
           if [[ $(echo "$WORKFLOW_RUNS" | jq -e '.workflow_runs != null') == "true" ]]; then
             PREVIOUS_RUN_IDS=$(echo "$WORKFLOW_RUNS" | jq -r ".workflow_runs[] | select(.id != $CURRENT_RUN_ID and .name == \"$WORKFLOW_NAME\") | .id")
             for RUN_ID in $PREVIOUS_RUN_IDS; do
               echo "Deleting run ID: $RUN_ID"
-              curl -s -X DELETE -H "Authorization: Bearer $GITHUB_TOKEN" \
-                -H "Accept: application/vnd.github.v3+json" \
-                "https://api.github.com/repos/${{ github.repository }}/actions/runs/$RUN_ID"
+              curl -s -X DELETE -H "Authorization: Bearer $FORGEJO_TOKEN" \
+                -H "Accept: application/json" \
+                "$API_URL/repos/${{ github.repository }}/actions/runs/$RUN_ID"
             done
           fi
