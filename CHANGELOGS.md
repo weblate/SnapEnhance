@@ -1,4 +1,61 @@
 # v1.0.0 | CI Builds
+## CI Build | 62f6f88aa7
+Scripting Overhaul | Part 1
+This update is part one of an ongoing major overhaul to the scripting engine and script page
+
+Dependences:
+- Updated Material 3 Expressive to alpha26
+- Updated Compile SDK to API 37
+- Improved all build gradles
+- Updated AGP to 9.1.0
+- Migrated rust android gradle plugin from mozilla to the forked version by mullvad
+
+Script Page | UI/UX:
+- Improved script cards
+- Improved import script url bottom sheet
+- Added a new "Module Info" page (Gives more information about a script when clicking the top section of a script card)
+- Added support for script catalog
+- Fixed script warning bottom sheet (can no longer close the bottom sheet while the count down is active)
+- Fixed fab menu not appearing as soon as a script folder is selected
+
+Scripting Engine | API:
+- Added more Material InterfaceBuilder components ("icon", "iconButton", "progressIndicator", "loadingIndicator", "radioButton", "checkBox", "card" & "divider")
+- Added a new nodeType called "webComponent" (Allows script developers to make fully custom components via html, css & javascript)
+- Added new "StyleNode" interfaces for Material InterfaceBuilder components (Allows buttons, iconButtons & cards to be customable)
+- Added new nodes which includes ("fontWeight", "textStyle" & "lineHeight")
+- Refactored the padding node (Script developers can set what should have padding "all", "horizontal & vertical" & "start, top, end & bottom")
+- Added new script header fields ("licence", "scriptIconUrl")
+- "scriptCoverUrl" and the new "scriptIconUrl" can now natively handle data URIs via data:image (Allows images to be stored as a string)
+
+Scripting Features:
+- Added disable toasts (allows the ability to disable the script enabled/disabled toasts)
+- Removed resource obfuscation version check for Integrated UI (allows the toolbox to be shown etc)
+
+Docs & Wiki:
+- SE Extended now has its own typescript declaration file (extended.d.ts)
+
+Other Additions, Changes & Fixes:
+- Both TopAppBar title & the "SE Extended" title now uses a more material design font
+- Added more app icons (Includes "Trash", "Mary Jane", "Lime", "Midnight Blue", "Ash Black", "Deep Lichen", "Estate Red", "Walnut Brown" &"Mulled Wine")
+- Added more color palettes to app themes (Includes "Midnight Dusk", "Nord" & "Teal Turqoise")
+- Added a new pure black dark mode to appearance page
+- Added a new Liquid glass settings page (Now allows for the liquid glass navigation bar to be fully customized, presets included)
+- Refactored the AppMaterialTheme wrapper from MaterialTheme to MaterialExpressiveTheme
+- Refactored the manage scope BottomSheets to use the custom made versions
+- Refactored the Logs ExposedDropdownMenu to use DropdownMenuPopup & updated the icons
+- Refactored both ExportChatMessages &  BulkMessagingAction menu anchor to use the new ExposedDropdownMenuAnchorType
+- Refactored the app icon bottom sheet list
+- Refactored the bottom sheets cancel button colors
+- Refactored the "No logs available" on the Logs page to a line with the MD3E Design
+- Refactored imports across the whole app
+- Fixed the sliding on the task page when there are no tasks
+- Fixed the card grouping on the manage repositories page
+- Fixed localization bug on the dropdown menu items where non English languages broke icon assignment (Now uses a data class structure)
+- Fixed cant resolve host error when low to no signal.
+- Fixed OpenLink function
+- Disabled predictive back animation to improve UX
+
+
 ## CI Build | 18f41fe 
 - feat(app): no quick actions hint
 - refactor(app): imports
