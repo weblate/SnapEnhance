@@ -77,6 +77,8 @@ class UITweaks : Feature("UITweaks") {
         val displayMetrics = context.resources.displayMetrics
         val deviceAspectRatio = displayMetrics.widthPixels.toFloat() / displayMetrics.heightPixels.toFloat()
 
+        val snapchatVersionName = context.mappings.getSnapchatPackageInfo()?.versionName ?: "Unknown"
+
         val chatNoteRecordButton = getId("chat_note_record_button", "id")
 
         Resources::class.java.methods.first { it.name == "getDimensionPixelSize"}.hook(
@@ -87,6 +89,17 @@ class UITweaks : Feature("UITweaks") {
             if (id == getId("capri_viewfinder_default_corner_radius", "dimen") ||
                 id == getId("ngs_hova_nav_larger_camera_button_size", "dimen")) {
                 param.setResult(0)
+            }
+        }
+
+        Resources::class.java.declaredMethods.filter { method ->
+            method.name == "getString" && method.returnType == String::class.java
+        }.forEach { method ->
+            method.hook(HookStage.AFTER) { param ->
+                val string = param.getResult() as? String ?: return@hook
+                if (string.contains("Los Angeles") && string.contains(snapchatVersionName.split(".")[0])) {
+                    param.setResult("SE Extended · Forked by bocajthomas\n$string")
+                }
             }
         }
 
