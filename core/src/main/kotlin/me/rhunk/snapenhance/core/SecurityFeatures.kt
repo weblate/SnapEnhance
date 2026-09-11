@@ -8,10 +8,17 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.rounded.NotInterested
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.toShape
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,6 +31,7 @@ import me.rhunk.snapenhance.common.bridge.toWrapper
 import me.rhunk.snapenhance.common.config.MOD_DETECTION_VERSION_CHECK
 import me.rhunk.snapenhance.common.config.VersionRequirement
 import me.rhunk.snapenhance.common.ui.createComposeView
+import me.rhunk.snapenhance.common.util.ktx.openLink
 import me.rhunk.snapenhance.core.event.events.impl.UnaryCallEvent
 import me.rhunk.snapenhance.core.ui.CustomComposable
 import me.rhunk.snapenhance.core.util.dataBuilder
@@ -50,6 +58,7 @@ class SecurityFeatures(
         transact(this, 0)?.toString(2)?.padStart(32, '0')?.count { it == '1' }
     }
 
+    @OptIn(ExperimentalMaterial3ExpressiveApi::class)
     @RequiresApi(Build.VERSION_CODES.Q)
     fun init() {
         val snapchatVersionCode = context.androidContext.packageManager?.getPackageInfo(context.androidContext.packageName, 0)?.longVersionCode ?: throw IllegalStateException("Failed to get version code")
@@ -94,12 +103,6 @@ class SecurityFeatures(
         context.log.verbose("disablePlugin=${context.disablePlugin}")
         if (!context.disablePlugin) return
 
-        /*
-        Add Experimental Features:
-        /snapchat.friending.server.FriendRequests/IncomingFriendSync
-        /snapchat.friending.server.FriendAction/AddFriends
-        /com.snapchat.atlas.gw.AtlasGw/GetFriendsUserScore // Testing
-        */
         val allowedEPs = listOf(
             "/messagingcoreservice.MessagingCoreService/",
             "/GetConvoSafetyPrompt",
@@ -201,24 +204,66 @@ class SecurityFeatures(
                 post {
                     addView(createComposeView(activity) {
                         Surface(
-                            modifier = Modifier.fillMaxSize()
+                            modifier = Modifier.fillMaxSize(),
                         ) {
-                            Box(
-                                modifier = Modifier.fillMaxSize()
-                            ) {
-                                Column(
+                            Scaffold(
+                                modifier = Modifier.fillMaxSize(),
+                                bottomBar = {
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .navigationBarsPadding()
+                                            .padding(16.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Button(
+                                            onClick = { context.openLink("https://t.me/se_extended_discussions") },
+                                            shapes = ButtonDefaults.shapes(),
+                                            contentPadding = ButtonDefaults.contentPaddingFor(ButtonDefaults.MediumContainerHeight, hasStartIcon = false),
+                                            modifier = Modifier.fillMaxWidth()
+                                        ) {
+                                            Text(
+                                                text = "Join our telegram",
+                                                style = ButtonDefaults.textStyleFor(ButtonDefaults.MediumContainerHeight)
+                                            )
+                                        }
+                                    }
+                                }
+                            ) { innerPadding ->
+                                Box(
                                     modifier = Modifier
-                                        .align(Alignment.Center)
-                                        .padding(16.dp),
-                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                        .fillMaxSize()
+                                        .padding(innerPadding),
+                                    contentAlignment = Alignment.Center
                                 ) {
-                                    Icon(Icons.Rounded.NotInterested, contentDescription = null, tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(110.dp))
-                                    Spacer(Modifier.height(50.dp))
-                                    Text(
-                                        "SE Extended can't be used to login or signup because your Snapchat version isn't the recommended one. Please downgrade to Snapchat v${MOD_DETECTION_VERSION_CHECK.maxVersion?.first ?: "0.0.0"} or disable SE Extended in LSPosed to continue.\n\nFor more details, join t.me/SE_Extended_Discussions",
-                                        color = MaterialTheme.colorScheme.onSurface,
-                                        textAlign = TextAlign.Center,
-                                    )
+                                    Column(
+                                        modifier = Modifier.padding(16.dp),
+                                        horizontalAlignment = Alignment.CenterHorizontally,
+                                    ) {
+                                        ElevatedCard(
+                                            modifier = Modifier.padding(16.dp).size(200.dp),
+                                            shape = MaterialShapes.Sunny.toShape()
+                                        ) {
+                                            Box(
+                                                modifier = Modifier.fillMaxSize(),
+                                                contentAlignment = Alignment.Center
+                                            ) {
+                                                Icon(
+                                                    imageVector = Icons.Rounded.NotInterested,
+                                                    contentDescription = null,
+                                                    modifier = Modifier.size(100.dp),
+                                                    tint = MaterialTheme.colorScheme.onSurface
+                                                )
+                                            }
+                                        }
+                                        Text(
+                                            text = "SE Extended can't be used to login or signup due to security features, disable SE Extended in LSPosed or LSPatch to continue.",
+                                            color = MaterialTheme.colorScheme.onSurface,
+                                            style = MaterialTheme.typography.titleLarge,
+                                            textAlign = TextAlign.Center,
+                                            modifier = Modifier.padding(8.dp)
+                                        )
+                                    }
                                 }
                             }
                         }
