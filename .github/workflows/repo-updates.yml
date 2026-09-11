@@ -1,10 +1,8 @@
-name: Repo Updates
+name: Repository Updates
 on:
   push:
     branches:
       - dev
-  watch:
-    types: [started]
 
 jobs:
   build:
@@ -25,12 +23,9 @@ jobs:
             fi
             {
               echo 'commit_list<<EOF'
-              jq -r --arg repo "${{ github.repository }}" '.commits | reverse | .[] | "[#\(.id | .[0:7])](\($repo)/commit/\(.id)) - \(.message | split("\n")[0] | split(" - ")[0])"' $GITHUB_EVENT_PATH
+              jq -r --arg repo "${{ github.server_url }}/${{ github.repository }}" '.commits | reverse | .[] | "<a href=\"\($repo)/commit/\(.id)\">#\(.id | .[0:7])</a> - \((.message | split("\n")[0] | split(" - ")[0]) | @html)"' $GITHUB_EVENT_PATH
               echo 'EOF'
             } >> $GITHUB_OUTPUT
-
-          elif [[ "${{ github.event_name }}" == "watch" ]]; then
-            echo "trigger=watch" >> $GITHUB_OUTPUT
           fi
 
       - name: Sending Message for Push
@@ -40,43 +35,9 @@ jobs:
           PLUGIN_TO: ${{ secrets.TELEGRAM_CHAT_ID }}
           PLUGIN_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           PLUGIN_DISABLE_WEB_PAGE_PREVIEW: "true"
-          PLUGIN_FORMAT: "markdown"
+          PLUGIN_FORMAT: "html"
           PLUGIN_MESSAGE: |
-            [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }})
+            <a href="${{ github.server_url }}/${{ github.repository }}">${{ github.repository }}</a>
 
             ${{ steps.info.outputs.header }}
             ${{ steps.info.outputs.commit_list }}
-
-      - name: Sending Message for Watch
-        if: steps.info.outputs.trigger == 'watch'
-        uses: docker://ghcr.io/appleboy/drone-telegram:1.4.0
-        env:
-          PLUGIN_TO: ${{ secrets.TELEGRAM_CHAT_ID }}
-          PLUGIN_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          PLUGIN_DISABLE_WEB_PAGE_PREVIEW: "true"
-          PLUGIN_FORMAT: "markdown"
-          PLUGIN_MESSAGE: |
-            ⭐ [@${{ github.actor }}](${{ github.server_url }}/${{ github.actor }}) starred [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }}).
-
-      - name: Delete previous workflow runs
-        if: always()
-        env:
-          FORGEJO_TOKEN: ${{ secrets.PAT_TOKEN }}
-        run: |
-          CURRENT_RUN_ID=${{ github.run_id }}
-          WORKFLOW_NAME="${{ github.workflow }}"
-          API_URL="${{ github.api_url }}"
-          
-          WORKFLOW_RUNS=$(curl -s -H "Authorization: Bearer $FORGEJO_TOKEN" \
-            -H "Accept: application/json" \
-            "$API_URL/repos/${{ github.repository }}/actions/runs?status=completed")
-
-          if [[ $(echo "$WORKFLOW_RUNS" | jq -e '.workflow_runs != null') == "true" ]]; then
-            PREVIOUS_RUN_IDS=$(echo "$WORKFLOW_RUNS" | jq -r ".workflow_runs[] | select(.id != $CURRENT_RUN_ID and .name == \"$WORKFLOW_NAME\") | .id")
-            for RUN_ID in $PREVIOUS_RUN_IDS; do
-              echo "Deleting run ID: $RUN_ID"
-              curl -s -X DELETE -H "Authorization: Bearer $FORGEJO_TOKEN" \
-                -H "Accept: application/json" \
-                "$API_URL/repos/${{ github.repository }}/actions/runs/$RUN_ID"
-            done
-          fi
