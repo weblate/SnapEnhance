@@ -3,11 +3,8 @@ package me.rhunk.snapenhance.core.action.impl
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteDatabase.OpenParams
 import android.os.Environment
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,11 +13,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.*
 import me.rhunk.snapenhance.common.data.FileType
+import me.rhunk.snapenhance.common.ui.cardShapeGroupedBottom
+import me.rhunk.snapenhance.common.ui.cardShapeGroupedMiddle
+import me.rhunk.snapenhance.common.ui.cardShapeGroupedTop
 import me.rhunk.snapenhance.common.ui.createComposeAlertDialog
 import me.rhunk.snapenhance.common.util.ktx.getLongOrNull
 import me.rhunk.snapenhance.common.util.ktx.getStringOrNull
@@ -226,6 +226,8 @@ class ExportMemories : AbstractAction() {
             initialDisplayMode = DisplayMode.Input
         )
 
+        var dateRangeDialog by remember { mutableStateOf(false) }
+
         val totalCount = remember(dateRangePickerState.selectedStartDateMillis, dateRangePickerState.selectedEndDateMillis, dateRangeFilter) {
             val timeRange = dateRangePickerState.takeIf { dateRangeFilter }?.let {
                 TimeRange(it.selectedStartDateMillis, it.selectedEndDateMillis)
@@ -238,126 +240,249 @@ class ExportMemories : AbstractAction() {
         }
 
         Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(24.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text("Export memories", modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center, fontSize = 20.sp)
+            Text(
+                text = "Export memories",
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
 
             if (exportJob != null) {
-                Text(text = "Exporting memories... (${exportProgress.second} failed)", modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
-                LinearProgressIndicator(
-                    progress = { exportProgress.first / 100f },
+                Text(
+                    text = "Exporting memories... (${exportProgress.second} failed)",
                     modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
+
+                LinearWavyProgressIndicator(
+                    progress = { exportProgress.first / 100f },
+                    modifier = Modifier.fillMaxWidth()
+                )
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
+                    horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.End)
                 ) {
-                    Button(onClick = {
-                        exportJob?.cancel()
-                        exportJob = null
-                        onDismiss()
-                    }) {
-                        Text("Quit")
-                    }
-                    if (exportFinished) {
-                        Button(onClick = {
+                    Button(
+                        onClick = {
+                            exportJob?.cancel()
                             exportJob = null
                             onDismiss()
-                        }) {
+                        },
+                        shapes = ButtonDefaults.shapes(),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                        )
+                    ) {
+                        Text("Quit")
+                    }
+
+                    if (exportFinished) {
+                        Button(
+                            onClick = {
+                                exportJob = null
+                                onDismiss()
+                            },
+                            shapes = ButtonDefaults.shapes()
+                        ) {
                             Text("Done")
                         }
                     }
                 }
             } else {
-                Text("Total memories: $totalCount", modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
-
-                Row(
+                Text(
+                    text = "Total memories: $totalCount",
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(5.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    var dateRangeDialog by remember { mutableStateOf(false) }
-                    Checkbox(checked = dateRangeFilter, onCheckedChange = { dateRangeFilter = it })
-                    Text("Date Range", modifier = Modifier.weight(1f))
-                    Button(onClick = { dateRangeDialog = true }, enabled = dateRangeFilter) {
-                        Text("Select")
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.secondary
+                )
+
+                Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = cardShapeGroupedTop
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .heightIn(min = 55.dp)
+                                .clickable { dateRangeFilter = !dateRangeFilter }
+                                .padding(start = 15.dp, end = 16.dp),
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Checkbox(
+                                checked = dateRangeFilter,
+                                onCheckedChange = { dateRangeFilter = it }
+                            )
+                            Text(
+                                text = "Date Range",
+                                modifier = Modifier.weight(1f),
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                            OutlinedButton(
+                                onClick = { dateRangeDialog = true },
+                                enabled = dateRangeFilter,
+                                shapes = ButtonDefaults.shapes()
+                            ) {
+                                Text("Select")
+                            }
+                        }
                     }
 
-                    if (dateRangeDialog) {
-                        DatePickerDialog(onDismissRequest = {
-                            dateRangeDialog = false
-                        }, confirmButton = {}) {
-                            DateRangePicker(
-                                state = dateRangePickerState,
-                                modifier = Modifier.weight(1f),
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = cardShapeGroupedMiddle
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .heightIn(min = 55.dp)
+                                .clickable { sortByFolder = !sortByFolder }
+                                .padding(start = 15.dp, end = 16.dp),
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Checkbox(
+                                checked = sortByFolder,
+                                onCheckedChange = { sortByFolder = it }
                             )
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(8.dp),
-                                horizontalArrangement = Arrangement.End
-                            ) {
-                                Button(onClick = {
-                                    dateRangeDialog = false
-                                }) {
-                                    Text("OK")
-                                }
-                            }
+                            Text(
+                                text = "Sort by folder",
+                                modifier = Modifier.weight(1f),
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
+                    }
+
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = cardShapeGroupedBottom
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .heightIn(min = 55.dp)
+                                .clickable { includeMEO = !includeMEO }
+                                .padding(start = 15.dp, end = 16.dp),
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Checkbox(
+                                checked = includeMEO,
+                                onCheckedChange = { includeMEO = it }
+                            )
+                            Text(
+                                text = "Include My Eyes Only",
+                                modifier = Modifier.weight(1f),
+                                style = MaterialTheme.typography.bodyMedium
+                            )
                         }
                     }
                 }
 
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(5.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Checkbox(checked = sortByFolder, onCheckedChange = { sortByFolder = it })
-                    Text("Sort by folder", modifier = Modifier.weight(1f))
-                }
+                Spacer(modifier = Modifier.height(5.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(5.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                    horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.End)
                 ) {
-                    Checkbox(checked = includeMEO, onCheckedChange = { includeMEO = it })
-                    Text("Include My Eyes Only", modifier = Modifier.weight(1f))
-                }
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Button(onClick = onDismiss) {
+                    Button(
+                        onClick = onDismiss,
+                        shapes = ButtonDefaults.shapes(),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                        )
+                    ) {
                         Text("Cancel")
                     }
-                    Button(onClick = {
-                        context.coroutineScope.launch {
-                            exportMemories(
-                                scope = this,
-                                database = database,
-                                timeRange = dateRangePickerState.takeIf { dateRangeFilter }?.let {
-                                    TimeRange(it.selectedStartDateMillis, it.selectedEndDateMillis)
-                                },
-                                folders = sortByFolder,
-                                includeMEO = includeMEO,
-                            ) { progress, failed ->
-                                exportProgress = Pair(progress, failed)
+                    Button(
+                        onClick = {
+                            context.coroutineScope.launch {
+                                exportMemories(
+                                    scope = this,
+                                    database = database,
+                                    timeRange = dateRangePickerState.takeIf { dateRangeFilter }?.let {
+                                        TimeRange(it.selectedStartDateMillis, it.selectedEndDateMillis)
+                                    },
+                                    folders = sortByFolder,
+                                    includeMEO = includeMEO,
+                                ) { progress, failed ->
+                                    exportProgress = Pair(progress, failed)
+                                }
+                            }.also { exportJob = it }.invokeOnCompletion {
+                                exportFinished = true
                             }
-                        }.also { exportJob = it }.invokeOnCompletion {
-                            exportFinished = true
-                        }
-                    }) {
+                        },
+                        shapes = ButtonDefaults.shapes()
+                    ) {
                         Text("Export")
                     }
                 }
+
+                if (dateRangeDialog) {
+                    DatePickerDialog(
+                        onDismissRequest = { dateRangeDialog = false },
+                        confirmButton = {
+                            Button(
+                                onClick = { dateRangeDialog = false },
+                                shapes = ButtonDefaults.shapes(),
+                            ) {
+                                Text("OK")
+                            }
+                        },
+                        dismissButton = {
+                            Button(
+                                onClick = { dateRangeDialog = false },
+                                shapes = ButtonDefaults.shapes(),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                                )
+                            ) {
+                                Text("Cancel")
+                            }
+                        },
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        // https://issuetracker.google.com/issues/325309575#comment1
+                        DateRangePicker(
+                            modifier = Modifier.weight(1f),
+                            state = dateRangePickerState,
+                            title = {
+                                Text(
+                                    text = "Select date range",
+                                    style = MaterialTheme.typography.labelMedium,
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .padding(horizontal = 16.dp)
+                                        .padding(top = 16.dp),
+                                )
+                            },
+                            headline = {
+                                DateRangePickerDefaults.DateRangePickerHeadline(
+                                    selectedStartDateMillis = dateRangePickerState.selectedStartDateMillis,
+                                    selectedEndDateMillis = dateRangePickerState.selectedEndDateMillis,
+                                    displayMode = dateRangePickerState.displayMode,
+                                    dateFormatter = remember { DatePickerDefaults.dateFormatter() },
+                                    modifier = Modifier.weight(1f).padding(horizontal = 16.dp),
+                                )
+                            },
+                        )
+                    }
+                }
             }
-
-
         }
     }
 

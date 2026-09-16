@@ -32,6 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.util.fastForEachIndexed
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -144,12 +145,22 @@ class BulkMessagingAction : AbstractAction() {
             title = { Text(text = translation["confirmation_dialog.title"]) },
             text = { Text(text = translation["confirmation_dialog.message"]) },
             confirmButton = {
-                TextButton(onClick = onConfirm) {
+                Button(
+                    onClick = onConfirm,
+                    shapes = ButtonDefaults.shapes(),
+                ) {
                     Text(text = context.translation["button.positive"])
                 }
             },
             dismissButton = {
-                TextButton(onClick = onCancel) {
+                Button(
+                    onClick = onCancel,
+                    shapes = ButtonDefaults.shapes(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                    )
+                ) {
                     Text(text = context.translation["button.negative"])
                 }
             }
@@ -255,55 +266,71 @@ class BulkMessagingAction : AbstractAction() {
             ) {
                 var filterMenuExpanded by remember { mutableStateOf(false) }
 
-
-                ExposedDropdownMenuBox(
-                    expanded = filterMenuExpanded,
-                    onExpandedChange = { filterMenuExpanded = it },
-                ) {
+                Box {
                     ElevatedCard(
-                        modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
+                        onClick = { filterMenuExpanded = true }
                     ) {
                         Text(text = filter.name, modifier = Modifier.padding(5.dp))
                     }
 
-                    DropdownMenu(
+                    DropdownMenuPopup(
                         expanded = filterMenuExpanded,
                         onDismissRequest = { filterMenuExpanded = false }
                     ) {
-                        Filter.entries.forEach { entry ->
-                            DropdownMenuItem(onClick = {
-                                filter = entry
-                                filterMenuExpanded = false
-                            }, text = {
-                                Text(text = entry.name, fontWeight = if (entry == filter) FontWeight.Bold else FontWeight.Normal)
-                            })
+                        DropdownMenuGroup(
+                            shapes = MenuDefaults.groupShape(0, 1)
+                        ) {
+                            Filter.entries.fastForEachIndexed { index, entry ->
+                                val isSelected = entry == filter
+
+                                DropdownMenuItem(
+                                    text = {
+                                        Text(
+                                            text = entry.name,
+                                            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                                        )
+                                    },
+                                    onClick = {
+                                        filter = entry
+                                        filterMenuExpanded = false
+                                    },
+                                    selected = isSelected,
+                                    shapes = MenuDefaults.itemShape(index, Filter.entries.size)
+                                )
+                            }
                         }
                     }
                 }
 
                 var sortMenuExpanded by remember { mutableStateOf(false) }
 
-                ExposedDropdownMenuBox(
-                    expanded = sortMenuExpanded,
-                    onExpandedChange = { sortMenuExpanded = it },
-                ) {
+                Box {
                     ElevatedCard(
-                        modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
+                        onClick = { sortMenuExpanded = true }
                     ) {
                         Text(text = "Sort by", modifier = Modifier.padding(5.dp))
                     }
 
-                    DropdownMenu(
+                    DropdownMenuPopup(
                         expanded = sortMenuExpanded,
                         onDismissRequest = { sortMenuExpanded = false }
                     ) {
-                        SortBy.entries.forEach { entry ->
-                            DropdownMenuItem(onClick = {
-                                sortBy = entry
-                                sortMenuExpanded = false
-                            }, text = {
-                                Text(text = entry.name, fontWeight = if (entry == sortBy) FontWeight.Bold else FontWeight.Normal)
-                            })
+                        DropdownMenuGroup(
+                            shapes = MenuDefaults.groupShape(0, 1)
+                        ) {
+                            SortBy.entries.fastForEachIndexed { index, entry ->
+                                val isSelected = entry == sortBy
+
+                                DropdownMenuItem(
+                                    text = { Text(text = entry.name, fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal) },
+                                    onClick = {
+                                        sortBy = entry
+                                        sortMenuExpanded = false
+                                    },
+                                    selected = isSelected,
+                                    shapes = MenuDefaults.itemShape(index, SortBy.entries.size)
+                                )
+                            }
                         }
                     }
                 }
@@ -320,9 +347,7 @@ class BulkMessagingAction : AbstractAction() {
             }
 
             LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
+                modifier = Modifier.fillMaxWidth().weight(1f),
                 verticalArrangement = Arrangement.spacedBy(3.dp)
             ) {
                 stickyHeader {
@@ -551,7 +576,8 @@ class BulkMessagingAction : AbstractAction() {
                             showConfirmationDialog = true
                             action = actionFunction
                         },
-                        enabled = selectedFriends.isNotEmpty()
+                        enabled = selectedFriends.isNotEmpty(),
+                        shapes = ButtonDefaults.shapes(),
                     ) {
                         Text(text = remember(selectedFriends.size) { text() })
                     }

@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 package me.rhunk.snapenhance.core.action.impl
 
 import android.content.Intent
@@ -127,7 +128,7 @@ class ManageFriendList : AbstractAction() {
                     ) {
                         Button(onClick = {
                             exportFriends(context.database.getAllFriends().filter { it.friendLinkType == FriendLinkType.MUTUAL.value && it.addedTimestamp > 0L }.mapNotNull { it.userId })
-                        }) {
+                        }, shapes = ButtonDefaults.shapes()) {
                             Text("Export friends")
                         }
                         Button(onClick = {
@@ -152,7 +153,7 @@ class ManageFriendList : AbstractAction() {
                                 ),
                                 pendingPickerAction!!.first
                             )
-                        }) {
+                        }, shapes = ButtonDefaults.shapes()) {
                             Text("Import from file")
                         }
                     }
@@ -170,7 +171,8 @@ class ManageFriendList : AbstractAction() {
                         modifier = Modifier.padding(8.dp),
                         onClick = {
                             fetchedFriends = null
-                        }
+                        },
+                        shapes = IconButtonDefaults.shapes(),
                     ) {
                         Icon(Icons.AutoMirrored.Default.ArrowBack, contentDescription = "Back")
                     }
@@ -237,12 +239,13 @@ class ManageFriendList : AbstractAction() {
                                                 friendLinkType = fetchLocalLinkType()
                                             }
                                         }
-                                    }
+                                    },
+                                    shapes = ButtonDefaults.shapes(),
                                 ) {
                                     if (friendLinkType == FriendLinkType.MUTUAL) {
                                         Text("Added")
                                     } else if (pendingFriendRequests[userId]?.isActive == true) {
-                                        CircularProgressIndicator(color = MaterialTheme.colorScheme.onPrimary, modifier = Modifier.size(20.dp), strokeWidth = 1.dp)
+                                        CircularWavyProgressIndicator(color = MaterialTheme.colorScheme.onPrimary, modifier = Modifier.size(20.dp))
                                     } else {
                                         Text("Add")
                                     }

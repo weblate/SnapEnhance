@@ -6,9 +6,10 @@ import android.os.Build
 import android.os.Environment
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -17,17 +18,23 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.util.fastForEachIndexed
 import kotlinx.coroutines.*
 import me.rhunk.snapenhance.common.data.ContentType
 import me.rhunk.snapenhance.common.database.impl.FriendFeedEntry
+import me.rhunk.snapenhance.common.ui.cardShapeGroupedBottom
+import me.rhunk.snapenhance.common.ui.cardShapeGroupedMiddle
+import me.rhunk.snapenhance.common.ui.cardShapeGroupedTop
 import me.rhunk.snapenhance.common.ui.createComposeAlertDialog
 import me.rhunk.snapenhance.common.ui.rememberAsyncMutableState
 import me.rhunk.snapenhance.core.action.AbstractAction
@@ -61,7 +68,7 @@ class ExportChatMessages : AbstractAction() {
         }
     }
 
-    @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
+    @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class, ExperimentalLayoutApi::class)
     @Composable
     private fun ExporterDialog(
         getDialog: () -> AlertDialog? = { null }
@@ -79,177 +86,310 @@ class ExportChatMessages : AbstractAction() {
         val allFriends by rememberAsyncMutableState(null) { context.database.getAllFriends().associateBy { it.userId!! } }
         val myUserId = context.database.myUserId
 
+        var selectConversationMenuExpanded by remember { mutableStateOf(false) }
+        var exportFileFormatMenuExpanded by remember { mutableStateOf(false) }
+        var messageFilterMenuExpanded by remember { mutableStateOf(false) }
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .verticalScroll(remember { ScrollState(0) })
                 .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(exporterTranslation["select_conversations_title"])
-            run {
-                var expanded by remember { mutableStateOf(false) }
+            Text(
+                text = "Export chat messages",
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
 
-                ExposedDropdownMenuBox(
-                    expanded = expanded,
-                    onExpandedChange = { expanded = it },
-                ) {
-                    TextField(
-                        value = selectedFeedEntries.let {
-                            exporterTranslation.format("text_field_selection", "amount" to it.size.toString())
-                        },
-                        onValueChange = {},
-                        readOnly = true,
-                        singleLine = true,
-                        modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
-                    )
-
-                    ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-                        LazyColumn(
-                            modifier = Modifier.size(LocalConfiguration.current.screenWidthDp.dp, 300.dp)
+            Column(
+                verticalArrangement = Arrangement.spacedBy(3.dp),
+            ) {
+                Box {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = cardShapeGroupedTop,
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { selectConversationMenuExpanded = !selectConversationMenuExpanded }
+                                .padding(15.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            items(feedEntries, key = { it.key!! }) { feedEntry ->
+                            Text(
+                                text = exporterTranslation["select_conversations_title"],
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold,
+                                lineHeight = 20.sp,
+                                modifier = Modifier.weight(1f)
+                            )
+                            Text(
+                                text = exporterTranslation.format(
+                                    "text_field_selection",
+                                    "amount" to selectedFeedEntries.size.toString()
+                                ),
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Medium,
+                                lineHeight = 17.sp
+                            )
+                        }
+                    }
+
+                    DropdownMenuPopup(
+                        expanded = selectConversationMenuExpanded,
+                        onDismissRequest = { selectConversationMenuExpanded = false }
+                    ) {
+                        DropdownMenuGroup(
+                            shapes = MenuDefaults.groupShape(0, 1),
+                        ) {
+                            val totalItems = feedEntries.size
+
+                            feedEntries.fastForEachIndexed { index, feedEntry ->
+                                val isChecked = selectedFeedEntries.contains(feedEntry)
+
                                 DropdownMenuItem(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    onClick = {
-                                        if (selectedFeedEntries.contains(feedEntry)) selectedFeedEntries -= feedEntry
+                                    checked = isChecked,
+                                    onCheckedChange = {
+                                        if (isChecked) selectedFeedEntries -= feedEntry
                                         else selectedFeedEntries += feedEntry
                                     },
+                                    shapes = MenuDefaults.itemShape(index, totalItems),
                                     text = {
-                                        Row(
-                                            verticalAlignment = Alignment.CenterVertically
-                                        ) {
-                                            Checkbox(checked = selectedFeedEntries.contains(feedEntry), onCheckedChange = null)
-                                            Column {
-                                                Text(
-                                                    text = remember(feedEntry) {
-                                                        (if (feedEntry.conversationType == 1) feedEntry.feedDisplayName else feedEntry.participants?.filter { it != myUserId }?.firstOrNull()?.let { userId ->
-                                                            allFriends?.get(userId)?.let { friend -> friend.displayName?.let { "$it (${friend.mutableUsername})" } ?: friend.mutableUsername }
-                                                        }) ?: "Unknown"
-                                                    },
-                                                    overflow = TextOverflow.Ellipsis,
-                                                    lineHeight = 15.sp,
-                                                    maxLines = 1
-                                                )
-                                                if (feedEntry.conversationType == 1) {
-                                                    Text(
-                                                        text = "${feedEntry.participantsSize} participants",
-                                                        fontSize = 10.sp,
-                                                        lineHeight = 15.sp,
-                                                        overflow = TextOverflow.Ellipsis,
-                                                    )
-                                                }
-                                            }
-                                        }
-                                    }
+                                        Text(
+                                            text = remember(feedEntry) {
+                                                (if (feedEntry.conversationType == 1) feedEntry.feedDisplayName
+                                                else feedEntry.participants?.filter { it != myUserId }
+                                                    ?.firstOrNull()?.let { userId ->
+                                                    allFriends?.get(userId)?.let { friend ->
+                                                        friend.displayName?.let { "$it (${friend.mutableUsername})" }
+                                                            ?: friend.mutableUsername
+                                                    }
+                                                }) ?: "Unknown"
+                                            },
+                                            overflow = TextOverflow.Ellipsis,
+                                            maxLines = 1
+                                        )
+                                    },
                                 )
                             }
                         }
                     }
                 }
-            }
 
-            Text(exporterTranslation["export_file_format_title"])
-            run {
-                var expanded by remember { mutableStateOf(false) }
+                Box {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = cardShapeGroupedMiddle,
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { exportFileFormatMenuExpanded = !exportFileFormatMenuExpanded }
+                                .padding(15.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = exporterTranslation["export_file_format_title"],
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold,
+                                lineHeight = 20.sp,
+                                modifier = Modifier.weight(1f)
+                            )
+                            Text(
+                                text = exportType.extension,
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Medium,
+                                lineHeight = 17.sp
+                            )
+                        }
+                    }
 
-                ExposedDropdownMenuBox(
-                    expanded = expanded,
-                    onExpandedChange = { expanded = it },
-                ) {
-                    TextField(
-                        value = exportType.extension,
-                        onValueChange = {},
-                        readOnly = true,
-                        modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
-                    )
+                    DropdownMenuPopup(
+                        expanded = exportFileFormatMenuExpanded,
+                        onDismissRequest = { exportFileFormatMenuExpanded = false }
+                    ) {
+                        DropdownMenuGroup(
+                            shapes = MenuDefaults.groupShape(0, 1)
+                        ) {
+                            val formats = ExportFormat.entries
+                            val totalItems = formats.size
 
-                    ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-                        ExportFormat.entries.forEach { exportFormat ->
-                            DropdownMenuItem(onClick = {
-                                exportType = exportFormat
-                                expanded = false
-                            }, text = {
-                                Text(text = exportFormat.name)
-                            })
+                            formats.fastForEachIndexed { index, exportFormat ->
+                                val isSelected = exportFormat == exportType
+
+                                DropdownMenuItem(
+                                    text = {
+                                        Text(
+                                            text = exportFormat.name,
+                                            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                                        )
+                                    },
+                                    onClick = {
+                                        exportType = exportFormat
+                                        exportFileFormatMenuExpanded = false
+                                    },
+                                    selected = isSelected,
+                                    shapes = MenuDefaults.itemShape(index, totalItems)
+                                )
+                            }
                         }
                     }
                 }
-            }
-            Text(exporterTranslation["message_type_filter_title"])
-            run {
-                var expanded by remember { mutableStateOf(false) }
 
-                ExposedDropdownMenuBox(
-                    expanded = expanded,
-                    onExpandedChange = { expanded = it },
-                ) {
-                    TextField(
-                        value = messageTypeFilter.takeIf { it.isNotEmpty() }?.let {
-                            exporterTranslation.format("text_field_selection", "amount" to it.size.toString())
-                        } ?: exporterTranslation["text_field_selection_all"],
-                        onValueChange = {},
-                        readOnly = true,
-                        modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
-                    )
-
-                    ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-                        arrayOf(
-                            ContentType.CHAT,
-                            ContentType.SNAP,
-                            ContentType.EXTERNAL_MEDIA,
-                            ContentType.NOTE,
-                            ContentType.STICKER
-                        ).forEach { contentType ->
-                            DropdownMenuItem(onClick = {
-                                if (messageTypeFilter.contains(contentType)) messageTypeFilter -= contentType
-                                else messageTypeFilter += contentType
-                            }, text = {
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Checkbox(checked = messageTypeFilter.contains(contentType), onCheckedChange = null)
-                                    Text(text = contentType.name)
-                                }
-                            })
+                Box {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = cardShapeGroupedMiddle,
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { messageFilterMenuExpanded = !messageFilterMenuExpanded }
+                                .padding(15.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = exporterTranslation["message_type_filter_title"],
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold,
+                                lineHeight = 20.sp,
+                                modifier = Modifier.weight(1f)
+                            )
+                            Text(
+                                text = messageTypeFilter.takeIf { it.isNotEmpty() }?.let {
+                                    exporterTranslation.format(
+                                        "text_field_selection",
+                                        "amount" to it.size.toString()
+                                    )
+                                } ?: exporterTranslation["text_field_selection_all"],
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Medium,
+                                lineHeight = 17.sp
+                            )
                         }
+                    }
+                    DropdownMenuPopup(
+                        expanded = messageFilterMenuExpanded,
+                        onDismissRequest = { messageFilterMenuExpanded = false }
+                    ) {
+                        DropdownMenuGroup(
+                            shapes = MenuDefaults.groupShape(0, 1)
+                        ) {
+                            val contentTypes = remember {
+                                arrayOf(
+                                    ContentType.CHAT,
+                                    ContentType.SNAP,
+                                    ContentType.EXTERNAL_MEDIA,
+                                    ContentType.NOTE,
+                                    ContentType.STICKER
+                                )
+                            }
+                            val totalItems = contentTypes.size
+
+                            contentTypes.forEachIndexed { index, contentType ->
+                                val isChecked = messageTypeFilter.contains(contentType)
+
+                                DropdownMenuItem(
+                                    checked = isChecked,
+                                    onCheckedChange = {
+                                        if (isChecked) messageTypeFilter -= contentType
+                                        else messageTypeFilter += contentType
+                                    },
+                                    shapes = MenuDefaults.itemShape(index, totalItems),
+                                    text = { Text(text = contentType.name) }
+                                )
+                            }
+                        }
+                    }
+                }
+
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = cardShapeGroupedBottom,
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { downloadMedias = !downloadMedias }
+                            .padding(15.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = exporterTranslation["download_medias_title"],
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            lineHeight = 20.sp,
+                            modifier = Modifier.weight(1f)
+                        )
+                        Checkbox(checked = downloadMedias, onCheckedChange = { downloadMedias = it })
                     }
                 }
             }
 
-            Text(exporterTranslation["amount_of_messages_title"])
             val focusManager = LocalFocusManager.current
             val keyboard = LocalSoftwareKeyboardController.current
-            TextField(
-                value = amountOfMessages.takeIf { it != -1 }?.toString() ?: "",
-                onValueChange = { amountOfMessages = it.toIntOrNull()?.absoluteValue ?: -1 },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done, keyboardType = KeyboardType.Number),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.clearFocus()
-                        keyboard?.hide()
-                    })
-            )
+            val isKeyboardVisible = WindowInsets.isImeVisible
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-                verticalAlignment = Alignment.CenterVertically
+            LaunchedEffect(isKeyboardVisible) {
+                if (!isKeyboardVisible) {
+                    focusManager.clearFocus()
+                }
+            }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .pointerInput(Unit) {
+                        detectTapGestures(onTap = {
+                            focusManager.clearFocus()
+                            keyboard?.hide()
+                        })
+                    },
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Checkbox(checked = downloadMedias, onCheckedChange = { downloadMedias = it })
-                Text(exporterTranslation["download_medias_title"])
+                Text(exporterTranslation["amount_of_messages_title"])
+
+                OutlinedTextField(
+                    value = amountOfMessages.takeIf { it != -1 }?.toString() ?: "",
+                    onValueChange = { amountOfMessages = it.toIntOrNull()?.absoluteValue ?: -1 },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Done,
+                        keyboardType = KeyboardType.Number
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            focusManager.clearFocus()
+                            keyboard?.hide()
+                        }
+                    )
+                )
             }
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier.padding(top = 10.dp).fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
             ) {
                 Button(
-                    onClick = { getDialog()?.dismiss() }
+                    onClick = { getDialog()?.dismiss() },
+                    shapes = ButtonDefaults.shapes(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                    )
                 ) {
                     Text(text = translation["dialog_negative_button"])
                 }
+                Spacer(modifier = Modifier.width(10.dp))
                 Button(
                     enabled = selectedFeedEntries.isNotEmpty(),
                     onClick = {
@@ -259,7 +399,8 @@ class ExportChatMessages : AbstractAction() {
                             amountOfMessages = amountOfMessages.takeIf { it != -1 },
                             downloadMedias = downloadMedias
                         ))
-                    }
+                    },
+                    shapes = ButtonDefaults.shapes()
                 ) {
                     Text(text = translation["dialog_positive_button"])
                 }
