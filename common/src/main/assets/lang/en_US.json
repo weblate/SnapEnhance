@@ -811,6 +811,10 @@
                         "name": "Custom Theme",
                         "description": "Customize Snapchat's Colors\nNote: if you choose a dark theme (like AMOLED), You may need to enable the dark mode on the App Appearance settings for better results"
                     },
+                    "custom_background": {
+                        "name": "Custom Background",
+                        "description": "Allows you to set a custom background image or video.\nSupports only .png, .mp4, .mkv, .avi, .jpg, .webp"
+                    },
                     "icon_style": {
                         "name": "Icon Style",
                         "description": "Changes the style of material icons\n\nFeatures Supported:\n - Opera Download Button \n - Mark Snap As Seen Button \n - Friend Feed Menu Buttons\n - COF Experiments\n - Message Indicators\n - Logging"

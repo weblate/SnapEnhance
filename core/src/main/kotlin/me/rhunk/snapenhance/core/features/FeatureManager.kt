@@ -148,6 +148,7 @@ class FeatureManager(
             DisableSnapModeRestrictions(),
             PreventForcedKeyboard(),
             ChatWallpaperDownloader(),
+            CustomBackground()
         )
 
         features.values.toList().forEach { feature ->
