@@ -148,7 +148,8 @@ class FeatureManager(
             DisableSnapModeRestrictions(),
             PreventForcedKeyboard(),
             ChatWallpaperDownloader(),
-            CustomBackground()
+            CustomBackground(),
+            LiquidGlassNavigationBar()
         )
 
         features.values.toList().forEach { feature ->

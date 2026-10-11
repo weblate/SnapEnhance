@@ -71,6 +71,8 @@ class UserInterfaceTweaks : ConfigContainer() {
             it.substringAfterLast('.', "").lowercase() in setOf("png", "mp4", "mkv", "avi", "jpg", "webp")
         }
     }
+
+    val liquidGlassNavigationBar = boolean("liquid_glass_navigation_bar") { requireRestart(); addNotices(FeatureNotice.UNSTABLE, FeatureNotice.INTERNAL_BEHAVIOR) }
     val friendFeedMessagePreview = container("friend_feed_message_preview", FriendFeedMessagePreview()) { requireRestart() }
     val customFriendFeedLabel = string("custom_friend_feed_label") { requireRestart() }
     val iconStyle = unique("icon_style","outlined", "filled", "sharp", "two-tone") {  requireRestart() }

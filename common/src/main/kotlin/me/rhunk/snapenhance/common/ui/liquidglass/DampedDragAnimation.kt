@@ -8,7 +8,7 @@
  * This modified file is licensed under the GNU General Public License v3.0.
  */
 
-package me.rhunk.snapenhance.ui.util
+package me.rhunk.snapenhance.common.ui.liquidglass
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.spring

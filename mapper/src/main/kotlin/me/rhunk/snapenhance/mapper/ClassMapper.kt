@@ -40,7 +40,8 @@ class ClassMapper(
             COFObservableMapper(),
             FoldingLayoutMapper(),
             PlatformClientAttestationMapper(),
-            CustomBackgroundMapper()
+            CustomBackgroundMapper(),
+            NavigationBarMapper(),
         )
     }
 

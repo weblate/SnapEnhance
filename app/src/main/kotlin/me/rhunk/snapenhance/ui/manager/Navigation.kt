@@ -50,8 +50,8 @@ import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 import me.rhunk.snapenhance.R
 import me.rhunk.snapenhance.RemoteSideContext
-import me.rhunk.snapenhance.ui.components.LiquidBottomTab
-import me.rhunk.snapenhance.ui.components.LiquidBottomTabs
+import me.rhunk.snapenhance.common.ui.liquidglass.LiquidNavigationItem
+import me.rhunk.snapenhance.common.ui.liquidglass.ManagerLiquidNavigationBar
 import me.rhunk.snapenhance.common.ui.rememberMutableBooleanPreferenceState
 import me.rhunk.snapenhance.common.ui.rememberMutableFloatPreferenceState
 import me.rhunk.snapenhance.common.ui.rememberMutableStringPreferenceState
@@ -140,7 +140,6 @@ class Navigation(
             scrollBehavior.state.heightOffset = 0f
             scrollBehavior.state.contentOffset = 0f
         }
-
 
         Column(
             modifier = Modifier
@@ -262,7 +261,7 @@ class Navigation(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 androidx.compose.runtime.key(liquidRecomposeTrigger) {
-                    LiquidBottomTabs(
+                    ManagerLiquidNavigationBar(
                         sharedPreferences = context.sharedPreferences,
                         selectedTabIndex = { dummySelectedIndex },
                         onTabSelected = { index -> if (index >= 0) dummySelectedIndex = index },
@@ -280,7 +279,7 @@ class Navigation(
 
                     ) {
                         dummyTabs.forEachIndexed { index, (title, icon, _) ->
-                            LiquidBottomTab(
+                            LiquidNavigationItem(
                                 onClick = { dummySelectedIndex = index }
                             ) {
                                 Icon(imageVector = icon, contentDescription = null)
@@ -371,7 +370,7 @@ class Navigation(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 androidx.compose.runtime.key(liquidRecomposeTrigger) {
-                    LiquidBottomTabs(
+                    ManagerLiquidNavigationBar(
                         sharedPreferences = context.sharedPreferences,
                         selectedTabIndex = { selectedIndex },
                         onTabSelected = { index -> if (index >= 0) primaryRoutes[index].navigateReset() },
@@ -389,7 +388,7 @@ class Navigation(
                     ) {
                         primaryRoutes.forEachIndexed { index, route ->
                             val isSelected = selectedIndex == index
-                            LiquidBottomTab(
+                            LiquidNavigationItem(
                                 onClick = {
                                     val currentEntry = navController.currentBackStackEntry
                                     val currentRouteId = currentEntry?.destination?.route

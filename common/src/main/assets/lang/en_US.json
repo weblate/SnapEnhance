@@ -815,6 +815,10 @@
                         "name": "Custom Background",
                         "description": "Allows you to set a custom background image or video.\nSupports only .png, .mp4, .mkv, .avi, .jpg, .webp"
                     },
+                    "liquid_glass_navigation_bar": {
+                        "name": "Liquid Glass Navigation Bar",
+                        "description": "Replaces the stock Snapchat navigation bar with a liquid glass one"
+                    },
                     "icon_style": {
                         "name": "Icon Style",
                         "description": "Changes the style of material icons\n\nFeatures Supported:\n - Opera Download Button \n - Mark Snap As Seen Button \n - Friend Feed Menu Buttons\n - COF Experiments\n - Message Indicators\n - Logging"

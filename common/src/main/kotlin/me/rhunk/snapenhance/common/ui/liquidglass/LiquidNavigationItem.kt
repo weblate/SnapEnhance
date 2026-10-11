@@ -8,7 +8,7 @@
  * This modified file is licensed under the GNU General Public License v3.0.
  */
 
-package me.rhunk.snapenhance.ui.components
+package me.rhunk.snapenhance.common.ui.liquidglass
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -29,9 +29,10 @@ import com.kyant.capsule.ContinuousCapsule
 internal val LocalLiquidBottomTabScale = staticCompositionLocalOf { { 0.90f } }
 
 @Composable
-fun RowScope.LiquidBottomTab(
+fun RowScope.LiquidNavigationItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    isCoreItem: Boolean = false,
     content: @Composable ColumnScope.() -> Unit
 ) {
     val scale = LocalLiquidBottomTabScale.current
@@ -51,7 +52,7 @@ fun RowScope.LiquidBottomTab(
                 scaleX = scale
                 scaleY = scale
             },
-        verticalArrangement = Arrangement.spacedBy(2f.dp, Alignment.CenterVertically),
+        verticalArrangement = Arrangement.spacedBy(if (isCoreItem) 1f.dp else 2f.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally,
         content = content
     )

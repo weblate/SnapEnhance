@@ -156,6 +156,7 @@ dependencies {
     implementation(libs.androidx.activity.ktx)
     implementation(libs.shizuku.api)
     implementation(libs.shizuku.provider)
+    implementation(libs.androidliquidglass)
     implementation(libs.capsule)
     fullImplementation(platform(libs.androidx.compose.bom))
     fullImplementation(libs.bcprov.jdk18on)
@@ -170,7 +171,6 @@ dependencies {
     fullImplementation(libs.androidx.ui.tooling.preview)
     fullImplementation(libs.haze)
     fullImplementation(libs.haze.materials)
-    fullImplementation(libs.androidliquidglass)
 
     properties["debug_flavor"]?.let {
         debugImplementation(libs.androidx.ui.tooling)

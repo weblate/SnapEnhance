@@ -3,6 +3,7 @@ package me.rhunk.snapenhance.core.ui
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
@@ -12,9 +13,15 @@ import android.os.SystemClock
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.core.view.children
 import me.rhunk.snapenhance.core.SnapEnhance
 import me.rhunk.snapenhance.core.wrapper.impl.valdi.ValdiContext
 import me.rhunk.snapenhance.core.wrapper.impl.valdi.ValdiViewNode
+import kotlin.sequences.firstNotNullOfOrNull
 
 private val foregroundDrawableListTag = randomTag()
 
@@ -90,6 +97,35 @@ fun View.findParent(maxIteration: Int = Int.MAX_VALUE, predicate: (View) -> Bool
     return null
 }
 
+fun View.extractText(): String? = when {
+    this is TextView && !text.isNullOrBlank() -> text.toString()
+    !contentDescription.isNullOrBlank() -> contentDescription.toString()
+    this is ViewGroup -> children.firstNotNullOfOrNull { it.extractText() }
+    else -> null
+}
+
+fun View.findDrawable(): Drawable? = when {
+    this is ImageView && drawable != null -> drawable
+    this is ViewGroup -> children.firstNotNullOfOrNull { it.findDrawable() }
+    else -> background
+}
+
+fun View.extractIcon(): ImageBitmap? {
+    val drawable = findDrawable() ?: return null
+    return runCatching {
+        val w = drawable.intrinsicWidth.takeIf { it > 0 } ?: 64
+        val h = drawable.intrinsicHeight.takeIf { it > 0 } ?: 64
+        val bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        val oldBounds = drawable.bounds
+
+        drawable.setBounds(0, 0, w, h)
+        drawable.draw(canvas)
+        drawable.bounds = oldBounds
+
+        bitmap.asImageBitmap()
+    }.getOrNull()
+}
 
 data class LayoutChangeParams(
     val view: View,

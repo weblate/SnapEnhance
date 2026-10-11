@@ -66,6 +66,8 @@ dependencies {
     }
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.ui)
+    implementation(libs.androidliquidglass)
+    implementation(libs.capsule)
 
     compileOnly(libs.androidx.activity.ktx)
     compileOnly(platform(libs.androidx.compose.bom))

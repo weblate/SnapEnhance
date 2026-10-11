@@ -8,13 +8,12 @@
  * This modified file is licensed under the GNU General Public License v3.0.
  */
 
-package me.rhunk.snapenhance.ui.util
+package me.rhunk.snapenhance.common.ui.liquidglass
 
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.AwaitPointerEventScope
-import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.PointerId
 import androidx.compose.ui.input.pointer.PointerInputChange
 import androidx.compose.ui.input.pointer.PointerInputScope
@@ -29,16 +28,13 @@ suspend fun PointerInputScope.inspectDragGestures(
     onDrag: (change: PointerInputChange, dragAmount: Offset) -> Unit
 ) {
     awaitEachGesture {
-        val initialDown = awaitFirstDown(false, PointerEventPass.Initial)
-
         val down = awaitFirstDown(false)
-        val drag = initialDown
 
         onDragStart(down)
-        onDrag(drag, Offset.Zero)
+        onDrag(down, Offset.Zero)
         val upEvent =
             drag(
-                pointerId = drag.id,
+                pointerId = down.id,
                 onDrag = { onDrag(it, it.positionChange()) }
             )
         if (upEvent == null) {

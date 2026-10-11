@@ -1,10 +1,19 @@
 package me.rhunk.snapenhance.mapper.ext
 
+import com.android.tools.smali.dexlib2.iface.Method
 import com.android.tools.smali.dexlib2.iface.MethodImplementation
+import com.android.tools.smali.dexlib2.iface.instruction.FiveRegisterInstruction
+import com.android.tools.smali.dexlib2.iface.instruction.NarrowLiteralInstruction
+import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
+import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
+import com.android.tools.smali.dexlib2.iface.instruction.RegisterRangeInstruction
+import com.android.tools.smali.dexlib2.iface.instruction.WideLiteralInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.formats.Instruction21c
 import com.android.tools.smali.dexlib2.iface.instruction.formats.Instruction22c
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
+import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
+import kotlin.collections.orEmpty
 
 fun MethodImplementation.findConstString(
     string: String,
@@ -44,4 +53,51 @@ fun MethodImplementation.searchNextFieldReference(constString: String, contains:
         }
     }
     null
+}
+
+fun MethodImplementation.findSetViewIds(): List<Int> {
+    val instructions = instructions.toList()
+
+    return instructions.mapIndexedNotNull { index, instruction ->
+        val ref = (instruction as? ReferenceInstruction)?.reference as? MethodReference ?: return@mapIndexedNotNull null
+
+        if (ref.name != "setId" || ref.parameterTypes != listOf("I") || ref.returnType != "V") {
+            return@mapIndexedNotNull null
+        }
+
+        val register = when (instruction) {
+            is FiveRegisterInstruction -> {
+                if (instruction.registerCount < 2) return@mapIndexedNotNull null
+                instruction.registerD
+            }
+
+            is RegisterRangeInstruction -> {
+                if (instruction.registerCount < 2) return@mapIndexedNotNull null
+                instruction.startRegister + 1
+            }
+
+            else -> return@mapIndexedNotNull null
+        }
+
+        for (i in index - 1 downTo 0) {
+            val previous = instructions[i]
+            if (previous !is OneRegisterInstruction || previous.registerA != register) continue
+            return@mapIndexedNotNull (previous as? NarrowLiteralInstruction)?.narrowLiteral
+        }
+        null
+    }.distinct()
+}
+
+fun Method.findSetViewIds(): List<Int> = implementation?.findSetViewIds().orEmpty()
+
+fun Method.referencedMethods(): List<MethodReference> {
+    return implementation?.instructions?.asSequence()?.mapNotNull { instruction ->
+        (instruction as? ReferenceInstruction)?.reference as? MethodReference
+    }?.toList().orEmpty()
+}
+
+fun Method.referencedFields(): List<FieldReference> {
+    return implementation?.instructions?.asSequence()?.mapNotNull { instruction ->
+        (instruction as? ReferenceInstruction)?.reference as? FieldReference
+    }?.toList().orEmpty()
 }
