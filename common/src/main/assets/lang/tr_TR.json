@@ -1,17 +1,10 @@
 {
     "setup": {
-        "dialogs": {
-            "select_language": "Dil Seçin",
-            "save_folder": "SE Extended, Snapchat'ten Medya indirmek ve Kaydetmek için Depolama izinleri gerektirir.\nLütfen medyanın indirileceği konumu seçin.",
-            "select_save_folder_button": "Klasör Seç"
-        },
         "mappings": {
-            "dialog": "Eşlemeler oluşturuluyor, bu biraz zaman alabilir ...",
             "generate_failure_no_snapchat": "SE Extended Snapchat'i algılayamadı, lütfen Snapchat'i yeniden yüklemeyi deneyin.",
             "generate_failure": "Eşlemeleri oluşturmaya çalışırken bir hata oluştu, lütfen tekrar deneyin."
         },
         "permissions": {
-            "dialog": "Devam etmek için aşağıdaki gerekliliklere uymanız gerekir:",
             "notification_access": "Bildirim Erişimi",
             "battery_optimization": "Pil Optimizasyonu",
             "display_over_other_apps": "Diğer Uygulamaların Üzerinde Göster",
@@ -57,11 +50,9 @@
             "social": {
                 "streaks_expiration_short": "{hours} saat",
                 "friends_tab": "Arkadaşlar",
-                "empty_hint": "(boş)",
                 "groups_tab": "Gruplar"
             },
             "tasks": {
-                "no_tasks": "Görev yok",
                 "remove_selected_tasks_title": "Seçili görevleri kaldırmak istediğinizden emin misiniz?",
                 "remove_all_tasks_title": "Tüm görevleri kaldırmak istediğinizden emin misiniz?",
                 "delete_files_option": "Ayrıca dosyaları sil",
@@ -82,7 +73,6 @@
             },
             "home_logs": {
                 "clear_logs_button": "Günlükleri Temizle",
-                "no_logs_hint": "Mevcut günlük yok",
                 "export_logs_button": "Günlükleri Dışa Aktar",
                 "saving_logs_toast": "Günlükler kaydediliyor, bu biraz zaman alabilir ...",
                 "saved_logs_success_toast": "Günlükler başarıyla kaydedildi",
@@ -93,8 +83,6 @@
                 "message_logger_title": "Mesaj Kaydedici",
                 "debug_title": "Hata Ayıklama",
                 "success_toast": "Tamam!",
-                "message_logger_summary": "{messageCount} mesajlar\n{storyCount} hikayeler",
-                "export_button": "Dışa Aktar",
                 "clear_button": "Temizle",
                 "view_logger_history_button": "Günlük Geçmişini Görüntüle"
             },
@@ -109,7 +97,6 @@
                 "streaks_expiration_text_expired": "Süresi doldu",
                 "reminder_button": "Hatırlatıcı Ayarla",
                 "participants_text": "{sayı} katılımcı",
-                "delete_scope_confirm_dialog_title": "Bir {scope} silmek istediğinizden emin misiniz?",
                 "notes_placeholder": ""
             },
             "logged_stories": {
@@ -147,8 +134,7 @@
                 "file_not_found": "Dosya bulunamadı",
                 "file_import_failed": "Dosya içe aktarılamadı: {error}",
                 "file_imported": "Dosya başarıyla içe aktarıldı",
-                "file_delete_failed": "Dosya silinemedi",
-                "no_files_hint": "Burada Snapchat'te kullanmak için dosyaları içe aktarabilirsiniz. Bir dosyayı içe aktarmak için aşağıdaki düğmeye basın."
+                "file_delete_failed": "Dosya silinemedi"
             },
             "better_location": {
                 "save_coordinates_dialog_title": "Koordinatları Kaydet",
@@ -170,9 +156,6 @@
                 "latitude_dialog_hint": "Enlem",
                 "suspend_location_updates": "Konum Güncellemelerini Askıya Al"
             },
-            "theming": {
-                "no_themes_hint": "Tema bulunamadı"
-            },
             "manage_rule_feature": {
                 "disable_state_subtext": "Hiçbir arkadaş/grup etkilenmeyecektir",
                 "whitelist_state_option": "Kimse hariç ...",
@@ -182,7 +165,6 @@
                 "blacklist_state_subtext": "Bu kuraldan {count} arkadaş/grup dışındaki herkes etkilenecektir",
                 "blacklist_state_button": "Hariç tutulan arkadaşları/grupları seçin",
                 "clear_list_button": "Arkadaş/grup listesini temizle",
-                "dialog_clear_confirmation_text": "Listeyi temizlemek istediğinizden emin misiniz?",
                 "disable_state_option": "Devre dışı"
             }
         },
@@ -206,10 +188,6 @@
             "messaging_action": {
                 "title": "İşlenecek içerik türlerini seçin",
                 "select_all_button": "Tümünü Seç"
-            },
-            "file_imports": {
-                "no_files_settings_hint": "Dosya bulunamadı. Dosya İçe Aktarma bölümünde gerekli dosyaları içe aktardığınızdan emin olun",
-                "settings_select_file_hint": "İçe aktarılan bir dosya seçin"
             },
             "export_config": {
                 "title": "Hassas Verileri Dışa Aktar?",
@@ -1011,10 +989,6 @@
                         "name": "Medya Dosyası Seçici",
                         "description": "Galeriden herhangi bir video/ses dosyası seçmenizi sağlar"
                     },
-                    "call_recorder": {
-                        "description": "Sesli aramaları otomatik olarak kaydeder",
-                        "name": "Arama Kaydedici"
-                    },
                     "account_switcher": {
                         "name": "Hesap Değiştirici",
                         "description": "Oturumu kapatmadan hesaplar arasında geçiş yapmanızı sağlar\nMenüyü açmak için Bitmoji profilinizin yanındaki arama simgesine uzun basın\nNot: Bu özellik deneyseldir ve muhtemelen gelecekte değişecektir",
@@ -1064,14 +1038,6 @@
                             "preferred_transcription_lang": {
                                 "name": "Tercih Edilen Transkripsiyon Dili",
                                 "description": "Sesli not metni için tercih edilen dil (örn. EN, ES, FR)"
-                            },
-                            "enhanced_transcript": {
-                                "name": "Geliştirilmiş Transkript",
-                                "description": "DeepL adresini kullanarak sesli not dökümünü iyileştirir.\nBu özelliği kullanmadan önce lütfen gizlilik politikasını okuduğunuzdan emin olun."
-                            },
-                            "enhanced_transcript_in_notifications": {
-                                "description": "DeepL adresini kullanarak bildirimlerdeki sesli notları yazıya döker. Bu, Sohbet Önizleme özelliğinin Daha İyi Bildirimler'de etkinleştirilmesini gerektirir",
-                                "name": "Bildirimlerde Geliştirilmiş Transkript"
                             }
                         },
                         "name": "Daha İyi Transkript",
@@ -1110,10 +1076,6 @@
                     "auto_reload": {
                         "description": "Değiştiklerinde komut dosyalarını otomatik olarak yeniden yükler",
                         "name": "Otomatik Yeniden Yükleme"
-                    },
-                    "old_tool_box_add_view": {
-                        "name": "",
-                        "description": ""
                     }
                 }
             },
@@ -1203,7 +1165,6 @@
                 "hide_live_location_share_button": "Canlı Konum Paylaş Düğmesini Kaldır",
                 "hide_stickers_button": "Çıkartmalar Butonunu Kaldır",
                 "hide_voice_record_button": "Ses Kayıt Butonunu Kaldır",
-                "hide_unread_chat_hint": "Okunmamış Sohbet İpucunu Kaldır",
                 "hide_post_to_story_buttons": "Snap göndermeden önce Hikayeye Gönder düğmelerini kaldırın",
                 "hide_map_reactions": "Harita Tepkilerini Kaldır",
                 "hide_gift_snapchat_plus_reminders": "",
@@ -1637,10 +1598,6 @@
         "file_imports": {
             "name": "Dosya İçe Aktarımları",
             "description": "Snapchat'te kullanmak için dosyaları içe aktarma"
-        },
-        "security_features": {
-            "name": "Güvenlik Özellikleri",
-            "description": "Güvenlik özellikleri tercihlerini değiştir"
         },
         "theming": {
             "name": "Temalandırma",

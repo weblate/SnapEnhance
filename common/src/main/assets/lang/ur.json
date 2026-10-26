@@ -1,17 +1,10 @@
 {
     "setup": {
-        "dialogs": {
-            "select_language": "زبان کا انتخاب کریں",
-            "save_folder": "SE Extended کو Snapchat سے میڈیا کو ڈاؤن لوڈ اور محفوظ کرنے کے لیے سٹوریج کی اجازت درکار ہے۔\nبراہ کرم وہ مقام منتخب کریں جہاں میڈیا کو ڈاؤن لوڈ کیا جانا چاہیے۔",
-            "select_save_folder_button": "فولڈر منتخب کریں"
-        },
         "mappings": {
-            "dialog": "میپنگ تیار ہو رہی ہے، اس میں کچھ وقت لگ سکتا ہے...",
             "generate_failure_no_snapchat": "SE Extended Snapchat کا پتہ لگانے سے قاصر تھا، براہ کرم Snapchat کو دوبارہ انسٹال کرنے کی کوشش کریں۔",
             "generate_failure": "میپنگ بنانے کی کوشش کے دوران ایک خرابی پیش آگئی، براہ کرم دوبارہ کوشش کریں۔"
         },
         "permissions": {
-            "dialog": "جاری رکھنے کے لیے آپ کو درج ذیل تقاضوں کو پورا کرنا ہوگا:",
             "notification_access": "اطلاع تک رسائی",
             "battery_optimization": "بیٹری کی اصلاح",
             "display_over_other_apps": "دیگر ایپس پر ڈسپلے کریں",
@@ -56,7 +49,6 @@
                 "quick_actions_title": "فوری ایکشن"
             },
             "home_logs": {
-                "no_logs_hint": "کوئی لاگ دستیاب نہیں ہے",
                 "clear_logs_button": "لاگز صاف کریں",
                 "export_logs_button": "ایکسپورٹ لاگز",
                 "saving_logs_toast": "لاگز کو محفوظ کیا جا رہا ہے، اس میں کچھ وقت لگ سکتا ہے...",
@@ -68,13 +60,10 @@
                 "message_logger_title": "میسیج لوگر",
                 "debug_title": "ڈیبگ",
                 "success_toast": "ہو گیا!!",
-                "message_logger_summary": "{messageCount} پیغامات\n{storyCount} کہانیاں",
-                "export_button": "ایکسپورٹ",
                 "clear_button": "کلیئر",
                 "view_logger_history_button": "ویو لوگر ہسٹری"
             },
             "tasks": {
-                "no_tasks": "کوئی ٹاسک نہیں",
                 "failed_to_open_file": "فائل کھولنے میں ناکام",
                 "merge_files_toast": "{count} فائلوں کو ضم کرنا",
                 "remove_selected_tasks_title": "کیا آپ واقعی منتخب کردہ کاموں کو ہٹانا چاہتے ہیں؟",
@@ -99,7 +88,6 @@
             "social": {
                 "friends_tab": "فرینڈز",
                 "groups_tab": "گروپس",
-                "empty_hint": "(خالی)",
                 "streaks_expiration_short": "{hours}h"
             },
             "manage_scope": {
@@ -113,7 +101,6 @@
                 "streaks_expiration_text": "{eta} میں ایکسپائر ہو جائے گا",
                 "streaks_expiration_text_expired": "ایکسپائرڈ",
                 "reminder_button": "سیٹ ریمائنڈر",
-                "delete_scope_confirm_dialog_title": "کیا آپ واقعی ایک {scope} کو ڈیلیٹ کرنا چاہتے ہیں؟",
                 "notes_placeholder": ""
             },
             "logged_stories": {
@@ -151,8 +138,7 @@
                 "file_not_found": "فائل نہیں ملی",
                 "file_import_failed": "فائل درآمد کرنے میں ناکام: {error}",
                 "file_imported": "فائل کامیابی کے ساتھ امپورٹ ہوگئی",
-                "file_delete_failed": "فائل کو حذف کرنے میں ناکام",
-                "no_files_hint": "یہاں آپ Snapchat میں استعمال کے لیے فائلیں درآمد کر سکتے ہیں۔ فائل درآمد کرنے کے لیے نیچے دیا گیا بٹن دبائیں۔"
+                "file_delete_failed": "فائل کو حذف کرنے میں ناکام"
             },
             "better_location": {
                 "spoofed_coordinates_title": "لات{latitude}, ایل این جی {longitude}",
@@ -176,7 +162,6 @@
             },
             "manage_rule_feature": {
                 "disable_state_option": "معذور",
-                "dialog_clear_confirmation_text": "",
                 "whitelist_state_option": "",
                 "clear_list_button": "",
                 "whitelist_state_button": "",
@@ -185,9 +170,6 @@
                 "blacklist_state_option": "",
                 "whitelist_state_subtext": "",
                 "blacklist_state_button": ""
-            },
-            "theming": {
-                "no_themes_hint": ""
             }
         },
         "dialogs": {
@@ -214,10 +196,6 @@
             "messaging_action": {
                 "title": "عمل کرنے کے لیے مواد کی اقسام کا انتخاب کریں",
                 "select_all_button": "تمام منتخب کریں"
-            },
-            "file_imports": {
-                "no_files_settings_hint": "کوئی فائل نہیں ملی۔ یقینی بنائیں کہ آپ نے فائل امپورٹس سیکشن میں مطلوبہ فائلیں درآمد کی ہیں",
-                "settings_select_file_hint": "ایک امپورٹ شدا فائل منتخب کریں"
             }
         }
     },
@@ -323,10 +301,6 @@
             "name": "لوگر ہسٹری",
             "description": "لاگ ان پیغامات کی تاریخ دیکھیں"
         },
-        "security_features": {
-            "name": "",
-            "description": ""
-        },
         "theming": {
             "description": "",
             "name": ""
@@ -340,8 +314,7 @@
         "notices": {
             "unstable": "⚠ غیر مستحکم",
             "ban_risk": "⚠ یہ خصوصیت پابندی کا سبب بن سکتی ہے",
-            "internal_behavior": "⚠ یہ خصوصیت پابندی کا سبب بن سکتی ہے",
-            "require_native_hooks": "⚠ اس خصوصیت کے لیے تجرباتی مقامی ہکس درست طریقے سے کام کرنے کی ضرورت ہے"
+            "internal_behavior": "⚠ یہ خصوصیت پابندی کا سبب بن سکتی ہے"
         },
         "properties": {
             "downloader": {
@@ -1010,14 +983,6 @@
                                 "name": "پلے اسٹور انسٹالر پیکیج کا نام",
                                 "description": "انسٹالر پیکیج کے نام کو com.android.vending پر اوور رائیڈ کرتا ہے"
                             },
-                            "fingerprint": {
-                                "name": "ڈیوائس فنگر پرنٹ",
-                                "description": "آپ کے ڈیوائس کے فنگر پرنٹ کو دھوکہ دیتا ہے"
-                            },
-                            "android_id": {
-                                "name": "اینڈرائیڈ آئی ڈی",
-                                "description": "‫آپ کی اینڈرائیڈ آئی ڈی کو متعین قدر کے مطابق بناتا ہے"
-                            },
                             "remove_vpn_transport_flag": {
                                 "name": "VPN ٹرانسپورٹ پرچم کو ہٹا دیں",
                                 "description": "Snapchat کو VPNs کا پتہ لگانے سے روکتا ہے"
@@ -1025,10 +990,6 @@
                             "remove_mock_location_flag": {
                                 "name": "فرضی مقام کا جھنڈا ہٹا دیں",
                                 "description": "‮Snapchat کو فرضی مقام کا پتہ لگانے سے روکتا ہے"
-                            },
-                            "randomize_persistent_device_token": {
-                                "name": "پرسسٹنٹ ڈیوائس ٹوکن کو بے ترتیب بنائیں",
-                                "description": "ہر لاگ ان کے بعد ایک بے ترتیب ڈیوائس ٹوکن تیار کرتا ہے"
                             }
                         }
                     },
@@ -1043,10 +1004,6 @@
                     "story_logger": {
                         "name": "سٹوری لاگر",
                         "description": "دوستوں کی کہانیوں کی تاریخ فراہم کرتا ہے"
-                    },
-                    "call_recorder": {
-                        "name": "کال ریکارڈر",
-                        "description": "‬خودکار طور پر آڈیو کالز ریکارڈ کرتا ہے"
                     },
                     "account_switcher": {
                         "name": "اکاؤنٹ سوئچر",
@@ -1069,14 +1026,6 @@
                             "preferred_transcription_lang": {
                                 "name": "ترجیحی نقل کی زبان",
                                 "description": "وائس نوٹ کی نقل کے لیے ترجیحی زبان (مثلاً EN، ES، FR)"
-                            },
-                            "enhanced_transcript": {
-                                "name": "بہتر ٹرانسکرپٹ",
-                                "description": "ڈیپ ایل کا استعمال کرتے ہوئے صوتی نوٹ کی نقل کو بہتر بناتا ہے۔\nاس خصوصیت کو استعمال کرنے سے پہلے، براہ کرم یقینی بنائیں کہ آپ نے ان کی رازداری کی پالیسی کو پڑھ لیا ہے."
-                            },
-                            "enhanced_transcript_in_notifications": {
-                                "name": "اطلاعات میں بہتر ٹرانسکرپٹ",
-                                "description": "ڈیپ ایل کا استعمال کرتے ہوئے اطلاعات میں صوتی نوٹوں کو نقل کرتا ہے۔ اس کے لیے بہتر اطلاعات میں چیٹ پیش نظارہ کی خصوصیت کو فعال کرنے کی ضرورت ہے"
                             }
                         }
                     },
@@ -1181,10 +1130,6 @@
                     "disable_log_anonymization": {
                         "name": "لاگ گمنامی کو غیر فعال کریں",
                         "description": "‬لاگز کی گمنامی کو غیر فعال کرتا ہے"
-                    },
-                    "old_tool_box_add_view": {
-                        "name": "",
-                        "description": ""
                     }
                 }
             },
@@ -1281,7 +1226,6 @@
                 "hide_live_location_share_button": "",
                 "hide_stickers_button": "",
                 "hide_voice_record_button": "",
-                "hide_unread_chat_hint": "",
                 "hide_post_to_story_buttons": "",
                 "hide_explorer_token_button": "",
                 "hide_chat_camera_button": "",

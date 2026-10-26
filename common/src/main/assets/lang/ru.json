@@ -1,19 +1,12 @@
 {
     "setup": {
-        "dialogs": {
-            "select_language": "Выберите язык",
-            "save_folder": "SE Extended требует разрешения хранилища для загрузки и сохранения медиафайлов из Snapchat.\nВыберите место, куда следует загружать медиафайлы.",
-            "select_save_folder_button": "Выберите папку"
-        },
         "mappings": {
-            "dialog": "Составление карт, это может занять некоторое время ...",
             "generate_failure_no_snapchat": "SE Extended не удалось обнаружить Snapchat, попробуйте переустановить Snapchat.",
             "generate_failure": "Произошла ошибка при генерации сопоставлений, пожалуйста, попробуйте еще раз."
         },
         "permissions": {
             "notification_access": "Доступ к уведомлениям",
             "display_over_other_apps": "Отображение поверх других приложений",
-            "dialog": "Для продолжения вам необходимо соответствовать следующим требованиям:",
             "battery_optimization": "Оптимизация батареи",
             "request_button": "Запрос"
         }
@@ -21,7 +14,6 @@
     "manager": {
         "sections": {
             "tasks": {
-                "no_tasks": "Нет задач",
                 "remove_selected_tasks_title": "Вы уверены, что хотите удалить выбранные задачи?",
                 "remove_all_tasks_title": "Вы уверены, что хотите удалить все задачи?",
                 "delete_files_option": "Также удалить файлы",
@@ -33,20 +25,16 @@
             "home_logs": {
                 "clear_logs_button": "Очистить логи",
                 "saved_logs_failure_toast": "Не удалось сохранить логи",
-                "no_logs_hint": "Нет доступных логов",
                 "export_logs_button": "Экспорт логов",
                 "saving_logs_toast": "Сохранение логов, это может занять некоторое время...",
                 "saved_logs_success_toast": "Логи успешно сохранены"
             },
             "home_settings": {
-                "export_button": "Экспорт",
-                "import_button": "Импорт",
                 "import_success_toast": "База данных успешно импортирована",
                 "clear_button": "Очистить",
                 "view_logger_history_button": "Посмотреть логгер историй",
                 "message_logger_title": "Логгер сообщений",
                 "success_toast": "Сделанно!",
-                "message_logger_summary": "{messageCount} сообщений\n{storyCount} историй",
                 "actions_title": "Действия",
                 "debug_title": "Режим отладки"
             },
@@ -84,14 +72,12 @@
                 "streaks_title": "Серия",
                 "streaks_expiration_text_expired": "Истекло",
                 "reminder_button": "Установить напоминание",
-                "delete_scope_confirm_dialog_title": "Вы уверены, что хотите удалить {scope}?",
                 "notes_placeholder": "Нажмите, чтобы добавить заметку"
             },
             "social": {
                 "streaks_expiration_short": "{hours} ч",
                 "friends_tab": "Друзья",
-                "groups_tab": "Группы",
-                "empty_hint": "(пусто)"
+                "groups_tab": "Группы"
             },
             "logged_stories": {
                 "story_failed_to_load": "Ошибка загрузки",
@@ -131,14 +117,12 @@
                 "blacklist_state_option": "Все, кроме ...",
                 "clear_list_button": "Очистить список друзей/групп",
                 "whitelist_state_button": "Выберите разрешенных друзей/группы",
-                "dialog_clear_confirmation_text": "Вы уверены, что хотите очистить список?",
                 "blacklist_state_subtext": "Все, кроме {count} друзей/групп, будут затронуты этим правилом",
                 "blacklist_state_button": "Выберите исключенных друзей/группы"
             },
             "file_imports": {
                 "file_imported": "Файл успешно импортирован",
                 "import_file_button": "Импортный файл",
-                "no_files_hint": "Здесь вы можете импортировать файлы для использования в Snapchat. Нажмите кнопку ниже, чтобы импортировать файл.",
                 "file_delete_failed": "Не удалось удалить файл",
                 "file_not_found": "Файл не найден",
                 "file_import_failed": "Не удалось импортировать файл: {error}"
@@ -162,9 +146,6 @@
                 "longitude_dialog_hint": "Долгота",
                 "save_dialog_button": "Сохранить",
                 "delete_dialog_title": "Удалить сохраненную координату"
-            },
-            "theming": {
-                "no_themes_hint": "Темы не найдены"
             }
         },
         "routes": {
@@ -208,10 +189,6 @@
                 "fetch_error": "Не удалось получить данные",
                 "category_groups": "Группы",
                 "category_friends": "Друзья"
-            },
-            "file_imports": {
-                "settings_select_file_hint": "Выберите импортированный файл",
-                "no_files_settings_hint": "Файлы не найдены. Убедитесь, что вы импортировали необходимые файлы в разделе „Импорт файлов“"
             },
             "export_config": {
                 "content": "Вы хотите экспортировать конфигурацию с конфиденциальными данными? (Например, координаты местоположения и т. д.)",
@@ -637,10 +614,6 @@
                                 "name": "Имя пакета установщика Play Store",
                                 "description": "Переопределяет имя пакета установщика на com.android.vending"
                             },
-                            "fingerprint": {
-                                "name": "Отпечаток устройства",
-                                "description": "Подделывает отпечаток вашего устройства"
-                            },
                             "remove_mock_location_flag": {
                                 "description": "Предотвращает обнаружение фиктивного местоположения Snapchat",
                                 "name": "Удалить флаг мокрого местоположения"
@@ -669,10 +642,6 @@
                     "media_file_picker": {
                         "name": "Выбор медиафайла",
                         "description": "Позволяет выбирать любой видео/аудиофайл из галереи"
-                    },
-                    "call_recorder": {
-                        "name": "Запись вызова",
-                        "description": "Автоматически записывает аудиовызовы"
                     },
                     "account_switcher": {
                         "name": "Переключатель аккаунтов",
@@ -733,14 +702,6 @@
                             "preferred_transcription_lang": {
                                 "name": "Предпочтительный язык транскрипции",
                                 "description": "Предпочтительный язык расшифровки голосовых сообщений (например, EN, ES, FR)"
-                            },
-                            "enhanced_transcript_in_notifications": {
-                                "name": "Расширенная транскрипция в уведомлениях",
-                                "description": "Расшифровка голосовых заметок в уведомлениях с помощью DeepL. Для этого необходимо, чтобы функция предварительного просмотра чата была включена в улучшенных уведомлениях."
-                            },
-                            "enhanced_transcript": {
-                                "name": "Расширенная транскрипция",
-                                "description": "Улучшение расшифровки голосовых заметок с помощью DeepL.\nПрежде чем использовать эту функцию, убедитесь, что вы ознакомились с политикой конфиденциальности."
                             }
                         }
                     },
@@ -1171,10 +1132,6 @@
                     "auto_reload": {
                         "name": "Автоматическая перезагрузка",
                         "description": "Автоматически перезагружает скрипты при их изменении"
-                    },
-                    "old_tool_box_add_view": {
-                        "name": "Старый ящик для инструментов Добавить вид",
-                        "description": "Использует старый вид добавления, чтобы добавить ящик с инструментами в Snapchat.\nПримечание: эта функция временная"
                     }
                 },
                 "name": "Скриптинг",
@@ -1303,7 +1260,6 @@
                 "always_ask": ""
             },
             "hide_ui_components": {
-                "hide_unread_chat_hint": "Убрать подсказку о непрочитанных сообщениях",
                 "hide_profile_call_buttons": "Убрать кнопки звонка в профиле",
                 "hide_chat_call_buttons": "Убрать кнопки звонка в чате",
                 "hide_live_location_share_button": "Убрать кнопку обмена местоположением в реальном времени",
@@ -1495,10 +1451,6 @@
         "bulk_messaging_action": {
             "name": "Массовая рассылка сообщений",
             "description": "Выполняет такие операции, как удаление друзей или массовое удаление бесед"
-        },
-        "security_features": {
-            "name": "Особенности безопасности",
-            "description": "Изменение настроек функций безопасности"
         },
         "logger_history": {
             "description": "Просмотр истории зарегистрированных сообщений",

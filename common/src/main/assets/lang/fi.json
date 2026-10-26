@@ -1,17 +1,10 @@
 {
     "setup": {
-        "dialogs": {
-            "select_language": "Valitse Kieli",
-            "save_folder": "SE Extended vaatii tallennus oikeudet ladatakseen mediaa Snapchatista.\nValitse sijainti mihin media tallennetaan.",
-            "select_save_folder_button": "Valitse kansio"
-        },
         "mappings": {
-            "dialog": "Luodaan kartoituksia, tämä voi kestää jonkin aikaa...",
             "generate_failure_no_snapchat": "SE Extended ei havainnut Snapchattia, yritä asentaa Snapchat uudelleen.",
             "generate_failure": "Kartoituksien luomisessa tapahtui virhe. Yritä uudelleen."
         },
         "permissions": {
-            "dialog": "Jatkaaksesi sinun on täytettävä seuraavat vaatimukset:",
             "notification_access": "Ilmoitusten Käyttöoikeus",
             "battery_optimization": "Akun Optimointi",
             "display_over_other_apps": "Näytä Muiden Sovellusten Päällä",
@@ -50,7 +43,6 @@
                 "config_import_failure_toast": "Configin tuonti epäonnistui {error}",
                 "config_import_success_toast": "Config tuotu onnistuneesti",
                 "config_export_success_toast": "Config viety onnistuneesti",
-
                 "config_export_failure_toast": "Kokoonpanon vienti epäonnistui {error}",
                 "newer_required": "Tämä ominaisuus vaatii Snapchatin v{version} tai uudemman toimiakseen oikein",
                 "older_required": "Tämä ominaisuus vaatii Snapchatin v{version} tai vanhemman toimiakseen oikein"
@@ -58,13 +50,11 @@
             "social": {
                 "streaks_expiration_short": "{Tunnit}h",
                 "friends_tab": "Kaverit",
-                "groups_tab": "Ryhmät",
-                "empty_hint": "Tyhjä"
+                "groups_tab": "Ryhmät"
             },
             "home_logs": {
                 "saved_logs_success_toast": "Lokit tallennettu onnistuneesti",
                 "saved_logs_failure_toast": "Epäonnistui tallentamaan lokit",
-                "no_logs_hint": "Ei lokeja saatavilla",
                 "clear_logs_button": "Tyhjennä lokit",
                 "export_logs_button": "Exporttaa lokit",
                 "saving_logs_toast": "Tallennetaan lokeja, tämä voi kestää hetken ..."
@@ -74,8 +64,6 @@
                 "message_logger_title": "viestiloggeri",
                 "debug_title": "debug",
                 "success_toast": "Valmis!",
-                "message_logger_summary": "Tekstit\ntarinat",
-                "export_button": "Exporttaa",
                 "clear_button": "Tyhjentää",
                 "view_logger_history_button": "Katso logger historia"
             },
@@ -90,7 +78,6 @@
                 "quick_actions_title": "Nopeat toiminnot"
             },
             "tasks": {
-                "no_tasks": "Ei tehtäviä",
                 "merge_files_toast": "Yhdistetään tiedostoja",
                 "remove_selected_tasks_title": "Oletko varma että haluat poistaa valitut tehtävät?",
                 "remove_all_tasks_title": "Oletko varma että haluat poistaa kaikki tehtävät?",
@@ -105,7 +92,6 @@
                 "not_found": "Ei löydetty",
                 "streaks_expiration_text_expired": "Vanhentunut",
                 "reminder_button": "Aseta muistutus",
-                "delete_scope_confirm_dialog_title": "Oletko varma että haluat poistaa {scope}?",
                 "streaks_title": "Striikit",
                 "streaks_length_text": "Pituus: {length}",
                 "streaks_expiration_text": "Vanhentuu {eta}",
@@ -163,12 +149,8 @@
                 "delete_dialog_message": "Haluatko varmasti poistaa tämän tallennetun koordinaatin?",
                 "teleport_to_friend_title": "Hyppää kaverin luokse"
             },
-            "theming": {
-                "no_themes_hint": "Teemoja ei löytynyt"
-            },
             "file_imports": {
                 "file_delete_failed": "Tiedoston poistaminen epäonnistui",
-                "no_files_hint": "Täältä voit tuoda tiedostoja käytettäväksi Snapchatissa. Tuo tiedosto painamalla alla olevaa painiketta.",
                 "import_file_button": "Tuo tiedosto",
                 "file_not_found": "Tiedostoa ei löytynyt",
                 "file_import_failed": "Tiedoston tuonti epäonnistui: {error}",
@@ -181,7 +163,6 @@
                 "whitelist_state_button": "Valitse sallitut ystävät/ryhmät",
                 "clear_list_button": "Tyhjennä ystävä-/ryhmäluettelo",
                 "blacklist_state_option": "Kaikki paitsi...",
-                "dialog_clear_confirmation_text": "Oletko varma, että haluat tyhjentää luettelon?",
                 "whitelist_state_option": "Kukaan paitsi...",
                 "blacklist_state_subtext": "Tämä sääntö vaikuttaa kaikkiin paitsi {count} ystävään/ryhmään",
                 "blacklist_state_button": "Valitse poissuljetut ystävät/ryhmät"
@@ -211,10 +192,6 @@
             "export_config": {
                 "title": "Viedäänkö arkaluonteisia tietoja?",
                 "content": "Haluatko viedä configuraation arkaluontoisilla tiedoilla? (Kuten sijaintikoordinaatit jne.)"
-            },
-            "file_imports": {
-                "settings_select_file_hint": "Valitse tuotu tiedosto",
-                "no_files_settings_hint": "Tiedostoja ei löytynyt. Varmista, että olet tuonut tarvittavat tiedostot Tiedostojen tuonnit -osiossa"
             }
         }
     },
@@ -948,19 +925,7 @@
                         "name": "Väärennä",
                         "description": "Väärennä erinäisiä tietoja sinusta",
                         "properties": {
-                            "fingerprint": {
-                                "name": "Laitteen sormenjälki",
-                                "description": ""
-                            },
-                            "android_id": {
-                                "name": "Androidin ID",
-                                "description": ""
-                            },
                             "play_store_installer_package_name": {
-                                "name": "",
-                                "description": ""
-                            },
-                            "randomize_persistent_device_token": {
                                 "name": "",
                                 "description": ""
                             },
@@ -1010,10 +975,6 @@
                     },
                     "better_transcript": {
                         "properties": {
-                            "enhanced_transcript": {
-                                "name": "Parannettu transkriptio",
-                                "description": ""
-                            },
                             "force_transcription": {
                                 "name": "",
                                 "description": ""
@@ -1021,10 +982,6 @@
                             "preferred_transcription_lang": {
                                 "description": "",
                                 "name": ""
-                            },
-                            "enhanced_transcript_in_notifications": {
-                                "name": "",
-                                "description": ""
                             }
                         },
                         "name": "Parempi transkriptio",
@@ -1050,10 +1007,6 @@
                     },
                     "story_logger": {
                         "name": "Tarinoiden Tallentaja",
-                        "description": ""
-                    },
-                    "call_recorder": {
-                        "name": "Puhelun tallennin",
                         "description": ""
                     },
                     "account_switcher": {
@@ -1118,10 +1071,6 @@
                     },
                     "integrated_ui": {
                         "name": "Integroitu käyttöliittymä",
-                        "description": ""
-                    },
-                    "old_tool_box_add_view": {
-                        "name": "",
                         "description": ""
                     },
                     "disable_log_anonymization": {
@@ -1221,7 +1170,6 @@
                 "hide_chat_gallery_button": "",
                 "hide_gift_snapchat_plus_reminders": "",
                 "hide_snap_create_group_buttons": "",
-                "hide_unread_chat_hint": "",
                 "hide_explorer_token_button": "",
                 "hide_post_to_story_buttons": ""
             },
@@ -1544,10 +1492,6 @@
         "clean_snapchat_cache": {
             "name": "Puhdista Snapchatin Välimuisti",
             "description": "Puhdistaa Snapchatin Välimuistin"
-        },
-        "security_features": {
-            "description": "Muuta turvaominaisuuksien asetuksia",
-            "name": "Suojausominaisuudet"
         },
         "theming": {
             "name": "Teema",

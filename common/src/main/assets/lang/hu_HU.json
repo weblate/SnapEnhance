@@ -1,17 +1,10 @@
 {
     "setup": {
-        "dialogs": {
-            "select_language": "Nyelv kiválasztása",
-            "save_folder": "A SE Extended-nek tárhelyhozzáférésre van szüksége média mentéséhez és letöltéséhez. \nKérem válassza ki a média mentési helyét.",
-            "select_save_folder_button": "Mappa kiválasztása"
-        },
         "mappings": {
-            "dialog": "Hozzárendelések generálása, ez eltarthat egy darabig ...",
             "generate_failure_no_snapchat": "A SE Extended nem találja a Snapchatet, próbálja meg újra telepíteni a Snapchatet.",
             "generate_failure": "Hiba történt a beállítások mentése során, kérjük próbálja meg újra."
         },
         "permissions": {
-            "dialog": "A folytatáshoz a következőkre van szükség:",
             "notification_access": "Értesítési hozzáférés",
             "battery_optimization": "Akkumulátor optimalizálás",
             "display_over_other_apps": "Megjelenítés a többi alkalmazás fölött",
@@ -57,11 +50,9 @@
             "social": {
                 "streaks_expiration_short": "{hours} óra",
                 "groups_tab": "Csoportok",
-                "empty_hint": "(üres)",
                 "friends_tab": "Barátok"
             },
             "tasks": {
-                "no_tasks": "Nincsenek feladatok",
                 "merge_files_toast": "{count} fájl egybevonása",
                 "remove_selected_tasks_title": "Biztosan törölni szeretnéd a kiválasztott feladatokat?",
                 "remove_all_tasks_title": "Biztosan törölni szeretnéd az összes feladatot?",
@@ -86,12 +77,9 @@
                 "message_logger_title": "Üzenet naplózó",
                 "debug_title": "Hibakeresés",
                 "success_toast": "Kész!",
-                "message_logger_summary": "{messageCount} üzenet(ek)\n{storyCount} történet(ek)",
-                "export_button": "Exportálás",
                 "clear_button": "Töröl"
             },
             "home_logs": {
-                "no_logs_hint": "Nincsenek elérhető naplófájlok",
                 "clear_logs_button": "Naplófájlok törlése",
                 "export_logs_button": "Naplófájlok exportálása",
                 "saving_logs_toast": "Naplófájlok mentése, eltarthat egy ideig...",
@@ -109,7 +97,6 @@
                 "streaks_expiration_text": "Lejár {eta} időn belül",
                 "streaks_expiration_text_expired": "Lejárt",
                 "reminder_button": "Emlékeztető beállítása",
-                "delete_scope_confirm_dialog_title": "Biztosan törölni szeretnéd a {scope}-ot?",
                 "notes_placeholder": "Kattintson a jegyzet hozzáadásához"
             },
             "logged_stories": {
@@ -146,7 +133,6 @@
                 "file_imported": "A fájl sikeresen importálva",
                 "file_delete_failed": "Nem sikerült törölni a fájlt",
                 "file_import_failed": "Nem sikerült a fájlt importálni: {error}",
-                "no_files_hint": "Itt tudsz fájlokat importálni, hogy a Snapchatben használd. Nyomd meg a gombot egy fájl importálásához.",
                 "import_file_button": "Fájl importálása",
                 "file_not_found": "Fájl nem található"
             },
@@ -175,15 +161,11 @@
                 "disable_state_subtext": "Egyetlen barátot vagy csoportot sem érint",
                 "whitelist_state_option": "Senki, kivéve ...",
                 "whitelist_state_subtext": "Csak {count} barátot/csoportot érint ez a szabály",
-                "dialog_clear_confirmation_text": "Biztos vagy benne, hogy törölni akarod a listát?",
                 "blacklist_state_subtext": "Mindenkit érint ez a szabály, kivéve {count} barátot/csoportot",
                 "blacklist_state_button": "Válassza ki a kizárt barátokat/csoportokat",
                 "clear_list_button": "Törölje a barátok/csoportok listáját",
                 "blacklist_state_option": "Mindenki kivéve ...",
                 "whitelist_state_button": "Válassza ki az engedélyezett barátokat/csoportokat"
-            },
-            "theming": {
-                "no_themes_hint": "Nem található téma"
             }
         },
         "dialogs": {
@@ -206,10 +188,6 @@
             "messaging_action": {
                 "title": "Válassza ki a feldolgozni kívánt tartalomtípusokat",
                 "select_all_button": "Összes keresése"
-            },
-            "file_imports": {
-                "no_files_settings_hint": "Nincsenek fájlok. Ellenőrizd, hogy minden szükséges fájl benne van-e a Fájl importálás részben",
-                "settings_select_file_hint": "Válassz egy importált fájlt"
             },
             "export_config": {
                 "title": "Exportálod az érzékeny adatokat?",
@@ -995,10 +973,6 @@
                         "name": "Nincs Friend Score késleltetés",
                         "description": "Eltávolítja a késleltetést a Friends Score megtekintésekor"
                     },
-                    "call_recorder": {
-                        "name": "Hívásrögzítő",
-                        "description": "Automatikusan rögzíti a hanghívásokat"
-                    },
                     "edit_message": {
                         "description": "Lehetővé teszi az üzenetek szerkesztését a beszélgetésekben",
                         "name": "Üzenetek szerkesztése"
@@ -1062,17 +1036,9 @@
                                 "name": "Előnyben részesített átirat nyelve",
                                 "description": "Az előnyben részesített nyelv a hangüzenet átiratához (pl. EN, ES, FR)"
                             },
-                            "enhanced_transcript_in_notifications": {
-                                "description": "Hangüzenetek átiratát készíti el értesítésekben a DeepL segítségével. Ehhez szükséges, hogy a \"Csevegés Előnézet\" funkció engedélyezve legyen a \"Jobb Értesítések\" beállításainál",
-                                "name": "Fejlettebb Átirat Értesítésekben"
-                            },
                             "force_transcription": {
                                 "name": "Kényszerítse a hangüzenet átiratát",
                                 "description": "Lehetővé teszi, hogy az összes hangüzenet átiratát elkészítse"
-                            },
-                            "enhanced_transcript": {
-                                "name": "Fejlettebb átirat",
-                                "description": "Javítja a hangüzenet átiratát a DeepL segítségével.\nMielőtt használná ezt a funkciót, kérjük, győződjön meg arról, hogy elolvasta a DeepL adatvédelmi szabályzatát."
                             }
                         },
                         "name": "Jobb átirat"
@@ -1108,10 +1074,6 @@
                     "disable_log_anonymization": {
                         "name": "Napló anonimizálás kikapcsolása",
                         "description": "Letiltja a naplók anonimizálását"
-                    },
-                    "old_tool_box_add_view": {
-                        "description": "A régi hozzáadott nézetet használja az eszköztár hozzáadásához a Snapchathez.\nMegjegyzés: Ez a funkció ideiglenes",
-                        "name": "Régi Eszköztár Hozzáadása Nézet"
                     }
                 },
                 "description": "Egyéni szkriptek futtatása a SE Extended bővítéséhez",
@@ -1193,7 +1155,6 @@
                 "hide_chat_call_buttons": "Hívás gombok eltávolítása",
                 "hide_voice_record_button": "Hangfelvétel gomb eltávolítása",
                 "hide_profile_call_buttons": "Profil hívógombok eltávolítása",
-                "hide_unread_chat_hint": "Olvasatlan csevegési utalás eltávolítása",
                 "hide_stickers_button": "Matricák gomb eltávolítása",
                 "hide_live_location_share_button": "Élő helymegosztó gomb eltávolítása",
                 "hide_post_to_story_buttons": "A Snap elküldése előtti Post to Story gombok eltávolítása",
@@ -1567,10 +1528,6 @@
         "logger_history": {
             "name": "Naplózó előzmények",
             "description": "Nézd meg az előményeket a naplózott üzenetekről"
-        },
-        "security_features": {
-            "name": "Biztonsági Funkciók",
-            "description": "Módosítsa a biztonsági funkciók beállításait"
         },
         "theming": {
             "description": "Testreszabhatja a Snapchat megjelenését és stílusát",

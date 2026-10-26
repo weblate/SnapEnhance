@@ -1,12 +1,6 @@
 {
     "setup": {
-        "dialogs": {
-            "select_save_folder_button": "Odaberite mapu",
-            "select_language": "Odaberite jezik",
-            "save_folder": "SE Extended-u je potrebno omogućiti pristup datotekama kako bi mogao skidati i spremati medije sa Snapchat-a.\nMolimo odaberite lokaciju gdje želite da se mediji spremaju."
-        },
         "mappings": {
-            "dialog": "Generiranje mapiranja, ovo može potrajati..",
             "generate_failure_no_snapchat": "SE Extended nije uspio detektirati Snapchat, probajte ga ponovo instalirati.",
             "generate_failure": "Greška prilikom generiranja \"mappings\"-a, molimo pokušajte ponovo."
         },
@@ -14,8 +8,7 @@
             "notification_access": "Pristup notifikacijama",
             "battery_optimization": "Optimizacija baterije",
             "display_over_other_apps": "Prikaz preko drugih aplikacija",
-            "request_button": "Zahtjev",
-            "dialog": "Kako bih nastavili morate ispunjavati sljedeće uvjete:"
+            "request_button": "Zahtjev"
         }
     },
     "scopes": {
@@ -58,7 +51,6 @@
             "home_logs": {
                 "export_logs_button": "Izvezi logove",
                 "saved_logs_failure_toast": "Logovi neuspješno spremljeni",
-                "no_logs_hint": "Nema dostupnih logova",
                 "clear_logs_button": "Očisti logove",
                 "saving_logs_toast": "Spremanje logova, ovo može potrajati...",
                 "saved_logs_success_toast": "Logovi uspješno spremljeni"
@@ -69,12 +61,9 @@
                 "debug_title": "Debug",
                 "clear_button": "Očisti",
                 "view_logger_history_button": "Pregledaj povijest loggera",
-                "success_toast": "Gotovo!",
-                "message_logger_summary": "{messageCount} poruka\n{storyCount} stories",
-                "export_button": "Izvoz"
+                "success_toast": "Gotovo!"
             },
             "tasks": {
-                "no_tasks": "Nema zadataka",
                 "merge_files_toast": "Spajanje {count} datoteka",
                 "remove_selected_tasks_title": "Jeste li sigurni da želite ukloniti odabrane zadatke?",
                 "remove_all_tasks_title": "Jeste li sigurni da ste uklonili sve zadatke?",
@@ -84,7 +73,6 @@
                 "delete_files_option": ""
             },
             "social": {
-                "empty_hint": "",
                 "streaks_expiration_short": "",
                 "friends_tab": "",
                 "groups_tab": ""
@@ -100,7 +88,6 @@
                 "reminder_button": "",
                 "logged_stories_button": "",
                 "participants_text": "",
-                "delete_scope_confirm_dialog_title": "",
                 "streaks_length_text": ""
             },
             "logger_history": {
@@ -161,16 +148,12 @@
                 "no_message_hint": "",
                 "bridge_init_failed": ""
             },
-            "theming": {
-                "no_themes_hint": ""
-            },
             "manage_rule_feature": {
                 "disable_state_option": "",
                 "disable_state_subtext": "",
                 "blacklist_state_option": "",
                 "whitelist_state_option": "",
                 "whitelist_state_button": "",
-                "dialog_clear_confirmation_text": "",
                 "blacklist_state_subtext": "",
                 "blacklist_state_button": "",
                 "clear_list_button": "",
@@ -185,7 +168,6 @@
                 "file_not_found": "",
                 "import_file_button": "",
                 "file_delete_failed": "",
-                "no_files_hint": "",
                 "file_import_failed": "",
                 "file_imported": ""
             }
@@ -214,10 +196,6 @@
             "messaging_action": {
                 "title": "",
                 "select_all_button": ""
-            },
-            "file_imports": {
-                "no_files_settings_hint": "",
-                "settings_select_file_hint": ""
             }
         }
     },
@@ -300,10 +278,6 @@
             "name": ""
         },
         "disclaimer_statement": {
-            "name": "",
-            "description": ""
-        },
-        "security_features": {
             "name": "",
             "description": ""
         },
@@ -868,15 +842,7 @@
                     },
                     "better_transcript": {
                         "properties": {
-                            "enhanced_transcript_in_notifications": {
-                                "name": "",
-                                "description": ""
-                            },
                             "force_transcription": {
-                                "description": "",
-                                "name": ""
-                            },
-                            "enhanced_transcript": {
                                 "description": "",
                                 "name": ""
                             },
@@ -912,10 +878,6 @@
                                 "name": "",
                                 "description": ""
                             },
-                            "android_id": {
-                                "description": "",
-                                "name": ""
-                            },
                             "remove_mock_location_flag": {
                                 "description": "",
                                 "name": ""
@@ -923,14 +885,6 @@
                             "play_store_installer_package_name": {
                                 "description": "",
                                 "name": ""
-                            },
-                            "fingerprint": {
-                                "description": "",
-                                "name": ""
-                            },
-                            "randomize_persistent_device_token": {
-                                "name": "",
-                                "description": ""
                             }
                         },
                         "name": "",
@@ -967,10 +921,6 @@
                         "description": ""
                     },
                     "media_file_picker": {
-                        "description": "",
-                        "name": ""
-                    },
-                    "call_recorder": {
                         "description": "",
                         "name": ""
                     },
@@ -1041,10 +991,6 @@
                     "auto_reload": {
                         "description": "",
                         "name": ""
-                    },
-                    "old_tool_box_add_view": {
-                        "name": "",
-                        "description": ""
                     },
                     "module_folder": {
                         "description": "",
@@ -1251,7 +1197,6 @@
                 "hide_voice_record_button": "",
                 "hide_chat_call_buttons": "",
                 "hide_post_to_story_buttons": "",
-                "hide_unread_chat_hint": "",
                 "hide_live_location_share_button": "",
                 "hide_profile_call_buttons": "",
                 "hide_chat_camera_button": "",
@@ -1441,7 +1386,6 @@
         "notices": {
             "unstable": "",
             "ban_risk": "",
-            "require_native_hooks": "",
             "internal_behavior": ""
         }
     },

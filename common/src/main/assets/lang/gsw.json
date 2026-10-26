@@ -529,18 +529,6 @@
                                 "name": "",
                                 "description": ""
                             },
-                            "fingerprint": {
-                                "name": "",
-                                "description": ""
-                            },
-                            "android_id": {
-                                "name": "",
-                                "description": ""
-                            },
-                            "randomize_persistent_device_token": {
-                                "description": "",
-                                "name": ""
-                            },
                             "remove_vpn_transport_flag": {
                                 "description": "",
                                 "name": ""
@@ -567,15 +555,7 @@
                                 "description": "",
                                 "name": ""
                             },
-                            "enhanced_transcript_in_notifications": {
-                                "description": "",
-                                "name": ""
-                            },
                             "preferred_transcription_lang": {
-                                "description": "",
-                                "name": ""
-                            },
-                            "enhanced_transcript": {
                                 "description": "",
                                 "name": ""
                             }
@@ -626,10 +606,6 @@
                         "description": ""
                     },
                     "story_logger": {
-                        "description": "",
-                        "name": ""
-                    },
-                    "call_recorder": {
                         "description": "",
                         "name": ""
                     },
@@ -817,10 +793,6 @@
                         "name": "",
                         "description": ""
                     },
-                    "old_tool_box_add_view": {
-                        "name": "",
-                        "description": ""
-                    },
                     "disable_log_anonymization": {
                         "name": "",
                         "description": ""
@@ -966,7 +938,6 @@
                 "hide_chat_gallery_button": "",
                 "hide_gift_snapchat_plus_reminders": "",
                 "hide_profile_call_buttons": "",
-                "hide_unread_chat_hint": "",
                 "hide_post_to_story_buttons": "",
                 "hide_chat_call_buttons": "",
                 "hide_voice_record_button": "",
@@ -1165,18 +1136,11 @@
         "date_range_input_invalid_range_input": ""
     },
     "setup": {
-        "dialogs": {
-            "select_language": "Sprach uswähle",
-            "save_folder": "SE Extended benötigt Speicherberächtigunge zum Abelade und Speichere vo Medie vo Snapchat.\nBitte wähl de Ort us wo d Medie sölled abeglade werde.",
-            "select_save_folder_button": "Ordner uswähle"
-        },
         "mappings": {
-            "dialog": "S generiere vo mappings chan es wiili duure ...",
             "generate_failure_no_snapchat": "SE Extended hät Snapchat nöd chöne erkenne, bitte versueched Sie Snapchat neu z installiere.",
             "generate_failure": "Bim Versuech mappings generiere isch en fehler ufträtte, bitte versueched Sies erneut."
         },
         "permissions": {
-            "dialog": "Zum wiitermache müend Sie folgendi Aforderige erfülle:",
             "notification_access": "Benachrichtigung Zugang",
             "battery_optimization": "Batterieoptimierig",
             "display_over_other_apps": "Ahzeig über anderi Apps",
@@ -1186,7 +1150,6 @@
     "manager": {
         "sections": {
             "home_logs": {
-                "no_logs_hint": "Kei Protokoll verfüegbar",
                 "saving_logs_toast": "Logs speichere, das chan es wiili duure ...",
                 "clear_logs_button": "Protokoll lösche",
                 "export_logs_button": "Logs exportiere",
@@ -1195,7 +1158,6 @@
             },
             "tasks": {
                 "remove_selected_tasks_confirm": "{count}-Ufgabe entferne?",
-                "no_tasks": "Kei Ufgabe",
                 "merge_files_toast": "Zämeführe vo {count}-Dateien",
                 "remove_selected_tasks_title": "Sind Sie sicher, dass Sie usegwählti Ufgabe lösche wönd?",
                 "remove_all_tasks_title": "Sind Sie sicher, dass Sie alli Ufgabe möchted lösche?",
@@ -1219,7 +1181,6 @@
             "manage_scope": {
                 "streaks_expiration_text_expired": "Abglaufe",
                 "reminder_button": "Erinnerig istelle",
-                "delete_scope_confirm_dialog_title": "Sind Sie sicher, dass Sie {scope} lösche wönd?",
                 "logged_stories_button": "g'loggdi Stories azeige",
                 "e2ee_title": "Änd-zu-Änd-Verschlüsselig",
                 "rules_title": "Reglä",
@@ -1264,15 +1225,12 @@
                 "message_logger_title": "Nachrichtelogger",
                 "debug_title": "Debugge",
                 "success_toast": "Fertig!",
-                "message_logger_summary": "{messageCount} Nachrichtä\n{storyCount} Stories",
-                "export_button": "Exportierä",
                 "clear_button": "Löschä",
                 "view_logger_history_button": "Logger-Verlauf azeige"
             },
             "social": {
                 "friends_tab": "Fründe",
                 "groups_tab": "Gruppe",
-                "empty_hint": "(leer)",
                 "streaks_expiration_short": "{hours} Stündli"
             },
             "logger_history": {
@@ -1310,7 +1268,6 @@
                 "whitelist_state_option": "",
                 "disable_state_subtext": "",
                 "whitelist_state_button": "",
-                "dialog_clear_confirmation_text": "",
                 "blacklist_state_button": "",
                 "clear_list_button": "",
                 "blacklist_state_option": "",
@@ -1318,15 +1275,11 @@
                 "blacklist_state_subtext": "",
                 "whitelist_state_subtext": ""
             },
-            "theming": {
-                "no_themes_hint": ""
-            },
             "file_imports": {
                 "import_file_button": "",
                 "file_not_found": "",
                 "file_delete_failed": "",
                 "file_imported": "",
-                "no_files_hint": "",
                 "file_import_failed": ""
             }
         },
@@ -1371,10 +1324,6 @@
             "messaging_action": {
                 "title": "Zu verarbeitende Inhaltstype uswähle",
                 "select_all_button": "Aui uswähle"
-            },
-            "file_imports": {
-                "no_files_settings_hint": "",
-                "settings_select_file_hint": ""
             },
             "export_config": {
                 "title": "",
@@ -1475,10 +1424,6 @@
         "change_language": {
             "name": "Sproch änderä",
             "description": "Ändert d'Sproch vo SE Extended"
-        },
-        "security_features": {
-            "name": "",
-            "description": ""
         },
         "logger_history": {
             "name": "",
